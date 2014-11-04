@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WHOperation", "WHOperation\WHOperation.csproj", "{31F03A24-752E-4B4E-9D19-9A553171262C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrinterHandle", "PrinterHandle\PrinterHandle.csproj", "{E0C1189A-DAB5-4911-A735-5763B3496266}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{42C505D5-5B06-411A-A658-639B37155C7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{31F03A24-752E-4B4E-9D19-9A553171262C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31F03A24-752E-4B4E-9D19-9A553171262C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31F03A24-752E-4B4E-9D19-9A553171262C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31F03A24-752E-4B4E-9D19-9A553171262C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0C1189A-DAB5-4911-A735-5763B3496266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0C1189A-DAB5-4911-A735-5763B3496266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0C1189A-DAB5-4911-A735-5763B3496266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0C1189A-DAB5-4911-A735-5763B3496266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42C505D5-5B06-411A-A658-639B37155C7E}.Debug|Any CPU.ActiveCfg = Debug
+		{42C505D5-5B06-411A-A658-639B37155C7E}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
