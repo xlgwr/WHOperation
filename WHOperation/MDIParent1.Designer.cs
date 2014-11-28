@@ -52,7 +52,7 @@ namespace WHOperation
             this.wHOperationToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(907, 24);
+            this.menuStrip.Size = new System.Drawing.Size(907, 25);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -64,25 +64,25 @@ namespace WHOperation
             this.exitToolStripMenuItem});
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(35, 20);
+            this.fileMenu.Size = new System.Drawing.Size(39, 21);
             this.fileMenu.Text = "&File";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
             this.toolStripMenuItem1.Text = "Login";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(96, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(105, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
             // 
@@ -92,20 +92,20 @@ namespace WHOperation
             this.m001002,
             this.m001001});
             this.wHOperationToolStripMenuItem.Name = "wHOperationToolStripMenuItem";
-            this.wHOperationToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.wHOperationToolStripMenuItem.Size = new System.Drawing.Size(104, 21);
             this.wHOperationToolStripMenuItem.Text = "WH Operation";
             // 
             // m001002
             // 
             this.m001002.Name = "m001002";
-            this.m001002.Size = new System.Drawing.Size(219, 22);
+            this.m001002.Size = new System.Drawing.Size(257, 22);
             this.m001002.Text = "Vendor Label Template Master";
             this.m001002.Click += new System.EventHandler(this.m001002_Click);
             // 
             // m001001
             // 
             this.m001001.Name = "m001001";
-            this.m001001.Size = new System.Drawing.Size(219, 22);
+            this.m001001.Size = new System.Drawing.Size(257, 22);
             this.m001001.Text = "PIMS Label Data Capture";
             this.m001001.Click += new System.EventHandler(this.pIMSLabelDataCaptureToolStripMenuItem_Click);
             // 
@@ -113,7 +113,7 @@ namespace WHOperation
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 431);
+            this.statusStrip.Location = new System.Drawing.Point(0, 396);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(907, 22);
             this.statusStrip.TabIndex = 2;
@@ -122,14 +122,14 @@ namespace WHOperation
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(38, 17);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(43, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
             // MDIParent1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(907, 453);
+            this.ClientSize = new System.Drawing.Size(907, 418);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -138,6 +138,7 @@ namespace WHOperation
             this.Name = "MDIParent1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Warehouse Operation - Wongs Electronics Company Limited - v002";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MDIParent1_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();

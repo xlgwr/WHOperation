@@ -6,6 +6,7 @@ namespace WHOperation
 {
     static class Program
     {
+        public static string _version = @"@4V20141111H16";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -14,7 +15,9 @@ namespace WHOperation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MDIParent1());
+            var mdip = new MDIParent1();
+            mdip.Text += _version;
+            Application.Run(mdip);
             //Application.Run(new Form1());
             //Application.Run(new fLogin());
             //Application.Run(new vendorLabelMaster());

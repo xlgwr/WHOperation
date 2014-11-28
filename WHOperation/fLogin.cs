@@ -30,34 +30,54 @@ namespace WHOperation
 
         private void fLogin_Load(object sender, EventArgs e)
         {
+            this.Text += Program._version;
+            this.AcceptButton = button1;
             cbsystem.SelectedIndex = 0;
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(tfuserid.Text.Trim()))
+            {
+                tfuserid.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(tfpassword.Text.Trim()))
+            {
+                tfpassword.Focus();
+                return;
+            }
             valUser();
         }
-        void valUser() {
+        void valUser()
+        {
             int cRet;
             cRet = 0;
             cRet = getMFGProService();
-            
-            if (cRet == 0) {
+
+            if (cRet == 0)
+            {
                 GlobalClass1.systemID = cbsystem.SelectedItem.ToString();
                 GlobalClass1.userID = tfuserid.Text;
                 mdiParent1.setupMenu("0");
                 this.Close();
-            } else {
+                Form1 childForm = new Form1();
+                childForm.Show();
+            }
+            else
+            {
                 GlobalClass1.systemID = "";
                 GlobalClass1.userID = "";
-                if (cRet == 1) {
+                if (cRet == 1)
+                {
                     MessageBox.Show("Invalid User ID/Password");
                 }
                 mdiParent1.setupMenu("1");
             }
         }
-        int getMFGProService() {
+        int getMFGProService()
+        {
             int cRet;
-            String cSerData,cQuery,cConnStr,cIP;
+            String cSerData, cQuery, cConnStr, cIP;
             MiscDLL1.dbClass mydbClass = new MiscDLL1.dbClass();
             cRet = 1;
             cIP = getIP();
@@ -85,11 +105,13 @@ namespace WHOperation
             catch (Exception ex) { MessageBox.Show("MFG/Pro Service Error", "Message"); cRet = 2; }
             return cRet;
         }
-        String getIP() {
+        String getIP()
+        {
             string cHost;
             string cIP;
             cHost = "";
-            try {
+            try
+            {
                 cHost = System.Net.Dns.GetHostName();
                 cIP = System.Net.Dns.GetHostEntry(cHost).AddressList[0].ToString();
                 /*Console.Write(myHost);
@@ -103,14 +125,18 @@ namespace WHOperation
             catch (Exception) { }
             return cHost;
         }
-        void setSystem() {
+        void setSystem()
+        {
             String cSysID;
             cbsystem.Items.Clear();
             XmlDocument xmlDoc = new XmlDocument();
-            try {
-                xmlDoc.Load(Application.StartupPath +"\\SystemList.xml");
-                foreach (XmlNode cHead in xmlDoc.SelectNodes("/Header/System")) {
-                    foreach (XmlNode cSys in cHead) {
+            try
+            {
+                xmlDoc.Load(Application.StartupPath + "\\SystemList.xml");
+                foreach (XmlNode cHead in xmlDoc.SelectNodes("/Header/System"))
+                {
+                    foreach (XmlNode cSys in cHead)
+                    {
                         cSysID = cSys.InnerXml;
                         cbsystem.Items.Add(cSysID);
                     }
@@ -118,5 +144,6 @@ namespace WHOperation
             }
             catch (Exception ex) { cbsystem.Items.Add("WEC"); cbsystem.Items.Add("WELCO"); }
         }
+
     }
 }

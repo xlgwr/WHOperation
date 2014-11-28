@@ -72,12 +72,35 @@ namespace WHOperation
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.bEnableScan = new System.Windows.Forms.Button();
-            this.bDisableScan = new System.Windows.Forms.Button();
+            this.tab3_QRBar = new System.Windows.Forms.TabControl();
+            this.tabPage5_OldQRBar = new System.Windows.Forms.TabPage();
             this.bStop = new System.Windows.Forms.Button();
-            this.label22 = new System.Windows.Forms.Label();
-            this.bStart = new System.Windows.Forms.Button();
+            this.bEnableScan = new System.Windows.Forms.Button();
             this.tfscanarea = new System.Windows.Forms.TextBox();
+            this.bDisableScan = new System.Windows.Forms.Button();
+            this.bStart = new System.Windows.Forms.Button();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tabPage6_NewQRBar = new System.Windows.Forms.TabPage();
+            this.txt0ListKeyMsg = new System.Windows.Forms.ListBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn6_StopQR = new System.Windows.Forms.Button();
+            this.btn5_startQR = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btn0RecPartNum = new System.Windows.Forms.Button();
+            this.btn2RecMfgrPartNo = new System.Windows.Forms.Button();
+            this.btn4ExpireDate = new System.Windows.Forms.Button();
+            this.bnt6LotNumber = new System.Windows.Forms.Button();
+            this.btn5RecQty = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.ldnpartnumber = new System.Windows.Forms.Label();
+            this.lrecmfgpart = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lexpiredate = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.llotnumber = new System.Windows.Forms.Label();
+            this.btn1Data_code = new System.Windows.Forms.Button();
             this.cbtrimmfgpart = new System.Windows.Forms.CheckBox();
             this.tfnoofcartons = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -89,7 +112,6 @@ namespace WHOperation
             this.lMDateCode = new System.Windows.Forms.Label();
             this.lMLotNumber = new System.Windows.Forms.Label();
             this.pbdnpartnumber = new System.Windows.Forms.PictureBox();
-            this.ldnpartnumber = new System.Windows.Forms.Label();
             this.tfdnpartnumber = new System.Windows.Forms.TextBox();
             this.cbSmartScan = new System.Windows.Forms.CheckBox();
             this.cbAutoPrint = new System.Windows.Forms.CheckBox();
@@ -102,7 +124,6 @@ namespace WHOperation
             this.pbmfgdate = new System.Windows.Forms.PictureBox();
             this.pbdatecode = new System.Windows.Forms.PictureBox();
             this.tfrecmfgrpart = new System.Windows.Forms.TextBox();
-            this.lrecmfgpart = new System.Windows.Forms.Label();
             this.tfexpiredate = new System.Windows.Forms.TextBox();
             this.tfmfgdate = new System.Windows.Forms.TextBox();
             this.tfnooflabels = new System.Windows.Forms.TextBox();
@@ -117,7 +138,6 @@ namespace WHOperation
             this.tfdnqty = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tfcumqty = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.tfdatecode = new System.Windows.Forms.TextBox();
             this.tfmfgpart = new System.Windows.Forms.TextBox();
             this.tfrirno = new System.Windows.Forms.TextBox();
@@ -126,11 +146,8 @@ namespace WHOperation
             this.tfpartno = new System.Windows.Forms.TextBox();
             this.tfvendor = new System.Windows.Forms.TextBox();
             this.ldatecode = new System.Windows.Forms.Label();
-            this.lexpiredate = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lrecqty = new System.Windows.Forms.Label();
-            this.llotnumber = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -166,6 +183,10 @@ namespace WHOperation
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.tab3_QRBar.SuspendLayout();
+            this.tabPage5_OldQRBar.SuspendLayout();
+            this.tabPage6_NewQRBar.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbdnpartnumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbexpiredate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pblotnumber)).BeginInit();
@@ -191,6 +212,7 @@ namespace WHOperation
             this.tfdnno.Name = "tfdnno";
             this.tfdnno.Size = new System.Drawing.Size(100, 21);
             this.tfdnno.TabIndex = 3;
+            this.tfdnno.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdnno_KeyDown);
             // 
             // label1
             // 
@@ -234,7 +256,7 @@ namespace WHOperation
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(727, 141);
+            this.dataGridView1.Size = new System.Drawing.Size(775, 146);
             this.dataGridView1.TabIndex = 0;
             // 
             // DNNo
@@ -405,6 +427,7 @@ namespace WHOperation
             this.tfdndate.Size = new System.Drawing.Size(98, 21);
             this.tfdndate.TabIndex = 5;
             this.tfdndate.Value = new System.DateTime(2013, 6, 5, 10, 23, 0, 0);
+            this.tfdndate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdndate_KeyDown);
             // 
             // label17
             // 
@@ -434,7 +457,7 @@ namespace WHOperation
             // 
             // groupBox3
             // 
-            this.groupBox3.Location = new System.Drawing.Point(1022, 5);
+            this.groupBox3.Location = new System.Drawing.Point(981, 9);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(5);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(28, 24);
@@ -445,7 +468,7 @@ namespace WHOperation
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(800, 14);
+            this.textBox2.Location = new System.Drawing.Point(800, 13);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(146, 21);
             this.textBox2.TabIndex = 9;
@@ -457,7 +480,7 @@ namespace WHOperation
             this.cbfiltertype.Items.AddRange(new object[] {
             "Part Number",
             "Mfgr Part Number"});
-            this.cbfiltertype.Location = new System.Drawing.Point(673, 14);
+            this.cbfiltertype.Location = new System.Drawing.Point(673, 13);
             this.cbfiltertype.Name = "cbfiltertype";
             this.cbfiltertype.Size = new System.Drawing.Size(121, 20);
             this.cbfiltertype.TabIndex = 8;
@@ -469,7 +492,7 @@ namespace WHOperation
             this.tabControl1.Location = new System.Drawing.Point(12, 234);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(978, 330);
+            this.tabControl1.Size = new System.Drawing.Size(1013, 330);
             this.tabControl1.TabIndex = 20;
             // 
             // tabPage1
@@ -478,7 +501,7 @@ namespace WHOperation
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(970, 304);
+            this.tabPage1.Size = new System.Drawing.Size(1005, 304);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Vendor Template";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -487,9 +510,10 @@ namespace WHOperation
             // 
             this.groupBox4.Controls.Add(this.dataGridView3);
             this.groupBox4.Controls.Add(this.pb1);
-            this.groupBox4.Location = new System.Drawing.Point(6, 6);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(476, 238);
+            this.groupBox4.Size = new System.Drawing.Size(999, 298);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vendor Template";
@@ -530,7 +554,7 @@ namespace WHOperation
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(970, 304);
+            this.tabPage2.Size = new System.Drawing.Size(1005, 304);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Capture PIMS Data";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -540,31 +564,41 @@ namespace WHOperation
             this.groupBox2.Controls.Add(this.splitContainer2);
             this.groupBox2.Controls.Add(this.panel4);
             this.groupBox2.Controls.Add(this.lStatus);
-            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(943, 295);
+            this.groupBox2.Size = new System.Drawing.Size(999, 298);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "PIMS Data Capture";
             // 
             // splitContainer2
             // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 15);
+            this.splitContainer2.Location = new System.Drawing.Point(3, 17);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.bEnableScan);
-            this.splitContainer2.Panel1.Controls.Add(this.bDisableScan);
-            this.splitContainer2.Panel1.Controls.Add(this.bStop);
-            this.splitContainer2.Panel1.Controls.Add(this.label22);
-            this.splitContainer2.Panel1.Controls.Add(this.bStart);
-            this.splitContainer2.Panel1.Controls.Add(this.tfscanarea);
+            this.splitContainer2.Panel1.Controls.Add(this.tab3_QRBar);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.AutoScroll = true;
+            this.splitContainer2.Panel2.Controls.Add(this.btn0RecPartNum);
+            this.splitContainer2.Panel2.Controls.Add(this.btn2RecMfgrPartNo);
+            this.splitContainer2.Panel2.Controls.Add(this.btn4ExpireDate);
+            this.splitContainer2.Panel2.Controls.Add(this.bnt6LotNumber);
+            this.splitContainer2.Panel2.Controls.Add(this.btn5RecQty);
+            this.splitContainer2.Panel2.Controls.Add(this.button3);
+            this.splitContainer2.Panel2.Controls.Add(this.ldnpartnumber);
+            this.splitContainer2.Panel2.Controls.Add(this.lrecmfgpart);
+            this.splitContainer2.Panel2.Controls.Add(this.label12);
+            this.splitContainer2.Panel2.Controls.Add(this.lexpiredate);
+            this.splitContainer2.Panel2.Controls.Add(this.label8);
+            this.splitContainer2.Panel2.Controls.Add(this.llotnumber);
+            this.splitContainer2.Panel2.Controls.Add(this.btn1Data_code);
             this.splitContainer2.Panel2.Controls.Add(this.cbtrimmfgpart);
             this.splitContainer2.Panel2.Controls.Add(this.tfnoofcartons);
             this.splitContainer2.Panel2.Controls.Add(this.label10);
@@ -576,7 +610,6 @@ namespace WHOperation
             this.splitContainer2.Panel2.Controls.Add(this.lMDateCode);
             this.splitContainer2.Panel2.Controls.Add(this.lMLotNumber);
             this.splitContainer2.Panel2.Controls.Add(this.pbdnpartnumber);
-            this.splitContainer2.Panel2.Controls.Add(this.ldnpartnumber);
             this.splitContainer2.Panel2.Controls.Add(this.tfdnpartnumber);
             this.splitContainer2.Panel2.Controls.Add(this.cbSmartScan);
             this.splitContainer2.Panel2.Controls.Add(this.cbAutoPrint);
@@ -589,7 +622,6 @@ namespace WHOperation
             this.splitContainer2.Panel2.Controls.Add(this.pbmfgdate);
             this.splitContainer2.Panel2.Controls.Add(this.pbdatecode);
             this.splitContainer2.Panel2.Controls.Add(this.tfrecmfgrpart);
-            this.splitContainer2.Panel2.Controls.Add(this.lrecmfgpart);
             this.splitContainer2.Panel2.Controls.Add(this.tfexpiredate);
             this.splitContainer2.Panel2.Controls.Add(this.tfmfgdate);
             this.splitContainer2.Panel2.Controls.Add(this.tfnooflabels);
@@ -604,7 +636,6 @@ namespace WHOperation
             this.splitContainer2.Panel2.Controls.Add(this.tfdnqty);
             this.splitContainer2.Panel2.Controls.Add(this.label13);
             this.splitContainer2.Panel2.Controls.Add(this.tfcumqty);
-            this.splitContainer2.Panel2.Controls.Add(this.label12);
             this.splitContainer2.Panel2.Controls.Add(this.tfdatecode);
             this.splitContainer2.Panel2.Controls.Add(this.tfmfgpart);
             this.splitContainer2.Panel2.Controls.Add(this.tfrirno);
@@ -613,76 +644,308 @@ namespace WHOperation
             this.splitContainer2.Panel2.Controls.Add(this.tfpartno);
             this.splitContainer2.Panel2.Controls.Add(this.tfvendor);
             this.splitContainer2.Panel2.Controls.Add(this.ldatecode);
-            this.splitContainer2.Panel2.Controls.Add(this.lexpiredate);
-            this.splitContainer2.Panel2.Controls.Add(this.label8);
             this.splitContainer2.Panel2.Controls.Add(this.label7);
             this.splitContainer2.Panel2.Controls.Add(this.lrecqty);
-            this.splitContainer2.Panel2.Controls.Add(this.llotnumber);
             this.splitContainer2.Panel2.Controls.Add(this.label4);
             this.splitContainer2.Panel2.Controls.Add(this.label3);
             this.splitContainer2.Panel2.Controls.Add(this.button1);
-            this.splitContainer2.Size = new System.Drawing.Size(921, 260);
-            this.splitContainer2.SplitterDistance = 246;
+            this.splitContainer2.Size = new System.Drawing.Size(993, 278);
+            this.splitContainer2.SplitterDistance = 269;
             this.splitContainer2.TabIndex = 0;
             // 
-            // bEnableScan
+            // tab3_QRBar
             // 
-            this.bEnableScan.Location = new System.Drawing.Point(160, 28);
-            this.bEnableScan.Name = "bEnableScan";
-            this.bEnableScan.Size = new System.Drawing.Size(75, 21);
-            this.bEnableScan.TabIndex = 5;
-            this.bEnableScan.Text = "Enable";
-            this.bEnableScan.UseVisualStyleBackColor = true;
-            this.bEnableScan.Visible = false;
+            this.tab3_QRBar.Controls.Add(this.tabPage5_OldQRBar);
+            this.tab3_QRBar.Controls.Add(this.tabPage6_NewQRBar);
+            this.tab3_QRBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tab3_QRBar.Location = new System.Drawing.Point(0, 0);
+            this.tab3_QRBar.Name = "tab3_QRBar";
+            this.tab3_QRBar.SelectedIndex = 0;
+            this.tab3_QRBar.Size = new System.Drawing.Size(269, 278);
+            this.tab3_QRBar.TabIndex = 6;
             // 
-            // bDisableScan
+            // tabPage5_OldQRBar
             // 
-            this.bDisableScan.Location = new System.Drawing.Point(88, 27);
-            this.bDisableScan.Name = "bDisableScan";
-            this.bDisableScan.Size = new System.Drawing.Size(75, 21);
-            this.bDisableScan.TabIndex = 4;
-            this.bDisableScan.Text = "Disable";
-            this.bDisableScan.UseVisualStyleBackColor = true;
-            this.bDisableScan.Visible = false;
+            this.tabPage5_OldQRBar.Controls.Add(this.bStop);
+            this.tabPage5_OldQRBar.Controls.Add(this.bEnableScan);
+            this.tabPage5_OldQRBar.Controls.Add(this.tfscanarea);
+            this.tabPage5_OldQRBar.Controls.Add(this.bDisableScan);
+            this.tabPage5_OldQRBar.Controls.Add(this.bStart);
+            this.tabPage5_OldQRBar.Controls.Add(this.label22);
+            this.tabPage5_OldQRBar.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5_OldQRBar.Name = "tabPage5_OldQRBar";
+            this.tabPage5_OldQRBar.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5_OldQRBar.Size = new System.Drawing.Size(261, 252);
+            this.tabPage5_OldQRBar.TabIndex = 0;
+            this.tabPage5_OldQRBar.Text = "Old QR Bar";
+            this.tabPage5_OldQRBar.UseVisualStyleBackColor = true;
             // 
             // bStop
             // 
             this.bStop.Enabled = false;
-            this.bStop.Location = new System.Drawing.Point(88, 6);
+            this.bStop.Location = new System.Drawing.Point(87, 2);
             this.bStop.Name = "bStop";
-            this.bStop.Size = new System.Drawing.Size(75, 21);
+            this.bStop.Size = new System.Drawing.Size(78, 20);
             this.bStop.TabIndex = 1;
             this.bStop.Text = "Stop";
             this.bStop.UseVisualStyleBackColor = true;
             this.bStop.Click += new System.EventHandler(this.bStop_Click);
             // 
-            // label22
+            // bEnableScan
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(8, 33);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(59, 12);
-            this.label22.TabIndex = 2;
-            this.label22.Text = "Scan Area";
+            this.bEnableScan.Location = new System.Drawing.Point(171, 25);
+            this.bEnableScan.Name = "bEnableScan";
+            this.bEnableScan.Size = new System.Drawing.Size(78, 20);
+            this.bEnableScan.TabIndex = 5;
+            this.bEnableScan.Text = "Enable";
+            this.bEnableScan.UseVisualStyleBackColor = true;
+            this.bEnableScan.Visible = false;
+            // 
+            // tfscanarea
+            // 
+            this.tfscanarea.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tfscanarea.Location = new System.Drawing.Point(1, 51);
+            this.tfscanarea.Multiline = true;
+            this.tfscanarea.Name = "tfscanarea";
+            this.tfscanarea.Size = new System.Drawing.Size(256, 191);
+            this.tfscanarea.TabIndex = 3;
+            // 
+            // bDisableScan
+            // 
+            this.bDisableScan.Location = new System.Drawing.Point(87, 25);
+            this.bDisableScan.Name = "bDisableScan";
+            this.bDisableScan.Size = new System.Drawing.Size(78, 20);
+            this.bDisableScan.TabIndex = 4;
+            this.bDisableScan.Text = "Disable";
+            this.bDisableScan.UseVisualStyleBackColor = true;
+            this.bDisableScan.Visible = false;
             // 
             // bStart
             // 
-            this.bStart.Location = new System.Drawing.Point(7, 6);
+            this.bStart.Location = new System.Drawing.Point(6, 2);
             this.bStart.Name = "bStart";
-            this.bStart.Size = new System.Drawing.Size(75, 21);
+            this.bStart.Size = new System.Drawing.Size(78, 20);
             this.bStart.TabIndex = 0;
             this.bStart.Text = "Start";
             this.bStart.UseVisualStyleBackColor = true;
             this.bStart.Click += new System.EventHandler(this.button2_Click);
             // 
-            // tfscanarea
+            // label22
             // 
-            this.tfscanarea.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tfscanarea.Location = new System.Drawing.Point(10, 54);
-            this.tfscanarea.Multiline = true;
-            this.tfscanarea.Name = "tfscanarea";
-            this.tfscanarea.Size = new System.Drawing.Size(225, 194);
-            this.tfscanarea.TabIndex = 3;
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(7, 29);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(59, 12);
+            this.label22.TabIndex = 2;
+            this.label22.Text = "Scan Area";
+            // 
+            // tabPage6_NewQRBar
+            // 
+            this.tabPage6_NewQRBar.Controls.Add(this.txt0ListKeyMsg);
+            this.tabPage6_NewQRBar.Controls.Add(this.btn6_StopQR);
+            this.tabPage6_NewQRBar.Controls.Add(this.btn5_startQR);
+            this.tabPage6_NewQRBar.Controls.Add(this.label9);
+            this.tabPage6_NewQRBar.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6_NewQRBar.Name = "tabPage6_NewQRBar";
+            this.tabPage6_NewQRBar.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6_NewQRBar.Size = new System.Drawing.Size(261, 252);
+            this.tabPage6_NewQRBar.TabIndex = 1;
+            this.tabPage6_NewQRBar.Text = "New QR Bar";
+            this.tabPage6_NewQRBar.UseVisualStyleBackColor = true;
+            // 
+            // txt0ListKeyMsg
+            // 
+            this.txt0ListKeyMsg.ContextMenuStrip = this.contextMenuStrip1;
+            this.txt0ListKeyMsg.FormattingEnabled = true;
+            this.txt0ListKeyMsg.ItemHeight = 12;
+            this.txt0ListKeyMsg.Location = new System.Drawing.Point(3, 72);
+            this.txt0ListKeyMsg.Name = "txt0ListKeyMsg";
+            this.txt0ListKeyMsg.Size = new System.Drawing.Size(252, 160);
+            this.txt0ListKeyMsg.TabIndex = 11;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearToolStripMenuItem,
+            this.reStartToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(119, 48);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            // 
+            // reStartToolStripMenuItem
+            // 
+            this.reStartToolStripMenuItem.Name = "reStartToolStripMenuItem";
+            this.reStartToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.reStartToolStripMenuItem.Text = "ReStart";
+            this.reStartToolStripMenuItem.Click += new System.EventHandler(this.reStartToolStripMenuItem_Click);
+            // 
+            // btn6_StopQR
+            // 
+            this.btn6_StopQR.Enabled = false;
+            this.btn6_StopQR.Location = new System.Drawing.Point(142, 11);
+            this.btn6_StopQR.Name = "btn6_StopQR";
+            this.btn6_StopQR.Size = new System.Drawing.Size(85, 36);
+            this.btn6_StopQR.TabIndex = 7;
+            this.btn6_StopQR.Text = "Stop";
+            this.btn6_StopQR.UseVisualStyleBackColor = true;
+            this.btn6_StopQR.Click += new System.EventHandler(this.btn6_StopQR_Click);
+            // 
+            // btn5_startQR
+            // 
+            this.btn5_startQR.Location = new System.Drawing.Point(36, 11);
+            this.btn5_startQR.Name = "btn5_startQR";
+            this.btn5_startQR.Size = new System.Drawing.Size(85, 36);
+            this.btn5_startQR.TabIndex = 6;
+            this.btn5_startQR.Text = "Start";
+            this.btn5_startQR.UseVisualStyleBackColor = true;
+            this.btn5_startQR.Click += new System.EventHandler(this.btn5_startQR_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 57);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(59, 12);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Scan Area";
+            // 
+            // btn0RecPartNum
+            // 
+            this.btn0RecPartNum.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn0RecPartNum.Location = new System.Drawing.Point(560, 107);
+            this.btn0RecPartNum.Name = "btn0RecPartNum";
+            this.btn0RecPartNum.Size = new System.Drawing.Size(23, 23);
+            this.btn0RecPartNum.TabIndex = 64;
+            this.btn0RecPartNum.Text = "<";
+            this.btn0RecPartNum.UseVisualStyleBackColor = true;
+            this.btn0RecPartNum.Click += new System.EventHandler(this.btn0RecPartNum_Click);
+            // 
+            // btn2RecMfgrPartNo
+            // 
+            this.btn2RecMfgrPartNo.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn2RecMfgrPartNo.Location = new System.Drawing.Point(560, 134);
+            this.btn2RecMfgrPartNo.Name = "btn2RecMfgrPartNo";
+            this.btn2RecMfgrPartNo.Size = new System.Drawing.Size(23, 23);
+            this.btn2RecMfgrPartNo.TabIndex = 64;
+            this.btn2RecMfgrPartNo.Text = "<";
+            this.btn2RecMfgrPartNo.UseVisualStyleBackColor = true;
+            this.btn2RecMfgrPartNo.Click += new System.EventHandler(this.btn2RecMfgrPartNo_Click);
+            // 
+            // btn4ExpireDate
+            // 
+            this.btn4ExpireDate.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn4ExpireDate.Location = new System.Drawing.Point(560, 159);
+            this.btn4ExpireDate.Name = "btn4ExpireDate";
+            this.btn4ExpireDate.Size = new System.Drawing.Size(23, 23);
+            this.btn4ExpireDate.TabIndex = 64;
+            this.btn4ExpireDate.Text = "<";
+            this.btn4ExpireDate.UseVisualStyleBackColor = true;
+            this.btn4ExpireDate.Click += new System.EventHandler(this.btn4ExpireDate_Click);
+            // 
+            // bnt6LotNumber
+            // 
+            this.bnt6LotNumber.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.bnt6LotNumber.Location = new System.Drawing.Point(560, 186);
+            this.bnt6LotNumber.Name = "bnt6LotNumber";
+            this.bnt6LotNumber.Size = new System.Drawing.Size(23, 23);
+            this.bnt6LotNumber.TabIndex = 64;
+            this.bnt6LotNumber.Text = "<";
+            this.bnt6LotNumber.UseVisualStyleBackColor = true;
+            this.bnt6LotNumber.Click += new System.EventHandler(this.bnt6LotNumber_Click);
+            // 
+            // btn5RecQty
+            // 
+            this.btn5RecQty.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn5RecQty.Location = new System.Drawing.Point(217, 183);
+            this.btn5RecQty.Name = "btn5RecQty";
+            this.btn5RecQty.Size = new System.Drawing.Size(23, 23);
+            this.btn5RecQty.TabIndex = 64;
+            this.btn5RecQty.Text = "<";
+            this.btn5RecQty.UseVisualStyleBackColor = true;
+            this.btn5RecQty.Click += new System.EventHandler(this.btn5RecQty_Click);
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button3.Location = new System.Drawing.Point(217, 157);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(23, 23);
+            this.button3.TabIndex = 64;
+            this.button3.Text = "<";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // ldnpartnumber
+            // 
+            this.ldnpartnumber.AutoSize = true;
+            this.ldnpartnumber.Location = new System.Drawing.Point(307, 112);
+            this.ldnpartnumber.Name = "ldnpartnumber";
+            this.ldnpartnumber.Size = new System.Drawing.Size(95, 12);
+            this.ldnpartnumber.TabIndex = 22;
+            this.ldnpartnumber.Text = "Rec Part Number";
+            // 
+            // lrecmfgpart
+            // 
+            this.lrecmfgpart.AutoSize = true;
+            this.lrecmfgpart.Location = new System.Drawing.Point(295, 137);
+            this.lrecmfgpart.Name = "lrecmfgpart";
+            this.lrecmfgpart.Size = new System.Drawing.Size(107, 12);
+            this.lrecmfgpart.TabIndex = 26;
+            this.lrecmfgpart.Text = "(2)Rec.MfgrPartNo";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(313, 218);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(89, 12);
+            this.label12.TabIndex = 38;
+            this.label12.Text = "Cumulative Qty";
+            this.label12.Visible = false;
+            // 
+            // lexpiredate
+            // 
+            this.lexpiredate.AutoSize = true;
+            this.lexpiredate.Location = new System.Drawing.Point(307, 164);
+            this.lexpiredate.Name = "lexpiredate";
+            this.lexpiredate.Size = new System.Drawing.Size(95, 12);
+            this.lexpiredate.TabIndex = 30;
+            this.lexpiredate.Text = "(4) Expire Date";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(309, 86);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(95, 12);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "PO QPL Part No.";
+            // 
+            // llotnumber
+            // 
+            this.llotnumber.AutoSize = true;
+            this.llotnumber.Location = new System.Drawing.Point(313, 192);
+            this.llotnumber.Name = "llotnumber";
+            this.llotnumber.Size = new System.Drawing.Size(89, 12);
+            this.llotnumber.TabIndex = 34;
+            this.llotnumber.Text = "(6) Lot Number";
+            // 
+            // btn1Data_code
+            // 
+            this.btn1Data_code.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn1Data_code.Location = new System.Drawing.Point(217, 131);
+            this.btn1Data_code.Name = "btn1Data_code";
+            this.btn1Data_code.Size = new System.Drawing.Size(23, 23);
+            this.btn1Data_code.TabIndex = 63;
+            this.btn1Data_code.Text = "<";
+            this.btn1Data_code.UseVisualStyleBackColor = true;
+            this.btn1Data_code.Click += new System.EventHandler(this.btn1Data_code_Click);
             // 
             // cbtrimmfgpart
             // 
@@ -690,7 +953,7 @@ namespace WHOperation
             this.cbtrimmfgpart.Checked = true;
             this.cbtrimmfgpart.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbtrimmfgpart.Enabled = false;
-            this.cbtrimmfgpart.Location = new System.Drawing.Point(554, 66);
+            this.cbtrimmfgpart.Location = new System.Drawing.Point(570, 64);
             this.cbtrimmfgpart.Name = "cbtrimmfgpart";
             this.cbtrimmfgpart.Size = new System.Drawing.Size(102, 16);
             this.cbtrimmfgpart.TabIndex = 62;
@@ -699,16 +962,17 @@ namespace WHOperation
             // 
             // tfnoofcartons
             // 
-            this.tfnoofcartons.Location = new System.Drawing.Point(439, 27);
+            this.tfnoofcartons.Location = new System.Drawing.Point(439, 31);
             this.tfnoofcartons.Name = "tfnoofcartons";
             this.tfnoofcartons.Size = new System.Drawing.Size(32, 21);
             this.tfnoofcartons.TabIndex = 61;
             this.tfnoofcartons.Text = "1";
+            this.tfnoofcartons.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnoofcartons_KeyDown);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(353, 28);
+            this.label10.Location = new System.Drawing.Point(335, 35);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(95, 12);
             this.label10.TabIndex = 60;
@@ -719,7 +983,7 @@ namespace WHOperation
             this.cbprintcartonlabel.AutoSize = true;
             this.cbprintcartonlabel.Checked = true;
             this.cbprintcartonlabel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbprintcartonlabel.Location = new System.Drawing.Point(554, 45);
+            this.cbprintcartonlabel.Location = new System.Drawing.Point(570, 45);
             this.cbprintcartonlabel.Name = "cbprintcartonlabel";
             this.cbprintcartonlabel.Size = new System.Drawing.Size(132, 16);
             this.cbprintcartonlabel.TabIndex = 9;
@@ -731,7 +995,7 @@ namespace WHOperation
             this.lMRecPartNumber.AutoSize = true;
             this.lMRecPartNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMRecPartNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMRecPartNumber.Location = new System.Drawing.Point(264, 109);
+            this.lMRecPartNumber.Location = new System.Drawing.Point(290, 108);
             this.lMRecPartNumber.Name = "lMRecPartNumber";
             this.lMRecPartNumber.Size = new System.Drawing.Size(15, 20);
             this.lMRecPartNumber.TabIndex = 59;
@@ -742,7 +1006,7 @@ namespace WHOperation
             this.lMRecQty.AutoSize = true;
             this.lMRecQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMRecQty.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMRecQty.Location = new System.Drawing.Point(6, 177);
+            this.lMRecQty.Location = new System.Drawing.Point(16, 185);
             this.lMRecQty.Name = "lMRecQty";
             this.lMRecQty.Size = new System.Drawing.Size(15, 20);
             this.lMRecQty.TabIndex = 58;
@@ -753,7 +1017,7 @@ namespace WHOperation
             this.lMRecMfgPart.AutoSize = true;
             this.lMRecMfgPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMRecMfgPart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMRecMfgPart.Location = new System.Drawing.Point(264, 134);
+            this.lMRecMfgPart.Location = new System.Drawing.Point(284, 137);
             this.lMRecMfgPart.Name = "lMRecMfgPart";
             this.lMRecMfgPart.Size = new System.Drawing.Size(15, 20);
             this.lMRecMfgPart.TabIndex = 57;
@@ -765,7 +1029,7 @@ namespace WHOperation
             this.lMExpireDate.AutoSize = true;
             this.lMExpireDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMExpireDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMExpireDate.Location = new System.Drawing.Point(264, 154);
+            this.lMExpireDate.Location = new System.Drawing.Point(290, 165);
             this.lMExpireDate.Name = "lMExpireDate";
             this.lMExpireDate.Size = new System.Drawing.Size(15, 20);
             this.lMExpireDate.TabIndex = 56;
@@ -777,7 +1041,7 @@ namespace WHOperation
             this.lMDateCode.AutoSize = true;
             this.lMDateCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMDateCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMDateCode.Location = new System.Drawing.Point(6, 132);
+            this.lMDateCode.Location = new System.Drawing.Point(15, 132);
             this.lMDateCode.Name = "lMDateCode";
             this.lMDateCode.Size = new System.Drawing.Size(15, 20);
             this.lMDateCode.TabIndex = 55;
@@ -789,7 +1053,7 @@ namespace WHOperation
             this.lMLotNumber.AutoSize = true;
             this.lMLotNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMLotNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMLotNumber.Location = new System.Drawing.Point(264, 178);
+            this.lMLotNumber.Location = new System.Drawing.Point(290, 191);
             this.lMLotNumber.Name = "lMLotNumber";
             this.lMLotNumber.Size = new System.Drawing.Size(15, 20);
             this.lMLotNumber.TabIndex = 54;
@@ -799,25 +1063,16 @@ namespace WHOperation
             // pbdnpartnumber
             // 
             this.pbdnpartnumber.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbdnpartnumber.Location = new System.Drawing.Point(541, 105);
+            this.pbdnpartnumber.Location = new System.Drawing.Point(584, 109);
             this.pbdnpartnumber.Name = "pbdnpartnumber";
             this.pbdnpartnumber.Size = new System.Drawing.Size(29, 18);
             this.pbdnpartnumber.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbdnpartnumber.TabIndex = 53;
             this.pbdnpartnumber.TabStop = false;
             // 
-            // ldnpartnumber
-            // 
-            this.ldnpartnumber.AutoSize = true;
-            this.ldnpartnumber.Location = new System.Drawing.Point(275, 108);
-            this.ldnpartnumber.Name = "ldnpartnumber";
-            this.ldnpartnumber.Size = new System.Drawing.Size(95, 12);
-            this.ldnpartnumber.TabIndex = 22;
-            this.ldnpartnumber.Text = "Rec Part Number";
-            // 
             // tfdnpartnumber
             // 
-            this.tfdnpartnumber.Location = new System.Drawing.Point(386, 105);
+            this.tfdnpartnumber.Location = new System.Drawing.Point(408, 108);
             this.tfdnpartnumber.Name = "tfdnpartnumber";
             this.tfdnpartnumber.Size = new System.Drawing.Size(151, 21);
             this.tfdnpartnumber.TabIndex = 23;
@@ -827,7 +1082,7 @@ namespace WHOperation
             this.cbSmartScan.AutoSize = true;
             this.cbSmartScan.Checked = true;
             this.cbSmartScan.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSmartScan.Location = new System.Drawing.Point(554, 28);
+            this.cbSmartScan.Location = new System.Drawing.Point(570, 26);
             this.cbSmartScan.Name = "cbSmartScan";
             this.cbSmartScan.Size = new System.Drawing.Size(84, 16);
             this.cbSmartScan.TabIndex = 8;
@@ -840,7 +1095,7 @@ namespace WHOperation
             this.cbAutoPrint.AutoSize = true;
             this.cbAutoPrint.Checked = true;
             this.cbAutoPrint.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbAutoPrint.Location = new System.Drawing.Point(554, 9);
+            this.cbAutoPrint.Location = new System.Drawing.Point(570, 7);
             this.cbAutoPrint.Name = "cbAutoPrint";
             this.cbAutoPrint.Size = new System.Drawing.Size(84, 16);
             this.cbAutoPrint.TabIndex = 7;
@@ -850,7 +1105,7 @@ namespace WHOperation
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 108);
+            this.label5.Location = new System.Drawing.Point(81, 110);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 20;
@@ -866,7 +1121,7 @@ namespace WHOperation
             // pbexpiredate
             // 
             this.pbexpiredate.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbexpiredate.Location = new System.Drawing.Point(492, 150);
+            this.pbexpiredate.Location = new System.Drawing.Point(584, 161);
             this.pbexpiredate.Name = "pbexpiredate";
             this.pbexpiredate.Size = new System.Drawing.Size(29, 18);
             this.pbexpiredate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -876,7 +1131,7 @@ namespace WHOperation
             // pblotnumber
             // 
             this.pblotnumber.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pblotnumber.Location = new System.Drawing.Point(523, 174);
+            this.pblotnumber.Location = new System.Drawing.Point(584, 188);
             this.pblotnumber.Name = "pblotnumber";
             this.pblotnumber.Size = new System.Drawing.Size(29, 18);
             this.pblotnumber.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -886,7 +1141,7 @@ namespace WHOperation
             // pbrecmfgpart
             // 
             this.pbrecmfgpart.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbrecmfgpart.Location = new System.Drawing.Point(541, 129);
+            this.pbrecmfgpart.Location = new System.Drawing.Point(584, 136);
             this.pbrecmfgpart.Name = "pbrecmfgpart";
             this.pbrecmfgpart.Size = new System.Drawing.Size(29, 18);
             this.pbrecmfgpart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -896,7 +1151,7 @@ namespace WHOperation
             // pbrecqty
             // 
             this.pbrecqty.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbrecqty.Location = new System.Drawing.Point(224, 175);
+            this.pbrecqty.Location = new System.Drawing.Point(241, 185);
             this.pbrecqty.Name = "pbrecqty";
             this.pbrecqty.Size = new System.Drawing.Size(29, 18);
             this.pbrecqty.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -906,7 +1161,7 @@ namespace WHOperation
             // pbmfgdate
             // 
             this.pbmfgdate.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbmfgdate.Location = new System.Drawing.Point(224, 150);
+            this.pbmfgdate.Location = new System.Drawing.Point(241, 159);
             this.pbmfgdate.Name = "pbmfgdate";
             this.pbmfgdate.Size = new System.Drawing.Size(29, 18);
             this.pbmfgdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -916,7 +1171,7 @@ namespace WHOperation
             // pbdatecode
             // 
             this.pbdatecode.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbdatecode.Location = new System.Drawing.Point(224, 129);
+            this.pbdatecode.Location = new System.Drawing.Point(241, 133);
             this.pbdatecode.Name = "pbdatecode";
             this.pbdatecode.Size = new System.Drawing.Size(29, 18);
             this.pbdatecode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -925,31 +1180,22 @@ namespace WHOperation
             // 
             // tfrecmfgrpart
             // 
-            this.tfrecmfgrpart.Location = new System.Drawing.Point(386, 129);
+            this.tfrecmfgrpart.Location = new System.Drawing.Point(408, 135);
             this.tfrecmfgrpart.Name = "tfrecmfgrpart";
             this.tfrecmfgrpart.Size = new System.Drawing.Size(151, 21);
             this.tfrecmfgrpart.TabIndex = 27;
             // 
-            // lrecmfgpart
-            // 
-            this.lrecmfgpart.AutoSize = true;
-            this.lrecmfgpart.Location = new System.Drawing.Point(275, 132);
-            this.lrecmfgpart.Name = "lrecmfgpart";
-            this.lrecmfgpart.Size = new System.Drawing.Size(125, 12);
-            this.lrecmfgpart.TabIndex = 26;
-            this.lrecmfgpart.Text = "(2) Rec.Mfgr Part No";
-            // 
             // tfexpiredate
             // 
-            this.tfexpiredate.Location = new System.Drawing.Point(386, 150);
+            this.tfexpiredate.Location = new System.Drawing.Point(408, 160);
             this.tfexpiredate.MaxLength = 10;
             this.tfexpiredate.Name = "tfexpiredate";
-            this.tfexpiredate.Size = new System.Drawing.Size(100, 21);
+            this.tfexpiredate.Size = new System.Drawing.Size(151, 21);
             this.tfexpiredate.TabIndex = 31;
             // 
             // tfmfgdate
             // 
-            this.tfmfgdate.Location = new System.Drawing.Point(116, 150);
+            this.tfmfgdate.Location = new System.Drawing.Point(116, 158);
             this.tfmfgdate.MaxLength = 10;
             this.tfmfgdate.Name = "tfmfgdate";
             this.tfmfgdate.Size = new System.Drawing.Size(100, 21);
@@ -963,10 +1209,11 @@ namespace WHOperation
             this.tfnooflabels.Size = new System.Drawing.Size(33, 21);
             this.tfnooflabels.TabIndex = 5;
             this.tfnooflabels.Text = "1";
+            this.tfnooflabels.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnooflabels_KeyDown);
             // 
             // tfhdndate
             // 
-            this.tfhdndate.Location = new System.Drawing.Point(116, 81);
+            this.tfhdndate.Location = new System.Drawing.Point(116, 83);
             this.tfhdndate.Name = "tfhdndate";
             this.tfhdndate.ReadOnly = true;
             this.tfhdndate.Size = new System.Drawing.Size(100, 21);
@@ -975,7 +1222,7 @@ namespace WHOperation
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(353, 10);
+            this.label21.Location = new System.Drawing.Point(353, 11);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(77, 12);
             this.label21.TabIndex = 4;
@@ -984,7 +1231,7 @@ namespace WHOperation
             // lmfgdate
             // 
             this.lmfgdate.AutoSize = true;
-            this.lmfgdate.Location = new System.Drawing.Point(17, 153);
+            this.lmfgdate.Location = new System.Drawing.Point(33, 160);
             this.lmfgdate.Name = "lmfgdate";
             this.lmfgdate.Size = new System.Drawing.Size(77, 12);
             this.lmfgdate.TabIndex = 28;
@@ -993,7 +1240,7 @@ namespace WHOperation
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(166, 10);
+            this.label16.Location = new System.Drawing.Point(166, 11);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(77, 12);
             this.label16.TabIndex = 2;
@@ -1002,7 +1249,7 @@ namespace WHOperation
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(17, 84);
+            this.label20.Location = new System.Drawing.Point(63, 85);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(47, 12);
             this.label20.TabIndex = 18;
@@ -1014,7 +1261,7 @@ namespace WHOperation
             this.cbprintertype.Items.AddRange(new object[] {
             "TEC 200 dpi",
             "TEC, 300 dpi"});
-            this.cbprintertype.Location = new System.Drawing.Point(241, 6);
+            this.cbprintertype.Location = new System.Drawing.Point(241, 7);
             this.cbprintertype.Name = "cbprintertype";
             this.cbprintertype.Size = new System.Drawing.Size(101, 20);
             this.cbprintertype.TabIndex = 3;
@@ -1022,7 +1269,7 @@ namespace WHOperation
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(17, 10);
+            this.label15.Location = new System.Drawing.Point(17, 11);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(71, 12);
             this.label15.TabIndex = 0;
@@ -1034,7 +1281,7 @@ namespace WHOperation
             this.cbport.Items.AddRange(new object[] {
             "LPT1",
             "COM1"});
-            this.cbport.Location = new System.Drawing.Point(91, 6);
+            this.cbport.Location = new System.Drawing.Point(91, 7);
             this.cbport.Name = "cbport";
             this.cbport.Size = new System.Drawing.Size(69, 20);
             this.cbport.TabIndex = 1;
@@ -1042,7 +1289,7 @@ namespace WHOperation
             // tfdnqty
             // 
             this.tfdnqty.Enabled = false;
-            this.tfdnqty.Location = new System.Drawing.Point(116, 200);
+            this.tfdnqty.Location = new System.Drawing.Point(116, 208);
             this.tfdnqty.Name = "tfdnqty";
             this.tfdnqty.Size = new System.Drawing.Size(100, 21);
             this.tfdnqty.TabIndex = 37;
@@ -1050,7 +1297,7 @@ namespace WHOperation
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(17, 203);
+            this.label13.Location = new System.Drawing.Point(69, 212);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(41, 12);
             this.label13.TabIndex = 36;
@@ -1059,26 +1306,16 @@ namespace WHOperation
             // tfcumqty
             // 
             this.tfcumqty.Enabled = false;
-            this.tfcumqty.Location = new System.Drawing.Point(386, 200);
+            this.tfcumqty.Location = new System.Drawing.Point(408, 213);
             this.tfcumqty.Name = "tfcumqty";
-            this.tfcumqty.Size = new System.Drawing.Size(100, 21);
+            this.tfcumqty.Size = new System.Drawing.Size(151, 21);
             this.tfcumqty.TabIndex = 39;
             this.tfcumqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tfcumqty.Visible = false;
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(275, 203);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(89, 12);
-            this.label12.TabIndex = 38;
-            this.label12.Text = "Cumulative Qty";
-            this.label12.Visible = false;
-            // 
             // tfdatecode
             // 
-            this.tfdatecode.Location = new System.Drawing.Point(116, 129);
+            this.tfdatecode.Location = new System.Drawing.Point(116, 133);
             this.tfdatecode.MaxLength = 10;
             this.tfdatecode.Name = "tfdatecode";
             this.tfdatecode.Size = new System.Drawing.Size(100, 21);
@@ -1086,7 +1323,7 @@ namespace WHOperation
             // 
             // tfmfgpart
             // 
-            this.tfmfgpart.Location = new System.Drawing.Point(386, 81);
+            this.tfmfgpart.Location = new System.Drawing.Point(408, 83);
             this.tfmfgpart.Name = "tfmfgpart";
             this.tfmfgpart.ReadOnly = true;
             this.tfmfgpart.Size = new System.Drawing.Size(151, 21);
@@ -1094,7 +1331,7 @@ namespace WHOperation
             // 
             // tfrirno
             // 
-            this.tfrirno.Location = new System.Drawing.Point(116, 57);
+            this.tfrirno.Location = new System.Drawing.Point(116, 58);
             this.tfrirno.Name = "tfrirno";
             this.tfrirno.ReadOnly = true;
             this.tfrirno.Size = new System.Drawing.Size(100, 21);
@@ -1102,7 +1339,7 @@ namespace WHOperation
             // 
             // tfrecqty
             // 
-            this.tfrecqty.Location = new System.Drawing.Point(116, 174);
+            this.tfrecqty.Location = new System.Drawing.Point(116, 184);
             this.tfrecqty.Name = "tfrecqty";
             this.tfrecqty.Size = new System.Drawing.Size(100, 21);
             this.tfrecqty.TabIndex = 33;
@@ -1110,14 +1347,14 @@ namespace WHOperation
             // 
             // tflotno
             // 
-            this.tflotno.Location = new System.Drawing.Point(386, 174);
+            this.tflotno.Location = new System.Drawing.Point(408, 187);
             this.tflotno.Name = "tflotno";
-            this.tflotno.Size = new System.Drawing.Size(131, 21);
+            this.tflotno.Size = new System.Drawing.Size(151, 21);
             this.tflotno.TabIndex = 35;
             // 
             // tfpartno
             // 
-            this.tfpartno.Location = new System.Drawing.Point(386, 57);
+            this.tfpartno.Location = new System.Drawing.Point(408, 57);
             this.tfpartno.Name = "tfpartno";
             this.tfpartno.ReadOnly = true;
             this.tfpartno.Size = new System.Drawing.Size(151, 21);
@@ -1125,7 +1362,7 @@ namespace WHOperation
             // 
             // tfvendor
             // 
-            this.tfvendor.Location = new System.Drawing.Point(116, 33);
+            this.tfvendor.Location = new System.Drawing.Point(116, 31);
             this.tfvendor.Name = "tfvendor";
             this.tfvendor.ReadOnly = true;
             this.tfvendor.Size = new System.Drawing.Size(100, 21);
@@ -1134,34 +1371,16 @@ namespace WHOperation
             // ldatecode
             // 
             this.ldatecode.AutoSize = true;
-            this.ldatecode.Location = new System.Drawing.Point(17, 132);
+            this.ldatecode.Location = new System.Drawing.Point(27, 135);
             this.ldatecode.Name = "ldatecode";
             this.ldatecode.Size = new System.Drawing.Size(83, 12);
             this.ldatecode.TabIndex = 24;
             this.ldatecode.Text = "(1) Date Code";
             // 
-            // lexpiredate
-            // 
-            this.lexpiredate.AutoSize = true;
-            this.lexpiredate.Location = new System.Drawing.Point(275, 153);
-            this.lexpiredate.Name = "lexpiredate";
-            this.lexpiredate.Size = new System.Drawing.Size(95, 12);
-            this.lexpiredate.TabIndex = 30;
-            this.lexpiredate.Text = "(4) Expire Date";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(275, 84);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(95, 12);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "PO QPL Part No.";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 60);
+            this.label7.Location = new System.Drawing.Point(45, 60);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 12);
             this.label7.TabIndex = 14;
@@ -1170,25 +1389,16 @@ namespace WHOperation
             // lrecqty
             // 
             this.lrecqty.AutoSize = true;
-            this.lrecqty.Location = new System.Drawing.Point(17, 177);
+            this.lrecqty.Location = new System.Drawing.Point(33, 188);
             this.lrecqty.Name = "lrecqty";
             this.lrecqty.Size = new System.Drawing.Size(77, 12);
             this.lrecqty.TabIndex = 32;
             this.lrecqty.Text = "(5) Rec. Qty";
             // 
-            // llotnumber
-            // 
-            this.llotnumber.AutoSize = true;
-            this.llotnumber.Location = new System.Drawing.Point(275, 177);
-            this.llotnumber.Name = "llotnumber";
-            this.llotnumber.Size = new System.Drawing.Size(89, 12);
-            this.llotnumber.TabIndex = 34;
-            this.llotnumber.Text = "(6) Lot Number";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(275, 60);
+            this.label4.Location = new System.Drawing.Point(331, 61);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 12);
             this.label4.TabIndex = 12;
@@ -1197,7 +1407,7 @@ namespace WHOperation
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 37);
+            this.label3.Location = new System.Drawing.Point(69, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 10;
@@ -1205,7 +1415,7 @@ namespace WHOperation
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(481, 6);
+            this.button1.Location = new System.Drawing.Point(481, 7);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(68, 21);
             this.button1.TabIndex = 6;
@@ -1270,10 +1480,11 @@ namespace WHOperation
             this.tftodndate.Size = new System.Drawing.Size(98, 21);
             this.tftodndate.TabIndex = 23;
             this.tftodndate.Value = new System.DateTime(2013, 6, 21, 10, 23, 0, 0);
+            this.tftodndate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tftodndate_KeyDown);
             // 
             // bGo
             // 
-            this.bGo.Location = new System.Drawing.Point(592, 10);
+            this.bGo.Location = new System.Drawing.Point(592, 13);
             this.bGo.Name = "bGo";
             this.bGo.Size = new System.Drawing.Size(40, 21);
             this.bGo.TabIndex = 22;
@@ -1293,8 +1504,8 @@ namespace WHOperation
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl2);
-            this.splitContainer1.Size = new System.Drawing.Size(953, 178);
-            this.splitContainer1.SplitterDistance = 201;
+            this.splitContainer1.Size = new System.Drawing.Size(1004, 178);
+            this.splitContainer1.SplitterDistance = 211;
             this.splitContainer1.TabIndex = 21;
             // 
             // dgDNNumber
@@ -1304,9 +1515,10 @@ namespace WHOperation
             this.dgDNNumber.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgDNNumber.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DNNumber});
-            this.dgDNNumber.Location = new System.Drawing.Point(9, 8);
+            this.dgDNNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgDNNumber.Location = new System.Drawing.Point(0, 0);
             this.dgDNNumber.Name = "dgDNNumber";
-            this.dgDNNumber.Size = new System.Drawing.Size(180, 167);
+            this.dgDNNumber.Size = new System.Drawing.Size(211, 178);
             this.dgDNNumber.TabIndex = 0;
             // 
             // DNNumber
@@ -1318,10 +1530,11 @@ namespace WHOperation
             // 
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Location = new System.Drawing.Point(3, 3);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(741, 173);
+            this.tabControl2.Size = new System.Drawing.Size(789, 178);
             this.tabControl2.TabIndex = 1;
             // 
             // tabPage3
@@ -1330,7 +1543,7 @@ namespace WHOperation
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(733, 147);
+            this.tabPage3.Size = new System.Drawing.Size(781, 152);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Pending";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1341,7 +1554,7 @@ namespace WHOperation
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(733, 147);
+            this.tabPage4.Size = new System.Drawing.Size(781, 152);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Complete";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1365,7 +1578,7 @@ namespace WHOperation
             this.dgComplete.Name = "dgComplete";
             this.dgComplete.ReadOnly = true;
             this.dgComplete.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgComplete.Size = new System.Drawing.Size(727, 143);
+            this.dgComplete.Size = new System.Drawing.Size(775, 146);
             this.dgComplete.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn4
@@ -1426,6 +1639,8 @@ namespace WHOperation
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PIMS Data Capture";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing_1);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -1436,11 +1651,16 @@ namespace WHOperation
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.tab3_QRBar.ResumeLayout(false);
+            this.tabPage5_OldQRBar.ResumeLayout(false);
+            this.tabPage5_OldQRBar.PerformLayout();
+            this.tabPage6_NewQRBar.ResumeLayout(false);
+            this.tabPage6_NewQRBar.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbdnpartnumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbexpiredate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pblotnumber)).EndInit();
@@ -1565,6 +1785,19 @@ namespace WHOperation
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.Label lMRecPartNumber;
         private System.Windows.Forms.Label lMRecQty;
+        private System.Windows.Forms.TextBox tfnoofcartons;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox cbtrimmfgpart;
+        private System.Windows.Forms.TabControl tab3_QRBar;
+        private System.Windows.Forms.TabPage tabPage5_OldQRBar;
+        private System.Windows.Forms.TabPage tabPage6_NewQRBar;
+        private System.Windows.Forms.Button btn6_StopQR;
+        private System.Windows.Forms.Button btn5_startQR;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ListBox txt0ListKeyMsg;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reStartToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn POLine;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vendor;
@@ -1586,9 +1819,13 @@ namespace WHOperation
         private System.Windows.Forms.DataGridViewTextBoxColumn t_conn;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrintedQty;
         private System.Windows.Forms.DataGridViewTextBoxColumn RowID;
-        private System.Windows.Forms.TextBox tfnoofcartons;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox cbtrimmfgpart;
+        private System.Windows.Forms.Button btn1Data_code;
+        private System.Windows.Forms.Button btn0RecPartNum;
+        private System.Windows.Forms.Button btn2RecMfgrPartNo;
+        private System.Windows.Forms.Button btn4ExpireDate;
+        private System.Windows.Forms.Button bnt6LotNumber;
+        private System.Windows.Forms.Button btn5RecQty;
+        private System.Windows.Forms.Button button3;
     }
 }
 

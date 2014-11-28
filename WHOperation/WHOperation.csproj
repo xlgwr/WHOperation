@@ -87,6 +87,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CodeUtil.cs" />
+    <Compile Include="frmlist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmlist.Designer.cs">
+      <DependentUpon>frmlist.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalClass1.cs" />
     <Compile Include="fLogin.cs">
       <SubType>Form</SubType>
@@ -101,6 +107,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="handleUSBDevice.cs" />
+    <Compile Include="HookGlobal.cs" />
     <Compile Include="MDIParent1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +124,9 @@
     <EmbeddedResource Include="Form1.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmlist.resx">
+      <DependentUpon>frmlist.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MDIParent1.resx">
       <SubType>Designer</SubType>
