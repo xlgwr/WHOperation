@@ -12,6 +12,7 @@ using System.Threading;
 using System.Xml;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 
 //using System.Runtime.InteropServices;
@@ -46,9 +47,13 @@ namespace WHOperation
         string _strnew = "";
         // add new by xlgwr
 
+        private static Regex RegNumber = new Regex("^[0-9]+$");
+        private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
+
         public static string getQRcode = "";
         public string _strtmp;
         public int _firstOpenSelectList;
+        public static List<char> _splitChar_list = new List<char>();
 
 
         public List<string> _strScanlit = new List<string>();
@@ -57,18 +62,28 @@ namespace WHOperation
         public List<string> _strNoPrefixlitTmp { get; set; }
 
         public static List<prefixContent> _prefixcontList;
+        public List<prefixContent> _scanList { get; set; }
 
         public class prefixContent
         {
             public string _prefix { get; set; }
             public Control _cl { get; set; }
+            public bool _currcl { get; set; }
+            public bool _currclSplit { get; set; }
+
             public prefixContent() { }
             public prefixContent(string p, Control c)
             {
                 _prefix = p;
                 _cl = c;
             }
-
+            public prefixContent(string p, Control c, bool currcl, bool currclSplit)
+            {
+                _prefix = p;
+                _cl = c;
+                _currcl = currcl;
+                _currclSplit = currclSplit;
+            }
         }
         //end by xlgwr
 
@@ -113,6 +128,8 @@ namespace WHOperation
 
             //add by xlgwr
             _prefixcontList = new List<prefixContent>();
+            //scan model
+            initScanList();
             //end by xlgwr
 
             //this.txt0ListKeyMsg.KeyDown+=new System.Windows.Forms.KeyEventHandler(this.OnKeyDownHandlerscanArea);
@@ -131,7 +148,7 @@ namespace WHOperation
             cTemplateType = ""; c2DSeperator = ""; cLastPrint = DateTime.Now;
             cBufferData = new cCaptureData();
             cSearchEnable = 0;
-            tfdndate.Text = DateTime.Now.Date.ToString();
+            tfdndate.Text = DateTime.Now.AddDays(-3).Date.ToString();
             tftodndate.Text = DateTime.Now.Date.ToString();
             base.OnLoad(e);
         }
@@ -607,6 +624,7 @@ namespace WHOperation
                     {
                         //
                         getPrefixOfContent(item);
+                        listbox0ScanData.Items.Add(item);
                         _strScanlit.Add(item);
                     }
                 }
@@ -1126,6 +1144,110 @@ namespace WHOperation
             handleBeep();
         }
 
+
+        void SearchDNPart2()
+        {
+            var query = from DataGridViewRow row in dataGridView1.Rows
+                        where row.Cells["PartNumber"].Value.ToString() == tfdnpartnumber.Text &&
+                        row.Cells["MFGPartNo"].Value.ToString() == tfrecmfgrpart.Text
+                        select row;
+            int cSearchFound = 0;
+            cBufferData.cDNPartumber = tfdnpartnumber.Text;
+            cBufferData.cMFGPart = tfrecmfgrpart.Text;
+            cBufferData.cDateCode = tfdatecode.Text;
+            cBufferData.cRecQty = tfrecqty.Text;
+            cBufferData.cLotNumber = tflotno.Text;
+            cBufferData.cMfgDate = tfmfgdate.Text;
+            cBufferData.cExpiredate = tfexpiredate.Text;
+
+            cBufferData.cPMFGPart = pbrecmfgpart.Image;
+            cBufferData.cPDateCode = pbdatecode.Image;
+            cBufferData.cPRecQty = pbrecqty.Image;
+            cBufferData.cPLotNumber = pblotnumber.Image;
+            cBufferData.cPMfgDate = pbmfgdate.Image;
+            cBufferData.cPExpiredate = pbexpiredate.Image;
+            cBufferData.cPDNPartNumber = pbdnpartnumber.Image;
+            if (cSearchFound == 0)
+            {
+                var query1 = from DataGridViewRow row in dataGridView1.Rows
+                             where row.Cells["MFGPartNo"].Value.ToString().ToUpper() == tfrecmfgrpart.Text.ToUpper()
+                             select row;
+                foreach (DataGridViewRow onlineOrder in query1)
+                {
+                    onlineOrder.Selected = true;
+                    dataGridView1.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    cSearchFound = 1;
+                    break;
+                }
+            }
+            if (cSearchFound == 0)
+            {
+                var txtMfgpart = tfrecmfgrpart.Text.ToUpper();
+                var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
+
+                var query1 = from DataGridViewRow row in dataGridView1.Rows
+                             where row.Cells["MFGPartNo"].Value.ToString().ToUpper().StartsWith(txtmfgpart80)
+                             select row;
+                foreach (DataGridViewRow onlineOrder in query1)
+                {
+                    onlineOrder.Selected = true;
+                    dataGridView1.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    cSearchFound = 1;
+                    break;
+                }
+            }
+            if (cSearchFound == 0)
+            {
+                var txtMfgpart = tfrecmfgrpart.Text.ToUpper();
+                var txtmfgpart60 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.6));
+
+                var query1 = from DataGridViewRow row in dataGridView1.Rows
+                             where row.Cells["MFGPartNo"].Value.ToString().ToUpper().StartsWith(txtmfgpart60)
+                             select row;
+                foreach (DataGridViewRow onlineOrder in query1)
+                {
+                    onlineOrder.Selected = true;
+                    dataGridView1.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    cSearchFound = 1;
+                    break;
+                }
+            }
+            tfdnpartnumber.Text = cBufferData.cDNPartumber;
+            tfrecmfgrpart.Text = cBufferData.cMFGPart;
+            tfdatecode.Text = cBufferData.cDateCode;
+            tfrecqty.Text = cBufferData.cRecQty;
+            tflotno.Text = cBufferData.cLotNumber;
+            tfmfgdate.Text = cBufferData.cMfgDate;
+            tfexpiredate.Text = cBufferData.cExpiredate;
+
+            pbrecmfgpart.Image = cBufferData.cPMFGPart;
+            pbdatecode.Image = cBufferData.cPDateCode;
+            pbrecqty.Image = cBufferData.cPRecQty;
+            pblotnumber.Image = cBufferData.cPLotNumber;
+            pbmfgdate.Image = cBufferData.cPMfgDate;
+            pbexpiredate.Image = cBufferData.cPExpiredate;
+            pbdnpartnumber.Image = cBufferData.cPDNPartNumber;
+            if (cSearchFound == 0)
+            {
+                tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = ""; }));
+                tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = ""; }));
+                tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
+                tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = "0"; }));
+                tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
+                tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.Text = ""; }));
+                tfexpiredate.Invoke(new Action(delegate() { tfexpiredate.Text = ""; }));
+
+                pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                MessageBox.Show("Can not find Part:[" + tfdnpartnumber.Text + "]/Mfgr:[" + tfrecmfgrpart.Text + "] PartNumber");
+            }
+
+        }
         void SearchDNPart()
         {
             var query = from DataGridViewRow row in dataGridView1.Rows
@@ -1213,7 +1335,7 @@ namespace WHOperation
                 pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                 pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                 pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                MessageBox.Show("Can not find Part/Mfgr PartNumber");
+                MessageBox.Show("Can not find Part:[" + tfdnpartnumber.Text + "]/Mfgr:[" + tfrecmfgrpart.Text + "] PartNumber");
             }
             else
             {
@@ -1404,6 +1526,7 @@ namespace WHOperation
             lVendorLabelImage = new List<byte[]>();
             //cR = dataGridView1.CurrentRow;
             //add
+            listbox0ScanData.Items.Clear();
             _strScanlit.Clear();
             _strlit.Clear();
             _strNoPrefixlit.Clear();
@@ -1457,6 +1580,7 @@ namespace WHOperation
 
         private void button1_Click(object sender, EventArgs e)
         {
+            disableScan();
             /*if (cbSmartScan.Checked == true)
             {
                 if (tfdnpartnumber.Text.Length > 0 && tfrecmfgrpart.Text.Length > 0 && cSearchEnable == 0)
@@ -1522,6 +1646,8 @@ namespace WHOperation
 
             if (dataGridView1.SelectedRows.Count <= 0)
                 return;
+
+            disableScan();
 
             cR = dataGridView1.SelectedRows[0];
             String[] cRec = new String[cR.Cells.Count];
@@ -1609,7 +1735,7 @@ namespace WHOperation
                 setPIMLData();
             }
             catch (Exception ex) { }
-            finally { }
+            finally { EnableScan(); }
         }
         void SQLUpdate(String cQuery)
         {
@@ -1847,7 +1973,7 @@ namespace WHOperation
             MiscDLL1.dbClass mydbClass = new MiscDLL1.dbClass();
             cRet = 0;
             cErrMsg = ""; cExpireDatePartVal = ""; cSpecialPartVal = "";
-            if (dataGridView1.Rows.Count<=0)
+            if (dataGridView1.Rows.Count <= 0)
             {
                 return 0;
             }
@@ -2256,6 +2382,7 @@ namespace WHOperation
         }
         void printPIML(List<String> lPIMSData, int cLabelType)
         {
+            disableScan();
             StringBuilder cRet = new StringBuilder();
             PIMLPrint pimlPrint = new PIMLPrint();
             String cSelPrinter;
@@ -2299,9 +2426,11 @@ namespace WHOperation
                 if (cLabelType == 0)
                     setDSPrintedQty();
 
+                EnableScan();
             }
             catch (Exception labEr)
             {
+                EnableScan();
                 getQRcode = "";
                 _strNoPrefixlit.Clear();
                 _strNoPrefixlitTmp.Clear();
@@ -2695,62 +2824,6 @@ namespace WHOperation
             cSearchEnable = 0;
         }
 
-        private void btn5_startQR_Click(object sender, EventArgs e)
-        {
-            txt0ListKeyMsg.Items.Clear();
-            kbh = new KeyBordHook();
-            kbh.OnKeyDownEvent += new KeyEventHandler(kbh_OnKeyDownEvent);
-            kbh.OnKeyPressEvent += new KeyPressEventHandler(kbh_OnKeyPressEvent);
-
-            btn6_StopQR.Enabled = true;
-            btn5_startQR.Enabled = false;
-
-            cbsystem.Focus();
-
-        }
-
-        void kbh_OnKeyPressEvent(object sender, KeyPressEventArgs e)
-        {
-            getStrQRcode += e.KeyChar.ToString();
-        }
-
-        void kbh_OnKeyDownEvent(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                for (int i = 0; i < txt0ListKeyMsg.Items.Count; i++)
-                {
-                    var dd = txt0ListKeyMsg.Items[i].ToString().Trim();
-                    if (dd.Equals(getStrQRcode.Trim()))
-                    {
-                        getStrQRcode = "";
-                        _spanint = 0;
-                        txt0ListKeyMsg.SelectedIndex = i;
-                        return;
-                    }
-                }
-                txt0ListKeyMsg.Items.Add(getStrQRcode.Trim());
-                ParseLabelData(getStrQRcode);
-                txt0ListKeyMsg.SelectedIndex = txt0ListKeyMsg.Items.Count - 1;
-                getStrQRcode = "";
-            }
-
-
-
-        }
-
-        private void btn6_StopQR_Click(object sender, EventArgs e)
-        {
-            txt0ListKeyMsg.Items.Clear();
-            if (kbh != null)
-            {
-                kbh.Stop();
-                kbh.OnKeyDownEvent -= new KeyEventHandler(kbh_OnKeyDownEvent);
-                kbh.OnKeyPressEvent -= new KeyPressEventHandler(kbh_OnKeyPressEvent);
-            }
-            btn5_startQR.Enabled = true;
-            btn6_StopQR.Enabled = false;
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -2760,8 +2833,10 @@ namespace WHOperation
             dgDNNumber.ReadOnly = true;
             dgComplete.ReadOnly = true;
 
-            btn6_StopQR.Enabled = false;
-            btn5_startQR.Enabled = true;
+            bDisableScan.Enabled = false;
+            bEnableScan.Enabled = true;
+            tfscanarea.ReadOnly = true;
+            tfscanarea.Focus();
 
             tfnooflabels.Leave += new EventHandler(tfnooflabels_Leave);
             tfnooflabels.KeyDown += new KeyEventHandler(txtkeypress);
@@ -2870,20 +2945,6 @@ namespace WHOperation
             getInto();
             setEhandle(sender, e, 30);
         }
-
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            txt0ListKeyMsg.Items.Clear();
-        }
-
-        private void reStartToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (kbh != null && btn6_StopQR.Enabled == true)
-            {
-                btn6_StopQR_Click(sender, e);
-                btn5_startQR_Click(sender, e);
-            }
-        }
         public void ShowFrmlist(Control cl1_content, Control cl2_prefix)
         {
             getQRcode = "";
@@ -2913,48 +2974,411 @@ namespace WHOperation
             }
             frmlist fl = new frmlist(this, cl1_content, cl2_prefix);
             fl.ShowDialog();
-        } 
+        }
 
+        public void ShowFrmlist(Control cl1_content)
+        {
+            getQRcode = "";
+            _strlit.Clear();
+            _firstOpenSelectList += 1;
+
+            for (int i = 0; i < _strScanlit.Count; i++)
+            {
+                string item = _strScanlit[i].ToString();
+                _strlit.Add(item);
+                for (int j = 0; j < _prefixcontList.Count; j++)
+                {
+                    if (item.StartsWith(_prefixcontList[j]._prefix, true, null))
+                    {
+                        _strlit.Remove(item);
+                        break;
+                    }
+                }
+
+
+            }
+            frmlist fl = new frmlist(this, cl1_content);
+            fl.ShowDialog();
+        }
         private void btn1Data_code_Click(object sender, EventArgs e)
         {
-            ShowFrmlist(tfdatecode, new Control { Text = "" });
+            ShowFrmlist(tfdatecode);
         }
 
         private void btn2RecMfgrPartNo_Click(object sender, EventArgs e)
         {
-            ShowFrmlist(tfrecmfgrpart, new Control { Text = "" });
+            ShowFrmlist(tfrecmfgrpart);
 
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
-            ShowFrmlist(tfmfgdate, new Control { Text = "" });
+
+            ShowFrmlist(tfmfgdate);
         }
 
         private void btn5RecQty_Click(object sender, EventArgs e)
         {
 
-            ShowFrmlist(tfrecqty, new Control { Text = "" });
+            ShowFrmlist(tfrecqty);
         }
 
         private void btn0RecPartNum_Click(object sender, EventArgs e)
         {
 
-            ShowFrmlist(tfdnpartnumber, new Control { Text = "" });
+            ShowFrmlist(tfdnpartnumber);
         }
 
         private void btn4ExpireDate_Click(object sender, EventArgs e)
         {
 
-            ShowFrmlist(tfexpiredate, new Control { Text = "" });
+            ShowFrmlist(tfexpiredate);
         }
 
         private void bnt6LotNumber_Click(object sender, EventArgs e)
         {
 
-            ShowFrmlist(tflotno, new Control { Text = "" });
+            ShowFrmlist(tflotno);
         }
+
+        private void tfdnpartnumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tfrecmfgrpart_TextChanged(object sender, EventArgs e)
+        {
+            if (cbSmartScan.Checked == true)
+            {
+                if (tfrecmfgrpart.Text.Length > 0)
+                {
+                    SearchDNPart2();
+                }
+            }
+        }
+
+        private void bDisableScan_Click(object sender, EventArgs e)
+        {
+            disableScan();
+        }
+
+        private void disableScan()
+        {
+            listbox0ScanData.Items.Clear();
+            _strScanlit.Clear();
+            _strlit.Clear();
+            _strNoPrefixlit.Clear();
+            _strNoPrefixlitTmp.Clear();
+
+            bDisableScan.Enabled = false;
+            bEnableScan.Enabled = true;
+            tfscanarea.Text = "";
+            tfscanarea.ReadOnly = true;
+            tfscanarea.Focus();
+
+            tfdnpartnumber.Text = "";
+            tfrecmfgrpart.Text = "";
+            tfexpiredate.Text = "";
+            tflotno.Text = "";
+
+            tfdatecode.Text = "";
+            tfmfgdate.Text = "";
+            tfrecqty.Text = "";
+        }
+
+        private void bEnableScan_Click(object sender, EventArgs e)
+        {
+            EnableScan();
+        }
+
+        private void EnableScan()
+        {
+            bDisableScan.Enabled = true;
+            bEnableScan.Enabled = false;
+            tfscanarea.ReadOnly = false;
+            tfnooflabels.Text = "1";
+            tfnoofcartons.Text = "1";
+            tfscanarea.Focus();
+        }
+
+        public void initScanList()
+        {
+            _scanList = new List<prefixContent>();
+            var scan_tfdnpartnumber = new prefixContent() { _prefix = ldnpartnumber.Text, _cl = tfdnpartnumber, _currcl = false, _currclSplit = false };
+            var scan_tfrecmfgrpart = new prefixContent() { _prefix = lrecmfgpart.Text, _cl = tfrecmfgrpart, _currcl = false, _currclSplit = false };
+            var scan_tfexpiredate = new prefixContent() { _prefix = lexpiredate.Text, _cl = tfexpiredate, _currcl = false, _currclSplit = false };
+            var scan_tflotno = new prefixContent() { _prefix = llotnumber.Text, _cl = tflotno, _currcl = false, _currclSplit = false };
+
+            var scan_tfdatecode = new prefixContent() { _prefix = ldatecode.Text, _cl = tfdatecode, _currcl = false, _currclSplit = false };
+            var scan_tfmfgdate = new prefixContent() { _prefix = lmfgdate.Text, _cl = tfmfgdate, _currcl = false, _currclSplit = false };
+            var scan_tfrecqty = new prefixContent() { _prefix = lrecqty.Text, _cl = tfrecqty, _currcl = false, _currclSplit = false };
+
+            _scanList.Add(scan_tfdnpartnumber);
+            _scanList.Add(scan_tfrecmfgrpart);
+            _scanList.Add(scan_tfexpiredate);
+            _scanList.Add(scan_tflotno);
+
+            _scanList.Add(scan_tfdatecode);
+            _scanList.Add(scan_tfmfgdate);
+            _scanList.Add(scan_tfrecqty);
+
+        }
+        private void initCurrSelectTxt(Control cl)
+        {
+            for (int i = 0; i < _scanList.Count; i++)
+            {
+                if (_scanList[i]._cl == cl)
+                {
+                    _scanList[i]._currcl = true;
+                    _scanList[i]._currclSplit = true;
+                }
+                else
+                {
+                    _scanList[i]._currcl = false;
+                    _scanList[i]._currclSplit = false;
+                }
+            }
+        }
+        private void tfdnpartnumber_Enter(object sender, EventArgs e)
+        {
+            initCurrSelectTxt(tfdnpartnumber);
+        }
+
+        private void tfrecmfgrpart_Enter(object sender, EventArgs e)
+        {
+            initCurrSelectTxt(tfrecmfgrpart);
+        }
+
+        private void tfexpiredate_Enter(object sender, EventArgs e)
+        {
+            initCurrSelectTxt(tfexpiredate);
+        }
+
+        private void tflotno_Enter(object sender, EventArgs e)
+        {
+            initCurrSelectTxt(tflotno);
+        }
+
+        private void tfdatecode_Enter(object sender, EventArgs e)
+        {
+            initCurrSelectTxt(tfdatecode);
+        }
+
+        private void tfmfgdate_Enter(object sender, EventArgs e)
+        {
+            initCurrSelectTxt(tfmfgdate);
+        }
+
+        private void tfrecqty_Enter(object sender, EventArgs e)
+        {
+            initCurrSelectTxt(tfrecqty);
+        }
+
+        private void listbox0ScanData_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void listbox0ScanData_Click(object sender, EventArgs e)
+        {
+            selectValueToTextField(_scanList, listbox0ScanData, false);
+        }
+
+        private void selectValueToTextField(List<prefixContent> lt, ListBox lbvalue, bool isSplit)
+        {
+            if (lbvalue.SelectedItem != null)
+            {
+                for (int i = 0; i < lt.Count; i++)
+                {
+                    var item = lt[i];
+                    if (!isSplit)
+                    {
+                        if (item._currcl == true)
+                        {
+                            var strselect = lbvalue.SelectedItem.ToString();
+                            var index = lbvalue.SelectedIndex;
+                            var strsplit = strselect.Split('|');
+
+                            if (strsplit.Length > 0)
+                            {
+                                item._cl.Text = strsplit[0].ToString();
+                                lbvalue.Items[index] = strsplit[0].ToString() + "|" + item._prefix.ToString();
+
+                            }
+                            else
+                            {
+                                item._cl.Text = strselect;
+                                lbvalue.Items[index] = strselect + "|" + item._prefix.ToString();
+                            }
+                            item._currcl = false;
+                            break;
+
+                        }
+                    }
+                    else
+                    {
+                        if (item._currclSplit == true)
+                        {
+                            var strselect = lbvalue.SelectedItem.ToString();
+                            item._cl.Text = strselect;
+                            item._currclSplit = false;
+                            break;
+
+                        }
+                    }
+
+                }
+            }
+        }
+
+        #region split from checklist
+
+        private void splitFromControl(CheckBox cl, char spchar)
+        {
+
+            if (cl.Checked)
+            {
+                _splitChar_list.Add(spchar);
+            }
+            else
+            {
+                _splitChar_list.Remove(spchar);
+            }
+
+            addItemToListFromListSplit(listbox0ScanData, list1boxSplit);
+        }
+
+        public void addItemToListFromListSplit(ListBox fromlb, ListBox tolb)
+        {
+            tolb.Items.Clear();
+
+            if (fromlb.Items.Count <= 0)
+            {
+                return;
+            }
+            if (fromlb.SelectedItem == null)
+            {
+                return;
+            }
+
+            string tmpselect_listbox = fromlb.SelectedItem.ToString();
+
+            var strsplit = tmpselect_listbox.Split('|');
+
+            foreach (var item in _splitChar_list)
+            {
+                if (strsplit.Length > 0)
+                {
+                    addItemToList(item, strsplit[0], tolb);
+                }
+                else
+                {
+                    addItemToList(item, tmpselect_listbox, tolb);
+                }
+            }
+        }
+        private void addItemToList(char dh, string strsplit, ListBox lb)
+        {
+            string[] tmpSplit = strsplit.Split(dh);
+
+            foreach (var item in tmpSplit)
+            {
+
+                if (lb.Items.IndexOf(item) > 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    lb.Items.Add(item);
+                }
+
+
+            }
+        }
+        #endregion
+        private void chk0dh_CheckedChanged(object sender, EventArgs e)
+        {
+            splitFromControl(chk0dh, ',');
+        }
+
+        private void chk1jh_CheckedChanged(object sender, EventArgs e)
+        {
+            splitFromControl(chk1jh, '-');
+        }
+
+        private void chk3Space_CheckedChanged(object sender, EventArgs e)
+        {
+            splitFromControl(chk3Space, ' ');
+        }
+
+        private void chk3xh_CheckedChanged(object sender, EventArgs e)
+        {
+            splitFromControl(chk3xh, '*');
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Text.Trim().Length <= 0)
+            {
+                chk6Ohter.Checked = false;
+            }
+            else
+            {
+                if (listbox0ScanData.SelectedItem == null)
+                {
+                    return;
+                }
+                var strselect = listbox0ScanData.SelectedItem.ToString();
+                var index = listbox0ScanData.SelectedIndex;
+                var strsplit = strselect.Split('|');
+
+                if (strsplit.Length > 1)
+                {
+                    listbox0ScanData.Items[index] = strsplit[0].Replace(textBox1.Text.Trim().ToUpper(), " ").Trim() + "|" + strsplit[1].ToString();
+                }
+                else
+                {
+                    listbox0ScanData.Items[index] = strselect.Replace(textBox1.Text.Trim().ToUpper(), " ").Trim();
+                }
+                chk6Ohter.Checked = true;
+            }
+        }
+        private void chk6Ohter_CheckedChanged(object sender, EventArgs e)
+        {
+            splitFromControl(chk6Ohter, ' ');
+        }
+
+        private void list1boxSplit_Click(object sender, EventArgs e)
+        {
+            selectValueToTextField(_scanList, list1boxSplit, true);
+        }
+        public static bool IsNumber(string inputData)
+        {
+            Match m = RegNumber.Match(inputData);
+            return m.Success;
+        }
+        public static bool IsDecimal(string inputData)
+        {
+            Match m = RegDecimal.Match(inputData);
+            return m.Success;
+        }		
+
+        private void tfrecqty_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tfrecqty.Text))
+            {
+                if (!IsNumber(tfrecqty.Text))
+                {
+                    tfrecqty.Text = "";
+                    MessageBox.Show("请输入正确的数字");
+
+                }
+            }
+        }
+
+        
 
 
     }

@@ -14,7 +14,7 @@ namespace WHOperation
         Form1 _frm1;
         Control _cl;
         Control _cl_prefix;
-        static bool _changeSelectp=false;
+        static bool _changeSelectp = false;
 
         public frmlist()
         {
@@ -24,6 +24,21 @@ namespace WHOperation
         {
             InitializeComponent();
             _frm1 = frm1;
+        }
+        public frmlist(Form1 frm1, Control cl_content)
+        {
+            InitializeComponent();
+            _frm1 = frm1;
+            _cl = cl_content;
+
+            if (_frm1._firstOpenSelectList == 1)
+            {
+                _frm1._strNoPrefixlit = _frm1._strNoPrefixlitTmp;
+            }
+            foreach (var item in _frm1._strlit)
+            {
+                listBox1.Items.Add(item);
+            }
         }
         public frmlist(Form1 frm1, Control cl_content, Control cl_prefix)
         {
