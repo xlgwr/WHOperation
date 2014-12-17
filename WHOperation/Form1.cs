@@ -1143,10 +1143,20 @@ namespace WHOperation
             cLastLabel = "";
             handleBeep();
         }
-
+        string removeCharTostr(string tmpstring, char ca)
+        {
+            string[] spstr = tmpstring.Split(ca);
+            string restr = "";
+            foreach (var item in spstr)
+            {
+                restr += item.Trim();
+            }
+            return restr;
+        }
 
         void SearchDNPart2()
         {
+            char chara = ' ';
             var query = from DataGridViewRow row in dataGridView1.Rows
                         where row.Cells["PartNumber"].Value.ToString() == tfdnpartnumber.Text &&
                         row.Cells["MFGPartNo"].Value.ToString() == tfrecmfgrpart.Text
@@ -1167,6 +1177,19 @@ namespace WHOperation
             cBufferData.cPMfgDate = pbmfgdate.Image;
             cBufferData.cPExpiredate = pbexpiredate.Image;
             cBufferData.cPDNPartNumber = pbdnpartnumber.Image;
+            if (cSearchFound == 0)
+            {
+                var query1 = from DataGridViewRow row in dataGridView1.Rows
+                             where removeCharTostr(row.Cells["MFGPartNo"].Value.ToString().ToUpper(), chara).Equals(removeCharTostr(tfrecmfgrpart.Text.ToUpper(), chara))
+                             select row;
+                foreach (DataGridViewRow onlineOrder in query1)
+                {
+                    onlineOrder.Selected = true;
+                    dataGridView1.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    cSearchFound = 1;
+                    break;
+                }
+            }
             if (cSearchFound == 0)
             {
                 var query1 = from DataGridViewRow row in dataGridView1.Rows
@@ -1733,9 +1756,13 @@ namespace WHOperation
                 }
 
                 setPIMLData();
+
             }
             catch (Exception ex) { }
-            finally { EnableScan(); }
+            finally
+            {
+                Thread.Sleep(3000); EnableScan();
+            }
         }
         void SQLUpdate(String cQuery)
         {
@@ -2425,8 +2452,7 @@ namespace WHOperation
 
                 if (cLabelType == 0)
                     setDSPrintedQty();
-
-                EnableScan();
+                // EnableScan();
             }
             catch (Exception labEr)
             {
@@ -2843,11 +2869,61 @@ namespace WHOperation
         }
         private void tfnooflabels_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.F1)
+            {
+                tfnooflabels.Text = "1";
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                tfnooflabels.Text = "2";
+            }
+            else if (e.KeyCode == Keys.F3)
+            {
+                tfnooflabels.Text = "3";
+            }
+            else if (e.KeyCode == Keys.F4)
+            {
+                tfnooflabels.Text = "4";
+            }
+            else if (e.KeyCode == Keys.F5)
+            {
+                tfnooflabels.Text = "5";
+            }
+            else if (e.KeyCode == Keys.F6)
+            {
+                tfnooflabels.Text = "6";
+            }
+            else if (e.KeyCode == Keys.F7)
+            {
+                tfnooflabels.Text = "7";
+            }
+            else if (e.KeyCode == Keys.F8)
+            {
+                tfnooflabels.Text = "8";
+            }
+            else if (e.KeyCode == Keys.F9)
+            {
+                tfnooflabels.Text = "9";
+            }
+            else if (e.KeyCode == Keys.F10)
+            {
+                tfnooflabels.Text = "10";
+            }
+            else if (e.KeyCode == Keys.F11)
+            {
+                tfnooflabels.Text = "11";
+            }
+            else if (e.KeyCode == Keys.F12)
+            {
+                tfnooflabels.Text = "12";
+            }
             initGoto(tfscanarea, e);
         }
 
         private void initGoto(Control cl, KeyEventArgs e)
         {
+
+
             if (e.KeyCode == Keys.Enter)
             {
                 cl.Focus();
@@ -3076,14 +3152,6 @@ namespace WHOperation
             tfscanarea.ReadOnly = true;
             tfscanarea.Focus();
 
-            tfdnpartnumber.Text = "";
-            tfrecmfgrpart.Text = "";
-            tfexpiredate.Text = "";
-            tflotno.Text = "";
-
-            tfdatecode.Text = "";
-            tfmfgdate.Text = "";
-            tfrecqty.Text = "";
         }
 
         private void bEnableScan_Click(object sender, EventArgs e)
@@ -3096,9 +3164,17 @@ namespace WHOperation
             bDisableScan.Enabled = true;
             bEnableScan.Enabled = false;
             tfscanarea.ReadOnly = false;
-            tfnooflabels.Text = "1";
-            tfnoofcartons.Text = "1";
+            //tfnooflabels.Text = "1";
+            // tfnoofcartons.Text = "1";
             tfscanarea.Focus();
+            tfdnpartnumber.Text = "";
+            tfrecmfgrpart.Text = "";
+            tfexpiredate.Text = "";
+            tflotno.Text = "";
+
+            tfdatecode.Text = "";
+            tfmfgdate.Text = "";
+            tfrecqty.Text = "";
         }
 
         public void initScanList()
@@ -3363,7 +3439,7 @@ namespace WHOperation
         {
             Match m = RegDecimal.Match(inputData);
             return m.Success;
-        }		
+        }
 
         private void tfrecqty_TextChanged(object sender, EventArgs e)
         {
@@ -3377,8 +3453,170 @@ namespace WHOperation
                 }
             }
         }
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                tfnooflabels.Text = "1";
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                tfnooflabels.Text = "2";
+            }
+            else if (e.KeyCode == Keys.F3)
+            {
+                tfnooflabels.Text = "3";
+            }
+            else if (e.KeyCode == Keys.F4)
+            {
+                tfnooflabels.Text = "4";
+            }
+            else if (e.KeyCode == Keys.F5)
+            {
+                tfnooflabels.Text = "5";
+            }
+            else if (e.KeyCode == Keys.F6)
+            {
+                tfnooflabels.Text = "6";
+            }
+            else if (e.KeyCode == Keys.F7)
+            {
+                tfnooflabels.Text = "7";
+            }
+            else if (e.KeyCode == Keys.F8)
+            {
+                tfnooflabels.Text = "8";
+            }
+            else if (e.KeyCode == Keys.F9)
+            {
+                tfnooflabels.Text = "9";
+            }
+            else if (e.KeyCode == Keys.F10)
+            {
+                tfnooflabels.Text = "10";
+            }
+            else if (e.KeyCode == Keys.F11)
+            {
+                tfnooflabels.Text = "11";
+            }
+            else if (e.KeyCode == Keys.F12)
+            {
+                tfnooflabels.Text = "12";
+            }
 
-        
+            base.OnKeyDown(e);
+        }
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                tfnooflabels.Text = "1";
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                tfnooflabels.Text = "2";
+            }
+            else if (e.KeyCode == Keys.F3)
+            {
+                tfnooflabels.Text = "3";
+            }
+            else if (e.KeyCode == Keys.F4)
+            {
+                tfnooflabels.Text = "4";
+            }
+            else if (e.KeyCode == Keys.F5)
+            {
+                tfnooflabels.Text = "5";
+            }
+            else if (e.KeyCode == Keys.F6)
+            {
+                tfnooflabels.Text = "6";
+            }
+            else if (e.KeyCode == Keys.F7)
+            {
+                tfnooflabels.Text = "7";
+            }
+            else if (e.KeyCode == Keys.F8)
+            {
+                tfnooflabels.Text = "8";
+            }
+            else if (e.KeyCode == Keys.F9)
+            {
+                tfnooflabels.Text = "9";
+            }
+            else if (e.KeyCode == Keys.F10)
+            {
+                tfnooflabels.Text = "10";
+            }
+            else if (e.KeyCode == Keys.F11)
+            {
+                tfnooflabels.Text = "11";
+            }
+            else if (e.KeyCode == Keys.F12)
+            {
+                tfnooflabels.Text = "12";
+            }
+        }
+
+        private void tfscanarea_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.F1)
+            {
+                tfnooflabels.Text = "1";
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                tfnooflabels.Text = "2";
+            }
+            else if (e.KeyCode == Keys.F3)
+            {
+                tfnooflabels.Text = "3";
+            }
+            else if (e.KeyCode == Keys.F4)
+            {
+                tfnooflabels.Text = "4";
+            }
+            else if (e.KeyCode == Keys.F5)
+            {
+                tfnooflabels.Text = "5";
+            }
+            else if (e.KeyCode == Keys.F6)
+            {
+                tfnooflabels.Text = "6";
+            }
+            else if (e.KeyCode == Keys.F7)
+            {
+                tfnooflabels.Text = "7";
+            }
+            else if (e.KeyCode == Keys.F8)
+            {
+                tfnooflabels.Text = "8";
+            }
+            else if (e.KeyCode == Keys.F9)
+            {
+                tfnooflabels.Text = "9";
+            }
+            else if (e.KeyCode == Keys.F10)
+            {
+                tfnooflabels.Text = "10";
+            }
+            else if (e.KeyCode == Keys.F11)
+            {
+                tfnooflabels.Text = "11";
+            }
+            else if (e.KeyCode == Keys.F12)
+            {
+                tfnooflabels.Text = "12";
+            }
+        }
+
+
 
 
     }
