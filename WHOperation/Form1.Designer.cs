@@ -45,7 +45,7 @@ namespace WHOperation
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tfdnno = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgv1Pending = new System.Windows.Forms.DataGridView();
             this.DNNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.POLine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vendor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,7 +78,7 @@ namespace WHOperation
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.dgv3VendorTemplate = new System.Windows.Forms.DataGridView();
             this.TempID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pb1 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -99,7 +99,7 @@ namespace WHOperation
             this.list1boxSplit = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chk6Ohter = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt5SplitOther = new System.Windows.Forms.TextBox();
             this.chk0dh = new System.Windows.Forms.CheckBox();
             this.chk3xh = new System.Windows.Forms.CheckBox();
             this.chk3Space = new System.Windows.Forms.CheckBox();
@@ -163,16 +163,17 @@ namespace WHOperation
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chk5NoSplit = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tftodndate = new System.Windows.Forms.DateTimePicker();
             this.bGo = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dgDNNumber = new System.Windows.Forms.DataGridView();
+            this.dgv0DNNumber = new System.Windows.Forms.DataGridView();
             this.DNNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.dgComplete = new System.Windows.Forms.DataGridView();
+            this.dgv1Complete = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -180,11 +181,13 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv3VendorTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -208,11 +211,12 @@ namespace WHOperation
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgDNNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv0DNNumber)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgComplete)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv1Complete)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tfdnno
@@ -221,7 +225,9 @@ namespace WHOperation
             this.tfdnno.Name = "tfdnno";
             this.tfdnno.Size = new System.Drawing.Size(100, 21);
             this.tfdnno.TabIndex = 3;
+            this.tfdnno.TextChanged += new System.EventHandler(this.tfdnno_TextChanged);
             this.tfdnno.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdnno_KeyDown);
+            this.tfdnno.Leave += new System.EventHandler(this.tfdnno_Leave);
             // 
             // label1
             // 
@@ -232,10 +238,10 @@ namespace WHOperation
             this.label1.TabIndex = 2;
             this.label1.Text = "Supplier ID";
             // 
-            // dataGridView1
+            // dgv1Pending
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dgv1Pending.AllowUserToAddRows = false;
+            this.dgv1Pending.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -243,9 +249,9 @@ namespace WHOperation
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv1Pending.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv1Pending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv1Pending.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DNNo,
             this.POLine,
             this.Vendor,
@@ -274,12 +280,12 @@ namespace WHOperation
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
+            this.dgv1Pending.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv1Pending.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv1Pending.Location = new System.Drawing.Point(3, 3);
+            this.dgv1Pending.MultiSelect = false;
+            this.dgv1Pending.Name = "dgv1Pending";
+            this.dgv1Pending.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -287,10 +293,10 @@ namespace WHOperation
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(703, 127);
-            this.dataGridView1.TabIndex = 0;
+            this.dgv1Pending.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgv1Pending.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv1Pending.Size = new System.Drawing.Size(703, 127);
+            this.dgv1Pending.TabIndex = 0;
             // 
             // DNNo
             // 
@@ -541,7 +547,7 @@ namespace WHOperation
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.dataGridView3);
+            this.groupBox4.Controls.Add(this.dgv3VendorTemplate);
             this.groupBox4.Controls.Add(this.pb1);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
@@ -551,10 +557,10 @@ namespace WHOperation
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vendor Template";
             // 
-            // dataGridView3
+            // dgv3VendorTemplate
             // 
-            this.dataGridView3.AllowUserToAddRows = false;
-            this.dataGridView3.AllowUserToDeleteRows = false;
+            this.dgv3VendorTemplate.AllowUserToAddRows = false;
+            this.dgv3VendorTemplate.AllowUserToDeleteRows = false;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -562,9 +568,9 @@ namespace WHOperation
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv3VendorTemplate.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgv3VendorTemplate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv3VendorTemplate.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TempID});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
@@ -573,10 +579,10 @@ namespace WHOperation
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView3.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridView3.Location = new System.Drawing.Point(11, 18);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.ReadOnly = true;
+            this.dgv3VendorTemplate.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgv3VendorTemplate.Location = new System.Drawing.Point(11, 18);
+            this.dgv3VendorTemplate.Name = "dgv3VendorTemplate";
+            this.dgv3VendorTemplate.ReadOnly = true;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -584,9 +590,9 @@ namespace WHOperation
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView3.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridView3.Size = new System.Drawing.Size(142, 216);
-            this.dataGridView3.TabIndex = 0;
+            this.dgv3VendorTemplate.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgv3VendorTemplate.Size = new System.Drawing.Size(142, 216);
+            this.dgv3VendorTemplate.TabIndex = 0;
             // 
             // TempID
             // 
@@ -851,7 +857,7 @@ namespace WHOperation
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.chk6Ohter);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txt5SplitOther);
             this.groupBox1.Controls.Add(this.chk0dh);
             this.groupBox1.Controls.Add(this.chk3xh);
             this.groupBox1.Controls.Add(this.chk3Space);
@@ -874,13 +880,13 @@ namespace WHOperation
             this.chk6Ohter.UseVisualStyleBackColor = true;
             this.chk6Ohter.CheckedChanged += new System.EventHandler(this.chk6Ohter_CheckedChanged);
             // 
-            // textBox1
+            // txt5SplitOther
             // 
-            this.textBox1.Location = new System.Drawing.Point(42, 60);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(93, 21);
-            this.textBox1.TabIndex = 66;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.txt5SplitOther.Location = new System.Drawing.Point(42, 60);
+            this.txt5SplitOther.Name = "txt5SplitOther";
+            this.txt5SplitOther.Size = new System.Drawing.Size(93, 21);
+            this.txt5SplitOther.TabIndex = 66;
+            this.txt5SplitOther.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt5SplitOther_KeyDown);
             // 
             // chk0dh
             // 
@@ -1479,6 +1485,7 @@ namespace WHOperation
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.chk5NoSplit);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.tftodndate);
             this.panel1.Controls.Add(this.bGo);
@@ -1505,8 +1512,19 @@ namespace WHOperation
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1115, 562);
+            this.panel1.Size = new System.Drawing.Size(1115, 566);
             this.panel1.TabIndex = 0;
+            // 
+            // chk5NoSplit
+            // 
+            this.chk5NoSplit.AutoSize = true;
+            this.chk5NoSplit.ForeColor = System.Drawing.Color.Red;
+            this.chk5NoSplit.Location = new System.Drawing.Point(929, 187);
+            this.chk5NoSplit.Name = "chk5NoSplit";
+            this.chk5NoSplit.Size = new System.Drawing.Size(174, 16);
+            this.chk5NoSplit.TabIndex = 63;
+            this.chk5NoSplit.Text = "No Split Part or QPL-part";
+            this.chk5NoSplit.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -1545,7 +1563,7 @@ namespace WHOperation
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.dgDNNumber);
+            this.splitContainer1.Panel1.Controls.Add(this.dgv0DNNumber);
             // 
             // splitContainer1.Panel2
             // 
@@ -1554,10 +1572,10 @@ namespace WHOperation
             this.splitContainer1.SplitterDistance = 191;
             this.splitContainer1.TabIndex = 21;
             // 
-            // dgDNNumber
+            // dgv0DNNumber
             // 
-            this.dgDNNumber.AllowUserToAddRows = false;
-            this.dgDNNumber.AllowUserToDeleteRows = false;
+            this.dgv0DNNumber.AllowUserToAddRows = false;
+            this.dgv0DNNumber.AllowUserToDeleteRows = false;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -1565,9 +1583,9 @@ namespace WHOperation
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgDNNumber.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dgDNNumber.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgDNNumber.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv0DNNumber.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgv0DNNumber.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv0DNNumber.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DNNumber});
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
@@ -1576,10 +1594,10 @@ namespace WHOperation
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgDNNumber.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgDNNumber.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgDNNumber.Location = new System.Drawing.Point(0, 0);
-            this.dgDNNumber.Name = "dgDNNumber";
+            this.dgv0DNNumber.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dgv0DNNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv0DNNumber.Location = new System.Drawing.Point(0, 0);
+            this.dgv0DNNumber.Name = "dgv0DNNumber";
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -1587,9 +1605,9 @@ namespace WHOperation
             dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgDNNumber.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dgDNNumber.Size = new System.Drawing.Size(191, 159);
-            this.dgDNNumber.TabIndex = 0;
+            this.dgv0DNNumber.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dgv0DNNumber.Size = new System.Drawing.Size(191, 159);
+            this.dgv0DNNumber.TabIndex = 0;
             // 
             // DNNumber
             // 
@@ -1609,7 +1627,7 @@ namespace WHOperation
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.dataGridView1);
+            this.tabPage3.Controls.Add(this.dgv1Pending);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -1620,7 +1638,7 @@ namespace WHOperation
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.dgComplete);
+            this.tabPage4.Controls.Add(this.dgv1Complete);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -1629,10 +1647,10 @@ namespace WHOperation
             this.tabPage4.Text = "Complete";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // dgComplete
+            // dgv1Complete
             // 
-            this.dgComplete.AllowUserToAddRows = false;
-            this.dgComplete.AllowUserToDeleteRows = false;
+            this.dgv1Complete.AllowUserToAddRows = false;
+            this.dgv1Complete.AllowUserToDeleteRows = false;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -1640,9 +1658,9 @@ namespace WHOperation
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgComplete.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
-            this.dgComplete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgComplete.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv1Complete.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dgv1Complete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv1Complete.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
@@ -1657,12 +1675,12 @@ namespace WHOperation
             dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgComplete.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dgComplete.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgComplete.Location = new System.Drawing.Point(3, 3);
-            this.dgComplete.MultiSelect = false;
-            this.dgComplete.Name = "dgComplete";
-            this.dgComplete.ReadOnly = true;
+            this.dgv1Complete.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dgv1Complete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv1Complete.Location = new System.Drawing.Point(3, 3);
+            this.dgv1Complete.MultiSelect = false;
+            this.dgv1Complete.Name = "dgv1Complete";
+            this.dgv1Complete.ReadOnly = true;
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -1670,10 +1688,10 @@ namespace WHOperation
             dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgComplete.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.dgComplete.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgComplete.Size = new System.Drawing.Size(703, 127);
-            this.dgComplete.TabIndex = 1;
+            this.dgv1Complete.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.dgv1Complete.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv1Complete.Size = new System.Drawing.Size(703, 127);
+            this.dgv1Complete.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -1723,11 +1741,28 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn20.ReadOnly = true;
             this.dataGridViewTextBoxColumn20.Width = 80;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tool_lbl_Msg});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 544);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1115, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tool_lbl_Msg
+            // 
+            this.tool_lbl_Msg.ForeColor = System.Drawing.Color.Red;
+            this.tool_lbl_Msg.Name = "tool_lbl_Msg";
+            this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1115, 562);
+            this.ClientSize = new System.Drawing.Size(1115, 566);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
@@ -1737,11 +1772,11 @@ namespace WHOperation
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv3VendorTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -1770,12 +1805,15 @@ namespace WHOperation
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgDNNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv0DNNumber)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgComplete)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv1Complete)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1784,7 +1822,7 @@ namespace WHOperation
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox tfdnno;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgv1Pending;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DateTimePicker tfdndate;
         private System.Windows.Forms.Label label17;
@@ -1796,7 +1834,7 @@ namespace WHOperation
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView dgv3VendorTemplate;
         private System.Windows.Forms.DataGridViewTextBoxColumn TempID;
         private System.Windows.Forms.PictureBox pb1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -1852,7 +1890,7 @@ namespace WHOperation
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.DataGridView dgDNNumber;
+        private System.Windows.Forms.DataGridView dgv0DNNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNNumber;
         private System.Windows.Forms.Button bGo;
         private System.Windows.Forms.Button bEnableScan;
@@ -1870,7 +1908,7 @@ namespace WHOperation
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.DataGridView dgComplete;
+        private System.Windows.Forms.DataGridView dgv1Complete;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
@@ -1913,12 +1951,15 @@ namespace WHOperation
         private System.Windows.Forms.ListBox list1boxSplit;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt5SplitOther;
         private System.Windows.Forms.CheckBox chk0dh;
         private System.Windows.Forms.CheckBox chk3xh;
         private System.Windows.Forms.CheckBox chk3Space;
         private System.Windows.Forms.CheckBox chk1jh;
         private System.Windows.Forms.CheckBox chk6Ohter;
+        private System.Windows.Forms.CheckBox chk5NoSplit;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tool_lbl_Msg;
     }
 }
 
