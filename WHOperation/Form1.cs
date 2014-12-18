@@ -212,8 +212,8 @@ namespace WHOperation
                 i += 1;
             }
             setCompleteDN();
-           
-           
+
+
         }
         Double getCompleteQty(String cDNNo, String cPoNo, String cPoLine, String cRIRNo, String cDNDate, String cVendorID)
         {
@@ -1322,6 +1322,24 @@ namespace WHOperation
             }
             ////
 
+            ///find ok
+            ///
+            if (!string.IsNullOrEmpty(tfdnpartnumber.Text) && !string.IsNullOrEmpty(tfrecmfgrpart.Text))
+            {
+                var query1 = from DataGridViewRow row in dgv1Pending.Rows
+                             where row.Cells["PartNumber"].Value.ToString() == tfdnpartnumber.Text &&
+                                   row.Cells["MFGPartNo"].Value.ToString() == tfrecmfgrpart.Text
+                             select row;
+                foreach (DataGridViewRow onlineOrder in query1)
+                {
+                    onlineOrder.Selected = true;
+                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    tmpmsg = "find in Pending list with PartNumber:[" + tfdnpartnumber.Text + "] and MFGPartNo:[" + tfrecmfgrpart.Text + "]";
+                    //cSearchFound = 1;
+                    break;
+                }
+            }
+
             if (cSearchFound == 0)
             {
                 tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = ""; }));
@@ -1347,123 +1365,6 @@ namespace WHOperation
                 {
                     tool_lbl_Msg.Text = tmpmsg;
                 }));
-
-        }
-        void SearchDNPart2()
-        {
-            char chara = ' ';
-            var query = from DataGridViewRow row in dgv1Pending.Rows
-                        where row.Cells["PartNumber"].Value.ToString() == tfdnpartnumber.Text &&
-                        row.Cells["MFGPartNo"].Value.ToString() == tfrecmfgrpart.Text
-                        select row;
-            int cSearchFound = 0;
-            cBufferData.cDNPartumber = tfdnpartnumber.Text;
-            cBufferData.cMFGPart = tfrecmfgrpart.Text;
-            cBufferData.cDateCode = tfdatecode.Text;
-            cBufferData.cRecQty = tfrecqty.Text;
-            cBufferData.cLotNumber = tflotno.Text;
-            cBufferData.cMfgDate = tfmfgdate.Text;
-            cBufferData.cExpiredate = tfexpiredate.Text;
-
-            cBufferData.cPMFGPart = pbrecmfgpart.Image;
-            cBufferData.cPDateCode = pbdatecode.Image;
-            cBufferData.cPRecQty = pbrecqty.Image;
-            cBufferData.cPLotNumber = pblotnumber.Image;
-            cBufferData.cPMfgDate = pbmfgdate.Image;
-            cBufferData.cPExpiredate = pbexpiredate.Image;
-            cBufferData.cPDNPartNumber = pbdnpartnumber.Image;
-            if (cSearchFound == 0)
-            {
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where removeCharTostr(row.Cells["MFGPartNo"].Value.ToString().ToUpper(), chara).Equals(removeCharTostr(tfrecmfgrpart.Text.ToUpper(), chara))
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    cSearchFound = 1;
-                    break;
-                }
-            }
-            if (cSearchFound == 0)
-            {
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["MFGPartNo"].Value.ToString().ToUpper() == tfrecmfgrpart.Text.ToUpper()
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    cSearchFound = 1;
-                    break;
-                }
-            }
-            if (cSearchFound == 0)
-            {
-                var txtMfgpart = tfrecmfgrpart.Text.ToUpper();
-                var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
-
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["MFGPartNo"].Value.ToString().ToUpper().StartsWith(txtmfgpart80)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    cSearchFound = 1;
-                    break;
-                }
-            }
-            if (cSearchFound == 0)
-            {
-                var txtMfgpart = tfrecmfgrpart.Text.ToUpper();
-                var txtmfgpart60 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.6));
-
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["MFGPartNo"].Value.ToString().ToUpper().StartsWith(txtmfgpart60)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    cSearchFound = 1;
-                    break;
-                }
-            }
-            tfdnpartnumber.Text = cBufferData.cDNPartumber;
-            tfrecmfgrpart.Text = cBufferData.cMFGPart;
-            tfdatecode.Text = cBufferData.cDateCode;
-            tfrecqty.Text = cBufferData.cRecQty;
-            tflotno.Text = cBufferData.cLotNumber;
-            tfmfgdate.Text = cBufferData.cMfgDate;
-            tfexpiredate.Text = cBufferData.cExpiredate;
-
-            pbrecmfgpart.Image = cBufferData.cPMFGPart;
-            pbdatecode.Image = cBufferData.cPDateCode;
-            pbrecqty.Image = cBufferData.cPRecQty;
-            pblotnumber.Image = cBufferData.cPLotNumber;
-            pbmfgdate.Image = cBufferData.cPMfgDate;
-            pbexpiredate.Image = cBufferData.cPExpiredate;
-            pbdnpartnumber.Image = cBufferData.cPDNPartNumber;
-            if (cSearchFound == 0)
-            {
-                tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = ""; }));
-                tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = ""; }));
-                tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
-                tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = "0"; }));
-                tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
-                tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.Text = ""; }));
-                tfexpiredate.Invoke(new Action(delegate() { tfexpiredate.Text = ""; }));
-
-                pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                MessageBox.Show("Can not find Part:[" + tfdnpartnumber.Text + "]/Mfgr:[" + tfrecmfgrpart.Text + "] PartNumber");
-            }
 
         }
         void SearchDNPart()
@@ -3348,7 +3249,7 @@ namespace WHOperation
             {
                 if (tfrecmfgrpart.Text.Length > 0)
                 {
-                    SearchDNPart2();
+                    SearchDNPart2(tfrecmfgrpart.Text.Trim());
                 }
             }
         }
@@ -3670,15 +3571,33 @@ namespace WHOperation
 
         private void tfrecqty_TextChanged(object sender, EventArgs e)
         {
+          
             if (!string.IsNullOrEmpty(tfrecqty.Text))
             {
                 if (!IsNumber(tfrecqty.Text))
                 {
                     tfrecqty.Text = "";
-                    MessageBox.Show("请输入正确的数字");
+                    tool_lbl_Msg.Text="请输入正确的数字";
+                    return;
 
                 }
+                tool_lbl_Msg.Text = "";
             }
+            else
+            {
+                return;
+            }
+            if (!string.IsNullOrEmpty(tfdnqty.Text))
+            {
+                var tmpint=Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
+                if ( tmpint> Convert.ToInt32(tfdnqty.Text))
+                {
+                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
+                    tfrecqty.Text = "";
+                    return;
+                }
+            }
+
         }
         protected override void OnKeyDown(KeyEventArgs e)
         {
