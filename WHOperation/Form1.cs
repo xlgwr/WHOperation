@@ -587,6 +587,7 @@ namespace WHOperation
                 }
             }
             cArrayData = cCompoundData.Split(new string[] { "<|>" }, StringSplitOptions.None);
+
             if (cTemplateType.ToUpper() == "SINGLE")
             {
                 i = 0;
@@ -599,8 +600,13 @@ namespace WHOperation
             }
             else if (cTemplateType.ToUpper() == "COMPOUND")
             {
+
                 if (c2DSeperator.Length > 0)
                 {
+                    if (cArrayData.Length < 2)
+                    {
+                        return;
+                    }
                     cArrayData = cArrayData[1].Split(new string[] { c2DSeperator }, StringSplitOptions.None);
                 }
                 Grab2DData(cArrayData);
@@ -3571,13 +3577,13 @@ namespace WHOperation
 
         private void tfrecqty_TextChanged(object sender, EventArgs e)
         {
-          
+
             if (!string.IsNullOrEmpty(tfrecqty.Text))
             {
                 if (!IsNumber(tfrecqty.Text))
                 {
                     tfrecqty.Text = "";
-                    tool_lbl_Msg.Text="请输入正确的数字";
+                    tool_lbl_Msg.Text = "请输入正确的数字";
                     return;
 
                 }
@@ -3589,8 +3595,8 @@ namespace WHOperation
             }
             if (!string.IsNullOrEmpty(tfdnqty.Text))
             {
-                var tmpint=Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
-                if ( tmpint> Convert.ToInt32(tfdnqty.Text))
+                var tmpint = Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
+                if (tmpint > Convert.ToInt32(tfdnqty.Text))
                 {
                     tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
                     tfrecqty.Text = "";
