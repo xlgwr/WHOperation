@@ -14,6 +14,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using System.Data.Entity;
+
 
 //using System.Runtime.InteropServices;
 //using Microsoft.Win32.SafeHandles;
@@ -24,6 +26,7 @@ namespace WHOperation
     public partial class Form1 : Form
     {
         WebReference.Service MFGProService = new WebReference.Service();
+
         DataSet dsDNDetail = new DataSet("dsDNDetail");
         String cConnStr = "Persist Security Info=False;User ID=appuser;pwd=application;Initial Catalog=dbWHOperation;Data Source=142.2.70.81;pooling=true";
         String cUserID, cLastLabel;
@@ -647,7 +650,11 @@ namespace WHOperation
                             }
                             else
                             {
-                                tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = item.ToString().Trim(); }));
+                                tfrecqty.Invoke(new Action(delegate()
+                                {
+                                    tfrecqty.Text = item.ToString().Trim();
+                                    pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                                }));
                             }
                         }
 
@@ -1195,9 +1202,16 @@ namespace WHOperation
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
                     onlineOrder.Selected = true;
+
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
 
-                    tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = scanString; }));
+                    tfdnpartnumber.Invoke(new Action(delegate()
+                    {
+                        tfdnpartnumber.Text = scanString;
+                        pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                    }));
+
+
                     tmpmsg = "find in Pending list with PartNumber:[" + scanString + "]";
 
                     cSearchFound = 1;
@@ -1214,7 +1228,12 @@ namespace WHOperation
                     onlineOrder.Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
 
-                    tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = scanString; }));
+                    tfdnpartnumber.Invoke(new Action(delegate()
+                    {
+                        tfdnpartnumber.Text = scanString;
+
+                        pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                    }));
                     tmpmsg = "find in Pending list with PartNumber:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
@@ -1230,7 +1249,11 @@ namespace WHOperation
                 {
                     onlineOrder.Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = scanString; }));
+                    tfrecmfgrpart.Invoke(new Action(delegate()
+                    {
+                        tfrecmfgrpart.Text = scanString;
+                        pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                    }));
                     tmpmsg = "find in Pending list with MFGPartNo:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
@@ -1245,12 +1268,19 @@ namespace WHOperation
                 {
                     onlineOrder.Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = scanString; }));
+                    tfrecmfgrpart.Invoke(new Action(delegate()
+                    {
+                        tfrecmfgrpart.Text = scanString;
+                        pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                    }));
                     tmpmsg = "find in Pending list with MFGPartNo:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
                 }
             }
+            ///from dw_develop QPL_mstr
+            ///
+
             //80 PartNumber
             if (cSearchFound == 0)
             {
@@ -1264,7 +1294,11 @@ namespace WHOperation
                 {
                     onlineOrder.Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = scanString; }));
+                    tfdnpartnumber.Invoke(new Action(delegate()
+                    {
+                        tfdnpartnumber.Text = scanString;
+                        pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                    }));
                     tmpmsg = "find in Pending list with 80% PartNumber:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
@@ -1282,13 +1316,19 @@ namespace WHOperation
                 {
                     onlineOrder.Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = scanString; }));
+                    tfdnpartnumber.Invoke(new Action(delegate()
+                    {
+                        tfdnpartnumber.Text = scanString;
+                        pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                    }));
                     tmpmsg = "find in Pending list with 60% PartNumber:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
                 }
             }
             ////60
+
+
             ///80 
             if (cSearchFound == 0)
             {
@@ -1302,7 +1342,11 @@ namespace WHOperation
                 {
                     onlineOrder.Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = scanString; }));
+                    tfrecmfgrpart.Invoke(new Action(delegate()
+                    {
+                        tfrecmfgrpart.Text = scanString;
+                        pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                    }));
                     tmpmsg = "find in Pending list with 80% MFGPartNo:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
@@ -1320,14 +1364,17 @@ namespace WHOperation
                 {
                     onlineOrder.Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                    tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = scanString; }));
+                    tfrecmfgrpart.Invoke(new Action(delegate()
+                    {
+                        tfrecmfgrpart.Text = scanString;
+                        pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                    }));
                     tmpmsg = "find in Pending list with 60% MFGPartNo:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
                 }
             }
             ////
-
             ///find ok
             ///
             if (!string.IsNullOrEmpty(tfdnpartnumber.Text) && !string.IsNullOrEmpty(tfrecmfgrpart.Text))
@@ -1341,28 +1388,52 @@ namespace WHOperation
                     onlineOrder.Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     tmpmsg = "find in Pending list with PartNumber:[" + tfdnpartnumber.Text + "] and MFGPartNo:[" + tfrecmfgrpart.Text + "]";
-                    //cSearchFound = 1;
+                    cSearchFound = 1;
                     break;
                 }
             }
+            //find by dw_develop qpl_mstr
+            if (cSearchFound == 0)
+            {
+                if (!string.IsNullOrEmpty(tfdnpartnumber.Text))
+                {
+                    using (var db = new WHOperation.EF.DW.DW_Develop())
+                    {
+                        var tmp_qpl_mstr = db.qpl_mstr.Where(p => (p.qpl_part.Equals(tfdnpartnumber.Text.Trim()) && p.qpl_mfgr_part.Equals(scanString))).ToList();
+                        if (tmp_qpl_mstr.Count > 0)
+                        {
+                            tfrecmfgrpart.Invoke(new Action(delegate()
+                            {
+                                tfrecmfgrpart.Text = scanString;
+                                pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                            }));
+                            tmpmsg = "find in DW_develop database with PartNumber:[" + tfdnpartnumber.Text + "] and MFGPartNo:[" + scanString + "]";
+                            cSearchFound = 1;
+                            dgv1Pending.ClearSelection();
+
+                        }
+                    }
+                }
+            }
+
 
             if (cSearchFound == 0)
             {
-                tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = ""; }));
-                tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = ""; }));
-                tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
-                tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = ""; }));
-                tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
-                tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.Text = ""; }));
-                tfexpiredate.Invoke(new Action(delegate() { tfexpiredate.Text = ""; }));
+                //tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = ""; }));
+                //tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = ""; }));
+                //tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
+                //tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = ""; }));
+                //tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
+                //tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.Text = ""; }));
+                //tfexpiredate.Invoke(new Action(delegate() { tfexpiredate.Text = ""; }));
 
-                pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                //pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                //pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                //pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                //pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                //pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                //pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                //pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                 tmpmsg = "Can not find in Pending list with Part:[" + scanString + "] or Mfgr:[" + scanString + "]";
                 // MessageBox.Show();
 
@@ -3044,7 +3115,8 @@ namespace WHOperation
             {
                 tfnooflabels.Text = "12";
             }
-            initGoto(tfscanarea, e);
+            var ek = new KeyEventArgs(Keys.Enter);
+            initGoto(tfscanarea, ek);
         }
 
         private void initGoto(Control cl, KeyEventArgs e)
@@ -3060,7 +3132,8 @@ namespace WHOperation
 
         private void tfnoofcartons_KeyDown(object sender, KeyEventArgs e)
         {
-            initGoto(tfscanarea, e);
+            var ek = new KeyEventArgs(Keys.Enter);
+            initGoto(tfscanarea, ek);
         }
 
         private void tfdndate_KeyDown(object sender, KeyEventArgs e)
@@ -3251,13 +3324,13 @@ namespace WHOperation
 
         private void tfrecmfgrpart_TextChanged(object sender, EventArgs e)
         {
-            if (cbSmartScan.Checked == true)
-            {
-                if (tfrecmfgrpart.Text.Length > 0)
-                {
-                    SearchDNPart2(tfrecmfgrpart.Text.Trim());
-                }
-            }
+            //if (cbSmartScan.Checked == true)
+            //{
+            //    if (tfrecmfgrpart.Text.Length > 0)
+            //    {
+            //        SearchDNPart2(tfrecmfgrpart.Text.Trim());
+            //    }
+            //}
         }
 
         private void bDisableScan_Click(object sender, EventArgs e)
@@ -3294,14 +3367,23 @@ namespace WHOperation
             _strNoPrefixlit.Clear();
             _strNoPrefixlitTmp.Clear();
 
-            tfdnpartnumber.Text = "";
-            tfrecmfgrpart.Text = "";
-            tfexpiredate.Text = "";
-            tflotno.Text = "";
 
-            tfdatecode.Text = "";
-            tfmfgdate.Text = "";
-            tfrecqty.Text = "";
+            tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = ""; }));
+            tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = ""; }));
+            tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
+            tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = ""; }));
+            tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
+            tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.Text = ""; }));
+            tfexpiredate.Invoke(new Action(delegate() { tfexpiredate.Text = ""; }));
+
+            pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+
 
             tool_lbl_Msg.Text = "";
             chk0dh.Checked = false;
@@ -3309,6 +3391,8 @@ namespace WHOperation
             chk3Space.Checked = false;
             chk3xh.Checked = false;
             chk6Ohter.Checked = false;
+            chk5_3n1.Checked = false;
+            chk7_3n2.Checked = false;
             txt5SplitOther.Text = "";
 
 
@@ -3522,6 +3606,7 @@ namespace WHOperation
                         else
                         {
                             tfrecqty.Text = item.Trim();
+                            pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
                         }
                     }
 
@@ -3557,7 +3642,17 @@ namespace WHOperation
         }
         private void chk6Ohter_CheckedChanged(object sender, EventArgs e)
         {
-            splitFromControl(chk6Ohter, ' ');
+            char _split = ' ';
+            //splitFromControl(chk6Ohter, ' ');
+            //if (chk6Ohter.Checked)
+            //{
+            //    KeyEventArgs e_key = new KeyEventArgs(Keys.Enter);
+            //    txt5SplitOther_KeyDown(sender, e_key);
+            //}
+            if (txt5SplitOther.Text.ToCharArray().Length > 0) _split = txt5SplitOther.Text.ToCharArray()[0];
+            splitFromControl(chk6Ohter, _split);
+
+
         }
 
         private void list1boxSplit_Click(object sender, EventArgs e)
@@ -3600,6 +3695,7 @@ namespace WHOperation
                 {
                     tool_lbl_Msg.Text = "³¬³ö dn qty ÊýÁ¿:" + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
                     tfrecqty.Text = "";
+                    pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                     return;
                 }
             }
@@ -3788,25 +3884,63 @@ namespace WHOperation
                 }
                 else
                 {
-                    if (listbox0ScanData.SelectedItem == null)
+                    if (removeStr(txt5SplitOther.Text))
                     {
-                        return;
+                        chk6Ohter.Checked = true;
                     }
-                    var strselect = listbox0ScanData.SelectedItem.ToString();
-                    var index = listbox0ScanData.SelectedIndex;
-                    var strsplit = strselect.Split('|');
 
-                    if (strsplit.Length > 1)
-                    {
-                        listbox0ScanData.Items[index] = strsplit[0].Replace(txt5SplitOther.Text.Trim().ToUpper(), " ").Trim() + "|" + strsplit[1].ToString();
-                    }
-                    else
-                    {
-                        listbox0ScanData.Items[index] = strselect.Replace(txt5SplitOther.Text.Trim().ToUpper(), " ").Trim();
-                    }
-                    chk6Ohter.Checked = true;
                 }
             }
+        }
+        public bool removeStr(string o)
+        {
+            if (listbox0ScanData.SelectedItem == null)
+            {
+                return false;
+            }
+            var strselect = listbox0ScanData.SelectedItem.ToString();
+            var index = listbox0ScanData.SelectedIndex;
+            var strsplit = strselect.Split('|');
+
+            if (strsplit.Length > 1)
+            {
+                listbox0ScanData.Items[index] = strsplit[0].ToUpper().Replace(o.ToUpper().Trim(), " ").Trim() + "|" + strsplit[1].ToString();
+            }
+            else
+            {
+                listbox0ScanData.Items[index] = strselect.ToUpper().Replace(o.ToUpper().Trim(), " ").Trim();
+            }
+            return true;
+        }
+        private void chk5_3n1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk5_3n1.Checked)
+            {
+                if (removeStr("3N1"))
+                {
+                    splitFromControl(chk5_3n1, ' ');
+                }
+            }
+
+
+        }
+
+        private void chk7_3n2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk7_3n2.Checked)
+            {
+
+                if (removeStr("3N2"))
+                {
+                    splitFromControl(chk7_3n2, ' ');
+                }
+            }
+
+        }
+
+        private void txt5SplitOther_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
 

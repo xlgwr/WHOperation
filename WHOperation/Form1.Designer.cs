@@ -183,6 +183,8 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chk5_3n1 = new System.Windows.Forms.CheckBox();
+            this.chk7_3n2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -790,7 +792,7 @@ namespace WHOperation
             this.button1.Location = new System.Drawing.Point(127, 59);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(118, 45);
-            this.button1.TabIndex = 5;
+            this.button1.TabIndex = 19;
             this.button1.Text = "Print";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -814,7 +816,7 @@ namespace WHOperation
             this.tfnooflabels.MaxLength = 3;
             this.tfnooflabels.Name = "tfnooflabels";
             this.tfnooflabels.Size = new System.Drawing.Size(39, 23);
-            this.tfnooflabels.TabIndex = 3;
+            this.tfnooflabels.TabIndex = 17;
             this.tfnooflabels.Text = "1";
             this.tfnooflabels.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnooflabels_KeyDown);
             // 
@@ -837,7 +839,7 @@ namespace WHOperation
             this.tfnoofcartons.MaxLength = 3;
             this.tfnoofcartons.Name = "tfnoofcartons";
             this.tfnoofcartons.Size = new System.Drawing.Size(39, 23);
-            this.tfnoofcartons.TabIndex = 4;
+            this.tfnoofcartons.TabIndex = 18;
             this.tfnoofcartons.Text = "1";
             this.tfnoofcartons.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnoofcartons_KeyDown);
             // 
@@ -859,8 +861,10 @@ namespace WHOperation
             this.groupBox1.Controls.Add(this.chk6Ohter);
             this.groupBox1.Controls.Add(this.txt5SplitOther);
             this.groupBox1.Controls.Add(this.chk0dh);
+            this.groupBox1.Controls.Add(this.chk7_3n2);
             this.groupBox1.Controls.Add(this.chk3xh);
             this.groupBox1.Controls.Add(this.chk3Space);
+            this.groupBox1.Controls.Add(this.chk5_3n1);
             this.groupBox1.Controls.Add(this.chk1jh);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Location = new System.Drawing.Point(571, 58);
@@ -886,6 +890,7 @@ namespace WHOperation
             this.txt5SplitOther.Name = "txt5SplitOther";
             this.txt5SplitOther.Size = new System.Drawing.Size(93, 21);
             this.txt5SplitOther.TabIndex = 66;
+            this.txt5SplitOther.TextChanged += new System.EventHandler(this.txt5SplitOther_TextChanged);
             this.txt5SplitOther.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt5SplitOther_KeyDown);
             // 
             // chk0dh
@@ -902,7 +907,7 @@ namespace WHOperation
             // chk3xh
             // 
             this.chk3xh.AutoSize = true;
-            this.chk3xh.Location = new System.Drawing.Point(91, 42);
+            this.chk3xh.Location = new System.Drawing.Point(79, 41);
             this.chk3xh.Name = "chk3xh";
             this.chk3xh.Size = new System.Drawing.Size(66, 16);
             this.chk3xh.TabIndex = 65;
@@ -924,7 +929,7 @@ namespace WHOperation
             // chk1jh
             // 
             this.chk1jh.AutoSize = true;
-            this.chk1jh.Location = new System.Drawing.Point(90, 21);
+            this.chk1jh.Location = new System.Drawing.Point(78, 20);
             this.chk1jh.Name = "chk1jh";
             this.chk1jh.Size = new System.Drawing.Size(66, 16);
             this.chk1jh.TabIndex = 65;
@@ -1060,7 +1065,7 @@ namespace WHOperation
             this.tfdnpartnumber.Location = new System.Drawing.Point(124, 64);
             this.tfdnpartnumber.Name = "tfdnpartnumber";
             this.tfdnpartnumber.Size = new System.Drawing.Size(123, 21);
-            this.tfdnpartnumber.TabIndex = 23;
+            this.tfdnpartnumber.TabIndex = 26;
             this.tfdnpartnumber.TextChanged += new System.EventHandler(this.tfdnpartnumber_TextChanged);
             this.tfdnpartnumber.Enter += new System.EventHandler(this.tfdnpartnumber_Enter);
             // 
@@ -1078,7 +1083,7 @@ namespace WHOperation
             this.tfsite.Location = new System.Drawing.Point(571, 8);
             this.tfsite.Name = "tfsite";
             this.tfsite.Size = new System.Drawing.Size(123, 21);
-            this.tfsite.TabIndex = 21;
+            this.tfsite.TabIndex = 24;
             // 
             // pbexpiredate
             // 
@@ -1164,7 +1169,7 @@ namespace WHOperation
             this.tfmfgdate.MaxLength = 10;
             this.tfmfgdate.Name = "tfmfgdate";
             this.tfmfgdate.Size = new System.Drawing.Size(123, 21);
-            this.tfmfgdate.TabIndex = 29;
+            this.tfmfgdate.TabIndex = 33;
             this.tfmfgdate.Enter += new System.EventHandler(this.tfmfgdate_Enter);
             // 
             // tfhdndate
@@ -1173,7 +1178,7 @@ namespace WHOperation
             this.tfhdndate.Name = "tfhdndate";
             this.tfhdndate.ReadOnly = true;
             this.tfhdndate.Size = new System.Drawing.Size(123, 21);
-            this.tfhdndate.TabIndex = 2;
+            this.tfhdndate.TabIndex = 25;
             // 
             // lmfgdate
             // 
@@ -1199,7 +1204,7 @@ namespace WHOperation
             this.tfdnqty.Location = new System.Drawing.Point(124, 142);
             this.tfdnqty.Name = "tfdnqty";
             this.tfdnqty.Size = new System.Drawing.Size(123, 21);
-            this.tfdnqty.TabIndex = 37;
+            this.tfdnqty.TabIndex = 28;
             // 
             // label13
             // 
@@ -1216,7 +1221,7 @@ namespace WHOperation
             this.tfcumqty.Location = new System.Drawing.Point(124, 273);
             this.tfcumqty.Name = "tfcumqty";
             this.tfcumqty.Size = new System.Drawing.Size(123, 21);
-            this.tfcumqty.TabIndex = 39;
+            this.tfcumqty.TabIndex = 34;
             this.tfcumqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tfcumqty.Visible = false;
             // 
@@ -1226,7 +1231,7 @@ namespace WHOperation
             this.tfdatecode.MaxLength = 10;
             this.tfdatecode.Name = "tfdatecode";
             this.tfdatecode.Size = new System.Drawing.Size(123, 21);
-            this.tfdatecode.TabIndex = 25;
+            this.tfdatecode.TabIndex = 30;
             this.tfdatecode.Enter += new System.EventHandler(this.tfdatecode_Enter);
             // 
             // tfmfgpart
@@ -1235,7 +1240,7 @@ namespace WHOperation
             this.tfmfgpart.Name = "tfmfgpart";
             this.tfmfgpart.ReadOnly = true;
             this.tfmfgpart.Size = new System.Drawing.Size(123, 21);
-            this.tfmfgpart.TabIndex = 17;
+            this.tfmfgpart.TabIndex = 23;
             // 
             // tfrirno
             // 
@@ -1243,14 +1248,14 @@ namespace WHOperation
             this.tfrirno.Name = "tfrirno";
             this.tfrirno.ReadOnly = true;
             this.tfrirno.Size = new System.Drawing.Size(123, 21);
-            this.tfrirno.TabIndex = 1;
+            this.tfrirno.TabIndex = 20;
             // 
             // tfrecqty
             // 
             this.tfrecqty.Location = new System.Drawing.Point(124, 119);
             this.tfrecqty.Name = "tfrecqty";
             this.tfrecqty.Size = new System.Drawing.Size(123, 21);
-            this.tfrecqty.TabIndex = 33;
+            this.tfrecqty.TabIndex = 28;
             this.tfrecqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tfrecqty.TextChanged += new System.EventHandler(this.tfrecqty_TextChanged);
             this.tfrecqty.Enter += new System.EventHandler(this.tfrecqty_Enter);
@@ -1260,7 +1265,7 @@ namespace WHOperation
             this.tflotno.Location = new System.Drawing.Point(124, 220);
             this.tflotno.Name = "tflotno";
             this.tflotno.Size = new System.Drawing.Size(123, 21);
-            this.tflotno.TabIndex = 35;
+            this.tflotno.TabIndex = 32;
             this.tflotno.Enter += new System.EventHandler(this.tflotno_Enter);
             // 
             // tfpartno
@@ -1269,7 +1274,7 @@ namespace WHOperation
             this.tfpartno.Name = "tfpartno";
             this.tfpartno.ReadOnly = true;
             this.tfpartno.Size = new System.Drawing.Size(123, 21);
-            this.tfpartno.TabIndex = 13;
+            this.tfpartno.TabIndex = 21;
             // 
             // tfvendor
             // 
@@ -1277,7 +1282,7 @@ namespace WHOperation
             this.tfvendor.Name = "tfvendor";
             this.tfvendor.ReadOnly = true;
             this.tfvendor.Size = new System.Drawing.Size(123, 21);
-            this.tfvendor.TabIndex = 11;
+            this.tfvendor.TabIndex = 22;
             // 
             // ldatecode
             // 
@@ -1384,7 +1389,7 @@ namespace WHOperation
             this.cbtrimmfgpart.Location = new System.Drawing.Point(929, 163);
             this.cbtrimmfgpart.Name = "cbtrimmfgpart";
             this.cbtrimmfgpart.Size = new System.Drawing.Size(102, 16);
-            this.cbtrimmfgpart.TabIndex = 62;
+            this.cbtrimmfgpart.TabIndex = 15;
             this.cbtrimmfgpart.Text = "Trim MFG Part";
             this.cbtrimmfgpart.UseVisualStyleBackColor = true;
             // 
@@ -1396,7 +1401,7 @@ namespace WHOperation
             this.cbprintcartonlabel.Location = new System.Drawing.Point(929, 139);
             this.cbprintcartonlabel.Name = "cbprintcartonlabel";
             this.cbprintcartonlabel.Size = new System.Drawing.Size(132, 16);
-            this.cbprintcartonlabel.TabIndex = 9;
+            this.cbprintcartonlabel.TabIndex = 14;
             this.cbprintcartonlabel.Text = "Print Carton Label";
             this.cbprintcartonlabel.UseVisualStyleBackColor = true;
             // 
@@ -1408,7 +1413,7 @@ namespace WHOperation
             this.cbSmartScan.Location = new System.Drawing.Point(929, 115);
             this.cbSmartScan.Name = "cbSmartScan";
             this.cbSmartScan.Size = new System.Drawing.Size(84, 16);
-            this.cbSmartScan.TabIndex = 8;
+            this.cbSmartScan.TabIndex = 13;
             this.cbSmartScan.Text = "Smart Scan";
             this.cbSmartScan.UseVisualStyleBackColor = true;
             this.cbSmartScan.CheckedChanged += new System.EventHandler(this.cbSmartScan_CheckedChanged);
@@ -1421,7 +1426,7 @@ namespace WHOperation
             this.cbAutoPrint.Location = new System.Drawing.Point(929, 91);
             this.cbAutoPrint.Name = "cbAutoPrint";
             this.cbAutoPrint.Size = new System.Drawing.Size(84, 16);
-            this.cbAutoPrint.TabIndex = 7;
+            this.cbAutoPrint.TabIndex = 12;
             this.cbAutoPrint.Text = "Auto Print";
             this.cbAutoPrint.UseVisualStyleBackColor = true;
             // 
@@ -1443,7 +1448,7 @@ namespace WHOperation
             this.cbprintertype.Location = new System.Drawing.Point(1007, 64);
             this.cbprintertype.Name = "cbprintertype";
             this.cbprintertype.Size = new System.Drawing.Size(69, 20);
-            this.cbprintertype.TabIndex = 7;
+            this.cbprintertype.TabIndex = 11;
             // 
             // label15
             // 
@@ -1463,7 +1468,7 @@ namespace WHOperation
             this.cbport.Location = new System.Drawing.Point(1007, 38);
             this.cbport.Name = "cbport";
             this.cbport.Size = new System.Drawing.Size(69, 20);
-            this.cbport.TabIndex = 6;
+            this.cbport.TabIndex = 10;
             // 
             // contextMenuStrip1
             // 
@@ -1522,7 +1527,7 @@ namespace WHOperation
             this.chk5NoSplit.Location = new System.Drawing.Point(929, 187);
             this.chk5NoSplit.Name = "chk5NoSplit";
             this.chk5NoSplit.Size = new System.Drawing.Size(174, 16);
-            this.chk5NoSplit.TabIndex = 63;
+            this.chk5NoSplit.TabIndex = 16;
             this.chk5NoSplit.Text = "No Split Part or QPL-part";
             this.chk5NoSplit.UseVisualStyleBackColor = true;
             // 
@@ -1542,7 +1547,7 @@ namespace WHOperation
             this.tftodndate.Location = new System.Drawing.Point(491, 13);
             this.tftodndate.Name = "tftodndate";
             this.tftodndate.Size = new System.Drawing.Size(98, 21);
-            this.tftodndate.TabIndex = 23;
+            this.tftodndate.TabIndex = 6;
             this.tftodndate.Value = new System.DateTime(2013, 6, 21, 10, 23, 0, 0);
             this.tftodndate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tftodndate_KeyDown);
             // 
@@ -1551,7 +1556,7 @@ namespace WHOperation
             this.bGo.Location = new System.Drawing.Point(592, 13);
             this.bGo.Name = "bGo";
             this.bGo.Size = new System.Drawing.Size(40, 21);
-            this.bGo.TabIndex = 22;
+            this.bGo.TabIndex = 7;
             this.bGo.Text = "Go";
             this.bGo.UseVisualStyleBackColor = true;
             this.bGo.Click += new System.EventHandler(this.bGo_Click);
@@ -1757,6 +1762,28 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
+            // chk5_3n1
+            // 
+            this.chk5_3n1.AutoSize = true;
+            this.chk5_3n1.Location = new System.Drawing.Point(155, 20);
+            this.chk5_3n1.Name = "chk5_3n1";
+            this.chk5_3n1.Size = new System.Drawing.Size(42, 16);
+            this.chk5_3n1.TabIndex = 65;
+            this.chk5_3n1.Text = "3N1";
+            this.chk5_3n1.UseVisualStyleBackColor = true;
+            this.chk5_3n1.CheckedChanged += new System.EventHandler(this.chk5_3n1_CheckedChanged);
+            // 
+            // chk7_3n2
+            // 
+            this.chk7_3n2.AutoSize = true;
+            this.chk7_3n2.Location = new System.Drawing.Point(156, 41);
+            this.chk7_3n2.Name = "chk7_3n2";
+            this.chk7_3n2.Size = new System.Drawing.Size(42, 16);
+            this.chk7_3n2.TabIndex = 65;
+            this.chk7_3n2.Text = "3N2";
+            this.chk7_3n2.UseVisualStyleBackColor = true;
+            this.chk7_3n2.CheckedChanged += new System.EventHandler(this.chk7_3n2_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1960,6 +1987,8 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox chk5NoSplit;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tool_lbl_Msg;
+        private System.Windows.Forms.CheckBox chk7_3n2;
+        private System.Windows.Forms.CheckBox chk5_3n1;
     }
 }
 

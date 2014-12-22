@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrinterHandle", "PrinterHan
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{42C505D5-5B06-411A-A658-639B37155C7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WHOperation.EF", "WHOperation.EF\WHOperation.EF.csproj", "{85AAD510-CFCC-42FA-A36A-70F6DB58315A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{E0C1189A-DAB5-4911-A735-5763B3496266}.Release|Any CPU.Build.0 = Release|Any CPU
 		{42C505D5-5B06-411A-A658-639B37155C7E}.Debug|Any CPU.ActiveCfg = Debug
 		{42C505D5-5B06-411A-A658-639B37155C7E}.Release|Any CPU.ActiveCfg = Release
+		{85AAD510-CFCC-42FA-A36A-70F6DB58315A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85AAD510-CFCC-42FA-A36A-70F6DB58315A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85AAD510-CFCC-42FA-A36A-70F6DB58315A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85AAD510-CFCC-42FA-A36A-70F6DB58315A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
