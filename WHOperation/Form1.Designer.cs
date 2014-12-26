@@ -101,8 +101,10 @@ namespace WHOperation
             this.chk6Ohter = new System.Windows.Forms.CheckBox();
             this.txt5SplitOther = new System.Windows.Forms.TextBox();
             this.chk0dh = new System.Windows.Forms.CheckBox();
+            this.chk7_3n2 = new System.Windows.Forms.CheckBox();
             this.chk3xh = new System.Windows.Forms.CheckBox();
             this.chk3Space = new System.Windows.Forms.CheckBox();
+            this.chk5_3n1 = new System.Windows.Forms.CheckBox();
             this.chk1jh = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.listbox0ScanData = new System.Windows.Forms.ListBox();
@@ -163,6 +165,8 @@ namespace WHOperation
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn2PIID = new System.Windows.Forms.Button();
+            this.txt1PIID = new System.Windows.Forms.TextBox();
             this.chk5NoSplit = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tftodndate = new System.Windows.Forms.DateTimePicker();
@@ -170,9 +174,9 @@ namespace WHOperation
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dgv0DNNumber = new System.Windows.Forms.DataGridView();
             this.DNNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabControl2_pending = new System.Windows.Forms.TabControl();
+            this.tabPage3DNPending = new System.Windows.Forms.TabPage();
+            this.tabPage4Comping = new System.Windows.Forms.TabPage();
             this.dgv1Complete = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -183,8 +187,11 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.chk5_3n1 = new System.Windows.Forms.CheckBox();
-            this.chk7_3n2 = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tabPage5PIpending = new System.Windows.Forms.TabPage();
+            this.dgv5PIPending = new System.Windows.Forms.DataGridView();
+            this.tabPage3Compele = new System.Windows.Forms.TabPage();
+            this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -214,16 +221,20 @@ namespace WHOperation
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv0DNNumber)).BeginInit();
-            this.tabControl2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tabControl2_pending.SuspendLayout();
+            this.tabPage3DNPending.SuspendLayout();
+            this.tabPage4Comping.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Complete)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.tabPage5PIpending.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).BeginInit();
+            this.tabPage3Compele.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).BeginInit();
             this.SuspendLayout();
             // 
             // tfdnno
             // 
-            this.tfdnno.Location = new System.Drawing.Point(206, 13);
+            this.tfdnno.Location = new System.Drawing.Point(206, 12);
             this.tfdnno.Name = "tfdnno";
             this.tfdnno.Size = new System.Drawing.Size(100, 21);
             this.tfdnno.TabIndex = 3;
@@ -234,7 +245,7 @@ namespace WHOperation
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(137, 17);
+            this.label1.Location = new System.Drawing.Point(137, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 2;
@@ -297,7 +308,7 @@ namespace WHOperation
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv1Pending.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv1Pending.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv1Pending.Size = new System.Drawing.Size(703, 127);
+            this.dgv1Pending.Size = new System.Drawing.Size(745, 127);
             this.dgv1Pending.TabIndex = 0;
             // 
             // DNNo
@@ -453,7 +464,7 @@ namespace WHOperation
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(316, 17);
+            this.label14.Location = new System.Drawing.Point(310, 16);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(47, 12);
             this.label14.TabIndex = 4;
@@ -463,7 +474,7 @@ namespace WHOperation
             // 
             this.tfdndate.CustomFormat = "MM/dd/yy";
             this.tfdndate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.tfdndate.Location = new System.Drawing.Point(371, 13);
+            this.tfdndate.Location = new System.Drawing.Point(365, 12);
             this.tfdndate.Name = "tfdndate";
             this.tfdndate.Size = new System.Drawing.Size(98, 21);
             this.tfdndate.TabIndex = 5;
@@ -473,7 +484,7 @@ namespace WHOperation
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(18, 17);
+            this.label17.Location = new System.Drawing.Point(18, 16);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(41, 12);
             this.label17.TabIndex = 0;
@@ -481,7 +492,7 @@ namespace WHOperation
             // 
             // cbsystem
             // 
-            this.cbsystem.Location = new System.Drawing.Point(65, 13);
+            this.cbsystem.Location = new System.Drawing.Point(65, 12);
             this.cbsystem.Name = "cbsystem";
             this.cbsystem.ReadOnly = true;
             this.cbsystem.Size = new System.Drawing.Size(71, 21);
@@ -490,7 +501,7 @@ namespace WHOperation
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(638, 17);
+            this.label2.Location = new System.Drawing.Point(876, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 7;
@@ -509,7 +520,7 @@ namespace WHOperation
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(800, 13);
+            this.textBox2.Location = new System.Drawing.Point(988, 12);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(124, 21);
             this.textBox2.TabIndex = 9;
@@ -521,9 +532,9 @@ namespace WHOperation
             this.cbfiltertype.Items.AddRange(new object[] {
             "Part Number",
             "Mfgr Part Number"});
-            this.cbfiltertype.Location = new System.Drawing.Point(673, 13);
+            this.cbfiltertype.Location = new System.Drawing.Point(911, 12);
             this.cbfiltertype.Name = "cbfiltertype";
-            this.cbfiltertype.Size = new System.Drawing.Size(121, 20);
+            this.cbfiltertype.Size = new System.Drawing.Size(78, 20);
             this.cbfiltertype.TabIndex = 8;
             // 
             // tabControl1
@@ -904,6 +915,17 @@ namespace WHOperation
             this.chk0dh.UseVisualStyleBackColor = true;
             this.chk0dh.CheckedChanged += new System.EventHandler(this.chk0dh_CheckedChanged);
             // 
+            // chk7_3n2
+            // 
+            this.chk7_3n2.AutoSize = true;
+            this.chk7_3n2.Location = new System.Drawing.Point(156, 41);
+            this.chk7_3n2.Name = "chk7_3n2";
+            this.chk7_3n2.Size = new System.Drawing.Size(42, 16);
+            this.chk7_3n2.TabIndex = 65;
+            this.chk7_3n2.Text = "3N2";
+            this.chk7_3n2.UseVisualStyleBackColor = true;
+            this.chk7_3n2.CheckedChanged += new System.EventHandler(this.chk7_3n2_CheckedChanged);
+            // 
             // chk3xh
             // 
             this.chk3xh.AutoSize = true;
@@ -925,6 +947,17 @@ namespace WHOperation
             this.chk3Space.Text = "¿Ø¸ñ";
             this.chk3Space.UseVisualStyleBackColor = true;
             this.chk3Space.CheckedChanged += new System.EventHandler(this.chk3Space_CheckedChanged);
+            // 
+            // chk5_3n1
+            // 
+            this.chk5_3n1.AutoSize = true;
+            this.chk5_3n1.Location = new System.Drawing.Point(155, 20);
+            this.chk5_3n1.Name = "chk5_3n1";
+            this.chk5_3n1.Size = new System.Drawing.Size(42, 16);
+            this.chk5_3n1.TabIndex = 65;
+            this.chk5_3n1.Text = "3N1";
+            this.chk5_3n1.UseVisualStyleBackColor = true;
+            this.chk5_3n1.CheckedChanged += new System.EventHandler(this.chk5_3n1_CheckedChanged);
             // 
             // chk1jh
             // 
@@ -1490,6 +1523,9 @@ namespace WHOperation
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.btn2PIID);
+            this.panel1.Controls.Add(this.txt1PIID);
             this.panel1.Controls.Add(this.chk5NoSplit);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.tftodndate);
@@ -1520,6 +1556,24 @@ namespace WHOperation
             this.panel1.Size = new System.Drawing.Size(1115, 566);
             this.panel1.TabIndex = 0;
             // 
+            // btn2PIID
+            // 
+            this.btn2PIID.Location = new System.Drawing.Point(785, 11);
+            this.btn2PIID.Name = "btn2PIID";
+            this.btn2PIID.Size = new System.Drawing.Size(75, 23);
+            this.btn2PIID.TabIndex = 26;
+            this.btn2PIID.Text = "GO PIID";
+            this.btn2PIID.UseVisualStyleBackColor = true;
+            this.btn2PIID.Click += new System.EventHandler(this.btn2PIID_Click);
+            // 
+            // txt1PIID
+            // 
+            this.txt1PIID.Location = new System.Drawing.Point(679, 12);
+            this.txt1PIID.Name = "txt1PIID";
+            this.txt1PIID.Size = new System.Drawing.Size(100, 21);
+            this.txt1PIID.TabIndex = 25;
+            this.txt1PIID.TextChanged += new System.EventHandler(this.txt1PIID_TextChanged);
+            // 
             // chk5NoSplit
             // 
             this.chk5NoSplit.AutoSize = true;
@@ -1534,7 +1588,7 @@ namespace WHOperation
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(475, 17);
+            this.label6.Location = new System.Drawing.Point(469, 16);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(11, 12);
             this.label6.TabIndex = 24;
@@ -1544,7 +1598,7 @@ namespace WHOperation
             // 
             this.tftodndate.CustomFormat = "MM/dd/yy";
             this.tftodndate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.tftodndate.Location = new System.Drawing.Point(491, 13);
+            this.tftodndate.Location = new System.Drawing.Point(485, 12);
             this.tftodndate.Name = "tftodndate";
             this.tftodndate.Size = new System.Drawing.Size(98, 21);
             this.tftodndate.TabIndex = 6;
@@ -1553,7 +1607,7 @@ namespace WHOperation
             // 
             // bGo
             // 
-            this.bGo.Location = new System.Drawing.Point(592, 13);
+            this.bGo.Location = new System.Drawing.Point(586, 12);
             this.bGo.Name = "bGo";
             this.bGo.Size = new System.Drawing.Size(40, 21);
             this.bGo.TabIndex = 7;
@@ -1572,9 +1626,9 @@ namespace WHOperation
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.tabControl2);
+            this.splitContainer1.Panel2.Controls.Add(this.tabControl2_pending);
             this.splitContainer1.Size = new System.Drawing.Size(912, 159);
-            this.splitContainer1.SplitterDistance = 191;
+            this.splitContainer1.SplitterDistance = 149;
             this.splitContainer1.TabIndex = 21;
             // 
             // dgv0DNNumber
@@ -1611,7 +1665,7 @@ namespace WHOperation
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv0DNNumber.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dgv0DNNumber.Size = new System.Drawing.Size(191, 159);
+            this.dgv0DNNumber.Size = new System.Drawing.Size(149, 159);
             this.dgv0DNNumber.TabIndex = 0;
             // 
             // DNNumber
@@ -1619,38 +1673,40 @@ namespace WHOperation
             this.DNNumber.HeaderText = "DNNumber";
             this.DNNumber.Name = "DNNumber";
             // 
-            // tabControl2
+            // tabControl2_pending
             // 
-            this.tabControl2.Controls.Add(this.tabPage3);
-            this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl2.Location = new System.Drawing.Point(0, 0);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(717, 159);
-            this.tabControl2.TabIndex = 1;
+            this.tabControl2_pending.Controls.Add(this.tabPage3DNPending);
+            this.tabControl2_pending.Controls.Add(this.tabPage4Comping);
+            this.tabControl2_pending.Controls.Add(this.tabPage5PIpending);
+            this.tabControl2_pending.Controls.Add(this.tabPage3Compele);
+            this.tabControl2_pending.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2_pending.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2_pending.Name = "tabControl2_pending";
+            this.tabControl2_pending.SelectedIndex = 0;
+            this.tabControl2_pending.Size = new System.Drawing.Size(759, 159);
+            this.tabControl2_pending.TabIndex = 1;
             // 
-            // tabPage3
+            // tabPage3DNPending
             // 
-            this.tabPage3.Controls.Add(this.dgv1Pending);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(709, 133);
-            this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "Pending";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3DNPending.Controls.Add(this.dgv1Pending);
+            this.tabPage3DNPending.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3DNPending.Name = "tabPage3DNPending";
+            this.tabPage3DNPending.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3DNPending.Size = new System.Drawing.Size(751, 133);
+            this.tabPage3DNPending.TabIndex = 0;
+            this.tabPage3DNPending.Text = "Pending";
+            this.tabPage3DNPending.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // tabPage4Comping
             // 
-            this.tabPage4.Controls.Add(this.dgv1Complete);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(709, 133);
-            this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "Complete";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4Comping.Controls.Add(this.dgv1Complete);
+            this.tabPage4Comping.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4Comping.Name = "tabPage4Comping";
+            this.tabPage4Comping.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4Comping.Size = new System.Drawing.Size(751, 133);
+            this.tabPage4Comping.TabIndex = 1;
+            this.tabPage4Comping.Text = "Complete";
+            this.tabPage4Comping.UseVisualStyleBackColor = true;
             // 
             // dgv1Complete
             // 
@@ -1695,7 +1751,7 @@ namespace WHOperation
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv1Complete.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dgv1Complete.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv1Complete.Size = new System.Drawing.Size(703, 127);
+            this.dgv1Complete.Size = new System.Drawing.Size(745, 127);
             this.dgv1Complete.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn4
@@ -1762,27 +1818,61 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
-            // chk5_3n1
+            // label11
             // 
-            this.chk5_3n1.AutoSize = true;
-            this.chk5_3n1.Location = new System.Drawing.Point(155, 20);
-            this.chk5_3n1.Name = "chk5_3n1";
-            this.chk5_3n1.Size = new System.Drawing.Size(42, 16);
-            this.chk5_3n1.TabIndex = 65;
-            this.chk5_3n1.Text = "3N1";
-            this.chk5_3n1.UseVisualStyleBackColor = true;
-            this.chk5_3n1.CheckedChanged += new System.EventHandler(this.chk5_3n1_CheckedChanged);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(642, 17);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 12);
+            this.label11.TabIndex = 27;
+            this.label11.Text = "PIID:";
             // 
-            // chk7_3n2
+            // tabPage5PIpending
             // 
-            this.chk7_3n2.AutoSize = true;
-            this.chk7_3n2.Location = new System.Drawing.Point(156, 41);
-            this.chk7_3n2.Name = "chk7_3n2";
-            this.chk7_3n2.Size = new System.Drawing.Size(42, 16);
-            this.chk7_3n2.TabIndex = 65;
-            this.chk7_3n2.Text = "3N2";
-            this.chk7_3n2.UseVisualStyleBackColor = true;
-            this.chk7_3n2.CheckedChanged += new System.EventHandler(this.chk7_3n2_CheckedChanged);
+            this.tabPage5PIpending.Controls.Add(this.dgv5PIPending);
+            this.tabPage5PIpending.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5PIpending.Name = "tabPage5PIpending";
+            this.tabPage5PIpending.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5PIpending.Size = new System.Drawing.Size(751, 133);
+            this.tabPage5PIpending.TabIndex = 2;
+            this.tabPage5PIpending.Text = "PI Pending";
+            this.tabPage5PIpending.UseVisualStyleBackColor = true;
+            // 
+            // dgv5PIPending
+            // 
+            this.dgv5PIPending.AllowUserToAddRows = false;
+            this.dgv5PIPending.AllowUserToDeleteRows = false;
+            this.dgv5PIPending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv5PIPending.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv5PIPending.Location = new System.Drawing.Point(3, 3);
+            this.dgv5PIPending.Name = "dgv5PIPending";
+            this.dgv5PIPending.ReadOnly = true;
+            this.dgv5PIPending.RowTemplate.Height = 23;
+            this.dgv5PIPending.Size = new System.Drawing.Size(745, 127);
+            this.dgv5PIPending.TabIndex = 0;
+            // 
+            // tabPage3Compele
+            // 
+            this.tabPage3Compele.Controls.Add(this.dgv6PICompele);
+            this.tabPage3Compele.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3Compele.Name = "tabPage3Compele";
+            this.tabPage3Compele.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3Compele.Size = new System.Drawing.Size(751, 133);
+            this.tabPage3Compele.TabIndex = 3;
+            this.tabPage3Compele.Text = "PI Compele";
+            this.tabPage3Compele.UseVisualStyleBackColor = true;
+            // 
+            // dgv6PICompele
+            // 
+            this.dgv6PICompele.AllowUserToDeleteRows = false;
+            this.dgv6PICompele.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv6PICompele.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv6PICompele.Location = new System.Drawing.Point(3, 3);
+            this.dgv6PICompele.Name = "dgv6PICompele";
+            this.dgv6PICompele.ReadOnly = true;
+            this.dgv6PICompele.RowTemplate.Height = 23;
+            this.dgv6PICompele.Size = new System.Drawing.Size(745, 127);
+            this.dgv6PICompele.TabIndex = 1;
             // 
             // Form1
             // 
@@ -1833,12 +1923,16 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv0DNNumber)).EndInit();
-            this.tabControl2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
+            this.tabControl2_pending.ResumeLayout(false);
+            this.tabPage3DNPending.ResumeLayout(false);
+            this.tabPage4Comping.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Complete)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tabPage5PIpending.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).EndInit();
+            this.tabPage3Compele.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1932,9 +2026,9 @@ namespace WHOperation
         private System.Windows.Forms.Label lMDateCode;
         private System.Windows.Forms.Label lMExpireDate;
         private System.Windows.Forms.Label lMRecMfgPart;
-        private System.Windows.Forms.TabControl tabControl2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabControl tabControl2_pending;
+        private System.Windows.Forms.TabPage tabPage3DNPending;
+        private System.Windows.Forms.TabPage tabPage4Comping;
         private System.Windows.Forms.DataGridView dgv1Complete;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
@@ -1989,6 +2083,13 @@ namespace WHOperation
         private System.Windows.Forms.ToolStripStatusLabel tool_lbl_Msg;
         private System.Windows.Forms.CheckBox chk7_3n2;
         private System.Windows.Forms.CheckBox chk5_3n1;
+        private System.Windows.Forms.Button btn2PIID;
+        private System.Windows.Forms.TextBox txt1PIID;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TabPage tabPage5PIpending;
+        private System.Windows.Forms.DataGridView dgv5PIPending;
+        private System.Windows.Forms.TabPage tabPage3Compele;
+        private System.Windows.Forms.DataGridView dgv6PICompele;
     }
 }
 

@@ -16,6 +16,8 @@ using System.Text.RegularExpressions;
 
 using System.Data.Entity;
 
+using WHOperation.EF.WHO;
+using WHOperation.EF.DW;
 
 //using System.Runtime.InteropServices;
 //using Microsoft.Win32.SafeHandles;
@@ -28,7 +30,9 @@ namespace WHOperation
         WebReference.Service MFGProService = new WebReference.Service();
 
         DataSet dsDNDetail = new DataSet("dsDNDetail");
-        String cConnStr = "Persist Security Info=False;User ID=appuser;pwd=application;Initial Catalog=dbWHOperation;Data Source=142.2.70.81;pooling=true";
+
+        String _cConnStr = "Persist Security Info=False;User ID=appuser;pwd=application;Initial Catalog=dbWHOperation;Data Source=142.2.70.81;pooling=true";
+        String _cConnStrPI = "server=142.2.70.53;database=pi;uid=pi;";
         String cUserID, cLastLabel;
         List<String> lXML = new List<String>();
         List<byte[]> lVendorLabelImage = new List<byte[]>();
@@ -228,7 +232,7 @@ namespace WHOperation
             cQuery = "select case when sum(LineQty) is null then 0 else sum(LineQty) end from PIMLDetail where DNNo='" + cDNNo + "' and PONo='" + cPoNo + "' and RIRNo='" + cRIRNo + "' and DNDate='" + cDNDate + "' and VendorID='" + cVendorID + "'";
             try
             {
-                using (SqlConnection conn = new SqlConnection(cConnStr))
+                using (SqlConnection conn = new SqlConnection(_cConnStr))
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(cQuery, conn);
@@ -256,7 +260,7 @@ namespace WHOperation
             dgv1Complete.Rows.Clear();
             try
             {
-                using (SqlConnection conn = new SqlConnection(cConnStr))
+                using (SqlConnection conn = new SqlConnection(_cConnStr))
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(cQuery, conn);
@@ -1739,7 +1743,7 @@ namespace WHOperation
             dgv3VendorTemplate.Rows.Clear();
             try
             {
-                using (SqlConnection conn = new SqlConnection(cConnStr))
+                using (SqlConnection conn = new SqlConnection(_cConnStr))
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(cQuery, conn);
@@ -1947,7 +1951,7 @@ namespace WHOperation
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(cConnStr))
+                using (SqlConnection conn = new SqlConnection(_cConnStr))
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(cQuery, conn);
@@ -2007,7 +2011,7 @@ namespace WHOperation
             cRet = "00000000";
             try
             {
-                using (SqlConnection conn = new SqlConnection(cConnStr))
+                using (SqlConnection conn = new SqlConnection(_cConnStr))
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(cQuery, conn);
@@ -2035,7 +2039,7 @@ namespace WHOperation
             cRet = "000";
             try
             {
-                using (SqlConnection conn = new SqlConnection(cConnStr))
+                using (SqlConnection conn = new SqlConnection(_cConnStr))
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(cQuery, conn);
@@ -2138,9 +2142,9 @@ namespace WHOperation
             MiscDLL1.dbClass mydbClass = new MiscDLL1.dbClass();
             cErrMsg = ""; cExpireDatePartVal = ""; cSpecialPartVal = "";
             cQuery = "select tmp_Part from tmp_tab where tmp_system='wse869a4' and tmp_part='" + tfpartno.Text + "' and tmp_site='" + tfsite.Text + "'";
-            cSpecialPartVal = mydbClass.getSingleFieldData(cConnStr, cQuery);
+            cSpecialPartVal = mydbClass.getSingleFieldData(_cConnStr, cQuery);
             cQuery = "select tmp_Part from tmp_tab where tmp_system='expidate' and tmp_part='" + tfpartno.Text + "' ";
-            cExpireDatePartVal = mydbClass.getSingleFieldData(cConnStr, cQuery);
+            cExpireDatePartVal = mydbClass.getSingleFieldData(_cConnStr, cQuery);
             lMDateCode.Visible = false; lMExpireDate.Visible = false; lMLotNumber.Visible = false;
             lMRecMfgPart.Visible = true;
             //lMDateCode.ForeColor = Color.Black; lMLotNumber.ForeColor = Color.Black;
@@ -2218,9 +2222,9 @@ namespace WHOperation
                 cErrMsg += "\nCannot Print PIMS more than DNQty";
             }
             cQuery = "select tmp_Part from tmp_tab where tmp_system='wse869a4' and tmp_part='" + tfpartno.Text + "' and tmp_site='" + tfsite.Text + "'";
-            cSpecialPartVal = mydbClass.getSingleFieldData(cConnStr, cQuery);
+            cSpecialPartVal = mydbClass.getSingleFieldData(_cConnStr, cQuery);
             cQuery = "select tmp_Part from tmp_tab where tmp_system='expidate' and tmp_part='" + tfpartno.Text + "' ";
-            cExpireDatePartVal = mydbClass.getSingleFieldData(cConnStr, cQuery);
+            cExpireDatePartVal = mydbClass.getSingleFieldData(_cConnStr, cQuery);
 
             if (tfrecmfgrpart.Text.Length == 0)
             {
@@ -3056,6 +3060,7 @@ namespace WHOperation
             dgv3VendorTemplate.ReadOnly = true;
             dgv0DNNumber.ReadOnly = true;
             dgv1Complete.ReadOnly = true;
+            dgv5PIPending.ReadOnly = true;
 
             bDisableScan.Enabled = false;
             bEnableScan.Enabled = true;
@@ -3943,8 +3948,145 @@ namespace WHOperation
 
         }
 
+        private void btn2PIID_Click(object sender, EventArgs e)
+        {
+            this.AcceptButton = null;
+            string piid = txt1PIID.Text;
+            //PI_NO,PI_LINE,
+            string tmpsql = @"select  PI_PART,pi_mfgr_part,PI_LOT,PI_PO,pi_mfgr,PI_QTY,0 as PrintedQTY from piRemote7.pi.dbo.pi_det where pi_no='" + piid + "' and (pi_lot<> NUll or pi_lot <>'') order by pi_line";
+            if (!string.IsNullOrEmpty(piid))
+            {
+                tabControl2_pending.SelectedIndex = 2;
+                dgv5PIPending.DataSource = getDataSetBySql(tmpsql).Tables[0].DefaultView;
+                setDGVHeaderPi(dgv5PIPending);
+                addPrintQtyToDGV(piid, dgv5PIPending);
+                checkPrintNumger(dgv5PIPending, dgv6PICompele);
+                dgv5PIPending.Refresh();
+            }
+        }
+        public void addPrintQtyToDGV(string piid, DataGridView dgv)
+        {
+            if (dgv.Rows.Count<0)
+            {
+                return;
+            }
+            using (var db = new dbWHOperation())
+            {
+                var tmpPrintQty = db.vpi_sumPrintQty.Where(p => p.PI_NO.Equals(piid.Trim())).ToList();
+                foreach (DataGridViewRow item in dgv.Rows)
+                {
+                    var tmpExist = tmpPrintQty.Where(p => p.PI_PART.Equals(item.Cells["PI_PART"].Value.ToString().Trim()) &&
+                        p.pi_mfgr_part.Equals(item.Cells["pi_mfgr_part"].Value.ToString().Trim()) &&
+                        p.PI_LOT.Equals(item.Cells["PI_LOT"].Value.ToString().Trim()) &&
+                        p.PI_PO.Equals(item.Cells["PI_PO"].Value.ToString().Trim()) &&
+                        p.pi_mfgr.Equals(item.Cells["pi_mfgr"].Value.ToString().Trim())
+                        ).ToList();
+                    if (tmpExist.Count>0)
+                    {
+                        item.Cells["PrintedQTY"].Value = tmpExist[0].sumPrintQty;
+                    }
+                    else
+                    {
+                        item.Cells["PrintedQTY"].Value = 0;
+                    }
+                }
+            }
+        }
+        public void checkPrintNumger(DataGridView dgv, DataGridView dgvComplete)
+        {
+            var printNumber = from DataGridViewRow row in dgv.Rows
+                              where Convert.ToInt32(row.Cells["PI_QTY"].Value) == Convert.ToInt32(row.Cells["PrintedQTY"].Value)
+                              select row;
+            if (printNumber.ToList().Count > 0)
+            {
+                foreach (DataGridViewColumn item in dgv.Columns)
+                {
+                    dgvComplete.Columns.Add(item.Name, item.HeaderText);
+                }
 
+                foreach (DataGridViewRow item in printNumber)
+                {
+                    DataGridViewRow row = (DataGridViewRow)item.Clone();
+                    for (int i = 0; i < row.Cells.Count; i++)
+                    {
+                        row.Cells[i].Value = item.Cells[i].Value;
+                    }
+                    dgvComplete.Rows.Add(row);
+                    dgv.Rows.Remove(item);
+                }
+                dgvComplete.Refresh();
+            }
 
+        }
+        private void setDGVHeaderPi(DataGridView dgv)
+        {
+            dgv.ReadOnly = true;
+            dgv.Columns["pi_mfgr_part"].Width = 150;
+            dgv.Columns["PI_PO"].Width = 60;
+            dgv.Columns["PI_QTY"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv.Columns["PI_QTY"].DefaultCellStyle.Format = "#,###";
+
+            dgv.Columns["PI_PART"].HeaderText = "Part Number";
+            dgv.Columns["pi_mfgr_part"].HeaderText = "PO QPL Part No";
+            dgv.Columns["PI_LOT"].HeaderText = "RIR Number";
+            dgv.Columns["PI_PO"].HeaderText = "PO Number";
+            dgv.Columns["pi_mfgr"].HeaderText = "ASN MFG P/N";
+            dgv.Columns["PI_QTY"].HeaderText = "PI Qty";
+
+            //dgv.Columns.Add("PrintedQTY","PrintedQTY");
+            dgv.Columns["PrintedQTY"].DefaultCellStyle.Format = "#,###";
+
+        }
+
+        public string getCountPIdet(string piid)
+        {
+            //select * from pi_det where pi_no='P140033' order by pi_line
+            string tmpsql = @"select count(*) from piRemote7.pi.dbo.pi_det where pi_no='" + piid + "'";// order by pi_line";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cConnStrPI))
+                {
+                    SqlCommand cmd = new SqlCommand(tmpsql, conn);
+                    conn.Open();
+                    var tmpread = cmd.ExecuteReader();
+                    while (tmpread.Read())
+                    {
+                        return tmpread[0].ToString();
+                    }
+                    tmpread.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return "";
+        }
+        public DataSet getDataSetBySql(string strsql)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection conn = new SqlConnection(_cConnStrPI))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(strsql, conn);
+                    da.Fill(ds);
+                    return ds;
+                }
+                catch (Exception)
+                {
+                    conn.Close();
+                    throw;
+                }
+            }
+
+        }
+
+        private void txt1PIID_TextChanged(object sender, EventArgs e)
+        {
+            this.AcceptButton = btn2PIID;
+        }
 
     }
 
