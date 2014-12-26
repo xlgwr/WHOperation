@@ -165,6 +165,7 @@ namespace WHOperation
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
             this.btn2PIID = new System.Windows.Forms.Button();
             this.txt1PIID = new System.Windows.Forms.TextBox();
             this.chk5NoSplit = new System.Windows.Forms.CheckBox();
@@ -185,13 +186,12 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label11 = new System.Windows.Forms.Label();
             this.tabPage5PIpending = new System.Windows.Forms.TabPage();
             this.dgv5PIPending = new System.Windows.Forms.DataGridView();
             this.tabPage3Compele = new System.Windows.Forms.TabPage();
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -225,11 +225,11 @@ namespace WHOperation
             this.tabPage3DNPending.SuspendLayout();
             this.tabPage4Comping.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Complete)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             this.tabPage5PIpending.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).BeginInit();
             this.tabPage3Compele.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tfdnno
@@ -1556,9 +1556,18 @@ namespace WHOperation
             this.panel1.Size = new System.Drawing.Size(1115, 566);
             this.panel1.TabIndex = 0;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(642, 17);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 12);
+            this.label11.TabIndex = 27;
+            this.label11.Text = "PIID:";
+            // 
             // btn2PIID
             // 
-            this.btn2PIID.Location = new System.Drawing.Point(785, 11);
+            this.btn2PIID.Location = new System.Drawing.Point(784, 11);
             this.btn2PIID.Name = "btn2PIID";
             this.btn2PIID.Size = new System.Drawing.Size(75, 23);
             this.btn2PIID.TabIndex = 26;
@@ -1802,31 +1811,6 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn20.ReadOnly = true;
             this.dataGridViewTextBoxColumn20.Width = 80;
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tool_lbl_Msg});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 544);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1115, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // tool_lbl_Msg
-            // 
-            this.tool_lbl_Msg.ForeColor = System.Drawing.Color.Red;
-            this.tool_lbl_Msg.Name = "tool_lbl_Msg";
-            this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(642, 17);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 12);
-            this.label11.TabIndex = 27;
-            this.label11.Text = "PIID:";
-            // 
             // tabPage5PIpending
             // 
             this.tabPage5PIpending.Controls.Add(this.dgv5PIPending);
@@ -1873,6 +1857,22 @@ namespace WHOperation
             this.dgv6PICompele.RowTemplate.Height = 23;
             this.dgv6PICompele.Size = new System.Drawing.Size(745, 127);
             this.dgv6PICompele.TabIndex = 1;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tool_lbl_Msg});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 544);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1115, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tool_lbl_Msg
+            // 
+            this.tool_lbl_Msg.ForeColor = System.Drawing.Color.Red;
+            this.tool_lbl_Msg.Name = "tool_lbl_Msg";
+            this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
             // Form1
             // 
@@ -1927,12 +1927,12 @@ namespace WHOperation
             this.tabPage3DNPending.ResumeLayout(false);
             this.tabPage4Comping.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Complete)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.tabPage5PIpending.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).EndInit();
             this.tabPage3Compele.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
