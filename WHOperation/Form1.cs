@@ -710,15 +710,16 @@ namespace WHOperation
                                 }
                                 else
                                 {
-                                    SearchDNPart2(item.ToUpper().Trim(),dgv1Pending, "PartNumber", "MFGPartNo");
+                                    SearchDNPart2(item.ToUpper().Trim(), dgv1Pending, "PartNumber", "MFGPartNo");
                                 }
                             }
                             else
                             {
-                                var tmpint = Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(item.ToString().Trim());
-                                if (tmpint > Convert.ToInt32(tfdnqty.Text))
+                                var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(item.ToString().Trim());
+
+                                if (tmpint > Convert.ToInt32(tfdnqty.Text) && string.IsNullOrEmpty(tfrecqty.Text))
                                 {
-                                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnooflabels.Text + " * " + item.ToString().Trim() + " = " + tmpint + " > " + tfdnqty.Text;
+                                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + " * " + tfnooflabels.Text + " * " + item.ToString().Trim() + " = " + tmpint + " > " + tfdnqty.Text;
                                     tfrecqty.Text = "";
                                     pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                                     return;
@@ -3905,7 +3906,7 @@ namespace WHOperation
         {
             bDisableScan.Enabled = false;
             bEnableScan.Enabled = true;
-            tfscanarea.ReadOnly = true;           
+            tfscanarea.ReadOnly = true;
         }
         private void enableScan()
         {
