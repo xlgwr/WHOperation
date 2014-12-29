@@ -829,6 +829,7 @@ namespace WHOperation
             this.tfnooflabels.Size = new System.Drawing.Size(39, 23);
             this.tfnooflabels.TabIndex = 17;
             this.tfnooflabels.Text = "1";
+            this.tfnooflabels.TextChanged += new System.EventHandler(this.tfnooflabels_TextChanged);
             this.tfnooflabels.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnooflabels_KeyDown);
             // 
             // label10
@@ -852,6 +853,7 @@ namespace WHOperation
             this.tfnoofcartons.Size = new System.Drawing.Size(39, 23);
             this.tfnoofcartons.TabIndex = 18;
             this.tfnoofcartons.Text = "1";
+            this.tfnoofcartons.TextChanged += new System.EventHandler(this.tfnoofcartons_TextChanged);
             this.tfnoofcartons.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnoofcartons_KeyDown);
             // 
             // list1boxSplit
@@ -1593,6 +1595,7 @@ namespace WHOperation
             this.chk5NoSplit.TabIndex = 16;
             this.chk5NoSplit.Text = "No Split Part or QPL-part";
             this.chk5NoSplit.UseVisualStyleBackColor = true;
+            this.chk5NoSplit.CheckedChanged += new System.EventHandler(this.chk5NoSplit_CheckedChanged);
             // 
             // label6
             // 

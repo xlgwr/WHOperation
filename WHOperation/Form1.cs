@@ -30,6 +30,7 @@ namespace WHOperation
         WebReference.Service MFGProService = new WebReference.Service();
 
         DataSet dsDNDetail = new DataSet("dsDNDetail");
+        DataSet _dsComplete = new DataSet();
 
         String _cConnStr = "Persist Security Info=False;User ID=appuser;pwd=application;Initial Catalog=dbWHOperation;Data Source=142.2.70.81;pooling=true";
         String _cConnStrPI = "server=142.2.70.53;database=pi;uid=pi;";
@@ -172,9 +173,9 @@ namespace WHOperation
             //getTemplate();
             setMandField();
             tabControl1.SelectedIndex = 1;
-            var qty = dgv5PIPending.CurrentRow.Cells["PI_QTY"].Value;
-            var pqty = dgv5PIPending.CurrentRow.Cells["PI_Print_QTY"].Value;
-            tool_lbl_Msg.Text = qty + "," + pqty + ":" + qty.Equals(pqty) + ",dec" + Convert.ToDecimal(qty).ToString("#,###") + ":" + Convert.ToDecimal(pqty).ToString("#,###") + ":" + Convert.ToDecimal(qty).ToString("#,###").Equals(Convert.ToDecimal(pqty).ToString("#,###"));
+            //   var qty = dgv5PIPending.CurrentRow.Cells["PI_QTY"].Value;
+            //  var pqty = dgv5PIPending.CurrentRow.Cells["PI_Print_QTY"].Value;
+            //  tool_lbl_Msg.Text = qty + "," + pqty + ":" + qty.Equals(pqty) + ",dec" + Convert.ToDecimal(qty).ToString("#,###") + ":" + Convert.ToDecimal(pqty).ToString("#,###") + ":" + Convert.ToDecimal(qty).ToString("#,###").Equals(Convert.ToDecimal(pqty).ToString("#,###"));
         }
         public string getPrefixOfContent(string item)
         {
@@ -703,15 +704,47 @@ namespace WHOperation
                         {
                             if (!IsNumber(item.ToString().ToUpper()))
                             {
-                                SearchDNPart2(item.ToString().ToUpper().Trim());
+                                if (_usePrintPI)
+                                {
+                                    SearchDNPart2(item.ToUpper().Trim(), dgv5PIPending, "PI_PART", "pi_mfgr_part");
+                                }
+                                else
+                                {
+                                    SearchDNPart2(item.ToUpper().Trim(), dgv1Complete, "PartNumber", "MFGPartNo");
+                                }
                             }
                             else
                             {
-                                tfrecqty.Invoke(new Action(delegate()
+                                var tmpint = Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(item.ToString().Trim());
+                                if (tmpint > Convert.ToInt32(tfdnqty.Text))
                                 {
-                                    tfrecqty.Text = item.ToString().Trim();
-                                    pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
-                                }));
+                                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnooflabels.Text + " * " + item.ToString().Trim() + " = " + tmpint + " > " + tfdnqty.Text;
+                                    tfrecqty.Text = "";
+                                    pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+                                    return;
+                                }
+                                else
+                                {
+                                    if (_usePrintPI)
+                                    {
+                                        var tmpmpq = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString();
+                                        if (!string.IsNullOrEmpty(tmpmpq))
+                                        {
+                                            var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString();
+                                            if (!tmp2mpq.Equals(item.ToString().Trim()))
+                                            {
+                                                tool_lbl_Msg.Text = "Enter Nubmer is not Equals MPQ:" + tmp2mpq;
+                                                return;
+                                            }
+
+                                        }
+                                    }
+                                    tfrecqty.Invoke(new Action(delegate()
+                                               {
+                                                   tfrecqty.Text = item.ToString().Trim();
+                                                   pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                                               }));
+                                }
                             }
                         }
 
@@ -1242,8 +1275,14 @@ namespace WHOperation
             }
             return restr;
         }
-
-        void SearchDNPart2(string scanString)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scanString"></param>
+        /// <param name="dgv">dgv1Pending</param>
+        /// <param name="strcellnamePart">"PartNumber"</param>
+        /// <param name="strcellnameMFGP">"MFGPartNo"</param> 
+        void SearchDNPart2(string scanString, DataGridView dgv, string strcellnamePart, string strcellnameMFGP)
         {
             var tmpmsg = "";
             char chara = ' ';
@@ -1253,14 +1292,16 @@ namespace WHOperation
             ///PartNumber
             if (cSearchFound == 0)
             {
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["PartNumber"].Value.ToString().Replace(strSplit, "").ToUpper().Equals(scanString.Replace(strSplit, ""))
+                var query1 = from DataGridViewRow row in dgv.Rows
+                             where row.Cells[strcellnamePart].Value.ToString().Replace(strSplit, "").ToUpper().Equals(scanString.Replace(strSplit, ""))
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
 
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+
 
                     tfdnpartnumber.Invoke(new Action(delegate()
                     {
@@ -1277,13 +1318,15 @@ namespace WHOperation
             }
             if (cSearchFound == 0)
             {
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["PartNumber"].Value.ToString().Equals(scanString)
+                var query1 = from DataGridViewRow row in dgv.Rows
+                             where row.Cells[strcellnamePart].Value.ToString().Equals(scanString)
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+
 
                     tfdnpartnumber.Invoke(new Action(delegate()
                     {
@@ -1299,13 +1342,13 @@ namespace WHOperation
             /////////////mfgpartno
             if (cSearchFound == 0)
             {
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["MFGPartNo"].Value.ToString().Replace(strSplit, "").ToUpper().Equals(scanString.Replace(strSplit, ""))
+                var query1 = from DataGridViewRow row in dgv.Rows
+                             where row.Cells[strcellnameMFGP].Value.ToString().Replace(strSplit, "").ToUpper().Equals(scanString.Replace(strSplit, ""))
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     tfrecmfgrpart.Invoke(new Action(delegate()
                     {
                         tfrecmfgrpart.Text = scanString;
@@ -1318,13 +1361,13 @@ namespace WHOperation
             }
             if (cSearchFound == 0)
             {
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["MFGPartNo"].Value.ToString().Equals(scanString)
+                var query1 = from DataGridViewRow row in dgv.Rows
+                             where row.Cells[strcellnameMFGP].Value.ToString().Equals(scanString)
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     tfrecmfgrpart.Invoke(new Action(delegate()
                     {
                         tfrecmfgrpart.Text = scanString;
@@ -1344,13 +1387,13 @@ namespace WHOperation
                 var txtMfgpart = scanString;
                 var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
 
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["PartNumber"].Value.ToString().ToUpper().StartsWith(txtmfgpart80)
+                var query1 = from DataGridViewRow row in dgv.Rows
+                             where row.Cells[strcellnamePart].Value.ToString().ToUpper().StartsWith(txtmfgpart80)
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     tfdnpartnumber.Invoke(new Action(delegate()
                     {
                         tfdnpartnumber.Text = scanString;
@@ -1366,13 +1409,13 @@ namespace WHOperation
                 var txtMfgpart = scanString;
                 var txtmfgpart60 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.6));
 
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["PartNumber"].Value.ToString().ToUpper().StartsWith(txtmfgpart60)
+                var query1 = from DataGridViewRow row in dgv.Rows
+                             where row.Cells[strcellnamePart].Value.ToString().ToUpper().StartsWith(txtmfgpart60)
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     tfdnpartnumber.Invoke(new Action(delegate()
                     {
                         tfdnpartnumber.Text = scanString;
@@ -1392,13 +1435,13 @@ namespace WHOperation
                 var txtMfgpart = scanString;
                 var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
 
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["MFGPartNo"].Value.ToString().ToUpper().StartsWith(txtmfgpart80)
+                var query1 = from DataGridViewRow row in dgv.Rows
+                             where row.Cells[strcellnameMFGP].Value.ToString().ToUpper().StartsWith(txtmfgpart80)
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     tfrecmfgrpart.Invoke(new Action(delegate()
                     {
                         tfrecmfgrpart.Text = scanString;
@@ -1414,13 +1457,13 @@ namespace WHOperation
                 var txtMfgpart = scanString;
                 var txtmfgpart60 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.6));
 
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["MFGPartNo"].Value.ToString().ToUpper().StartsWith(txtmfgpart60)
+                var query1 = from DataGridViewRow row in dgv.Rows
+                             where row.Cells[strcellnameMFGP].Value.ToString().ToUpper().StartsWith(txtmfgpart60)
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     tfrecmfgrpart.Invoke(new Action(delegate()
                     {
                         tfrecmfgrpart.Text = scanString;
@@ -1436,14 +1479,14 @@ namespace WHOperation
             ///
             if (!string.IsNullOrEmpty(tfdnpartnumber.Text) && !string.IsNullOrEmpty(tfrecmfgrpart.Text))
             {
-                var query1 = from DataGridViewRow row in dgv1Pending.Rows
-                             where row.Cells["PartNumber"].Value.ToString() == tfdnpartnumber.Text &&
-                                   row.Cells["MFGPartNo"].Value.ToString() == tfrecmfgrpart.Text
+                var query1 = from DataGridViewRow row in dgv.Rows
+                             where row.Cells[strcellnamePart].Value.ToString() == tfdnpartnumber.Text &&
+                                   row.Cells[strcellnameMFGP].Value.ToString() == tfrecmfgrpart.Text
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
-                    dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     tmpmsg = "find in Pending list with PartNumber:[" + tfdnpartnumber.Text + "] and MFGPartNo:[" + tfrecmfgrpart.Text + "]";
                     cSearchFound = 1;
                     break;
@@ -1466,7 +1509,7 @@ namespace WHOperation
                             }));
                             tmpmsg = "find in DW_develop database with PartNumber:[" + tfdnpartnumber.Text + "] and MFGPartNo:[" + scanString + "]";
                             cSearchFound = 1;
-                            dgv1Pending.ClearSelection();
+                            dgv.ClearSelection();
 
                         }
                     }
@@ -1496,9 +1539,9 @@ namespace WHOperation
 
             }
             this.Invoke(new Action(delegate()
-                {
-                    tool_lbl_Msg.Text = tmpmsg;
-                }));
+            {
+                tool_lbl_Msg.Text = tmpmsg;
+            }));
 
         }
         void SearchDNPart()
@@ -1525,7 +1568,7 @@ namespace WHOperation
             cBufferData.cPDNPartNumber = pbdnpartnumber.Image;
             foreach (DataGridViewRow onlineOrder in query)
             {
-                onlineOrder.Selected = true;
+                onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
                 dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                 cSearchFound = 1;
                 break;
@@ -1537,7 +1580,7 @@ namespace WHOperation
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     cSearchFound = 1;
                     break;
@@ -1550,7 +1593,7 @@ namespace WHOperation
                              select row;
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
-                    onlineOrder.Selected = true;
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     cSearchFound = 1;
                     break;
@@ -1864,7 +1907,8 @@ namespace WHOperation
         }
         public bool initPiPrintModel(PI_Print piPrintModel, DataGridView dgv)
         {
-            if (dgv.CurrentRow == null)
+            var cr = dgv.SelectedRows[0];
+            if (cr == null)
             {
                 tool_lbl_Msg.Text = "please a row in PI pending";
                 return false;
@@ -1876,13 +1920,13 @@ namespace WHOperation
             }
             piPrintModel.PI_Line = tmpmaxLine + 1;
             piPrintModel.PI_NO = txt1PIID.Text.Trim();
-            piPrintModel.PI_PO = dgv.CurrentRow.Cells["PI_PO"].Value.ToString().Trim();
-            piPrintModel.PI_PART = dgv.CurrentRow.Cells["PI_PART"].Value.ToString().Trim();
-            piPrintModel.pi_mfgr_part = dgv.CurrentRow.Cells["pi_mfgr_part"].Value.ToString().Trim();
-            piPrintModel.PI_LOT = dgv.CurrentRow.Cells["PI_LOT"].Value.ToString().Trim();
-            piPrintModel.PI_PO = dgv.CurrentRow.Cells["PI_PO"].Value.ToString().Trim();
-            piPrintModel.pi_mfgr = dgv.CurrentRow.Cells["pi_mfgr"].Value.ToString().Trim();
-            piPrintModel.PI_QTY = Convert.ToDecimal(dgv.CurrentRow.Cells["PI_QTY"].Value);
+            piPrintModel.PI_PO = cr.Cells["PI_PO"].Value.ToString().Trim();
+            piPrintModel.PI_PART = cr.Cells["PI_PART"].Value.ToString().Trim();
+            piPrintModel.pi_mfgr_part = cr.Cells["pi_mfgr_part"].Value.ToString().Trim();
+            piPrintModel.PI_LOT = cr.Cells["PI_LOT"].Value.ToString().Trim();
+            piPrintModel.PI_PO = cr.Cells["PI_PO"].Value.ToString().Trim();
+            piPrintModel.pi_mfgr = cr.Cells["pi_mfgr"].Value.ToString().Trim();
+            piPrintModel.PI_QTY = Convert.ToDecimal(cr.Cells["PI_QTY"].Value);
             if (string.IsNullOrEmpty(tfrecqty.Text))
             {
                 tfrecqty.Text = "0";
@@ -1893,7 +1937,7 @@ namespace WHOperation
             piPrintModel.PI_Print_QTY = ttlPrint;
 
 
-            if (piPrintModel.PI_QTY < (ttlPrint + Convert.ToDecimal(dgv.CurrentRow.Cells["PI_Print_QTY"].Value)))
+            if (piPrintModel.PI_QTY < (ttlPrint + Convert.ToDecimal(cr.Cells["PI_Print_QTY"].Value)))
             {
                 tool_lbl_Msg.Text = "PI Qty:" + piPrintModel.PI_QTY + " < Print Qty:" + ttlPrint + "=" + tfnoofcartons.Text + " * " + tfnoofcartons.Text + " * " + tfrecqty.Text + " + " + dgv.CurrentRow.Cells["PI_Print_QTY"].Value;
                 return false;
@@ -1912,18 +1956,33 @@ namespace WHOperation
             }*/
             if (_usePrintPI)
             {
-                PI_Print tmpPrint = new PI_Print();
-
-                if (initPiPrintModel(tmpPrint, dgv5PIPending))
+                int cVal;
+                lStatus.Invoke(new Action(delegate() { lStatus.Text = "Processing..."; }));
+                cVal = valData(dgv5PIPending);
+                if (cVal == 0)
                 {
+                    PI_Print tmpPrint = new PI_Print();
 
-                    _dbWHOperation.PI_Print.Add(tmpPrint);
-                    var saveflag = _dbWHOperation.SaveChanges();
-                    if (saveflag > 0)
+                    if (initPiPrintModel(tmpPrint, dgv5PIPending))
                     {
-                        btn2PIID_Click(sender, e);
+
+                        _dbWHOperation.PI_Print.Add(tmpPrint);
+                        var saveflag = _dbWHOperation.SaveChanges();
+                        if (saveflag > 0)
+                        {
+                            updDataPrintForPI(dgv5PIPending, piid);
+
+                            dgv5PIPending.SelectedRows[0].Cells["PI_Print_QTY"].Value = Convert.ToDecimal(dgv5PIPending.SelectedRows[0].Cells["PI_Print_QTY"].Value) + tmpPrint.PI_Print_QTY;
+                            checkPrintNumger(dgv5PIPending, _dtPIRemote, dgv6PICompele);
+                            // btn2PIID_Click(sender, e);
+                        }
                     }
                 }
+                else
+                {
+                    //MessageBox.Show("Data Validation failed");
+                }
+
             }
             else
             {
@@ -1946,8 +2005,11 @@ namespace WHOperation
                 {
                     //MessageBox.Show("Data Validation failed");
                 }
-                lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
+
             }
+            lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
+            tfscanarea.Focus();
+            //enableScan();
 
         }
         String getPIMSData()
@@ -1973,6 +2035,102 @@ namespace WHOperation
             }
             catch (Exception serEx) { MessageBox.Show("PIMS Label Service Error:\n" + serEx.Message.ToString(), "System Message"); }
             return cRet;
+        }
+
+        void updDataPrintForPI(DataGridView dgv, string piid)
+        {
+            String cQuery, cPIMSNumber, cCartonQty;
+            DataGridViewRow cR = new DataGridViewRow();
+            DataGridViewRow cR1 = new DataGridViewRow();
+            List<String> lPIMSData = new List<String>();
+            int cCartonLoop, cNoOfCartons;
+            int i;
+            Double cPIMSQty;
+            //cR = dataGridView1.CurrentRow;
+
+            if (dgv.SelectedRows.Count <= 0)
+                return;
+
+            cR = dgv.SelectedRows[0];
+            String[] cRec = new String[cR.Cells.Count];
+            for (i = 0; i <= cR.Cells.Count - 1; i += 1)
+            {
+                cRec[i] = cR.Cells[i].Value.ToString();
+            }
+
+            cPIMSNumber = "tmpPIMS";
+            cPIMSNumber = getPIMSData();
+            try
+            {
+                int cPrintLoop;
+                int cNoOfLabels;
+                cPrintLoop = 1;
+                cNoOfLabels = Convert.ToInt32(tfnooflabels.Text);
+                while (cPrintLoop <= cNoOfLabels)
+                {
+                    if (cbprintcartonlabel.Checked == true && cPrintLoop == 1)
+                    {
+                        cCartonLoop = 1;
+                        cNoOfCartons = Convert.ToInt32(tfnoofcartons.Text);
+                        while (cCartonLoop <= cNoOfCartons)
+                        {
+                            cPIMSNumber = getPIMSData();
+                            lPIMSData = updateMFGPro(cPIMSNumber, dgv5PIPending, "PI_LOT");
+                            if (lPIMSData == null)
+                            {
+                                break;
+                            }
+                            if (lPIMSData[0].ToString() == "-2") { }
+                            else
+                            {
+                                cCartonQty = "0";
+                                cPIMSQty = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)) / cNoOfCartons;
+                                try
+                                {
+                                    if (Convert.ToDouble(cCartonQty) > 0)
+                                        lPIMSData[7] = cCartonQty;
+                                    else
+                                        //lPIMSData[7] = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)).ToString();
+                                        lPIMSData[7] = cPIMSQty.ToString();
+                                }
+                                catch (Exception ex) { lPIMSData[7] = "0"; }
+                                printPIML(lPIMSData, 1);
+                            }
+                            cCartonLoop += 1;
+                        }
+                    }
+                    cPIMSNumber = getPIMSData();
+                    lPIMSData = updateMFGPro(cPIMSNumber, dgv5PIPending, "PI_LOT");
+                    if (lPIMSData == null)
+                    {
+                        break;
+                    }
+                    if (lPIMSData.Count > 0)
+                    {
+                        if (lPIMSData[0].ToString() == "-2") { MessageBox.Show("Must Input Date Code or Lot No"); }
+                        else
+                        {
+
+                            if (lPIMSData[5].ToUpper().Contains("MRB"))
+                            {
+                                cQuery = "insert into PIMSMRBException (DNNo,DNDate,RIRNo,SupplierID,MfgrID,MG,PIMS,PartNumber,ReqMfgrPart,RecMfgrPart,CustPart,RecQty) " +
+                                    "values('" + piid + "','" + cRec[9] + "','" + tfrirno.Text + "','" + cRec[2] + "','" + lPIMSData[6] + "','" + cRec[10] + "','" + cPIMSNumber + "','" + cRec[3] + "','" + tfmfgpart.Text + "','" + tfrecmfgrpart.Text + "','" + cRec[14] + "','" + tfrecqty.Text + "')";
+                                SQLUpdate(cQuery);
+                            }
+                            printPIML(lPIMSData, 0);
+                        }
+                    }
+                    cPrintLoop += 1;
+                }
+
+                setPIMLData();
+
+            }
+            catch (Exception ex) { }
+            finally
+            {
+                Thread.Sleep(3000); enableScan();
+            }
         }
         void updData()
         {
@@ -2106,6 +2264,55 @@ namespace WHOperation
             }
             catch (Exception ex) { MessageBox.Show("SQL Error:" + ex.Message.ToString()); }
             finally { }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cPIMSNumber"></param>
+        /// <param name="dgv"></param>
+        /// <param name="strcellRiRNO">PI_LOT,RIRNo</param>
+        /// <returns></returns>
+        List<String> updateMFGPro(String cPIMSNumber, DataGridView dgv, string strcellRiRNO)
+        {
+            int i;
+            String cServiceID, cLocalSysID;
+            StringBuilder cPara = new StringBuilder();
+            StreamReader cRetReader;
+            DataSet pimsData;
+            DataGridViewRow cR = new DataGridViewRow();
+            DataRow cDR;
+            List<String> lPIMSData = new List<String>();
+            //cR = dataGridView1.CurrentRow;
+            cR = dgv.SelectedRows[0];
+            cServiceID = "wsas002";
+            pimsData = new DataSet("pimlData");
+            cLocalSysID = cbsystem.Text;
+            /*cPara.Append(cR.Cells["DNSite"].Value.ToString()+","+cR.Cells["PartNumber"].Value.ToString()+
+                "," + cR.Cells["RIRNo"].Value.ToString() + ",'',''," + tfrecqty.Text + "," + tfmfgpart.Text + "," + cUserID + "," + tflotno.Text + ",''," +
+                tfexpiredate.Text+",'',"+cR.Cells["t_shelf_life"].Value.ToString()+",'YES','NO','R'");*/
+            cPara.Append(cPIMSNumber + "," + cR.Cells[strcellRiRNO].Value.ToString() + "," + tfdatecode.Text + "," + tfmfgdate.Text + "," + tfexpiredate.Text + "," + tfrecqty.Text + "," + cUserID + "," + tflotno.Text + "," + tfrecmfgrpart.Text);
+            cRetReader = callMFGService(cLocalSysID, cServiceID, cPara.ToString());
+            try
+            {
+                pimsData.ReadXml(cRetReader);
+                if (pimsData.Tables["Row"].Rows.Count > 0)
+                {
+                    cDR = pimsData.Tables["Row"].Rows[0];
+                    i = 0;
+                    while (i <= cDR.ItemArray.Length - 1)
+                    {
+                        lPIMSData.Add(cDR.ItemArray[i].ToString());
+                        i += 1;
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception serEx) { MessageBox.Show("PIMS Label Data MFGPro Service Error:\n" + serEx.Message.ToString(), "System Message"); return null; }
+
+            return lPIMSData;
         }
         List<String> updateMFGPro(String cPIMSNumber)
         {
@@ -2314,6 +2521,172 @@ namespace WHOperation
             }
             //lMDateCode.ForeColor = Color.DarkBlue; lMLotNumber.ForeColor = Color.DarkBlue;
             return;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dgv"></param>
+        /// <param name="strcellDNQty"></param>
+        /// <param name="strcellPrintedQty"></param>
+        /// <returns></returns>
+        int valData(DataGridView dgv)
+        {
+            String cErrMsg;
+            int cRet;
+            DataGridViewRow cR;
+            DateTime value;
+            Double cTemp;
+            DateTime cMfgDate;
+            DateTime cOldMfgDate;
+            tflotno.BackColor = Color.White;
+            cOldMfgDate = DateTime.Now.AddDays(-730);
+
+            cRet = 0;
+            cErrMsg = "";
+            if (dgv.Rows.Count <= 0)
+            {
+                return 0;
+            }
+            cR = dgv.SelectedRows[0];
+            /*toolTip1.SetToolTip(tfcumqty, "");
+            toolTip1.SetToolTip(tfrecqty, "");
+            toolTip1.SetToolTip(tfexpiredate, "");
+            toolTip1.SetToolTip(tfmfgdate, "");
+            toolTip1.SetToolTip(tflotno, "");
+            toolTip1.SetToolTip(tfdatecode, "");
+            */
+            // tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = tfrecqty.Text.Trim(); }));
+
+            tfcumqty.Invoke(new Action(delegate() { tfcumqty.BackColor = Color.White; }));
+            tfrecqty.Invoke(new Action(delegate() { tfrecqty.BackColor = Color.White; }));
+            tfexpiredate.Invoke(new Action(delegate() { tfexpiredate.BackColor = Color.White; }));
+            tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.BackColor = Color.White; }));
+            tflotno.Invoke(new Action(delegate() { tflotno.BackColor = Color.White; }));
+            tfdatecode.Invoke(new Action(delegate() { tfdatecode.BackColor = Color.White; }));
+            tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.BackColor = Color.White; }));
+
+            if (tfrecmfgrpart.Text.Length == 0)
+            {
+                cRet += 1;
+                //tfrecmfgrpart.BackColor = Color.Red;
+                tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.BackColor = Color.Red; }));
+                cErrMsg += "\nRequire Rec Mfgr Part Number";
+            }
+            else
+            {
+                tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.BackColor = Color.White; }));
+            }
+            if (!Double.TryParse(tfrecqty.Text, out cTemp))
+            {
+                cRet += 1;
+                //tfrecqty.BackColor = Color.Red;
+                tfrecqty.Invoke(new Action(delegate() { tfrecqty.BackColor = Color.Red; }));
+                cErrMsg += "\nRequire Number in received Qty";
+            }
+            else
+            {
+                //tfrecqty.BackColor = Color.White;
+                tfrecqty.Invoke(new Action(delegate() { tfrecqty.BackColor = Color.White; }));
+            }
+            /*if (!Double.TryParse(tfcumqty.Text, out cTemp)) {
+                cRet += 1;
+                //tfcumqty.BackColor = Color.Red;
+                tfcumqty.Invoke(new Action(delegate() { tfcumqty.BackColor = Color.Red; }));
+                cErrMsg += "\nInvalid Cumulative Qty";
+            } else {
+                tfcumqty.Invoke(new Action(delegate() { tfcumqty.BackColor = Color.White; }));
+            }*/
+            if (tfsite.Text.ToUpper() == "MG0337")
+            {
+                if (tflotno.Text.Length == 0 && tfdatecode.Text.Length == 0)
+                {
+                    cRet += 1;
+                    //tflotno.BackColor = Color.Red;
+                    tflotno.Invoke(new Action(delegate() { tflotno.BackColor = Color.Red; }));
+                    cErrMsg += "\nLot Number/DateCode can not be empty for MG0337";
+                }
+            }
+            if (tfsite.Text.ToUpper() == "MG7024" || tfsite.Text.ToUpper() == "MG5007" || tfsite.Text.ToUpper() == "MG7030" || tfsite.Text.ToUpper() == "MG7029" || tfsite.Text.ToUpper() == "MG5008" || tfsite.Text.ToUpper() == "MG0248" || tfsite.Text.ToUpper() == "MG7028" ||
+                tfsite.Text.ToUpper() == "MG7022" || tfsite.Text.ToUpper() == "MG0208" || tfsite.Text.ToUpper() == "MG0220" || tfsite.Text.ToUpper() == "MG0217")
+            {
+                if (tfpartno.Text.Substring(0, 1) == "1" || tfpartno.Text.Substring(0, 1) == "2" || tfpartno.Text.Substring(0, 1) == "3" || tfpartno.Text.Substring(0, 1) == "5" || tfpartno.Text.Substring(0, 2) == "70")
+                {
+                    if (tfdatecode.Text.Length == 0 && tflotno.Text.Length == 0)
+                    {
+                        cRet += 1;
+                        tfdatecode.Invoke(new Action(delegate() { tfdatecode.BackColor = Color.Red; }));
+                        cErrMsg += "\nDateCode or Lot Number required for 1x,2x,3x,5x,70x parts";
+                    }
+                }
+            }
+            if (tfmfgdate.Text.Length > 0)
+            {
+                if (!DateTime.TryParse(tfmfgdate.Text, out value))
+                {
+                    cRet += 1;
+                    tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.BackColor = Color.Red; }));
+                    cErrMsg += "\nInvalid Date in Mfgr Date";
+                }
+                else
+                {
+                    //tfmfgdate.Text = Convert.ToDateTime(tfmfgdate.Text).ToString("MM/dd/yy");
+                    tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.Text = Convert.ToDateTime(tfmfgdate.Text).ToString("MM/dd/yy"); }));
+                    cMfgDate = Convert.ToDateTime(tfmfgdate.Text);
+                    if (cMfgDate.CompareTo(DateTime.Now) > 0)
+                    {
+                        cRet += 1;
+                        //tfmfgdate.BackColor = Color.Red;
+                        tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.BackColor = Color.Red; }));
+                        cErrMsg += "\nMfgr Date should not be later than today";
+                    }
+                    else if (cMfgDate.CompareTo(cOldMfgDate) < 0)
+                    {
+                        cRet += 1;
+                        tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.BackColor = Color.White; }));
+                        cErrMsg += "\nMfgr Date is too old";
+                    }
+                    else
+                    {
+                        tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.BackColor = Color.White; }));
+                    }
+                }
+            }
+            if (tfexpiredate.Text.Length > 0)
+            {
+                if (!DateTime.TryParse(tfexpiredate.Text, out value))
+                {
+                    cRet += 1;
+                    tfexpiredate.Invoke(new Action(delegate() { tfmfgdate.BackColor = Color.Red; }));
+                    cErrMsg += "\nInvalid expire date";
+
+                }
+                else
+                {
+                    tfexpiredate.Invoke(new Action(delegate() { tfmfgdate.BackColor = Color.White; }));
+                    tfexpiredate.Invoke(new Action(delegate() { tfexpiredate.Text = Convert.ToDateTime(tfexpiredate.Text).ToString("MM/dd/yy"); }));
+                }
+            }
+
+            /* to be removed, suggested by business users
+            try
+            {
+                if (Double.TryParse(tfrecqty.Text, out cTemp) && Double.TryParse(tfcumqty.Text, out cTemp) && Double.TryParse(tfdnqty.Text, out cTemp)) {
+                    if ((Convert.ToDouble(tfcumqty.Text) + Convert.ToDouble(tfrecqty.Text)) > Convert.ToDouble(tfdnqty.Text))
+                    {
+                        cRet += 1;
+                        tfcumqty.Invoke(new Action(delegate() { tfcumqty.BackColor = Color.Red; }));
+                        cErrMsg += "\nPIMS Already printed for all DN QTY/\nInvalid Receive Qty";
+                    } else {
+                        tfcumqty.Invoke(new Action(delegate() { tfcumqty.BackColor = Color.White; }));
+                    }
+                }
+            }
+            catch (Exception) { } */
+            if (cErrMsg.Length > 0)
+            {
+                MessageBox.Show(cErrMsg, "Error Message");
+            }
+            return cRet;
         }
         int valData()
         {
@@ -2745,6 +3118,7 @@ namespace WHOperation
             finally { outputfile.Close(); }
             lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
         }
+
         void printPIML(List<String> lPIMSData, int cLabelType)
         {
             disableScan();
@@ -2752,9 +3126,9 @@ namespace WHOperation
             PIMLPrint pimlPrint = new PIMLPrint();
             String cSelPrinter;
             int cNoLabel;
-            DataGridViewRow cR = new DataGridViewRow();
-            //cR = dataGridView1.CurrentRow;
-            cR = dgv1Pending.SelectedRows[0];
+            //DataGridViewRow cR = new DataGridViewRow();
+            ////cR = dataGridView1.CurrentRow;
+            //cR = dgv1Pending.SelectedRows[0];
             cSelPrinter = "1";
             cNoLabel = Convert.ToInt32(tfnooflabels.Text);
             //cSelPrinter = (cbprintertype.SelectedIndex + 1).ToString();
@@ -3323,7 +3697,25 @@ namespace WHOperation
         }
         private void tfnooflabels_TextChanged(object sender, EventArgs e)
         {
-            getStrQRcode = "";
+            if (!IsNumber(tfnooflabels.Text.Trim()))
+            {
+                tfnooflabels.Text = "1";
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(tfdnqty.Text))
+                {
+                    var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
+                    if (tmpint > Convert.ToInt32(tfdnqty.Text))
+                    {
+                        tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
+                        tfnoofcartons.Focus();
+                        return;
+                    }
+                }
+            }
+
+
         }
 
 
@@ -3755,7 +4147,14 @@ namespace WHOperation
                     {
                         if (!IsNumber(item.ToUpper()))
                         {
-                            SearchDNPart2(item.ToUpper());
+                            if (_usePrintPI)
+                            {
+                                SearchDNPart2(item.ToUpper().Trim(), dgv5PIPending, "PI_PART", "pi_mfgr_part");
+                            }
+                            else
+                            {
+                                SearchDNPart2(item.ToUpper().Trim(), dgv1Complete, "PartNumber", "MFGPartNo");
+                            }
                         }
                         else
                         {
@@ -3844,10 +4243,10 @@ namespace WHOperation
             }
             if (!string.IsNullOrEmpty(tfdnqty.Text))
             {
-                var tmpint = Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
+                var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
                 if (tmpint > Convert.ToInt32(tfdnqty.Text))
                 {
-                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
+                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
                     tfrecqty.Text = "";
                     pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                     return;
@@ -4099,15 +4498,17 @@ namespace WHOperation
 
         private void btn2PIID_Click(object sender, EventArgs e)
         {
+            chk5NoSplit.Checked = true;
             _usePrintPI = true;
             this.AcceptButton = null;
             piid = txt1PIID.Text;
             //PI_NO,PI_LINE,
-            string tmpsql = @"select  PI_PART,pi_mfgr_part,PI_LOT,PI_PO,pi_mfgr,PI_QTY,'0' as PI_Print_QTY,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + piid + "' and (pi_lot<> NUll or pi_lot <>'') order by pi_line";
+            string tmpsql = @"select  PI_PART,pi_mfgr_part,PI_LOT,PI_PO,pi_mfgr,PI_QTY,'0' as PI_Print_QTY,PI_PO_price,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + piid + "' and (pi_lot<> NUll or pi_lot <>'') order by pi_line";
             if (!string.IsNullOrEmpty(piid))
             {
                 tabControl2_pending.SelectedIndex = 2;
                 _dtPIRemote = getDataSetBySql(tmpsql).Tables[0];
+                dtcomplete = _dtPIRemote.Clone();
 
                 addPrintQtyToDGV(piid, _dtPIRemote, dgv5PIPending);
 
@@ -4115,6 +4516,9 @@ namespace WHOperation
 
                 checkPrintNumger(dgv5PIPending, _dtPIRemote, dgv6PICompele);
 
+                setDGVHeaderPi(dgv6PICompele);
+
+                enableScan();
             }
         }
 
@@ -4175,37 +4579,30 @@ namespace WHOperation
 
         public void checkPrintNumger(DataGridView dgv, DataTable dt, DataGridView dgvComplete)
         {
-            // dgv.Refresh();
-            //dgvComplete.Rows.Clear();
-            DataTable dtChange = dt.GetChanges();
-            DataTable dtcomplete = new DataTable();
+            var printNumber = dt.AsEnumerable().Where(p => Convert.ToDecimal(p["PI_QTY"]).ToString("#,###").Equals(Convert.ToDecimal(p["PI_Print_QTY"]).ToString("#,###"))).ToList();
 
-            var printNumber = from DataRow row in dtChange.Rows
-                              where Convert.ToDecimal(row["PI_QTY"]).ToString("#,###").Equals(Convert.ToDecimal(row["PI_Print_QTY"]).ToString("#,###"))
-                              select row;
 
-            if (printNumber.ToList().Count > 0)
+            foreach (var item in printNumber)
             {
-                foreach (DataColumn item in dt.Columns)
+                DataRow dr = dtcomplete.NewRow();
+                for (int i = 0; i < dt.Columns.Count; i++)
                 {
-                    dtcomplete.Columns.Add(item.ColumnName);
+                    dr[i] = item[i];
                 }
-
-                foreach (DataRow item in printNumber)
-                {
-                    DataRow tmprow = dtcomplete.NewRow();
-                    for (int i = 0; i < dt.Columns.Count; i++)
-                    {
-                        tmprow[i] = item[i];
-                    }
-                    dtcomplete.Rows.Add(tmprow);
-                }
-                
-                dgv5PIPending.DataSource = dt;
-                dgv5PIPending.Refresh();
-                dgvComplete.DataSource = dtcomplete.DefaultView;
-                dgvComplete.Refresh();
+                dtcomplete.Rows.Add(dr);
             }
+
+            dgvComplete.DataSource = dtcomplete.DefaultView;
+            dgvComplete.Refresh();
+
+            foreach (var item in printNumber)
+            {
+                dt.Rows.Remove(item);
+            }
+
+            dgv.DataSource = dt;
+            dt.AcceptChanges();
+            dgv.Refresh();
 
         }
         public void checkPrintNumger(DataGridView dgv, DataGridView dgvComplete)
@@ -4251,10 +4648,18 @@ namespace WHOperation
         {
             dgv.ReadOnly = true;
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
             dgv.Columns["pi_mfgr_part"].Width = 130;
             dgv.Columns["PI_PO"].Width = 60;
+            dgv.Columns["pi_mfgr"].Width = 60;
+            dgv.Columns["PI_QTY"].Width = 60;
+            dgv.Columns["PI_Print_QTY"].Width = 60;
+            dgv.Columns["PI_PO_price"].Width = 60;
             dgv.Columns["PI_QTY"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv.Columns["PI_QTY"].DefaultCellStyle.Format = "#,###";
+            dgv.Columns["PI_Print_QTY"].DefaultCellStyle.BackColor = Color.LightGreen;
+            dgv.Columns["PI_Print_QTY"].DefaultCellStyle.Format = "#,###";
+            dgv.Columns["PI_PO_price"].DefaultCellStyle.Format = "#,###";
 
             dgv.Columns["PI_PART"].HeaderText = "Part Number";
             dgv.Columns["pi_mfgr_part"].HeaderText = "PO QPL Part No";
@@ -4262,12 +4667,12 @@ namespace WHOperation
             dgv.Columns["PI_PO"].HeaderText = "PO Number";
             dgv.Columns["pi_mfgr"].HeaderText = "ASN MFG P/N";
             dgv.Columns["PI_QTY"].HeaderText = "PI Qty";
-            dgv.Columns["PI_Print_QTY"].HeaderText = "PrintedQTY";
+            dgv.Columns["PI_Print_QTY"].HeaderText = "Printed QTY";
+            dgv.Columns["PI_PO_price"].HeaderText = "MPQ";
             dgv.Columns["PI_SITE"].HeaderText = "PI SITE";
             dgv.Columns["pi_cre_time"].HeaderText = "PI Date";
 
             //dgv.Columns.Add("PI_Print_QTY","PrintedQTY");
-            dgv.Columns["PI_Print_QTY"].DefaultCellStyle.Format = "#,###";
 
         }
 
@@ -4327,6 +4732,37 @@ namespace WHOperation
         public string piid { get; set; }
 
         public DataTable _dtPIRemote { get; set; }
+
+        public DataTable dtcomplete { get; set; }
+
+        private void chk5NoSplit_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk5NoSplit.Checked)
+            {
+                enableScan();
+            }
+        }
+
+        private void tfnoofcartons_TextChanged(object sender, EventArgs e)
+        {
+            if (!IsNumber(tfnoofcartons.Text.Trim()))
+            {
+                tfnoofcartons.Text = "1";
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(tfdnqty.Text))
+                {
+                    var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
+                    if (tmpint > Convert.ToInt32(tfdnqty.Text))
+                    {
+                        tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
+                        tfnoofcartons.Focus();
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     public class vendorLabelDefinition

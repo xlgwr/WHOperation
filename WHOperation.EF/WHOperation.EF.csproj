@@ -83,7 +83,9 @@
     <Compile Include="WHO\PIMLVendorTemplate.cs" />
     <Compile Include="WHO\PIMLVendorTemplateX.cs" />
     <Compile Include="WHO\PIMSMRBException.cs" />
+    <Compile Include="WHO\PI_Print.cs" />
     <Compile Include="WHO\sysMaster.cs" />
+    <Compile Include="WHO\vpi_sumPrintQty.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
