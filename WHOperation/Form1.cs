@@ -710,7 +710,7 @@ namespace WHOperation
                                 }
                                 else
                                 {
-                                    SearchDNPart2(item.ToUpper().Trim(), dgv1Complete, "PartNumber", "MFGPartNo");
+                                    SearchDNPart2(item.ToUpper().Trim(),dgv1Pending, "PartNumber", "MFGPartNo");
                                 }
                             }
                             else
@@ -2146,7 +2146,7 @@ namespace WHOperation
             if (dgv1Pending.SelectedRows.Count <= 0)
                 return;
 
-            disableScan();
+            //disableScan();
 
             cR = dgv1Pending.SelectedRows[0];
             String[] cRec = new String[cR.Cells.Count];
@@ -2576,6 +2576,7 @@ namespace WHOperation
             {
                 tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.BackColor = Color.White; }));
             }
+
             if (!Double.TryParse(tfrecqty.Text, out cTemp))
             {
                 cRet += 1;
@@ -2587,6 +2588,17 @@ namespace WHOperation
             {
                 //tfrecqty.BackColor = Color.White;
                 tfrecqty.Invoke(new Action(delegate() { tfrecqty.BackColor = Color.White; }));
+            }
+            if (!string.IsNullOrEmpty(tfdnqty.Text))
+            {
+                var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
+                if (tmpint > Convert.ToInt32(tfdnqty.Text))
+                {
+
+                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + " * " + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
+                    cErrMsg += "\n" + tool_lbl_Msg.Text;
+                    cRet += 1;
+                }
             }
             /*if (!Double.TryParse(tfcumqty.Text, out cTemp)) {
                 cRet += 1;
@@ -3539,9 +3551,13 @@ namespace WHOperation
             getMFGDNData();
             bGo.Text = "Go";
             bGo.Enabled = true;
+
+            tabControl2_pending.SelectedIndex = 0;
+
             getTemplate(); //added 25-06-2013
 
             dgv3VendorTemplate.Refresh();
+
             if (dgv3VendorTemplate.Rows.Count <= 0)
             {
                 chk5NoSplit.Checked = true;
@@ -3550,6 +3566,7 @@ namespace WHOperation
             {
                 chk5NoSplit.Checked = false;
             }
+
         }
 
         /* private void bDisableScan_Click(object sender, EventArgs e)
@@ -3708,8 +3725,8 @@ namespace WHOperation
                     var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
                     if (tmpint > Convert.ToInt32(tfdnqty.Text))
                     {
-                        tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
-                        tfnoofcartons.Focus();
+                        tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + " * " + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
+                        tfnooflabels.Focus();
                         return;
                     }
                 }
@@ -3888,8 +3905,7 @@ namespace WHOperation
         {
             bDisableScan.Enabled = false;
             bEnableScan.Enabled = true;
-            tfscanarea.ReadOnly = true;
-            initSet();
+            tfscanarea.ReadOnly = true;           
         }
         private void enableScan()
         {
@@ -4153,7 +4169,7 @@ namespace WHOperation
                             }
                             else
                             {
-                                SearchDNPart2(item.ToUpper().Trim(), dgv1Complete, "PartNumber", "MFGPartNo");
+                                SearchDNPart2(item.ToUpper().Trim(), dgv1Pending, "PartNumber", "MFGPartNo");
                             }
                         }
                         else
@@ -4246,7 +4262,7 @@ namespace WHOperation
                 var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
                 if (tmpint > Convert.ToInt32(tfdnqty.Text))
                 {
-                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
+                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + " * " + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
                     tfrecqty.Text = "";
                     pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                     return;
@@ -4756,7 +4772,7 @@ namespace WHOperation
                     var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
                     if (tmpint > Convert.ToInt32(tfdnqty.Text))
                     {
-                        tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
+                        tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + " * " + tfnooflabels.Text + " * " + tfrecqty.Text + " = " + tmpint + " > " + tfdnqty.Text;
                         tfnoofcartons.Focus();
                         return;
                     }
