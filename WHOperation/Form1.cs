@@ -1340,6 +1340,10 @@ namespace WHOperation
             string strSplit = " ";
             int cSearchFound = 0;
 
+            if (string.IsNullOrEmpty(scanString))
+            {
+                return;
+            }
             ///PartNumber
             if (cSearchFound == 0)
             {
@@ -4243,7 +4247,7 @@ namespace WHOperation
         public void splitFromStringWithChar(ListBox lbSelect, string strWithChar, bool useLongStringOne, ListBox lbToAdd)
         {
 
-            var strSelect = lbSelect.SelectedItem;            
+            var strSelect = lbSelect.SelectedItem;
             if (strSelect != null)
             {
                 if (strSelect.ToString().Contains('|'))
@@ -4375,6 +4379,11 @@ namespace WHOperation
             if (chk2Space2.Checked)
             {
                 splitFromStringWithChar(lib0ScanDataListBox, "  ", true, lib1SplitListBox);
+            }
+            else
+            {
+                lib1SplitListBox.Items.Clear();
+                splitFromStringWithChar(lib0ScanDataListBox, _splitStringTmp, false, lib1SplitListBox);
             }
         }
 
@@ -4644,12 +4653,9 @@ namespace WHOperation
         {
             if (string.IsNullOrEmpty(txt5SplitOther.Text))
             {
-                return;
-            }
-            else
-            {
                 lib1SplitListBox.Items.Clear();
                 splitFromStringWithChar(lib0ScanDataListBox, _splitStringTmp, false, lib1SplitListBox);
+                return;
             }
             if (txt5SplitOther.Text.Length == 1)
             {
