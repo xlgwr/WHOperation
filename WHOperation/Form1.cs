@@ -4168,17 +4168,14 @@ namespace WHOperation
             lib1SplitListBox.Items.Clear();
             if (cb.Checked)
             {
-                if (_splitStringTmp.IndexOf(cvalue) == -1)
+                if (!_splitStringTmp.Contains(cvalue))
                 {
-                    _splitStringTmp += cvalue.ToString();
+                    _splitStringTmp += cvalue;
                 }
             }
             else
             {
-                if (_splitStringTmp.IndexOf(cvalue) > -1)
-                {
-                    _splitStringTmp.Replace(cvalue,"");
-                }
+                _splitStringTmp = _splitStringTmp.Replace(cvalue, "");               
             }
             splitFromStringWithChar(lib0ScanDataListBox, _splitStringTmp, false, lib1SplitListBox);
         }
