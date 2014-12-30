@@ -4109,6 +4109,12 @@ namespace WHOperation
             if (lib0ScanDataListBox.SelectedItem != null)
             {
                 var tmpselet = lib0ScanDataListBox.SelectedItem.ToString();
+
+                if (tmpselet.Contains("|"))
+                {
+                    tmpselet = tmpselet.Split('|')[0];
+                }
+
                 foreach (var item in _splitStrTample)
                 {
                     if (tmpselet.Contains(item._split))
@@ -4229,9 +4235,14 @@ namespace WHOperation
         }
         public void splitFromStringWithChar(ListBox lbSelect, string strWithChar, bool useLongStringOne, ListBox lbToAdd)
         {
-            var strSelect = lbSelect.SelectedItem;
+
+            var strSelect = lbSelect.SelectedItem;            
             if (strSelect != null)
             {
+                if (strSelect.ToString().Contains('|'))
+                {
+                    strSelect = strSelect.ToString().Split('|')[0];
+                }
                 splitFromStringWithChar(strSelect.ToString(), strWithChar, useLongStringOne, lbToAdd);
             }
         }
