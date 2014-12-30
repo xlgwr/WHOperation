@@ -57,7 +57,7 @@ namespace WHOperation
 
         private static Regex RegNumber = new Regex("^[0-9]+$");
         private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
-
+        public List<prefixCheckbox> _splitStrTample;
         public static string getQRcode = "";
         public string _strtmp;
         public int _firstOpenSelectList;
@@ -72,6 +72,17 @@ namespace WHOperation
         public static List<prefixContent> _prefixcontList;
         public List<prefixContent> _scanList { get; set; }
 
+        public class prefixCheckbox
+        {
+            public string _split { get; set; }
+            public CheckBox _cb { get; set; }
+            public prefixCheckbox() { }
+            public prefixCheckbox(string split, CheckBox cb)
+            {
+                _split = split;
+                _cb = cb;
+            }
+        }
         public class prefixContent
         {
             public string _prefix { get; set; }
@@ -3610,7 +3621,12 @@ namespace WHOperation
             tfnooflabels.Leave += new EventHandler(tfnooflabels_Leave);
             tfnooflabels.KeyDown += new KeyEventHandler(txtkeypress);
 
-
+            _splitStrTample = new List<prefixCheckbox>() {
+               new prefixCheckbox(",",chk0dh),
+               new prefixCheckbox("-",chk1jh),
+               new prefixCheckbox(" ",chk3Space),
+               new prefixCheckbox("*",chk3xh)
+            };
         }
         private void tfnooflabels_KeyDown(object sender, KeyEventArgs e)
         {
@@ -4052,6 +4068,17 @@ namespace WHOperation
         private void listbox0ScanData_Click(object sender, EventArgs e)
         {
             selectValueToTextField(_scanList, lib0ScanDataListBox, false);
+            if (lib0ScanDataListBox.SelectedItem != null)
+            {
+                var tmpselet = lib0ScanDataListBox.SelectedItem.ToString();
+                foreach (var item in _splitStrTample)
+                {
+                    if (tmpselet.Contains(item._split))
+                    {
+                        item._cb.Checked = true;
+                    }
+                }
+            }
         }
 
         private void selectValueToTextField(List<prefixContent> lt, ListBox lbvalue, bool isSplit)
