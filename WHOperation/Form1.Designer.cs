@@ -1873,9 +1873,9 @@ namespace WHOperation
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(3, 219);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(95, 12);
+            this.label18.Size = new System.Drawing.Size(173, 12);
             this.label18.TabIndex = 68;
-            this.label18.Text = "Perfix Templet:";
+            this.label18.Text = "Perfix Templet(ÓÃ·ÖºÅ;¸ô¿ª):";
             // 
             // txt00Prefix
             // 
