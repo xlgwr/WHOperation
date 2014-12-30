@@ -96,9 +96,8 @@ namespace WHOperation
             this.tfnooflabels = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tfnoofcartons = new System.Windows.Forms.TextBox();
-            this.list1boxSplit = new System.Windows.Forms.ListBox();
+            this.lib1SplitListBox = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chk6Ohter = new System.Windows.Forms.CheckBox();
             this.txt5SplitOther = new System.Windows.Forms.TextBox();
             this.chk0dh = new System.Windows.Forms.CheckBox();
             this.chk7_3n2 = new System.Windows.Forms.CheckBox();
@@ -107,7 +106,7 @@ namespace WHOperation
             this.chk5_3n1 = new System.Windows.Forms.CheckBox();
             this.chk1jh = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.listbox0ScanData = new System.Windows.Forms.ListBox();
+            this.lib0ScanDataListBox = new System.Windows.Forms.ListBox();
             this.ldnpartnumber = new System.Windows.Forms.Label();
             this.lrecmfgpart = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -662,9 +661,9 @@ namespace WHOperation
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.AutoScroll = true;
-            this.splitContainer2.Panel2.Controls.Add(this.list1boxSplit);
+            this.splitContainer2.Panel2.Controls.Add(this.lib1SplitListBox);
             this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer2.Panel2.Controls.Add(this.listbox0ScanData);
+            this.splitContainer2.Panel2.Controls.Add(this.lib0ScanDataListBox);
             this.splitContainer2.Panel2.Controls.Add(this.ldnpartnumber);
             this.splitContainer2.Panel2.Controls.Add(this.lrecmfgpart);
             this.splitContainer2.Panel2.Controls.Add(this.label12);
@@ -856,22 +855,21 @@ namespace WHOperation
             this.tfnoofcartons.TextChanged += new System.EventHandler(this.tfnoofcartons_TextChanged);
             this.tfnoofcartons.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnoofcartons_KeyDown);
             // 
-            // list1boxSplit
+            // lib1SplitListBox
             // 
-            this.list1boxSplit.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.list1boxSplit.FormattingEnabled = true;
-            this.list1boxSplit.HorizontalScrollbar = true;
-            this.list1boxSplit.ItemHeight = 16;
-            this.list1boxSplit.Location = new System.Drawing.Point(571, 148);
-            this.list1boxSplit.Name = "list1boxSplit";
-            this.list1boxSplit.ScrollAlwaysVisible = true;
-            this.list1boxSplit.Size = new System.Drawing.Size(227, 148);
-            this.list1boxSplit.TabIndex = 67;
-            this.list1boxSplit.Click += new System.EventHandler(this.list1boxSplit_Click);
+            this.lib1SplitListBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lib1SplitListBox.FormattingEnabled = true;
+            this.lib1SplitListBox.HorizontalScrollbar = true;
+            this.lib1SplitListBox.ItemHeight = 16;
+            this.lib1SplitListBox.Location = new System.Drawing.Point(571, 148);
+            this.lib1SplitListBox.Name = "lib1SplitListBox";
+            this.lib1SplitListBox.ScrollAlwaysVisible = true;
+            this.lib1SplitListBox.Size = new System.Drawing.Size(227, 148);
+            this.lib1SplitListBox.TabIndex = 67;
+            this.lib1SplitListBox.Click += new System.EventHandler(this.list1boxSplit_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.chk6Ohter);
             this.groupBox1.Controls.Add(this.txt5SplitOther);
             this.groupBox1.Controls.Add(this.chk0dh);
             this.groupBox1.Controls.Add(this.chk7_3n2);
@@ -887,16 +885,6 @@ namespace WHOperation
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "分隔符";
             // 
-            // chk6Ohter
-            // 
-            this.chk6Ohter.AutoSize = true;
-            this.chk6Ohter.Location = new System.Drawing.Point(141, 63);
-            this.chk6Ohter.Name = "chk6Ohter";
-            this.chk6Ohter.Size = new System.Drawing.Size(15, 14);
-            this.chk6Ohter.TabIndex = 68;
-            this.chk6Ohter.UseVisualStyleBackColor = true;
-            this.chk6Ohter.CheckedChanged += new System.EventHandler(this.chk6Ohter_CheckedChanged);
-            // 
             // txt5SplitOther
             // 
             this.txt5SplitOther.Location = new System.Drawing.Point(42, 60);
@@ -904,7 +892,6 @@ namespace WHOperation
             this.txt5SplitOther.Size = new System.Drawing.Size(93, 21);
             this.txt5SplitOther.TabIndex = 66;
             this.txt5SplitOther.TextChanged += new System.EventHandler(this.txt5SplitOther_TextChanged);
-            this.txt5SplitOther.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt5SplitOther_KeyDown);
             // 
             // chk0dh
             // 
@@ -981,19 +968,19 @@ namespace WHOperation
             this.label9.TabIndex = 67;
             this.label9.Text = "其它：";
             // 
-            // listbox0ScanData
+            // lib0ScanDataListBox
             // 
-            this.listbox0ScanData.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listbox0ScanData.FormattingEnabled = true;
-            this.listbox0ScanData.HorizontalScrollbar = true;
-            this.listbox0ScanData.ItemHeight = 16;
-            this.listbox0ScanData.Location = new System.Drawing.Point(285, 68);
-            this.listbox0ScanData.Name = "listbox0ScanData";
-            this.listbox0ScanData.ScrollAlwaysVisible = true;
-            this.listbox0ScanData.Size = new System.Drawing.Size(280, 228);
-            this.listbox0ScanData.TabIndex = 0;
-            this.listbox0ScanData.Click += new System.EventHandler(this.listbox0ScanData_Click);
-            this.listbox0ScanData.SelectedIndexChanged += new System.EventHandler(this.listbox0ScanData_SelectedIndexChanged);
+            this.lib0ScanDataListBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lib0ScanDataListBox.FormattingEnabled = true;
+            this.lib0ScanDataListBox.HorizontalScrollbar = true;
+            this.lib0ScanDataListBox.ItemHeight = 16;
+            this.lib0ScanDataListBox.Location = new System.Drawing.Point(285, 68);
+            this.lib0ScanDataListBox.Name = "lib0ScanDataListBox";
+            this.lib0ScanDataListBox.ScrollAlwaysVisible = true;
+            this.lib0ScanDataListBox.Size = new System.Drawing.Size(280, 228);
+            this.lib0ScanDataListBox.TabIndex = 0;
+            this.lib0ScanDataListBox.Click += new System.EventHandler(this.listbox0ScanData_Click);
+            this.lib0ScanDataListBox.SelectedIndexChanged += new System.EventHandler(this.listbox0ScanData_SelectedIndexChanged);
             // 
             // ldnpartnumber
             // 
@@ -2071,8 +2058,8 @@ namespace WHOperation
         private System.Windows.Forms.DataGridViewTextBoxColumn t_conn;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrintedQty;
         private System.Windows.Forms.DataGridViewTextBoxColumn RowID;
-        private System.Windows.Forms.ListBox listbox0ScanData;
-        private System.Windows.Forms.ListBox list1boxSplit;
+        private System.Windows.Forms.ListBox lib0ScanDataListBox;
+        private System.Windows.Forms.ListBox lib1SplitListBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txt5SplitOther;
@@ -2080,7 +2067,6 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox chk3xh;
         private System.Windows.Forms.CheckBox chk3Space;
         private System.Windows.Forms.CheckBox chk1jh;
-        private System.Windows.Forms.CheckBox chk6Ohter;
         private System.Windows.Forms.CheckBox chk5NoSplit;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tool_lbl_Msg;

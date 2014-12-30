@@ -62,7 +62,7 @@ namespace WHOperation
         public string _strtmp;
         public int _firstOpenSelectList;
         public static List<char> _splitChar_list = new List<char>();
-
+        public string _splitStringTmp { get; set; }
 
         public List<string> _strScanlit = new List<string>();
         public List<string> _strlit = new List<string>();
@@ -696,7 +696,7 @@ namespace WHOperation
                         //
                         getPrefixOfContent(item);
 
-                        listbox0ScanData.Items.Add(item);
+                        lib0ScanDataListBox.Items.Add(item);
                         _strScanlit.Add(item);
 
                         //find in gridview
@@ -3605,7 +3605,7 @@ namespace WHOperation
             bEnableScan.Enabled = true;
             tfscanarea.ReadOnly = true;
             tfscanarea.Focus();
-
+            _splitStringTmp = "";
             tfnooflabels.Leave += new EventHandler(tfnooflabels_Leave);
             tfnooflabels.KeyDown += new KeyEventHandler(txtkeypress);
 
@@ -3923,10 +3923,10 @@ namespace WHOperation
             tabControl1.SelectedIndex = 1;
             this.AcceptButton = null;
 
-            listbox0ScanData.Items.Clear();
+            lib0ScanDataListBox.Items.Clear();
             _strScanlit.Clear();
             _strlit.Clear();
-            list1boxSplit.Items.Clear();
+            lib1SplitListBox.Items.Clear();
             _strNoPrefixlit.Clear();
             _strNoPrefixlitTmp.Clear();
 
@@ -3953,7 +3953,7 @@ namespace WHOperation
             chk1jh.Checked = false;
             chk3Space.Checked = false;
             chk3xh.Checked = false;
-            chk6Ohter.Checked = false;
+            //chk6Ohter.Checked = false;
             chk5_3n1.Checked = false;
             chk7_3n2.Checked = false;
             txt5SplitOther.Text = "";
@@ -4050,7 +4050,7 @@ namespace WHOperation
 
         private void listbox0ScanData_Click(object sender, EventArgs e)
         {
-            selectValueToTextField(_scanList, listbox0ScanData, false);
+            selectValueToTextField(_scanList, lib0ScanDataListBox, false);
         }
 
         private void selectValueToTextField(List<prefixContent> lt, ListBox lbvalue, bool isSplit)
@@ -4102,6 +4102,86 @@ namespace WHOperation
 
         #region split from checklist
 
+
+        public string[] splitFromStringWithChar(string strFrom, string strWithChar, bool useLongStringOne)
+        {
+            if (string.IsNullOrEmpty(strWithChar) || string.IsNullOrEmpty(strFrom))
+            {
+                return null;
+            }
+            string[] tmpreturn = null;
+            if (useLongStringOne)
+            {
+                var tmphasIndex = strFrom.IndexOf(strWithChar);
+                if (tmphasIndex > -1)
+                {
+                    var tmpstrLeft = strFrom.Substring(0, tmphasIndex + strWithChar.Length);
+                    var tmpstrRight = strFrom.Substring(tmphasIndex + strWithChar.Length);
+                    tmpreturn = new string[2] { tmpstrLeft, tmpstrRight };
+                    return tmpreturn;
+                }
+                else
+                {
+                    tmpreturn = new string[1] { strFrom };
+                    return tmpreturn;
+                }
+            }
+            else
+            {
+                var tmparr = strFrom.Split(strWithChar.ToArray());
+                return tmparr;
+
+            }
+            return tmpreturn;
+        }
+
+        public void splitFromStringWithChar(string strFrom, string strWithChar, bool useLongStringOne, ListBox lbToAdd)
+        {
+            var tmparr = splitFromStringWithChar(strFrom, strWithChar, useLongStringOne);
+            if (tmparr == null)
+            {
+                return;
+            }
+            foreach (var item in tmparr)
+            {
+                if (string.IsNullOrEmpty(item))
+                {
+                    continue;
+                }
+                if (!lbToAdd.Items.Contains(item))
+                {
+                    lbToAdd.Items.Add(item);
+                }
+            }
+        }
+        public void splitFromStringWithChar(ListBox lbSelect, string strWithChar, bool useLongStringOne, ListBox lbToAdd)
+        {
+            var strSelect = lbSelect.SelectedItem;
+            if (strSelect != null)
+            {
+                splitFromStringWithChar(strSelect.ToString(), strWithChar, useLongStringOne, lbToAdd);
+            }
+        }
+
+        public void splitFromStringWithChar(CheckBox cb, string cvalue)
+        {
+            lib1SplitListBox.Items.Clear();
+            if (cb.Checked)
+            {
+                if (_splitStringTmp.IndexOf(cvalue) == -1)
+                {
+                    _splitStringTmp += cvalue.ToString();
+                }
+            }
+            else
+            {
+                if (_splitStringTmp.IndexOf(cvalue) > -1)
+                {
+                    _splitStringTmp.Replace(cvalue,"");
+                }
+            }
+            splitFromStringWithChar(lib0ScanDataListBox, _splitStringTmp, false, lib1SplitListBox);
+        }
         private void splitFromControl(CheckBox cl, char spchar)
         {
 
@@ -4114,7 +4194,7 @@ namespace WHOperation
                 _splitChar_list.Remove(spchar);
             }
 
-            addItemToListFromListSplit(listbox0ScanData, list1boxSplit);
+            addItemToListFromListSplit(lib0ScanDataListBox, lib1SplitListBox);
         }
 
         public void addItemToListFromListSplit(ListBox fromlb, ListBox tolb)
@@ -4188,46 +4268,33 @@ namespace WHOperation
         #endregion
         private void chk0dh_CheckedChanged(object sender, EventArgs e)
         {
-            splitFromControl(chk0dh, ',');
+
+            splitFromStringWithChar(chk0dh, ",");
         }
 
         private void chk1jh_CheckedChanged(object sender, EventArgs e)
         {
-            splitFromControl(chk1jh, '-');
+            splitFromStringWithChar(chk1jh, "-");
         }
 
         private void chk3Space_CheckedChanged(object sender, EventArgs e)
         {
-            splitFromControl(chk3Space, ' ');
+            splitFromStringWithChar(chk3Space, " ");
         }
 
         private void chk3xh_CheckedChanged(object sender, EventArgs e)
         {
-            splitFromControl(chk3xh, '*');
+            splitFromStringWithChar(chk3xh, "*");
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
-        private void chk6Ohter_CheckedChanged(object sender, EventArgs e)
-        {
-            char _split = ' ';
-            //splitFromControl(chk6Ohter, ' ');
-            //if (chk6Ohter.Checked)
-            //{
-            //    KeyEventArgs e_key = new KeyEventArgs(Keys.Enter);
-            //    txt5SplitOther_KeyDown(sender, e_key);
-            //}
-            if (txt5SplitOther.Text.ToCharArray().Length > 0) _split = txt5SplitOther.Text.ToCharArray()[0];
-            splitFromControl(chk6Ohter, _split);
-
-
-        }
 
         private void list1boxSplit_Click(object sender, EventArgs e)
         {
-            selectValueToTextField(_scanList, list1boxSplit, true);
+            selectValueToTextField(_scanList, lib1SplitListBox, true);
         }
         public static bool IsNumber(string inputData)
         {
@@ -4452,41 +4519,23 @@ namespace WHOperation
             this.AcceptButton = null;
         }
 
-        private void txt5SplitOther_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (txt5SplitOther.Text.Trim().Length <= 0)
-                {
-                    chk6Ohter.Checked = false;
-                }
-                else
-                {
-                    if (removeStr(txt5SplitOther.Text))
-                    {
-                        chk6Ohter.Checked = true;
-                    }
-
-                }
-            }
-        }
         public bool removeStr(string o)
         {
-            if (listbox0ScanData.SelectedItem == null)
+            if (lib0ScanDataListBox.SelectedItem == null)
             {
                 return false;
             }
-            var strselect = listbox0ScanData.SelectedItem.ToString();
-            var index = listbox0ScanData.SelectedIndex;
+            var strselect = lib0ScanDataListBox.SelectedItem.ToString();
+            var index = lib0ScanDataListBox.SelectedIndex;
             var strsplit = strselect.Split('|');
 
             if (strsplit.Length > 1)
             {
-                listbox0ScanData.Items[index] = strsplit[0].ToUpper().Replace(o.ToUpper().Trim(), " ").Trim() + "|" + strsplit[1].ToString();
+                lib0ScanDataListBox.Items[index] = strsplit[0].ToUpper().Replace(o.ToUpper().Trim(), " ").Trim() + "|" + strsplit[1].ToString();
             }
             else
             {
-                listbox0ScanData.Items[index] = strselect.ToUpper().Replace(o.ToUpper().Trim(), " ").Trim();
+                lib0ScanDataListBox.Items[index] = strselect.ToUpper().Replace(o.ToUpper().Trim(), " ").Trim();
             }
             return true;
         }
@@ -4494,10 +4543,7 @@ namespace WHOperation
         {
             if (chk5_3n1.Checked)
             {
-                if (removeStr("3N1"))
-                {
-                    splitFromControl(chk5_3n1, ' ');
-                }
+                splitFromStringWithChar(lib0ScanDataListBox, "3N1", true, lib1SplitListBox);
             }
 
 
@@ -4507,18 +4553,25 @@ namespace WHOperation
         {
             if (chk7_3n2.Checked)
             {
-
-                if (removeStr("3N2"))
-                {
-                    splitFromControl(chk7_3n2, ' ');
-                }
+                splitFromStringWithChar(lib0ScanDataListBox, "3N2", true, lib1SplitListBox);
             }
 
         }
 
         private void txt5SplitOther_TextChanged(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrEmpty(txt5SplitOther.Text))
+            {
+                return;
+            }
+            if (txt5SplitOther.Text.Length == 1)
+            {
+                splitFromStringWithChar(lib0ScanDataListBox, txt5SplitOther.Text, false, lib1SplitListBox);
+            }
+            else
+            {
+                splitFromStringWithChar(lib0ScanDataListBox, txt5SplitOther.Text, true, lib1SplitListBox);
+            }
         }
 
         private void btn2PIID_Click(object sender, EventArgs e)
