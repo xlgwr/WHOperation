@@ -607,6 +607,7 @@ namespace WHOperation
             cCompoundData = strscan;
             cCompoundData = cCompoundData.Replace("\n", "");
             cCompoundData = cCompoundData.Replace("\r", "");
+            cCompoundData = cCompoundData.Replace("\t", ",");
             if (cCompoundData.Length >= 3)
             {
                 if (cCompoundData.Substring(0, 3) != "<|>")
@@ -652,6 +653,7 @@ namespace WHOperation
             cCompoundData = tfscanarea.Text;
             cCompoundData = cCompoundData.Replace("\n", "");
             cCompoundData = cCompoundData.Replace("\r", "");
+            cCompoundData = cCompoundData.Replace("\t", ",");
             if (cCompoundData.Length >= 3)
             {
                 if (cCompoundData.Substring(0, 3) != "<|>")
@@ -697,6 +699,7 @@ namespace WHOperation
             tfscanarea.Invoke(new Action(delegate() { tfscanarea.Text = ""; }));
             tfscanarea.Invoke(new Action(delegate() { tfscanarea.Text = tfscanarea.Text.Replace("\n", ""); }));
             tfscanarea.Invoke(new Action(delegate() { tfscanarea.Text = tfscanarea.Text.Replace("\r", ""); }));
+            tfscanarea.Invoke(new Action(delegate() { tfscanarea.Text = tfscanarea.Text.Replace("\t", ""); }));
 
             //add by xlgwr
 
@@ -4125,6 +4128,10 @@ namespace WHOperation
                         }
                         item._cb.Checked = true;
                     }
+                    else
+                    {
+                        item._cb.Checked = false;
+                    }
                 }
             }
         }
@@ -4361,6 +4368,14 @@ namespace WHOperation
         private void chk3Space_CheckedChanged(object sender, EventArgs e)
         {
             splitFromStringWithChar(chk3Space, " ");
+        }
+
+        private void chk2Space2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk2Space2.Checked)
+            {
+                splitFromStringWithChar(lib0ScanDataListBox, "  ", true, lib1SplitListBox);
+            }
         }
 
         private void chk3xh_CheckedChanged(object sender, EventArgs e)
@@ -4931,6 +4946,7 @@ namespace WHOperation
         {
             _splitPrefix = txt00Prefix.Text;
         }
+
     }
 
     public class vendorLabelDefinition

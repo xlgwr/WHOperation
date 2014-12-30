@@ -86,6 +86,8 @@ namespace WHOperation
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tab3_QRBar = new System.Windows.Forms.TabControl();
             this.tabPage5_OldQRBar = new System.Windows.Forms.TabPage();
+            this.txt00Prefix = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.bStop = new System.Windows.Forms.Button();
             this.bEnableScan = new System.Windows.Forms.Button();
             this.tfscanarea = new System.Windows.Forms.TextBox();
@@ -102,6 +104,7 @@ namespace WHOperation
             this.chk0dh = new System.Windows.Forms.CheckBox();
             this.chk7_zuoxiegang = new System.Windows.Forms.CheckBox();
             this.chk3xh = new System.Windows.Forms.CheckBox();
+            this.chk2Space2 = new System.Windows.Forms.CheckBox();
             this.chk3Space = new System.Windows.Forms.CheckBox();
             this.chk5_meiyuan = new System.Windows.Forms.CheckBox();
             this.chk1jh = new System.Windows.Forms.CheckBox();
@@ -191,8 +194,6 @@ namespace WHOperation
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txt00Prefix = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -554,7 +555,7 @@ namespace WHOperation
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1093, 330);
+            this.tabPage1.Size = new System.Drawing.Size(1093, 347);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Vendor Template";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -566,7 +567,7 @@ namespace WHOperation
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1087, 324);
+            this.groupBox4.Size = new System.Drawing.Size(1087, 341);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vendor Template";
@@ -745,6 +746,24 @@ namespace WHOperation
             this.tabPage5_OldQRBar.Text = "Old QR Bar";
             this.tabPage5_OldQRBar.UseVisualStyleBackColor = true;
             // 
+            // txt00Prefix
+            // 
+            this.txt00Prefix.Location = new System.Drawing.Point(1, 235);
+            this.txt00Prefix.Multiline = true;
+            this.txt00Prefix.Name = "txt00Prefix";
+            this.txt00Prefix.Size = new System.Drawing.Size(256, 54);
+            this.txt00Prefix.TabIndex = 69;
+            this.txt00Prefix.TextChanged += new System.EventHandler(this.txt00Prefix_TextChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(3, 219);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(173, 12);
+            this.label18.TabIndex = 68;
+            this.label18.Text = "Perfix Templet(用分号;隔开):";
+            // 
             // bStop
             // 
             this.bStop.Enabled = false;
@@ -878,6 +897,7 @@ namespace WHOperation
             this.groupBox1.Controls.Add(this.chk0dh);
             this.groupBox1.Controls.Add(this.chk7_zuoxiegang);
             this.groupBox1.Controls.Add(this.chk3xh);
+            this.groupBox1.Controls.Add(this.chk2Space2);
             this.groupBox1.Controls.Add(this.chk3Space);
             this.groupBox1.Controls.Add(this.chk5_meiyuan);
             this.groupBox1.Controls.Add(this.chk1jh);
@@ -911,7 +931,7 @@ namespace WHOperation
             // chk7_zuoxiegang
             // 
             this.chk7_zuoxiegang.AutoSize = true;
-            this.chk7_zuoxiegang.Location = new System.Drawing.Point(156, 41);
+            this.chk7_zuoxiegang.Location = new System.Drawing.Point(154, 41);
             this.chk7_zuoxiegang.Name = "chk7_zuoxiegang";
             this.chk7_zuoxiegang.Size = new System.Drawing.Size(78, 16);
             this.chk7_zuoxiegang.TabIndex = 65;
@@ -930,6 +950,17 @@ namespace WHOperation
             this.chk3xh.UseVisualStyleBackColor = true;
             this.chk3xh.CheckedChanged += new System.EventHandler(this.chk3xh_CheckedChanged);
             // 
+            // chk2Space2
+            // 
+            this.chk2Space2.AutoSize = true;
+            this.chk2Space2.Location = new System.Drawing.Point(154, 62);
+            this.chk2Space2.Name = "chk2Space2";
+            this.chk2Space2.Size = new System.Drawing.Size(66, 16);
+            this.chk2Space2.TabIndex = 65;
+            this.chk2Space2.Text = "2个控格";
+            this.chk2Space2.UseVisualStyleBackColor = true;
+            this.chk2Space2.CheckedChanged += new System.EventHandler(this.chk2Space2_CheckedChanged);
+            // 
             // chk3Space
             // 
             this.chk3Space.AutoSize = true;
@@ -944,7 +975,7 @@ namespace WHOperation
             // chk5_meiyuan
             // 
             this.chk5_meiyuan.AutoSize = true;
-            this.chk5_meiyuan.Location = new System.Drawing.Point(155, 20);
+            this.chk5_meiyuan.Location = new System.Drawing.Point(154, 20);
             this.chk5_meiyuan.Name = "chk5_meiyuan";
             this.chk5_meiyuan.Size = new System.Drawing.Size(66, 16);
             this.chk5_meiyuan.TabIndex = 65;
@@ -1868,24 +1899,6 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(3, 219);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(173, 12);
-            this.label18.TabIndex = 68;
-            this.label18.Text = "Perfix Templet(用分号;隔开):";
-            // 
-            // txt00Prefix
-            // 
-            this.txt00Prefix.Location = new System.Drawing.Point(1, 235);
-            this.txt00Prefix.Multiline = true;
-            this.txt00Prefix.Name = "txt00Prefix";
-            this.txt00Prefix.Size = new System.Drawing.Size(256, 54);
-            this.txt00Prefix.TabIndex = 69;
-            this.txt00Prefix.TextChanged += new System.EventHandler(this.txt00Prefix_TextChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2103,6 +2116,7 @@ namespace WHOperation
         private System.Windows.Forms.DataGridView dgv6PICompele;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txt00Prefix;
+        private System.Windows.Forms.CheckBox chk2Space2;
     }
 }
 
