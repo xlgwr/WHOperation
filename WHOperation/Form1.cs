@@ -717,7 +717,7 @@ namespace WHOperation
                         if (chk5NoSplit.Checked)
                         {
                             searchByItem(item);
-                            searchByItemByPrefix(item, _splitPrefix,lib0ScanDataListBox);
+                            searchByItemByPrefix(item, _splitPrefix, lib0ScanDataListBox);
                         }
                         ///end
 
@@ -725,7 +725,7 @@ namespace WHOperation
                 }
             }
         }
-        public void searchByItemByPrefix(string item, string strprefix,ListBox libAdd)
+        public void searchByItemByPrefix(string item, string strprefix, ListBox libAdd)
         {
             var tmpspalit = strprefix.Split(';');
             foreach (var ckey in tmpspalit)
@@ -760,11 +760,17 @@ namespace WHOperation
             }
             else
             {
-                var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(item.ToString().Trim());
+                if (string.IsNullOrEmpty(tfdnqty.Text))
+                {
+                    return false;
+                }
+                int intitem = Convert.ToInt32(item.ToString().Trim());
+                var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * intitem;
+
 
                 if (tmpint > Convert.ToInt32(tfdnqty.Text) && string.IsNullOrEmpty(tfrecqty.Text))
                 {
-                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + " * " + tfnooflabels.Text + " * " + item.ToString().Trim() + " = " + tmpint + " > " + tfdnqty.Text;
+                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + " * " + tfnooflabels.Text + " * " + intitem.ToString("###") + " = " + tmpint + " > " + tfdnqty.Text;
                     tfrecqty.Text = "";
                     pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                     return false;
@@ -777,7 +783,7 @@ namespace WHOperation
                         if (!string.IsNullOrEmpty(tmpmpq))
                         {
                             var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString();
-                            if (!tmp2mpq.Equals(item.ToString().Trim()))
+                            if (!tmp2mpq.Equals(intitem.ToString("###")))
                             {
                                 tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
                                 return false;
@@ -787,7 +793,7 @@ namespace WHOperation
                     }
                     tfrecqty.Invoke(new Action(delegate()
                     {
-                        tfrecqty.Text = item.ToString().Trim();
+                        tfrecqty.Text = intitem.ToString("###");
                         pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
                     }));
                 }
@@ -4217,40 +4223,8 @@ namespace WHOperation
                     lbToAdd.Items.Add(item);
 
                 }
-                if (!IsNumber(item.ToUpper()))
-                {
-                    if (_usePrintPI)
-                    {
-                        SearchDNPart2(item.ToUpper().Trim(), dgv5PIPending, "PI_PART", "pi_mfgr_part");
-                    }
-                    else
-                    {
-                        SearchDNPart2(item.ToUpper().Trim(), dgv1Pending, "PartNumber", "MFGPartNo");
-                    }
-                }
-                else
-                {
-                    if (_usePrintPI)
-                    {
-                        var tmpmpq = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString();
-                        if (!string.IsNullOrEmpty(tmpmpq))
-                        {
-                            var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString();
-                            if (!tmp2mpq.Equals(item.ToString().Trim()))
-                            {
-                                tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
-                                continue;
-                            }
-
-                        }
-                    }
-                    tfrecqty.Invoke(new Action(delegate()
-                    {
-                        tfrecqty.Text = item.ToString().Trim();
-                        pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                    }));
-                }
-                searchByItemByPrefix(item, _splitPrefix,lib1SplitListBox);
+                searchByItem(item);
+                searchByItemByPrefix(item, _splitPrefix, lib1SplitListBox);
             }
         }
         public void splitFromStringWithChar(ListBox lbSelect, string strWithChar, bool useLongStringOne, ListBox lbToAdd)
