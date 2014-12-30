@@ -4231,11 +4231,19 @@ namespace WHOperation
         }
         public static bool IsNumber(string inputData)
         {
+            if (inputData.Length > 10)
+            {
+                return false;
+            }
             Match m = RegNumber.Match(inputData);
             return m.Success;
         }
         public static bool IsDecimal(string inputData)
         {
+            if (inputData.Length > 10)
+            {
+                return false;
+            }
             Match m = RegDecimal.Match(inputData);
             return m.Success;
         }
