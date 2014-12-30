@@ -165,7 +165,6 @@ namespace WHOperation
             this.cbport = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.btn2PIID = new System.Windows.Forms.Button();
@@ -194,6 +193,7 @@ namespace WHOperation
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbls00SelectItem = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -669,6 +669,7 @@ namespace WHOperation
             this.splitContainer2.Panel2.Controls.Add(this.lib0ScanDataListBox);
             this.splitContainer2.Panel2.Controls.Add(this.ldnpartnumber);
             this.splitContainer2.Panel2.Controls.Add(this.lrecmfgpart);
+            this.splitContainer2.Panel2.Controls.Add(this.lbls00SelectItem);
             this.splitContainer2.Panel2.Controls.Add(this.label12);
             this.splitContainer2.Panel2.Controls.Add(this.lexpiredate);
             this.splitContainer2.Panel2.Controls.Add(this.label8);
@@ -1005,6 +1006,7 @@ namespace WHOperation
             // 
             // lib0ScanDataListBox
             // 
+            this.lib0ScanDataListBox.ContextMenuStrip = this.contextMenuStrip1;
             this.lib0ScanDataListBox.Font = new System.Drawing.Font("ËÎÌו", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lib0ScanDataListBox.FormattingEnabled = true;
             this.lib0ScanDataListBox.HorizontalScrollbar = true;
@@ -1530,20 +1532,16 @@ namespace WHOperation
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearToolStripMenuItem,
-            this.reStartToolStripMenuItem});
+            this.clearToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(69, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
-            // 
-            // reStartToolStripMenuItem
-            // 
-            this.reStartToolStripMenuItem.Name = "reStartToolStripMenuItem";
-            this.reStartToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -1899,6 +1897,16 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
+            // lbls00SelectItem
+            // 
+            this.lbls00SelectItem.AutoSize = true;
+            this.lbls00SelectItem.Location = new System.Drawing.Point(44, 299);
+            this.lbls00SelectItem.Name = "lbls00SelectItem";
+            this.lbls00SelectItem.Size = new System.Drawing.Size(77, 12);
+            this.lbls00SelectItem.TabIndex = 38;
+            this.lbls00SelectItem.Text = "Select Item:";
+            this.lbls00SelectItem.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2071,7 +2079,6 @@ namespace WHOperation
         private System.Windows.Forms.TabPage tabPage5_OldQRBar;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reStartToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn POLine;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vendor;
@@ -2117,6 +2124,7 @@ namespace WHOperation
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txt00Prefix;
         private System.Windows.Forms.CheckBox chk2Space2;
+        private System.Windows.Forms.Label lbls00SelectItem;
     }
 }
 

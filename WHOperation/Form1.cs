@@ -3672,6 +3672,7 @@ namespace WHOperation
                new prefixCheckbox("/",chk7_zuoxiegang)
             };
             txt00Prefix.Text = _splitPrefix;
+            _tmpseletListboxValue = "";
         }
         private void tfnooflabels_KeyDown(object sender, KeyEventArgs e)
         {
@@ -4113,18 +4114,28 @@ namespace WHOperation
         private void listbox0ScanData_Click(object sender, EventArgs e)
         {
             selectValueToTextField(_scanList, lib0ScanDataListBox, false);
+
             if (lib0ScanDataListBox.SelectedItem != null)
             {
-                var tmpselet = lib0ScanDataListBox.SelectedItem.ToString();
-
-                if (tmpselet.Contains("|"))
+                if (_tmpseletListboxValue.Length > 0)
                 {
-                    tmpselet = tmpselet.Split('|')[0];
+                    for (int i = 0; i < _tmpseletListboxValue.Length; i++)
+                    {
+                        var tb = splitContainer2.Panel2.Controls.Find(i.ToString(), false).First();
+                        splitContainer2.Panel2.Controls.Remove(tb);
+                    }
+                }
+
+                _tmpseletListboxValue = lib0ScanDataListBox.SelectedItem.ToString();
+
+                if (_tmpseletListboxValue.Contains("|"))
+                {
+                    _tmpseletListboxValue = _tmpseletListboxValue.Split('|')[0];
                 }
 
                 foreach (var item in _splitStrTample)
                 {
-                    if (tmpselet.Contains(item._split))
+                    if (_tmpseletListboxValue.Contains(item._split))
                     {
                         if (item._cb.Checked)
                         {
@@ -4137,7 +4148,84 @@ namespace WHOperation
                         item._cb.Checked = false;
                     }
                 }
+                //setarr libox
+                lbls00SelectItem.Visible = true;
+                for (int i = 0; i < _tmpseletListboxValue.Length; i++)
+                {
+                    TextBox tb = new TextBox();
+                    tb.Top = lbls00SelectItem.Top;
+                    tb.Width = 15;
+                    tb.Name = i.ToString();
+                    tb.Left = lbls00SelectItem.Left + lbls00SelectItem.Width + 5 + (tb.Width + 1) * i;
+                    tb.Text = _tmpseletListboxValue[i].ToString();
+                    tb.Click += new EventHandler(tb_Click);
+                    tb.DoubleClick += new EventHandler(tb_DoubleClick);
+                    splitContainer2.Panel2.Controls.Add(tb);
+                }
+
             }
+        }
+
+        void tb_DoubleClick(object sender, EventArgs e)
+        {
+            var tb = (TextBox)sender;
+            int iindex = Convert.ToInt32(tb.Name);
+            var item = _tmpseletListboxValue.Remove(iindex, 1);
+            if (!string.IsNullOrEmpty(item))
+            {
+                if (!_strScanlit.Contains(item))
+                {
+                    //
+                    //getPrefixOfContent(item);
+                    lib0ScanDataListBox.Items.Add(item);
+                    _strScanlit.Add(item);
+                    ///end
+                }
+                else
+                {
+                    lib0ScanDataListBox.Items.Remove(item);
+                    _strScanlit.Remove(item);
+                }
+                //find in gridview
+                if (chk5NoSplit.Checked)
+                {
+                    searchByItem(item);
+                    searchByItemByPrefix(item, _splitPrefix, lib0ScanDataListBox);
+                }
+            }
+        }
+
+        void tb_Click(object sender, EventArgs e)
+        {
+            var tb = (TextBox)sender;
+            int iindex = Convert.ToInt32(tb.Name) + 1;
+            string[] tmplr = new string[2];
+            tmplr[0] = _tmpseletListboxValue.Substring(0, iindex);
+            tmplr[1] = _tmpseletListboxValue.Substring(iindex);
+
+            foreach (var item in tmplr)
+            {
+                if (!string.IsNullOrEmpty(item))
+                {
+                    if (!_strScanlit.Contains(item))
+                    {
+                        //
+                        //getPrefixOfContent(item);
+                        lib0ScanDataListBox.Items.Add(item);
+                        _strScanlit.Add(item);
+
+                        //find in gridview
+                        if (chk5NoSplit.Checked)
+                        {
+                            searchByItem(item);
+                            searchByItemByPrefix(item, _splitPrefix, lib0ScanDataListBox);
+                        }
+                        ///end
+
+                    }
+                }
+            }
+
         }
 
         private void selectValueToTextField(List<prefixContent> lt, ListBox lbvalue, bool isSplit)
@@ -4953,6 +5041,14 @@ namespace WHOperation
             _splitPrefix = txt00Prefix.Text;
         }
 
+
+        public string _tmpseletListboxValue { get; set; }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lib0ScanDataListBox.Items.Clear();
+            _strScanlit.Clear();
+        }
     }
 
     public class vendorLabelDefinition
