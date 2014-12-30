@@ -734,7 +734,7 @@ namespace WHOperation
                                             var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString();
                                             if (!tmp2mpq.Equals(item.ToString().Trim()))
                                             {
-                                                tool_lbl_Msg.Text = "Enter Nubmer is not Equals MPQ:" + tmp2mpq;
+                                                tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
                                                 return;
                                             }
 
@@ -748,6 +748,7 @@ namespace WHOperation
                                 }
                             }
                         }
+                        ///end
 
                     }
                 }
@@ -4151,6 +4152,40 @@ namespace WHOperation
                 if (!lbToAdd.Items.Contains(item))
                 {
                     lbToAdd.Items.Add(item);
+
+                }
+                if (!IsNumber(item.ToUpper()))
+                {
+                    if (_usePrintPI)
+                    {
+                        SearchDNPart2(item.ToUpper().Trim(), dgv5PIPending, "PI_PART", "pi_mfgr_part");
+                    }
+                    else
+                    {
+                        SearchDNPart2(item.ToUpper().Trim(), dgv1Pending, "PartNumber", "MFGPartNo");
+                    }
+                }
+                else
+                {
+                    if (_usePrintPI)
+                    {
+                        var tmpmpq = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString();
+                        if (!string.IsNullOrEmpty(tmpmpq))
+                        {
+                            var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString();
+                            if (!tmp2mpq.Equals(item.ToString().Trim()))
+                            {
+                                tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
+                                continue;
+                            }
+
+                        }
+                    }
+                    tfrecqty.Invoke(new Action(delegate()
+                    {
+                        tfrecqty.Text = item.ToString().Trim();
+                        pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick41.png");
+                    }));
                 }
             }
         }
@@ -4175,7 +4210,7 @@ namespace WHOperation
             }
             else
             {
-                _splitStringTmp = _splitStringTmp.Replace(cvalue, "");               
+                _splitStringTmp = _splitStringTmp.Replace(cvalue, "");
             }
             splitFromStringWithChar(lib0ScanDataListBox, _splitStringTmp, false, lib1SplitListBox);
         }
@@ -4282,11 +4317,6 @@ namespace WHOperation
         private void chk3xh_CheckedChanged(object sender, EventArgs e)
         {
             splitFromStringWithChar(chk3xh, "*");
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void list1boxSplit_Click(object sender, EventArgs e)
@@ -4560,6 +4590,11 @@ namespace WHOperation
             if (string.IsNullOrEmpty(txt5SplitOther.Text))
             {
                 return;
+            }
+            else
+            {
+                lib1SplitListBox.Items.Clear();
+                splitFromStringWithChar(lib0ScanDataListBox, _splitStringTmp, false, lib1SplitListBox);
             }
             if (txt5SplitOther.Text.Length == 1)
             {
@@ -4837,6 +4872,11 @@ namespace WHOperation
                     }
                 }
             }
+        }
+
+        private void lib1SplitListBox_ControlAdded(object sender, ControlEventArgs e)
+        {
+            tool_lbl_Msg.Text = "dd";
         }
     }
 
