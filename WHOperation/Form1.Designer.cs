@@ -100,10 +100,10 @@ namespace WHOperation
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txt5SplitOther = new System.Windows.Forms.TextBox();
             this.chk0dh = new System.Windows.Forms.CheckBox();
-            this.chk7_3n2 = new System.Windows.Forms.CheckBox();
+            this.chk7_zuoxiegang = new System.Windows.Forms.CheckBox();
             this.chk3xh = new System.Windows.Forms.CheckBox();
             this.chk3Space = new System.Windows.Forms.CheckBox();
-            this.chk5_3n1 = new System.Windows.Forms.CheckBox();
+            this.chk5_meiyuan = new System.Windows.Forms.CheckBox();
             this.chk1jh = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.lib0ScanDataListBox = new System.Windows.Forms.ListBox();
@@ -191,6 +191,8 @@ namespace WHOperation
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txt00Prefix = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -543,7 +545,7 @@ namespace WHOperation
             this.tabControl1.Location = new System.Drawing.Point(12, 206);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1101, 356);
+            this.tabControl1.Size = new System.Drawing.Size(1101, 373);
             this.tabControl1.TabIndex = 20;
             // 
             // tabPage1
@@ -629,7 +631,7 @@ namespace WHOperation
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1093, 330);
+            this.tabPage2.Size = new System.Drawing.Size(1093, 347);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Capture PIMS Data";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -642,7 +644,7 @@ namespace WHOperation
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1087, 324);
+            this.groupBox2.Size = new System.Drawing.Size(1087, 341);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "PIMS Data Capture";
@@ -707,7 +709,7 @@ namespace WHOperation
             this.splitContainer2.Panel2.Controls.Add(this.lMRecMfgPart);
             this.splitContainer2.Panel2.Controls.Add(this.lMRecQty);
             this.splitContainer2.Panel2.Controls.Add(this.lMDateCode);
-            this.splitContainer2.Size = new System.Drawing.Size(1081, 304);
+            this.splitContainer2.Size = new System.Drawing.Size(1081, 321);
             this.splitContainer2.SplitterDistance = 269;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -718,11 +720,13 @@ namespace WHOperation
             this.tab3_QRBar.Location = new System.Drawing.Point(0, 0);
             this.tab3_QRBar.Name = "tab3_QRBar";
             this.tab3_QRBar.SelectedIndex = 0;
-            this.tab3_QRBar.Size = new System.Drawing.Size(269, 304);
+            this.tab3_QRBar.Size = new System.Drawing.Size(269, 321);
             this.tab3_QRBar.TabIndex = 6;
             // 
             // tabPage5_OldQRBar
             // 
+            this.tabPage5_OldQRBar.Controls.Add(this.txt00Prefix);
+            this.tabPage5_OldQRBar.Controls.Add(this.label18);
             this.tabPage5_OldQRBar.Controls.Add(this.bStop);
             this.tabPage5_OldQRBar.Controls.Add(this.bEnableScan);
             this.tabPage5_OldQRBar.Controls.Add(this.tfscanarea);
@@ -736,7 +740,7 @@ namespace WHOperation
             this.tabPage5_OldQRBar.Location = new System.Drawing.Point(4, 22);
             this.tabPage5_OldQRBar.Name = "tabPage5_OldQRBar";
             this.tabPage5_OldQRBar.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5_OldQRBar.Size = new System.Drawing.Size(261, 278);
+            this.tabPage5_OldQRBar.Size = new System.Drawing.Size(261, 295);
             this.tabPage5_OldQRBar.TabIndex = 0;
             this.tabPage5_OldQRBar.Text = "Old QR Bar";
             this.tabPage5_OldQRBar.UseVisualStyleBackColor = true;
@@ -770,7 +774,7 @@ namespace WHOperation
             this.tfscanarea.Location = new System.Drawing.Point(1, 108);
             this.tfscanarea.Multiline = true;
             this.tfscanarea.Name = "tfscanarea";
-            this.tfscanarea.Size = new System.Drawing.Size(256, 164);
+            this.tfscanarea.Size = new System.Drawing.Size(256, 106);
             this.tfscanarea.TabIndex = 3;
             this.tfscanarea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfscanarea_KeyDown);
             // 
@@ -872,15 +876,15 @@ namespace WHOperation
             // 
             this.groupBox1.Controls.Add(this.txt5SplitOther);
             this.groupBox1.Controls.Add(this.chk0dh);
-            this.groupBox1.Controls.Add(this.chk7_3n2);
+            this.groupBox1.Controls.Add(this.chk7_zuoxiegang);
             this.groupBox1.Controls.Add(this.chk3xh);
             this.groupBox1.Controls.Add(this.chk3Space);
-            this.groupBox1.Controls.Add(this.chk5_3n1);
+            this.groupBox1.Controls.Add(this.chk5_meiyuan);
             this.groupBox1.Controls.Add(this.chk1jh);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Location = new System.Drawing.Point(571, 58);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(227, 90);
+            this.groupBox1.Size = new System.Drawing.Size(234, 90);
             this.groupBox1.TabIndex = 66;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "·Ö¸ô·û";
@@ -904,16 +908,16 @@ namespace WHOperation
             this.chk0dh.UseVisualStyleBackColor = true;
             this.chk0dh.CheckedChanged += new System.EventHandler(this.chk0dh_CheckedChanged);
             // 
-            // chk7_3n2
+            // chk7_zuoxiegang
             // 
-            this.chk7_3n2.AutoSize = true;
-            this.chk7_3n2.Location = new System.Drawing.Point(156, 41);
-            this.chk7_3n2.Name = "chk7_3n2";
-            this.chk7_3n2.Size = new System.Drawing.Size(42, 16);
-            this.chk7_3n2.TabIndex = 65;
-            this.chk7_3n2.Text = "3N2";
-            this.chk7_3n2.UseVisualStyleBackColor = true;
-            this.chk7_3n2.CheckedChanged += new System.EventHandler(this.chk7_3n2_CheckedChanged);
+            this.chk7_zuoxiegang.AutoSize = true;
+            this.chk7_zuoxiegang.Location = new System.Drawing.Point(156, 41);
+            this.chk7_zuoxiegang.Name = "chk7_zuoxiegang";
+            this.chk7_zuoxiegang.Size = new System.Drawing.Size(78, 16);
+            this.chk7_zuoxiegang.TabIndex = 65;
+            this.chk7_zuoxiegang.Text = "ÓÒÐ±¸Ü(/)";
+            this.chk7_zuoxiegang.UseVisualStyleBackColor = true;
+            this.chk7_zuoxiegang.CheckedChanged += new System.EventHandler(this.chk7_3n2_CheckedChanged);
             // 
             // chk3xh
             // 
@@ -937,16 +941,16 @@ namespace WHOperation
             this.chk3Space.UseVisualStyleBackColor = true;
             this.chk3Space.CheckedChanged += new System.EventHandler(this.chk3Space_CheckedChanged);
             // 
-            // chk5_3n1
+            // chk5_meiyuan
             // 
-            this.chk5_3n1.AutoSize = true;
-            this.chk5_3n1.Location = new System.Drawing.Point(155, 20);
-            this.chk5_3n1.Name = "chk5_3n1";
-            this.chk5_3n1.Size = new System.Drawing.Size(42, 16);
-            this.chk5_3n1.TabIndex = 65;
-            this.chk5_3n1.Text = "3N1";
-            this.chk5_3n1.UseVisualStyleBackColor = true;
-            this.chk5_3n1.CheckedChanged += new System.EventHandler(this.chk5_3n1_CheckedChanged);
+            this.chk5_meiyuan.AutoSize = true;
+            this.chk5_meiyuan.Location = new System.Drawing.Point(155, 20);
+            this.chk5_meiyuan.Name = "chk5_meiyuan";
+            this.chk5_meiyuan.Size = new System.Drawing.Size(66, 16);
+            this.chk5_meiyuan.TabIndex = 65;
+            this.chk5_meiyuan.Text = "ÃÀÔª($)";
+            this.chk5_meiyuan.UseVisualStyleBackColor = true;
+            this.chk5_meiyuan.CheckedChanged += new System.EventHandler(this.chk5_3n1_CheckedChanged);
             // 
             // chk1jh
             // 
@@ -1542,7 +1546,7 @@ namespace WHOperation
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1115, 566);
+            this.panel1.Size = new System.Drawing.Size(1115, 604);
             this.panel1.TabIndex = 0;
             // 
             // label11
@@ -1852,7 +1856,7 @@ namespace WHOperation
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tool_lbl_Msg});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 544);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 582);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1115, 22);
             this.statusStrip1.TabIndex = 1;
@@ -1864,11 +1868,29 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(3, 219);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(95, 12);
+            this.label18.TabIndex = 68;
+            this.label18.Text = "Perfix Templet:";
+            // 
+            // txt00Prefix
+            // 
+            this.txt00Prefix.Location = new System.Drawing.Point(1, 235);
+            this.txt00Prefix.Multiline = true;
+            this.txt00Prefix.Name = "txt00Prefix";
+            this.txt00Prefix.Size = new System.Drawing.Size(256, 54);
+            this.txt00Prefix.TabIndex = 69;
+            this.txt00Prefix.TextChanged += new System.EventHandler(this.txt00Prefix_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1115, 566);
+            this.ClientSize = new System.Drawing.Size(1115, 604);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -2070,8 +2092,8 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox chk5NoSplit;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tool_lbl_Msg;
-        private System.Windows.Forms.CheckBox chk7_3n2;
-        private System.Windows.Forms.CheckBox chk5_3n1;
+        private System.Windows.Forms.CheckBox chk7_zuoxiegang;
+        private System.Windows.Forms.CheckBox chk5_meiyuan;
         private System.Windows.Forms.Button btn2PIID;
         private System.Windows.Forms.TextBox txt1PIID;
         private System.Windows.Forms.Label label11;
@@ -2079,6 +2101,8 @@ namespace WHOperation
         private System.Windows.Forms.DataGridView dgv5PIPending;
         private System.Windows.Forms.TabPage tabPage3Compele;
         private System.Windows.Forms.DataGridView dgv6PICompele;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox txt00Prefix;
     }
 }
 
