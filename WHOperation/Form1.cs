@@ -714,6 +714,7 @@ namespace WHOperation
 
 
                         lib0ScanDataListBox.Items.Add(item);
+                        lib0ScanDataListBox.SelectedIndex = lib0ScanDataListBox.Items.Count - 1;
                         _strScanlit.Add(item);
 
                         //find in gridview
@@ -724,8 +725,26 @@ namespace WHOperation
                         }
                         ///end
 
+                    } //
+
+                    foreach (var cbitem in _splitStrTample)
+                    {
+                        if (item.Contains(cbitem._split))
+                        {
+                            if (cbitem._cb.Checked)
+                            {
+                                cbitem._cb.Checked = false;
+                            }
+                            cbitem._cb.Checked = true;
+                        }
+                        else
+                        {
+                            cbitem._cb.Checked = false;
+                        }
                     }
+                    //
                 }
+
             }
         }
         public void searchByItemByPrefix(string item, string strprefix, ListBox libAdd)
@@ -743,6 +762,7 @@ namespace WHOperation
                         _strScanlit.Add(tmpitem);
                     }
                     searchByItem(tmpitem);
+
                     break;
                 }
             }
@@ -801,6 +821,7 @@ namespace WHOperation
                     }));
                 }
             }
+
             return true;
         }
         void GrabGeneralData(String cLabelData)
@@ -3245,6 +3266,7 @@ namespace WHOperation
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
+            this.AcceptButton = btn2PIID;
             if (dsDNDetail.Tables.Count >= 7)
                 setGV1();
         }
@@ -3273,14 +3295,14 @@ namespace WHOperation
                 cR = dsDNDetail.Tables[6].Rows[i];
                 if (cbfiltertype.SelectedIndex == 0)
                 {
-                    if ((cR.ItemArray[3].ToString().ToUpper().StartsWith(textBox2.Text.ToUpper()) && cR.ItemArray[0].ToString() == cDNNo) || (textBox2.Text.Length == 0 && cR.ItemArray[0].ToString() == cDNNo))
+                    if ((cR.ItemArray[3].ToString().ToUpper().StartsWith(txt2FilterValue.Text.ToUpper()) && cR.ItemArray[0].ToString() == cDNNo) || (txt2FilterValue.Text.Length == 0 && cR.ItemArray[0].ToString() == cDNNo))
                     {
                         dgv1Pending.Rows.Add(cR.ItemArray[0], cR.ItemArray[10], cR.ItemArray[7], cR.ItemArray[3], cR.ItemArray[9], cR.ItemArray[2], cR.ItemArray[4], "", cR.ItemArray[6], cR.ItemArray[1], cR.ItemArray[5], cR.ItemArray[11], cR.ItemArray[12], cR.ItemArray[13], cR.ItemArray[14], cR.ItemArray[15], cR.ItemArray[16], cR.ItemArray[17], cR.ItemArray[18], cR.ItemArray[20], i.ToString());
                     }
                 }
                 else
                 {
-                    if ((cR.ItemArray[9].ToString().ToUpper().StartsWith(textBox2.Text.ToUpper()) && cR.ItemArray[0].ToString() == cDNNo) || (textBox2.Text.Length == 0 && cR.ItemArray[0].ToString() == cDNNo))
+                    if ((cR.ItemArray[9].ToString().ToUpper().StartsWith(txt2FilterValue.Text.ToUpper()) && cR.ItemArray[0].ToString() == cDNNo) || (txt2FilterValue.Text.Length == 0 && cR.ItemArray[0].ToString() == cDNNo))
                     {
                         dgv1Pending.Rows.Add(cR.ItemArray[0], cR.ItemArray[10], cR.ItemArray[7], cR.ItemArray[3], cR.ItemArray[9], cR.ItemArray[2], cR.ItemArray[4], "", cR.ItemArray[6], cR.ItemArray[1], cR.ItemArray[5], cR.ItemArray[11], cR.ItemArray[12], cR.ItemArray[13], cR.ItemArray[14], cR.ItemArray[15], cR.ItemArray[16], cR.ItemArray[17], cR.ItemArray[18], cR.ItemArray[20], i.ToString());
                     }
@@ -4762,7 +4784,17 @@ namespace WHOperation
             this.AcceptButton = null;
             piid = txt1PIID.Text;
             //PI_NO,PI_LINE,
-            string tmpsql = @"select  PI_PART,pi_mfgr_part,PI_LOT,PI_PO,pi_mfgr,PI_QTY,'0' as PI_Print_QTY,PI_PO_price,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + piid + "' and (pi_lot<> NUll or pi_lot <>'') order by pi_line";
+            string tmpsql = @"select  PI_PART,pi_mfgr_part,PI_LOT,PI_PO,pi_mfgr,PI_QTY,'0' as PI_Print_QTY,PI_PO_price,PI_PALLET,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + piid + "' and (pi_lot<> NUll or pi_lot <>'') ";
+            string tmpaddwhere = "";
+            string tmporderby = " order by pi_line";
+            if (cbfiltertype.Text.Equals("PI PALLET"))
+            {
+                if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
+                {
+                    tmpaddwhere = " and PI_PALLET='" + txt2FilterValue.Text.Trim() + "'";
+                }
+            }
+            tmpsql += tmpaddwhere + tmporderby;
             if (!string.IsNullOrEmpty(piid))
             {
                 tabControl2_pending.SelectedIndex = 2;

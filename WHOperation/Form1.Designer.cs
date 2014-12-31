@@ -73,7 +73,7 @@ namespace WHOperation
             this.cbsystem = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txt2FilterValue = new System.Windows.Forms.TextBox();
             this.cbfiltertype = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -503,7 +503,7 @@ namespace WHOperation
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(876, 16);
+            this.label2.Location = new System.Drawing.Point(863, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 7;
@@ -520,24 +520,26 @@ namespace WHOperation
             this.groupBox3.Text = "Captured Image";
             this.groupBox3.Visible = false;
             // 
-            // textBox2
+            // txt2FilterValue
             // 
-            this.textBox2.Location = new System.Drawing.Point(988, 12);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(124, 21);
-            this.textBox2.TabIndex = 9;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.txt2FilterValue.Location = new System.Drawing.Point(982, 12);
+            this.txt2FilterValue.Name = "txt2FilterValue";
+            this.txt2FilterValue.Size = new System.Drawing.Size(118, 21);
+            this.txt2FilterValue.TabIndex = 9;
+            this.txt2FilterValue.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // cbfiltertype
             // 
             this.cbfiltertype.FormattingEnabled = true;
             this.cbfiltertype.Items.AddRange(new object[] {
+            "PI PALLET",
             "Part Number",
             "Mfgr Part Number"});
-            this.cbfiltertype.Location = new System.Drawing.Point(911, 12);
+            this.cbfiltertype.Location = new System.Drawing.Point(904, 12);
             this.cbfiltertype.Name = "cbfiltertype";
             this.cbfiltertype.Size = new System.Drawing.Size(78, 20);
-            this.cbfiltertype.TabIndex = 8;
+            this.cbfiltertype.TabIndex = 9;
+            this.cbfiltertype.Text = "PI PALLET";
             // 
             // tabControl1
             // 
@@ -1534,12 +1536,12 @@ namespace WHOperation
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(107, 26);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -1555,7 +1557,7 @@ namespace WHOperation
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.cbfiltertype);
-            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.txt2FilterValue);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cbsystem);
@@ -1592,7 +1594,7 @@ namespace WHOperation
             this.btn2PIID.Location = new System.Drawing.Point(784, 11);
             this.btn2PIID.Name = "btn2PIID";
             this.btn2PIID.Size = new System.Drawing.Size(75, 23);
-            this.btn2PIID.TabIndex = 26;
+            this.btn2PIID.TabIndex = 9;
             this.btn2PIID.Text = "GO PIID";
             this.btn2PIID.UseVisualStyleBackColor = true;
             this.btn2PIID.Click += new System.EventHandler(this.btn2PIID_Click);
@@ -1602,7 +1604,7 @@ namespace WHOperation
             this.txt1PIID.Location = new System.Drawing.Point(679, 12);
             this.txt1PIID.Name = "txt1PIID";
             this.txt1PIID.Size = new System.Drawing.Size(100, 21);
-            this.txt1PIID.TabIndex = 25;
+            this.txt1PIID.TabIndex = 8;
             this.txt1PIID.TextChanged += new System.EventHandler(this.txt1PIID_TextChanged);
             // 
             // chk5NoSplit
@@ -1983,7 +1985,7 @@ namespace WHOperation
         private System.Windows.Forms.TextBox cbsystem;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt2FilterValue;
         private System.Windows.Forms.ComboBox cbfiltertype;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
