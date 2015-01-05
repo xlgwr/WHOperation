@@ -71,7 +71,6 @@ namespace WHOperation
             this.tfdndate = new System.Windows.Forms.DateTimePicker();
             this.label17 = new System.Windows.Forms.Label();
             this.cbsystem = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txt2FilterValue = new System.Windows.Forms.TextBox();
             this.cbfiltertype = new System.Windows.Forms.ComboBox();
@@ -110,8 +109,11 @@ namespace WHOperation
             this.chk1jh = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.lib0ScanDataListBox = new System.Windows.Forms.ListBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ldnpartnumber = new System.Windows.Forms.Label();
             this.lrecmfgpart = new System.Windows.Forms.Label();
+            this.lbls00SelectItem = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.lexpiredate = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -163,8 +165,6 @@ namespace WHOperation
             this.cbprintertype = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.cbport = new System.Windows.Forms.ComboBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.btn2PIID = new System.Windows.Forms.Button();
@@ -193,7 +193,6 @@ namespace WHOperation
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lbls00SelectItem = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -209,6 +208,7 @@ namespace WHOperation
             this.tab3_QRBar.SuspendLayout();
             this.tabPage5_OldQRBar.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbdnpartnumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbexpiredate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pblotnumber)).BeginInit();
@@ -216,7 +216,6 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.pbrecqty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbmfgdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbdatecode)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -500,15 +499,6 @@ namespace WHOperation
             this.cbsystem.Size = new System.Drawing.Size(71, 21);
             this.cbsystem.TabIndex = 1;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(863, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Filter";
-            // 
             // groupBox3
             // 
             this.groupBox3.Location = new System.Drawing.Point(1103, 5);
@@ -522,9 +512,9 @@ namespace WHOperation
             // 
             // txt2FilterValue
             // 
-            this.txt2FilterValue.Location = new System.Drawing.Point(982, 12);
+            this.txt2FilterValue.Location = new System.Drawing.Point(855, 12);
             this.txt2FilterValue.Name = "txt2FilterValue";
-            this.txt2FilterValue.Size = new System.Drawing.Size(118, 21);
+            this.txt2FilterValue.Size = new System.Drawing.Size(100, 21);
             this.txt2FilterValue.TabIndex = 9;
             this.txt2FilterValue.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
@@ -535,7 +525,7 @@ namespace WHOperation
             "PI PALLET",
             "Part Number",
             "Mfgr Part Number"});
-            this.cbfiltertype.Location = new System.Drawing.Point(904, 12);
+            this.cbfiltertype.Location = new System.Drawing.Point(777, 12);
             this.cbfiltertype.Name = "cbfiltertype";
             this.cbfiltertype.Size = new System.Drawing.Size(78, 20);
             this.cbfiltertype.TabIndex = 9;
@@ -1021,6 +1011,20 @@ namespace WHOperation
             this.lib0ScanDataListBox.Click += new System.EventHandler(this.listbox0ScanData_Click);
             this.lib0ScanDataListBox.SelectedIndexChanged += new System.EventHandler(this.listbox0ScanData_SelectedIndexChanged);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(107, 26);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            // 
             // ldnpartnumber
             // 
             this.ldnpartnumber.AutoSize = true;
@@ -1038,6 +1042,16 @@ namespace WHOperation
             this.lrecmfgpart.Size = new System.Drawing.Size(101, 12);
             this.lrecmfgpart.TabIndex = 26;
             this.lrecmfgpart.Text = "2.Rec.MfgrPartNo";
+            // 
+            // lbls00SelectItem
+            // 
+            this.lbls00SelectItem.AutoSize = true;
+            this.lbls00SelectItem.Location = new System.Drawing.Point(44, 299);
+            this.lbls00SelectItem.Name = "lbls00SelectItem";
+            this.lbls00SelectItem.Size = new System.Drawing.Size(77, 12);
+            this.lbls00SelectItem.TabIndex = 38;
+            this.lbls00SelectItem.Text = "Select Item:";
+            this.lbls00SelectItem.Visible = false;
             // 
             // label12
             // 
@@ -1531,20 +1545,6 @@ namespace WHOperation
             this.cbport.Size = new System.Drawing.Size(69, 20);
             this.cbport.TabIndex = 10;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(107, 26);
-            // 
-            // clearToolStripMenuItem
-            // 
-            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-            this.clearToolStripMenuItem.Text = "Clear";
-            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label11);
@@ -1559,7 +1559,6 @@ namespace WHOperation
             this.panel1.Controls.Add(this.cbfiltertype);
             this.panel1.Controls.Add(this.txt2FilterValue);
             this.panel1.Controls.Add(this.groupBox3);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cbsystem);
             this.panel1.Controls.Add(this.label17);
             this.panel1.Controls.Add(this.tfdndate);
@@ -1591,17 +1590,17 @@ namespace WHOperation
             // 
             // btn2PIID
             // 
-            this.btn2PIID.Location = new System.Drawing.Point(784, 11);
+            this.btn2PIID.Location = new System.Drawing.Point(956, 11);
             this.btn2PIID.Name = "btn2PIID";
             this.btn2PIID.Size = new System.Drawing.Size(75, 23);
-            this.btn2PIID.TabIndex = 9;
+            this.btn2PIID.TabIndex = 10;
             this.btn2PIID.Text = "GO PIID";
             this.btn2PIID.UseVisualStyleBackColor = true;
             this.btn2PIID.Click += new System.EventHandler(this.btn2PIID_Click);
             // 
             // txt1PIID
             // 
-            this.txt1PIID.Location = new System.Drawing.Point(679, 12);
+            this.txt1PIID.Location = new System.Drawing.Point(677, 12);
             this.txt1PIID.Name = "txt1PIID";
             this.txt1PIID.Size = new System.Drawing.Size(100, 21);
             this.txt1PIID.TabIndex = 8;
@@ -1899,16 +1898,6 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
-            // lbls00SelectItem
-            // 
-            this.lbls00SelectItem.AutoSize = true;
-            this.lbls00SelectItem.Location = new System.Drawing.Point(44, 299);
-            this.lbls00SelectItem.Name = "lbls00SelectItem";
-            this.lbls00SelectItem.Size = new System.Drawing.Size(77, 12);
-            this.lbls00SelectItem.TabIndex = 38;
-            this.lbls00SelectItem.Text = "Select Item:";
-            this.lbls00SelectItem.Visible = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1943,6 +1932,7 @@ namespace WHOperation
             this.tabPage5_OldQRBar.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbdnpartnumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbexpiredate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pblotnumber)).EndInit();
@@ -1950,7 +1940,6 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.pbrecqty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbmfgdate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbdatecode)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -1983,7 +1972,6 @@ namespace WHOperation
         private System.Windows.Forms.DateTimePicker tfdndate;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox cbsystem;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txt2FilterValue;
         private System.Windows.Forms.ComboBox cbfiltertype;

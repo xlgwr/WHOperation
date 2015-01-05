@@ -715,6 +715,7 @@ namespace WHOperation
 
                         lib0ScanDataListBox.Items.Add(item);
                         lib0ScanDataListBox.SelectedIndex = lib0ScanDataListBox.Items.Count - 1;
+                        
                         _strScanlit.Add(item);
 
                         //find in gridview
@@ -759,6 +760,7 @@ namespace WHOperation
                     if (!_strScanlit.Contains(tmpitem))
                     {
                         libAdd.Items.Add(tmpitem);
+
                         _strScanlit.Add(tmpitem);
                     }
                     searchByItem(tmpitem);
@@ -3687,7 +3689,7 @@ namespace WHOperation
 
             _splitStrTample = new List<prefixCheckbox>() {
                new prefixCheckbox(",",chk0dh),
-               new prefixCheckbox("-",chk1jh),
+               //new prefixCheckbox("-",chk1jh),
                new prefixCheckbox(" ",chk3Space),
                new prefixCheckbox("*",chk3xh),
                new prefixCheckbox("$",chk5_meiyuan),
