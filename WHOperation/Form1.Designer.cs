@@ -235,7 +235,7 @@ namespace WHOperation
             // 
             // tfdnno
             // 
-            this.tfdnno.Location = new System.Drawing.Point(206, 12);
+            this.tfdnno.Location = new System.Drawing.Point(206, 13);
             this.tfdnno.Name = "tfdnno";
             this.tfdnno.Size = new System.Drawing.Size(100, 21);
             this.tfdnno.TabIndex = 3;
@@ -246,7 +246,7 @@ namespace WHOperation
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(137, 16);
+            this.label1.Location = new System.Drawing.Point(137, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 2;
@@ -465,7 +465,7 @@ namespace WHOperation
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(310, 16);
+            this.label14.Location = new System.Drawing.Point(310, 17);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(47, 12);
             this.label14.TabIndex = 4;
@@ -475,7 +475,7 @@ namespace WHOperation
             // 
             this.tfdndate.CustomFormat = "MM/dd/yy";
             this.tfdndate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.tfdndate.Location = new System.Drawing.Point(365, 12);
+            this.tfdndate.Location = new System.Drawing.Point(365, 13);
             this.tfdndate.Name = "tfdndate";
             this.tfdndate.Size = new System.Drawing.Size(98, 21);
             this.tfdndate.TabIndex = 5;
@@ -485,7 +485,7 @@ namespace WHOperation
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(18, 16);
+            this.label17.Location = new System.Drawing.Point(18, 17);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(41, 12);
             this.label17.TabIndex = 0;
@@ -493,7 +493,7 @@ namespace WHOperation
             // 
             // cbsystem
             // 
-            this.cbsystem.Location = new System.Drawing.Point(65, 12);
+            this.cbsystem.Location = new System.Drawing.Point(65, 13);
             this.cbsystem.Name = "cbsystem";
             this.cbsystem.ReadOnly = true;
             this.cbsystem.Size = new System.Drawing.Size(71, 21);
@@ -512,7 +512,7 @@ namespace WHOperation
             // 
             // txt2FilterValue
             // 
-            this.txt2FilterValue.Location = new System.Drawing.Point(855, 12);
+            this.txt2FilterValue.Location = new System.Drawing.Point(855, 13);
             this.txt2FilterValue.Name = "txt2FilterValue";
             this.txt2FilterValue.Size = new System.Drawing.Size(100, 21);
             this.txt2FilterValue.TabIndex = 9;
@@ -525,7 +525,7 @@ namespace WHOperation
             "PI PALLET",
             "Part Number",
             "Mfgr Part Number"});
-            this.cbfiltertype.Location = new System.Drawing.Point(777, 12);
+            this.cbfiltertype.Location = new System.Drawing.Point(777, 13);
             this.cbfiltertype.Name = "cbfiltertype";
             this.cbfiltertype.Size = new System.Drawing.Size(78, 20);
             this.cbfiltertype.TabIndex = 9;
@@ -1590,7 +1590,7 @@ namespace WHOperation
             // 
             // btn2PIID
             // 
-            this.btn2PIID.Location = new System.Drawing.Point(956, 11);
+            this.btn2PIID.Location = new System.Drawing.Point(956, 12);
             this.btn2PIID.Name = "btn2PIID";
             this.btn2PIID.Size = new System.Drawing.Size(75, 23);
             this.btn2PIID.TabIndex = 10;
@@ -1600,7 +1600,7 @@ namespace WHOperation
             // 
             // txt1PIID
             // 
-            this.txt1PIID.Location = new System.Drawing.Point(677, 12);
+            this.txt1PIID.Location = new System.Drawing.Point(677, 13);
             this.txt1PIID.Name = "txt1PIID";
             this.txt1PIID.Size = new System.Drawing.Size(100, 21);
             this.txt1PIID.TabIndex = 8;
@@ -1621,7 +1621,7 @@ namespace WHOperation
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(469, 16);
+            this.label6.Location = new System.Drawing.Point(469, 17);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(11, 12);
             this.label6.TabIndex = 24;
@@ -1631,7 +1631,7 @@ namespace WHOperation
             // 
             this.tftodndate.CustomFormat = "MM/dd/yy";
             this.tftodndate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.tftodndate.Location = new System.Drawing.Point(485, 12);
+            this.tftodndate.Location = new System.Drawing.Point(485, 13);
             this.tftodndate.Name = "tftodndate";
             this.tftodndate.Size = new System.Drawing.Size(98, 21);
             this.tftodndate.TabIndex = 6;
@@ -1640,7 +1640,7 @@ namespace WHOperation
             // 
             // bGo
             // 
-            this.bGo.Location = new System.Drawing.Point(586, 12);
+            this.bGo.Location = new System.Drawing.Point(586, 13);
             this.bGo.Name = "bGo";
             this.bGo.Size = new System.Drawing.Size(40, 21);
             this.bGo.TabIndex = 7;

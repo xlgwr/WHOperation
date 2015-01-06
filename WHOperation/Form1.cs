@@ -3808,7 +3808,7 @@ namespace WHOperation
             }
             else
             {
-                if (!string.IsNullOrEmpty(tfdnqty.Text))
+                if (!string.IsNullOrEmpty(tfdnqty.Text) && !string.IsNullOrEmpty(tfrecqty.Text))
                 {
                     var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * Convert.ToInt32(tfrecqty.Text);
                     if (tmpint > Convert.ToInt32(tfdnqty.Text))
