@@ -179,12 +179,12 @@ namespace WHOperation
             this.tabControl2_pending = new System.Windows.Forms.TabControl();
             this.tabPage3DNPending = new System.Windows.Forms.TabPage();
             this.tabPage4Comping = new System.Windows.Forms.TabPage();
-            this.dgv1Complete = new System.Windows.Forms.DataGridView();
+            this.dgv2Complete = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5PIpending = new System.Windows.Forms.TabPage();
@@ -193,6 +193,8 @@ namespace WHOperation
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chk0autoSplit = new System.Windows.Forms.CheckBox();
+            this.chk7maohao = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -225,7 +227,7 @@ namespace WHOperation
             this.tabControl2_pending.SuspendLayout();
             this.tabPage3DNPending.SuspendLayout();
             this.tabPage4Comping.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv1Complete)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv2Complete)).BeginInit();
             this.tabPage5PIpending.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).BeginInit();
             this.tabPage3Compele.SuspendLayout();
@@ -311,6 +313,7 @@ namespace WHOperation
             this.dgv1Pending.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv1Pending.Size = new System.Drawing.Size(745, 127);
             this.dgv1Pending.TabIndex = 0;
+            this.dgv1Pending.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv1Pending_CellDoubleClick);
             // 
             // DNNo
             // 
@@ -778,6 +781,7 @@ namespace WHOperation
             this.bEnableScan.TabIndex = 5;
             this.bEnableScan.Text = "Enable";
             this.bEnableScan.UseVisualStyleBackColor = true;
+            this.bEnableScan.EnabledChanged += new System.EventHandler(this.bEnableScan_EnabledChanged);
             this.bEnableScan.Click += new System.EventHandler(this.bEnableScan_Click);
             // 
             // tfscanarea
@@ -886,6 +890,7 @@ namespace WHOperation
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chk7maohao);
             this.groupBox1.Controls.Add(this.txt5SplitOther);
             this.groupBox1.Controls.Add(this.chk0dh);
             this.groupBox1.Controls.Add(this.chk7_zuoxiegang);
@@ -913,29 +918,29 @@ namespace WHOperation
             // chk0dh
             // 
             this.chk0dh.AutoSize = true;
-            this.chk0dh.Location = new System.Drawing.Point(6, 20);
+            this.chk0dh.Location = new System.Drawing.Point(5, 20);
             this.chk0dh.Name = "chk0dh";
-            this.chk0dh.Size = new System.Drawing.Size(66, 16);
+            this.chk0dh.Size = new System.Drawing.Size(54, 16);
             this.chk0dh.TabIndex = 65;
-            this.chk0dh.Text = "∂∫∫≈(,)";
+            this.chk0dh.Text = "∂∫∫≈,";
             this.chk0dh.UseVisualStyleBackColor = true;
             this.chk0dh.CheckedChanged += new System.EventHandler(this.chk0dh_CheckedChanged);
             // 
             // chk7_zuoxiegang
             // 
             this.chk7_zuoxiegang.AutoSize = true;
-            this.chk7_zuoxiegang.Location = new System.Drawing.Point(154, 41);
+            this.chk7_zuoxiegang.Location = new System.Drawing.Point(121, 41);
             this.chk7_zuoxiegang.Name = "chk7_zuoxiegang";
-            this.chk7_zuoxiegang.Size = new System.Drawing.Size(78, 16);
+            this.chk7_zuoxiegang.Size = new System.Drawing.Size(66, 16);
             this.chk7_zuoxiegang.TabIndex = 65;
-            this.chk7_zuoxiegang.Text = "”“–±∏‹(/)";
+            this.chk7_zuoxiegang.Text = "”“–±∏‹/";
             this.chk7_zuoxiegang.UseVisualStyleBackColor = true;
             this.chk7_zuoxiegang.CheckedChanged += new System.EventHandler(this.chk7_3n2_CheckedChanged);
             // 
             // chk3xh
             // 
             this.chk3xh.AutoSize = true;
-            this.chk3xh.Location = new System.Drawing.Point(79, 41);
+            this.chk3xh.Location = new System.Drawing.Point(59, 41);
             this.chk3xh.Name = "chk3xh";
             this.chk3xh.Size = new System.Drawing.Size(66, 16);
             this.chk3xh.TabIndex = 65;
@@ -957,7 +962,7 @@ namespace WHOperation
             // chk3Space
             // 
             this.chk3Space.AutoSize = true;
-            this.chk3Space.Location = new System.Drawing.Point(6, 42);
+            this.chk3Space.Location = new System.Drawing.Point(5, 42);
             this.chk3Space.Name = "chk3Space";
             this.chk3Space.Size = new System.Drawing.Size(48, 16);
             this.chk3Space.TabIndex = 65;
@@ -968,7 +973,7 @@ namespace WHOperation
             // chk5_meiyuan
             // 
             this.chk5_meiyuan.AutoSize = true;
-            this.chk5_meiyuan.Location = new System.Drawing.Point(154, 20);
+            this.chk5_meiyuan.Location = new System.Drawing.Point(121, 20);
             this.chk5_meiyuan.Name = "chk5_meiyuan";
             this.chk5_meiyuan.Size = new System.Drawing.Size(66, 16);
             this.chk5_meiyuan.TabIndex = 65;
@@ -979,7 +984,7 @@ namespace WHOperation
             // chk1jh
             // 
             this.chk1jh.AutoSize = true;
-            this.chk1jh.Location = new System.Drawing.Point(78, 20);
+            this.chk1jh.Location = new System.Drawing.Point(59, 20);
             this.chk1jh.Name = "chk1jh";
             this.chk1jh.Size = new System.Drawing.Size(66, 16);
             this.chk1jh.TabIndex = 65;
@@ -1461,7 +1466,7 @@ namespace WHOperation
             this.cbtrimmfgpart.Checked = true;
             this.cbtrimmfgpart.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbtrimmfgpart.Enabled = false;
-            this.cbtrimmfgpart.Location = new System.Drawing.Point(929, 163);
+            this.cbtrimmfgpart.Location = new System.Drawing.Point(929, 139);
             this.cbtrimmfgpart.Name = "cbtrimmfgpart";
             this.cbtrimmfgpart.Size = new System.Drawing.Size(102, 16);
             this.cbtrimmfgpart.TabIndex = 15;
@@ -1473,7 +1478,7 @@ namespace WHOperation
             this.cbprintcartonlabel.AutoSize = true;
             this.cbprintcartonlabel.Checked = true;
             this.cbprintcartonlabel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbprintcartonlabel.Location = new System.Drawing.Point(929, 139);
+            this.cbprintcartonlabel.Location = new System.Drawing.Point(929, 123);
             this.cbprintcartonlabel.Name = "cbprintcartonlabel";
             this.cbprintcartonlabel.Size = new System.Drawing.Size(132, 16);
             this.cbprintcartonlabel.TabIndex = 14;
@@ -1485,7 +1490,7 @@ namespace WHOperation
             this.cbSmartScan.AutoSize = true;
             this.cbSmartScan.Checked = true;
             this.cbSmartScan.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSmartScan.Location = new System.Drawing.Point(929, 115);
+            this.cbSmartScan.Location = new System.Drawing.Point(929, 107);
             this.cbSmartScan.Name = "cbSmartScan";
             this.cbSmartScan.Size = new System.Drawing.Size(84, 16);
             this.cbSmartScan.TabIndex = 13;
@@ -1550,6 +1555,7 @@ namespace WHOperation
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.btn2PIID);
             this.panel1.Controls.Add(this.txt1PIID);
+            this.panel1.Controls.Add(this.chk0autoSplit);
             this.panel1.Controls.Add(this.chk5NoSplit);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.tftodndate);
@@ -1576,8 +1582,9 @@ namespace WHOperation
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1115, 604);
+            this.panel1.Size = new System.Drawing.Size(1118, 604);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label11
             // 
@@ -1610,7 +1617,7 @@ namespace WHOperation
             // 
             this.chk5NoSplit.AutoSize = true;
             this.chk5NoSplit.ForeColor = System.Drawing.Color.Red;
-            this.chk5NoSplit.Location = new System.Drawing.Point(929, 187);
+            this.chk5NoSplit.Location = new System.Drawing.Point(929, 155);
             this.chk5NoSplit.Name = "chk5NoSplit";
             this.chk5NoSplit.Size = new System.Drawing.Size(174, 16);
             this.chk5NoSplit.TabIndex = 16;
@@ -1732,7 +1739,7 @@ namespace WHOperation
             // 
             // tabPage4Comping
             // 
-            this.tabPage4Comping.Controls.Add(this.dgv1Complete);
+            this.tabPage4Comping.Controls.Add(this.dgv2Complete);
             this.tabPage4Comping.Location = new System.Drawing.Point(4, 22);
             this.tabPage4Comping.Name = "tabPage4Comping";
             this.tabPage4Comping.Padding = new System.Windows.Forms.Padding(3);
@@ -1741,10 +1748,10 @@ namespace WHOperation
             this.tabPage4Comping.Text = "Complete";
             this.tabPage4Comping.UseVisualStyleBackColor = true;
             // 
-            // dgv1Complete
+            // dgv2Complete
             // 
-            this.dgv1Complete.AllowUserToAddRows = false;
-            this.dgv1Complete.AllowUserToDeleteRows = false;
+            this.dgv2Complete.AllowUserToAddRows = false;
+            this.dgv2Complete.AllowUserToDeleteRows = false;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("ÀŒÃÂ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -1752,14 +1759,14 @@ namespace WHOperation
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv1Complete.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
-            this.dgv1Complete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv1Complete.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv2Complete.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dgv2Complete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv2Complete.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn9,
             this.dataGridViewTextBoxColumn20});
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -1769,12 +1776,12 @@ namespace WHOperation
             dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv1Complete.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dgv1Complete.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv1Complete.Location = new System.Drawing.Point(3, 3);
-            this.dgv1Complete.MultiSelect = false;
-            this.dgv1Complete.Name = "dgv1Complete";
-            this.dgv1Complete.ReadOnly = true;
+            this.dgv2Complete.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dgv2Complete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv2Complete.Location = new System.Drawing.Point(3, 3);
+            this.dgv2Complete.MultiSelect = false;
+            this.dgv2Complete.Name = "dgv2Complete";
+            this.dgv2Complete.ReadOnly = true;
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle12.Font = new System.Drawing.Font("ÀŒÃÂ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -1782,10 +1789,11 @@ namespace WHOperation
             dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv1Complete.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.dgv1Complete.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv1Complete.Size = new System.Drawing.Size(745, 127);
-            this.dgv1Complete.TabIndex = 1;
+            this.dgv2Complete.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.dgv2Complete.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv2Complete.Size = new System.Drawing.Size(745, 127);
+            this.dgv2Complete.TabIndex = 1;
+            this.dgv2Complete.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv1Complete_CellDoubleClick);
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -1794,13 +1802,6 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.Width = 130;
             // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "PONumber";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 65;
-            // 
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.HeaderText = "PO QPL-Part No";
@@ -1808,18 +1809,25 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Width = 130;
             // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "RIR-No";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "PONumber";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 65;
+            // 
             // dataGridViewTextBoxColumn7
             // 
             this.dataGridViewTextBoxColumn7.HeaderText = "ASN MFG P/N";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Width = 110;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "RIR-No";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn9
             // 
@@ -1858,6 +1866,7 @@ namespace WHOperation
             this.dgv5PIPending.RowTemplate.Height = 23;
             this.dgv5PIPending.Size = new System.Drawing.Size(745, 127);
             this.dgv5PIPending.TabIndex = 0;
+            this.dgv5PIPending.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv5PIPending_CellDoubleClick);
             // 
             // tabPage3Compele
             // 
@@ -1881,6 +1890,7 @@ namespace WHOperation
             this.dgv6PICompele.RowTemplate.Height = 23;
             this.dgv6PICompele.Size = new System.Drawing.Size(745, 127);
             this.dgv6PICompele.TabIndex = 1;
+            this.dgv6PICompele.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv6PICompele_CellDoubleClick);
             // 
             // statusStrip1
             // 
@@ -1888,7 +1898,7 @@ namespace WHOperation
             this.tool_lbl_Msg});
             this.statusStrip1.Location = new System.Drawing.Point(0, 582);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1115, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1118, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -1898,11 +1908,36 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
+            // chk0autoSplit
+            // 
+            this.chk0autoSplit.AutoSize = true;
+            this.chk0autoSplit.Checked = true;
+            this.chk0autoSplit.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk0autoSplit.ForeColor = System.Drawing.Color.Red;
+            this.chk0autoSplit.Location = new System.Drawing.Point(929, 173);
+            this.chk0autoSplit.Name = "chk0autoSplit";
+            this.chk0autoSplit.Size = new System.Drawing.Size(84, 16);
+            this.chk0autoSplit.TabIndex = 16;
+            this.chk0autoSplit.Text = "Auto Split";
+            this.chk0autoSplit.UseVisualStyleBackColor = true;
+            this.chk0autoSplit.CheckedChanged += new System.EventHandler(this.chk5NoSplit_CheckedChanged);
+            // 
+            // chk7maohao
+            // 
+            this.chk7maohao.AutoSize = true;
+            this.chk7maohao.Location = new System.Drawing.Point(183, 19);
+            this.chk7maohao.Name = "chk7maohao";
+            this.chk7maohao.Size = new System.Drawing.Size(54, 16);
+            this.chk7maohao.TabIndex = 68;
+            this.chk7maohao.Text = ":√∞∫≈";
+            this.chk7maohao.UseVisualStyleBackColor = true;
+            this.chk7maohao.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1115, 604);
+            this.ClientSize = new System.Drawing.Size(1118, 604);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1950,7 +1985,7 @@ namespace WHOperation
             this.tabControl2_pending.ResumeLayout(false);
             this.tabPage3DNPending.ResumeLayout(false);
             this.tabPage4Comping.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv1Complete)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv2Complete)).EndInit();
             this.tabPage5PIpending.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).EndInit();
             this.tabPage3Compele.ResumeLayout(false);
@@ -1967,7 +2002,6 @@ namespace WHOperation
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox tfdnno;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgv1Pending;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DateTimePicker tfdndate;
         private System.Windows.Forms.Label label17;
@@ -2049,17 +2083,9 @@ namespace WHOperation
         private System.Windows.Forms.Label lMDateCode;
         private System.Windows.Forms.Label lMExpireDate;
         private System.Windows.Forms.Label lMRecMfgPart;
-        private System.Windows.Forms.TabControl tabControl2_pending;
         private System.Windows.Forms.TabPage tabPage3DNPending;
         private System.Windows.Forms.TabPage tabPage4Comping;
-        private System.Windows.Forms.DataGridView dgv1Complete;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
+        private System.Windows.Forms.DataGridView dgv2Complete;
         private System.Windows.Forms.Label lMRecPartNumber;
         private System.Windows.Forms.Label lMRecQty;
         private System.Windows.Forms.TextBox tfnoofcartons;
@@ -2108,13 +2134,24 @@ namespace WHOperation
         private System.Windows.Forms.TextBox txt1PIID;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TabPage tabPage5PIpending;
-        private System.Windows.Forms.DataGridView dgv5PIPending;
         private System.Windows.Forms.TabPage tabPage3Compele;
-        private System.Windows.Forms.DataGridView dgv6PICompele;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txt00Prefix;
         private System.Windows.Forms.CheckBox chk2Space2;
         private System.Windows.Forms.Label lbls00SelectItem;
+        protected internal System.Windows.Forms.DataGridView dgv1Pending;
+        protected internal System.Windows.Forms.TabControl tabControl2_pending;
+        protected internal System.Windows.Forms.DataGridView dgv5PIPending;
+        protected internal System.Windows.Forms.DataGridView dgv6PICompele;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
+        private System.Windows.Forms.CheckBox chk0autoSplit;
+        private System.Windows.Forms.CheckBox chk7maohao;
     }
 }
 

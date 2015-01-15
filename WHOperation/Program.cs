@@ -6,7 +6,10 @@ namespace WHOperation
 {
     static class Program
     {
-        public static string _version = @"@4V20141230H14";
+        public static string _version = @"@4V20150115H10";
+
+        public static string _userName;
+        public static string _userIP;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

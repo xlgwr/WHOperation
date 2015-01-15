@@ -59,6 +59,7 @@ namespace WHOperation
                 GlobalClass1.systemID = cbsystem.SelectedItem.ToString();
                 GlobalClass1.userID = tfuserid.Text;
                 mdiParent1.setupMenu("0");
+                Program._userName = tfuserid.Text;
                 this.Close();
                 Form1 childForm = new Form1();
                 childForm.Show();
@@ -105,7 +106,7 @@ namespace WHOperation
             catch (Exception ex) { MessageBox.Show("MFG/Pro Service Error", "Message"); cRet = 2; }
             return cRet;
         }
-        String getIP()
+        public String getIP()
         {
             string cHost;
             string cIP;
@@ -114,6 +115,7 @@ namespace WHOperation
             {
                 cHost = System.Net.Dns.GetHostName();
                 cIP = System.Net.Dns.GetHostEntry(cHost).AddressList[0].ToString();
+                Program._userIP = cIP;
                 /*Console.Write(myHost);
                 Console.Write(myIP);
                 System.Net.IPHostEntry cIPs = System.Net.Dns.GetHostEntry(cHost);
