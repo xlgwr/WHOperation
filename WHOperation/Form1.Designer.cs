@@ -72,7 +72,6 @@ namespace WHOperation
             this.label17 = new System.Windows.Forms.Label();
             this.cbsystem = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txt2FilterValue = new System.Windows.Forms.TextBox();
             this.cbfiltertype = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -123,30 +122,30 @@ namespace WHOperation
             this.lMExpireDate = new System.Windows.Forms.Label();
             this.lMLotNumber = new System.Windows.Forms.Label();
             this.pbdnpartnumber = new System.Windows.Forms.PictureBox();
-            this.tfdnpartnumber = new System.Windows.Forms.TextBox();
+            this.tf1dnpartnumber = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.tfsite = new System.Windows.Forms.TextBox();
+            this.tf0site = new System.Windows.Forms.TextBox();
             this.pbexpiredate = new System.Windows.Forms.PictureBox();
             this.pblotnumber = new System.Windows.Forms.PictureBox();
             this.pbrecmfgpart = new System.Windows.Forms.PictureBox();
             this.pbrecqty = new System.Windows.Forms.PictureBox();
             this.pbmfgdate = new System.Windows.Forms.PictureBox();
             this.pbdatecode = new System.Windows.Forms.PictureBox();
-            this.tfrecmfgrpart = new System.Windows.Forms.TextBox();
-            this.tfexpiredate = new System.Windows.Forms.TextBox();
-            this.tfmfgdate = new System.Windows.Forms.TextBox();
-            this.tfhdndate = new System.Windows.Forms.TextBox();
+            this.tf2recmfgrpart = new System.Windows.Forms.TextBox();
+            this.tf5expiredate = new System.Windows.Forms.TextBox();
+            this.tf0mfgdate = new System.Windows.Forms.TextBox();
+            this.tf0hdndate = new System.Windows.Forms.TextBox();
             this.lmfgdate = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.tfdnqty = new System.Windows.Forms.TextBox();
+            this.tf0dnqty = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tfcumqty = new System.Windows.Forms.TextBox();
-            this.tfdatecode = new System.Windows.Forms.TextBox();
-            this.tfmfgpart = new System.Windows.Forms.TextBox();
+            this.tf4datecode = new System.Windows.Forms.TextBox();
+            this.tf0mfgpart = new System.Windows.Forms.TextBox();
             this.tfrirno = new System.Windows.Forms.TextBox();
-            this.tfrecqty = new System.Windows.Forms.TextBox();
-            this.tflotno = new System.Windows.Forms.TextBox();
-            this.tfpartno = new System.Windows.Forms.TextBox();
+            this.tf3recqty = new System.Windows.Forms.TextBox();
+            this.tf6lotno = new System.Windows.Forms.TextBox();
+            this.tf0partno = new System.Windows.Forms.TextBox();
             this.tfvendor = new System.Windows.Forms.TextBox();
             this.ldatecode = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -195,6 +194,10 @@ namespace WHOperation
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.txt2FilterValue = new System.Windows.Forms.TextBox();
+            this.chk9UsePartNo = new System.Windows.Forms.CheckBox();
+            this.chk9UseDateCode = new System.Windows.Forms.CheckBox();
+            this.chk9UseLotNumber = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -513,16 +516,6 @@ namespace WHOperation
             this.groupBox3.Text = "Captured Image";
             this.groupBox3.Visible = false;
             // 
-            // txt2FilterValue
-            // 
-            this.txt2FilterValue.Location = new System.Drawing.Point(855, 13);
-            this.txt2FilterValue.Name = "txt2FilterValue";
-            this.txt2FilterValue.Size = new System.Drawing.Size(100, 21);
-            this.txt2FilterValue.TabIndex = 9;
-            this.txt2FilterValue.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            this.txt2FilterValue.Enter += new System.EventHandler(this.txt2FilterValue_Enter);
-            this.txt2FilterValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt2FilterValue_KeyDown);
-            // 
             // cbfiltertype
             // 
             this.cbfiltertype.FormattingEnabled = true;
@@ -662,6 +655,9 @@ namespace WHOperation
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.AutoScroll = true;
+            this.splitContainer2.Panel2.Controls.Add(this.chk9UseLotNumber);
+            this.splitContainer2.Panel2.Controls.Add(this.chk9UseDateCode);
+            this.splitContainer2.Panel2.Controls.Add(this.chk9UsePartNo);
             this.splitContainer2.Panel2.Controls.Add(this.lib1SplitListBox);
             this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer2.Panel2.Controls.Add(this.lib0ScanDataListBox);
@@ -676,30 +672,30 @@ namespace WHOperation
             this.splitContainer2.Panel2.Controls.Add(this.lMExpireDate);
             this.splitContainer2.Panel2.Controls.Add(this.lMLotNumber);
             this.splitContainer2.Panel2.Controls.Add(this.pbdnpartnumber);
-            this.splitContainer2.Panel2.Controls.Add(this.tfdnpartnumber);
+            this.splitContainer2.Panel2.Controls.Add(this.tf1dnpartnumber);
             this.splitContainer2.Panel2.Controls.Add(this.label5);
-            this.splitContainer2.Panel2.Controls.Add(this.tfsite);
+            this.splitContainer2.Panel2.Controls.Add(this.tf0site);
             this.splitContainer2.Panel2.Controls.Add(this.pbexpiredate);
             this.splitContainer2.Panel2.Controls.Add(this.pblotnumber);
             this.splitContainer2.Panel2.Controls.Add(this.pbrecmfgpart);
             this.splitContainer2.Panel2.Controls.Add(this.pbrecqty);
             this.splitContainer2.Panel2.Controls.Add(this.pbmfgdate);
             this.splitContainer2.Panel2.Controls.Add(this.pbdatecode);
-            this.splitContainer2.Panel2.Controls.Add(this.tfrecmfgrpart);
-            this.splitContainer2.Panel2.Controls.Add(this.tfexpiredate);
-            this.splitContainer2.Panel2.Controls.Add(this.tfmfgdate);
-            this.splitContainer2.Panel2.Controls.Add(this.tfhdndate);
+            this.splitContainer2.Panel2.Controls.Add(this.tf2recmfgrpart);
+            this.splitContainer2.Panel2.Controls.Add(this.tf5expiredate);
+            this.splitContainer2.Panel2.Controls.Add(this.tf0mfgdate);
+            this.splitContainer2.Panel2.Controls.Add(this.tf0hdndate);
             this.splitContainer2.Panel2.Controls.Add(this.lmfgdate);
             this.splitContainer2.Panel2.Controls.Add(this.label20);
-            this.splitContainer2.Panel2.Controls.Add(this.tfdnqty);
+            this.splitContainer2.Panel2.Controls.Add(this.tf0dnqty);
             this.splitContainer2.Panel2.Controls.Add(this.label13);
             this.splitContainer2.Panel2.Controls.Add(this.tfcumqty);
-            this.splitContainer2.Panel2.Controls.Add(this.tfdatecode);
-            this.splitContainer2.Panel2.Controls.Add(this.tfmfgpart);
+            this.splitContainer2.Panel2.Controls.Add(this.tf4datecode);
+            this.splitContainer2.Panel2.Controls.Add(this.tf0mfgpart);
             this.splitContainer2.Panel2.Controls.Add(this.tfrirno);
-            this.splitContainer2.Panel2.Controls.Add(this.tfrecqty);
-            this.splitContainer2.Panel2.Controls.Add(this.tflotno);
-            this.splitContainer2.Panel2.Controls.Add(this.tfpartno);
+            this.splitContainer2.Panel2.Controls.Add(this.tf3recqty);
+            this.splitContainer2.Panel2.Controls.Add(this.tf6lotno);
+            this.splitContainer2.Panel2.Controls.Add(this.tf0partno);
             this.splitContainer2.Panel2.Controls.Add(this.tfvendor);
             this.splitContainer2.Panel2.Controls.Add(this.ldatecode);
             this.splitContainer2.Panel2.Controls.Add(this.label7);
@@ -710,7 +706,7 @@ namespace WHOperation
             this.splitContainer2.Panel2.Controls.Add(this.lMRecQty);
             this.splitContainer2.Panel2.Controls.Add(this.lMDateCode);
             this.splitContainer2.Size = new System.Drawing.Size(1081, 350);
-            this.splitContainer2.SplitterDistance = 269;
+            this.splitContainer2.SplitterDistance = 241;
             this.splitContainer2.TabIndex = 0;
             // 
             // tab3_QRBar
@@ -720,7 +716,7 @@ namespace WHOperation
             this.tab3_QRBar.Location = new System.Drawing.Point(0, 0);
             this.tab3_QRBar.Name = "tab3_QRBar";
             this.tab3_QRBar.SelectedIndex = 0;
-            this.tab3_QRBar.Size = new System.Drawing.Size(269, 350);
+            this.tab3_QRBar.Size = new System.Drawing.Size(241, 350);
             this.tab3_QRBar.TabIndex = 6;
             // 
             // tabPage5_OldQRBar
@@ -740,7 +736,7 @@ namespace WHOperation
             this.tabPage5_OldQRBar.Location = new System.Drawing.Point(4, 22);
             this.tabPage5_OldQRBar.Name = "tabPage5_OldQRBar";
             this.tabPage5_OldQRBar.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5_OldQRBar.Size = new System.Drawing.Size(261, 324);
+            this.tabPage5_OldQRBar.Size = new System.Drawing.Size(233, 324);
             this.tabPage5_OldQRBar.TabIndex = 0;
             this.tabPage5_OldQRBar.Text = "Old QR Bar";
             this.tabPage5_OldQRBar.UseVisualStyleBackColor = true;
@@ -750,7 +746,7 @@ namespace WHOperation
             this.txt00Prefix.Location = new System.Drawing.Point(1, 235);
             this.txt00Prefix.Multiline = true;
             this.txt00Prefix.Name = "txt00Prefix";
-            this.txt00Prefix.Size = new System.Drawing.Size(256, 83);
+            this.txt00Prefix.Size = new System.Drawing.Size(232, 83);
             this.txt00Prefix.TabIndex = 69;
             this.txt00Prefix.TextChanged += new System.EventHandler(this.txt00Prefix_TextChanged);
             // 
@@ -793,8 +789,10 @@ namespace WHOperation
             this.tfscanarea.Location = new System.Drawing.Point(1, 108);
             this.tfscanarea.Multiline = true;
             this.tfscanarea.Name = "tfscanarea";
-            this.tfscanarea.Size = new System.Drawing.Size(256, 106);
+            this.tfscanarea.Size = new System.Drawing.Size(232, 106);
             this.tfscanarea.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.tfscanarea, "1.Home key go to CartonNO\r\n2.PgDn  key start Printing\r\n3.Enter key split Scan tex" +
+                    "t");
             this.tfscanarea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfscanarea_KeyDown);
             // 
             // bDisableScan
@@ -822,7 +820,7 @@ namespace WHOperation
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(127, 59);
+            this.button1.Location = new System.Drawing.Point(110, 59);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(118, 45);
             this.button1.TabIndex = 19;
@@ -834,7 +832,7 @@ namespace WHOperation
             // 
             this.label21.AutoSize = true;
             this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label21.Location = new System.Drawing.Point(123, 10);
+            this.label21.Location = new System.Drawing.Point(106, 10);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(77, 12);
             this.label21.TabIndex = 4;
@@ -845,7 +843,7 @@ namespace WHOperation
             this.tfnooflabels.BackColor = System.Drawing.Color.Yellow;
             this.tfnooflabels.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tfnooflabels.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tfnooflabels.Location = new System.Drawing.Point(206, 6);
+            this.tfnooflabels.Location = new System.Drawing.Point(189, 6);
             this.tfnooflabels.MaxLength = 3;
             this.tfnooflabels.Name = "tfnooflabels";
             this.tfnooflabels.Size = new System.Drawing.Size(39, 23);
@@ -858,7 +856,7 @@ namespace WHOperation
             // 
             this.label10.AutoSize = true;
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label10.Location = new System.Drawing.Point(105, 34);
+            this.label10.Location = new System.Drawing.Point(88, 34);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(95, 12);
             this.label10.TabIndex = 60;
@@ -869,7 +867,7 @@ namespace WHOperation
             this.tfnoofcartons.BackColor = System.Drawing.Color.Yellow;
             this.tfnoofcartons.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tfnoofcartons.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tfnoofcartons.Location = new System.Drawing.Point(206, 30);
+            this.tfnoofcartons.Location = new System.Drawing.Point(189, 30);
             this.tfnoofcartons.MaxLength = 3;
             this.tfnoofcartons.Name = "tfnoofcartons";
             this.tfnoofcartons.Size = new System.Drawing.Size(39, 23);
@@ -884,7 +882,7 @@ namespace WHOperation
             this.lib1SplitListBox.FormattingEnabled = true;
             this.lib1SplitListBox.HorizontalScrollbar = true;
             this.lib1SplitListBox.ItemHeight = 16;
-            this.lib1SplitListBox.Location = new System.Drawing.Point(571, 148);
+            this.lib1SplitListBox.Location = new System.Drawing.Point(597, 149);
             this.lib1SplitListBox.Name = "lib1SplitListBox";
             this.lib1SplitListBox.ScrollAlwaysVisible = true;
             this.lib1SplitListBox.Size = new System.Drawing.Size(227, 148);
@@ -903,7 +901,7 @@ namespace WHOperation
             this.groupBox1.Controls.Add(this.chk2Space2);
             this.groupBox1.Controls.Add(this.chk3Space);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Location = new System.Drawing.Point(571, 58);
+            this.groupBox1.Location = new System.Drawing.Point(597, 59);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(234, 90);
             this.groupBox1.TabIndex = 66;
@@ -1022,7 +1020,7 @@ namespace WHOperation
             this.lib0ScanDataListBox.FormattingEnabled = true;
             this.lib0ScanDataListBox.HorizontalScrollbar = true;
             this.lib0ScanDataListBox.ItemHeight = 16;
-            this.lib0ScanDataListBox.Location = new System.Drawing.Point(285, 68);
+            this.lib0ScanDataListBox.Location = new System.Drawing.Point(311, 69);
             this.lib0ScanDataListBox.Name = "lib0ScanDataListBox";
             this.lib0ScanDataListBox.ScrollAlwaysVisible = true;
             this.lib0ScanDataListBox.Size = new System.Drawing.Size(280, 228);
@@ -1047,7 +1045,7 @@ namespace WHOperation
             // ldnpartnumber
             // 
             this.ldnpartnumber.AutoSize = true;
-            this.ldnpartnumber.Location = new System.Drawing.Point(14, 68);
+            this.ldnpartnumber.Location = new System.Drawing.Point(40, 69);
             this.ldnpartnumber.Name = "ldnpartnumber";
             this.ldnpartnumber.Size = new System.Drawing.Size(107, 12);
             this.ldnpartnumber.TabIndex = 22;
@@ -1056,7 +1054,7 @@ namespace WHOperation
             // lrecmfgpart
             // 
             this.lrecmfgpart.AutoSize = true;
-            this.lrecmfgpart.Location = new System.Drawing.Point(18, 94);
+            this.lrecmfgpart.Location = new System.Drawing.Point(44, 95);
             this.lrecmfgpart.Name = "lrecmfgpart";
             this.lrecmfgpart.Size = new System.Drawing.Size(101, 12);
             this.lrecmfgpart.TabIndex = 26;
@@ -1065,7 +1063,7 @@ namespace WHOperation
             // lbls00SelectItem
             // 
             this.lbls00SelectItem.AutoSize = true;
-            this.lbls00SelectItem.Location = new System.Drawing.Point(44, 304);
+            this.lbls00SelectItem.Location = new System.Drawing.Point(70, 305);
             this.lbls00SelectItem.Name = "lbls00SelectItem";
             this.lbls00SelectItem.Size = new System.Drawing.Size(77, 12);
             this.lbls00SelectItem.TabIndex = 38;
@@ -1075,7 +1073,7 @@ namespace WHOperation
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(30, 276);
+            this.label12.Location = new System.Drawing.Point(56, 277);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(89, 12);
             this.label12.TabIndex = 38;
@@ -1085,7 +1083,7 @@ namespace WHOperation
             // lexpiredate
             // 
             this.lexpiredate.AutoSize = true;
-            this.lexpiredate.Location = new System.Drawing.Point(36, 198);
+            this.lexpiredate.Location = new System.Drawing.Point(62, 199);
             this.lexpiredate.Name = "lexpiredate";
             this.lexpiredate.Size = new System.Drawing.Size(83, 12);
             this.lexpiredate.TabIndex = 30;
@@ -1094,7 +1092,7 @@ namespace WHOperation
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(254, 40);
+            this.label8.Location = new System.Drawing.Point(280, 41);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(95, 12);
             this.label8.TabIndex = 16;
@@ -1103,7 +1101,7 @@ namespace WHOperation
             // llotnumber
             // 
             this.llotnumber.AutoSize = true;
-            this.llotnumber.Location = new System.Drawing.Point(42, 224);
+            this.llotnumber.Location = new System.Drawing.Point(68, 225);
             this.llotnumber.Name = "llotnumber";
             this.llotnumber.Size = new System.Drawing.Size(77, 12);
             this.llotnumber.TabIndex = 34;
@@ -1114,7 +1112,7 @@ namespace WHOperation
             this.lMRecPartNumber.AutoSize = true;
             this.lMRecPartNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMRecPartNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMRecPartNumber.Location = new System.Drawing.Point(2, 67);
+            this.lMRecPartNumber.Location = new System.Drawing.Point(24, 67);
             this.lMRecPartNumber.Name = "lMRecPartNumber";
             this.lMRecPartNumber.Size = new System.Drawing.Size(15, 20);
             this.lMRecPartNumber.TabIndex = 59;
@@ -1125,7 +1123,7 @@ namespace WHOperation
             this.lMExpireDate.AutoSize = true;
             this.lMExpireDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMExpireDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMExpireDate.Location = new System.Drawing.Point(22, 197);
+            this.lMExpireDate.Location = new System.Drawing.Point(48, 198);
             this.lMExpireDate.Name = "lMExpireDate";
             this.lMExpireDate.Size = new System.Drawing.Size(15, 20);
             this.lMExpireDate.TabIndex = 56;
@@ -1137,7 +1135,7 @@ namespace WHOperation
             this.lMLotNumber.AutoSize = true;
             this.lMLotNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMLotNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMLotNumber.Location = new System.Drawing.Point(28, 223);
+            this.lMLotNumber.Location = new System.Drawing.Point(54, 224);
             this.lMLotNumber.Name = "lMLotNumber";
             this.lMLotNumber.Size = new System.Drawing.Size(15, 20);
             this.lMLotNumber.TabIndex = 54;
@@ -1147,43 +1145,44 @@ namespace WHOperation
             // pbdnpartnumber
             // 
             this.pbdnpartnumber.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbdnpartnumber.Location = new System.Drawing.Point(250, 66);
+            this.pbdnpartnumber.Location = new System.Drawing.Point(276, 67);
             this.pbdnpartnumber.Name = "pbdnpartnumber";
             this.pbdnpartnumber.Size = new System.Drawing.Size(29, 18);
             this.pbdnpartnumber.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbdnpartnumber.TabIndex = 53;
             this.pbdnpartnumber.TabStop = false;
             // 
-            // tfdnpartnumber
+            // tf1dnpartnumber
             // 
-            this.tfdnpartnumber.Location = new System.Drawing.Point(124, 64);
-            this.tfdnpartnumber.Name = "tfdnpartnumber";
-            this.tfdnpartnumber.Size = new System.Drawing.Size(123, 21);
-            this.tfdnpartnumber.TabIndex = 26;
-            this.tfdnpartnumber.TextChanged += new System.EventHandler(this.tfdnpartnumber_TextChanged);
-            this.tfdnpartnumber.Enter += new System.EventHandler(this.tfdnpartnumber_Enter);
-            this.tfdnpartnumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdnpartnumber_KeyDown);
+            this.tf1dnpartnumber.Location = new System.Drawing.Point(150, 65);
+            this.tf1dnpartnumber.Name = "tf1dnpartnumber";
+            this.tf1dnpartnumber.Size = new System.Drawing.Size(123, 21);
+            this.tf1dnpartnumber.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.tf1dnpartnumber, "1.Double click  get [Part Number] text.\r\n2.PgDn(下页) key Start to Print\r\n");
+            this.tf1dnpartnumber.TextChanged += new System.EventHandler(this.tfdnpartnumber_TextChanged);
+            this.tf1dnpartnumber.Enter += new System.EventHandler(this.tfdnpartnumber_Enter);
+            this.tf1dnpartnumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdnpartnumber_KeyDown);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(525, 12);
+            this.label5.Location = new System.Drawing.Point(551, 13);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 20;
             this.label5.Text = "Site";
             // 
-            // tfsite
+            // tf0site
             // 
-            this.tfsite.Location = new System.Drawing.Point(571, 8);
-            this.tfsite.Name = "tfsite";
-            this.tfsite.Size = new System.Drawing.Size(123, 21);
-            this.tfsite.TabIndex = 24;
+            this.tf0site.Location = new System.Drawing.Point(597, 9);
+            this.tf0site.Name = "tf0site";
+            this.tf0site.Size = new System.Drawing.Size(123, 21);
+            this.tf0site.TabIndex = 24;
             // 
             // pbexpiredate
             // 
             this.pbexpiredate.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbexpiredate.Location = new System.Drawing.Point(250, 195);
+            this.pbexpiredate.Location = new System.Drawing.Point(276, 196);
             this.pbexpiredate.Name = "pbexpiredate";
             this.pbexpiredate.Size = new System.Drawing.Size(29, 18);
             this.pbexpiredate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1193,7 +1192,7 @@ namespace WHOperation
             // pblotnumber
             // 
             this.pblotnumber.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pblotnumber.Location = new System.Drawing.Point(250, 222);
+            this.pblotnumber.Location = new System.Drawing.Point(276, 223);
             this.pblotnumber.Name = "pblotnumber";
             this.pblotnumber.Size = new System.Drawing.Size(29, 18);
             this.pblotnumber.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1203,7 +1202,7 @@ namespace WHOperation
             // pbrecmfgpart
             // 
             this.pbrecmfgpart.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbrecmfgpart.Location = new System.Drawing.Point(250, 93);
+            this.pbrecmfgpart.Location = new System.Drawing.Point(276, 94);
             this.pbrecmfgpart.Name = "pbrecmfgpart";
             this.pbrecmfgpart.Size = new System.Drawing.Size(29, 18);
             this.pbrecmfgpart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1213,7 +1212,7 @@ namespace WHOperation
             // pbrecqty
             // 
             this.pbrecqty.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbrecqty.Location = new System.Drawing.Point(250, 121);
+            this.pbrecqty.Location = new System.Drawing.Point(276, 122);
             this.pbrecqty.Name = "pbrecqty";
             this.pbrecqty.Size = new System.Drawing.Size(29, 18);
             this.pbrecqty.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1223,7 +1222,7 @@ namespace WHOperation
             // pbmfgdate
             // 
             this.pbmfgdate.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbmfgdate.Location = new System.Drawing.Point(250, 249);
+            this.pbmfgdate.Location = new System.Drawing.Point(276, 250);
             this.pbmfgdate.Name = "pbmfgdate";
             this.pbmfgdate.Size = new System.Drawing.Size(29, 18);
             this.pbmfgdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1233,52 +1232,53 @@ namespace WHOperation
             // pbdatecode
             // 
             this.pbdatecode.Image = global::WHOperation.Properties.Resources.bdelete;
-            this.pbdatecode.Location = new System.Drawing.Point(250, 168);
+            this.pbdatecode.Location = new System.Drawing.Point(276, 169);
             this.pbdatecode.Name = "pbdatecode";
             this.pbdatecode.Size = new System.Drawing.Size(29, 18);
             this.pbdatecode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbdatecode.TabIndex = 42;
             this.pbdatecode.TabStop = false;
             // 
-            // tfrecmfgrpart
+            // tf2recmfgrpart
             // 
-            this.tfrecmfgrpart.Location = new System.Drawing.Point(124, 91);
-            this.tfrecmfgrpart.Name = "tfrecmfgrpart";
-            this.tfrecmfgrpart.Size = new System.Drawing.Size(123, 21);
-            this.tfrecmfgrpart.TabIndex = 27;
-            this.tfrecmfgrpart.TextChanged += new System.EventHandler(this.tfrecmfgrpart_TextChanged);
-            this.tfrecmfgrpart.Enter += new System.EventHandler(this.tfrecmfgrpart_Enter);
+            this.tf2recmfgrpart.Location = new System.Drawing.Point(150, 92);
+            this.tf2recmfgrpart.Name = "tf2recmfgrpart";
+            this.tf2recmfgrpart.Size = new System.Drawing.Size(123, 21);
+            this.tf2recmfgrpart.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.tf2recmfgrpart, "1.PgDn(下页) key Start to Print");
+            this.tf2recmfgrpart.TextChanged += new System.EventHandler(this.tfrecmfgrpart_TextChanged);
+            this.tf2recmfgrpart.Enter += new System.EventHandler(this.tfrecmfgrpart_Enter);
             // 
-            // tfexpiredate
+            // tf5expiredate
             // 
-            this.tfexpiredate.Location = new System.Drawing.Point(124, 193);
-            this.tfexpiredate.MaxLength = 10;
-            this.tfexpiredate.Name = "tfexpiredate";
-            this.tfexpiredate.Size = new System.Drawing.Size(123, 21);
-            this.tfexpiredate.TabIndex = 31;
-            this.tfexpiredate.Enter += new System.EventHandler(this.tfexpiredate_Enter);
+            this.tf5expiredate.Location = new System.Drawing.Point(150, 194);
+            this.tf5expiredate.MaxLength = 10;
+            this.tf5expiredate.Name = "tf5expiredate";
+            this.tf5expiredate.Size = new System.Drawing.Size(123, 21);
+            this.tf5expiredate.TabIndex = 31;
+            this.tf5expiredate.Enter += new System.EventHandler(this.tfexpiredate_Enter);
             // 
-            // tfmfgdate
+            // tf0mfgdate
             // 
-            this.tfmfgdate.Location = new System.Drawing.Point(124, 247);
-            this.tfmfgdate.MaxLength = 10;
-            this.tfmfgdate.Name = "tfmfgdate";
-            this.tfmfgdate.Size = new System.Drawing.Size(123, 21);
-            this.tfmfgdate.TabIndex = 33;
-            this.tfmfgdate.Enter += new System.EventHandler(this.tfmfgdate_Enter);
+            this.tf0mfgdate.Location = new System.Drawing.Point(150, 248);
+            this.tf0mfgdate.MaxLength = 10;
+            this.tf0mfgdate.Name = "tf0mfgdate";
+            this.tf0mfgdate.Size = new System.Drawing.Size(123, 21);
+            this.tf0mfgdate.TabIndex = 33;
+            this.tf0mfgdate.Enter += new System.EventHandler(this.tfmfgdate_Enter);
             // 
-            // tfhdndate
+            // tf0hdndate
             // 
-            this.tfhdndate.Location = new System.Drawing.Point(570, 36);
-            this.tfhdndate.Name = "tfhdndate";
-            this.tfhdndate.ReadOnly = true;
-            this.tfhdndate.Size = new System.Drawing.Size(123, 21);
-            this.tfhdndate.TabIndex = 25;
+            this.tf0hdndate.Location = new System.Drawing.Point(596, 37);
+            this.tf0hdndate.Name = "tf0hdndate";
+            this.tf0hdndate.ReadOnly = true;
+            this.tf0hdndate.Size = new System.Drawing.Size(123, 21);
+            this.tf0hdndate.TabIndex = 25;
             // 
             // lmfgdate
             // 
             this.lmfgdate.AutoSize = true;
-            this.lmfgdate.Location = new System.Drawing.Point(54, 250);
+            this.lmfgdate.Location = new System.Drawing.Point(80, 251);
             this.lmfgdate.Name = "lmfgdate";
             this.lmfgdate.Size = new System.Drawing.Size(65, 12);
             this.lmfgdate.TabIndex = 28;
@@ -1287,24 +1287,24 @@ namespace WHOperation
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(513, 40);
+            this.label20.Location = new System.Drawing.Point(539, 41);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(47, 12);
             this.label20.TabIndex = 18;
             this.label20.Text = "DN Date";
             // 
-            // tfdnqty
+            // tf0dnqty
             // 
-            this.tfdnqty.Enabled = false;
-            this.tfdnqty.Location = new System.Drawing.Point(124, 142);
-            this.tfdnqty.Name = "tfdnqty";
-            this.tfdnqty.Size = new System.Drawing.Size(123, 21);
-            this.tfdnqty.TabIndex = 28;
+            this.tf0dnqty.Enabled = false;
+            this.tf0dnqty.Location = new System.Drawing.Point(150, 143);
+            this.tf0dnqty.Name = "tf0dnqty";
+            this.tf0dnqty.Size = new System.Drawing.Size(123, 21);
+            this.tf0dnqty.TabIndex = 28;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(78, 146);
+            this.label13.Location = new System.Drawing.Point(104, 147);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(41, 12);
             this.label13.TabIndex = 36;
@@ -1313,71 +1313,77 @@ namespace WHOperation
             // tfcumqty
             // 
             this.tfcumqty.Enabled = false;
-            this.tfcumqty.Location = new System.Drawing.Point(124, 273);
+            this.tfcumqty.Location = new System.Drawing.Point(150, 274);
             this.tfcumqty.Name = "tfcumqty";
             this.tfcumqty.Size = new System.Drawing.Size(123, 21);
             this.tfcumqty.TabIndex = 34;
             this.tfcumqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tfcumqty.Visible = false;
             // 
-            // tfdatecode
+            // tf4datecode
             // 
-            this.tfdatecode.Location = new System.Drawing.Point(124, 166);
-            this.tfdatecode.MaxLength = 10;
-            this.tfdatecode.Name = "tfdatecode";
-            this.tfdatecode.Size = new System.Drawing.Size(123, 21);
-            this.tfdatecode.TabIndex = 30;
-            this.tfdatecode.Enter += new System.EventHandler(this.tfdatecode_Enter);
-            this.tfdatecode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdatecode_KeyDown);
+            this.tf4datecode.Location = new System.Drawing.Point(150, 167);
+            this.tf4datecode.MaxLength = 10;
+            this.tf4datecode.Name = "tf4datecode";
+            this.tf4datecode.Size = new System.Drawing.Size(123, 21);
+            this.tf4datecode.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.tf4datecode, "1.PgDn(下页) key Start to Print\r\n");
+            this.tf4datecode.TextChanged += new System.EventHandler(this.tf4datecode_TextChanged);
+            this.tf4datecode.Enter += new System.EventHandler(this.tfdatecode_Enter);
+            this.tf4datecode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdatecode_KeyDown);
             // 
-            // tfmfgpart
+            // tf0mfgpart
             // 
-            this.tfmfgpart.Location = new System.Drawing.Point(353, 36);
-            this.tfmfgpart.Name = "tfmfgpart";
-            this.tfmfgpart.ReadOnly = true;
-            this.tfmfgpart.Size = new System.Drawing.Size(123, 21);
-            this.tfmfgpart.TabIndex = 23;
+            this.tf0mfgpart.Location = new System.Drawing.Point(379, 37);
+            this.tf0mfgpart.Name = "tf0mfgpart";
+            this.tf0mfgpart.ReadOnly = true;
+            this.tf0mfgpart.Size = new System.Drawing.Size(123, 21);
+            this.tf0mfgpart.TabIndex = 23;
             // 
             // tfrirno
             // 
-            this.tfrirno.Location = new System.Drawing.Point(124, 9);
+            this.tfrirno.Location = new System.Drawing.Point(150, 10);
             this.tfrirno.Name = "tfrirno";
             this.tfrirno.ReadOnly = true;
             this.tfrirno.Size = new System.Drawing.Size(123, 21);
             this.tfrirno.TabIndex = 20;
             // 
-            // tfrecqty
+            // tf3recqty
             // 
-            this.tfrecqty.Location = new System.Drawing.Point(124, 119);
-            this.tfrecqty.Name = "tfrecqty";
-            this.tfrecqty.Size = new System.Drawing.Size(123, 21);
-            this.tfrecqty.TabIndex = 28;
-            this.tfrecqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.tfrecqty.TextChanged += new System.EventHandler(this.tfrecqty_TextChanged);
-            this.tfrecqty.Enter += new System.EventHandler(this.tfrecqty_Enter);
-            this.tfrecqty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfrecqty_KeyDown);
+            this.tf3recqty.Location = new System.Drawing.Point(150, 120);
+            this.tf3recqty.Name = "tf3recqty";
+            this.tf3recqty.Size = new System.Drawing.Size(123, 21);
+            this.tf3recqty.TabIndex = 28;
+            this.tf3recqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.tf3recqty, "1.PgDn(下页) key Start to Print");
+            this.tf3recqty.TextChanged += new System.EventHandler(this.tfrecqty_TextChanged);
+            this.tf3recqty.Enter += new System.EventHandler(this.tfrecqty_Enter);
+            this.tf3recqty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfrecqty_KeyDown);
             // 
-            // tflotno
+            // tf6lotno
             // 
-            this.tflotno.Location = new System.Drawing.Point(124, 220);
-            this.tflotno.Name = "tflotno";
-            this.tflotno.Size = new System.Drawing.Size(123, 21);
-            this.tflotno.TabIndex = 32;
-            this.tflotno.Enter += new System.EventHandler(this.tflotno_Enter);
-            this.tflotno.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tflotno_KeyDown);
+            this.tf6lotno.Location = new System.Drawing.Point(150, 221);
+            this.tf6lotno.Name = "tf6lotno";
+            this.tf6lotno.Size = new System.Drawing.Size(123, 21);
+            this.tf6lotno.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.tf6lotno, "1.PgDn(下页) key Start to Print");
+            this.tf6lotno.TextChanged += new System.EventHandler(this.tflotno_TextChanged);
+            this.tf6lotno.Enter += new System.EventHandler(this.tflotno_Enter);
+            this.tf6lotno.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tflotno_KeyDown);
             // 
-            // tfpartno
+            // tf0partno
             // 
-            this.tfpartno.Location = new System.Drawing.Point(124, 37);
-            this.tfpartno.Name = "tfpartno";
-            this.tfpartno.ReadOnly = true;
-            this.tfpartno.Size = new System.Drawing.Size(123, 21);
-            this.tfpartno.TabIndex = 21;
-            this.tfpartno.DoubleClick += new System.EventHandler(this.tfpartno_DoubleClick);
+            this.tf0partno.Location = new System.Drawing.Point(150, 38);
+            this.tf0partno.Name = "tf0partno";
+            this.tf0partno.ReadOnly = true;
+            this.tf0partno.Size = new System.Drawing.Size(123, 21);
+            this.tf0partno.TabIndex = 21;
+            this.tf0partno.TextChanged += new System.EventHandler(this.tf0partno_TextChanged);
+            this.tf0partno.DoubleClick += new System.EventHandler(this.tfpartno_DoubleClick);
             // 
             // tfvendor
             // 
-            this.tfvendor.Location = new System.Drawing.Point(353, 8);
+            this.tfvendor.Location = new System.Drawing.Point(379, 9);
             this.tfvendor.Name = "tfvendor";
             this.tfvendor.ReadOnly = true;
             this.tfvendor.Size = new System.Drawing.Size(123, 21);
@@ -1386,7 +1392,7 @@ namespace WHOperation
             // ldatecode
             // 
             this.ldatecode.AutoSize = true;
-            this.ldatecode.Location = new System.Drawing.Point(48, 172);
+            this.ldatecode.Location = new System.Drawing.Point(74, 173);
             this.ldatecode.Name = "ldatecode";
             this.ldatecode.Size = new System.Drawing.Size(71, 12);
             this.ldatecode.TabIndex = 24;
@@ -1395,7 +1401,7 @@ namespace WHOperation
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(53, 12);
+            this.label7.Location = new System.Drawing.Point(79, 13);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 12);
             this.label7.TabIndex = 14;
@@ -1404,7 +1410,7 @@ namespace WHOperation
             // lrecqty
             // 
             this.lrecqty.AutoSize = true;
-            this.lrecqty.Location = new System.Drawing.Point(54, 120);
+            this.lrecqty.Location = new System.Drawing.Point(80, 121);
             this.lrecqty.Name = "lrecqty";
             this.lrecqty.Size = new System.Drawing.Size(65, 12);
             this.lrecqty.TabIndex = 32;
@@ -1413,7 +1419,7 @@ namespace WHOperation
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(49, 40);
+            this.label4.Location = new System.Drawing.Point(75, 41);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 12);
             this.label4.TabIndex = 12;
@@ -1422,7 +1428,7 @@ namespace WHOperation
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(284, 12);
+            this.label3.Location = new System.Drawing.Point(310, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 10;
@@ -1433,7 +1439,7 @@ namespace WHOperation
             this.lMRecMfgPart.AutoSize = true;
             this.lMRecMfgPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMRecMfgPart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMRecMfgPart.Location = new System.Drawing.Point(4, 93);
+            this.lMRecMfgPart.Location = new System.Drawing.Point(26, 93);
             this.lMRecMfgPart.Name = "lMRecMfgPart";
             this.lMRecMfgPart.Size = new System.Drawing.Size(15, 20);
             this.lMRecMfgPart.TabIndex = 57;
@@ -1445,7 +1451,7 @@ namespace WHOperation
             this.lMRecQty.AutoSize = true;
             this.lMRecQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMRecQty.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMRecQty.Location = new System.Drawing.Point(41, 119);
+            this.lMRecQty.Location = new System.Drawing.Point(67, 120);
             this.lMRecQty.Name = "lMRecQty";
             this.lMRecQty.Size = new System.Drawing.Size(15, 20);
             this.lMRecQty.TabIndex = 58;
@@ -1456,7 +1462,7 @@ namespace WHOperation
             this.lMDateCode.AutoSize = true;
             this.lMDateCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMDateCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lMDateCode.Location = new System.Drawing.Point(31, 171);
+            this.lMDateCode.Location = new System.Drawing.Point(57, 172);
             this.lMDateCode.Name = "lMDateCode";
             this.lMDateCode.Size = new System.Drawing.Size(15, 20);
             this.lMDateCode.TabIndex = 55;
@@ -1630,6 +1636,7 @@ namespace WHOperation
             this.txt1PIID.Name = "txt1PIID";
             this.txt1PIID.Size = new System.Drawing.Size(100, 21);
             this.txt1PIID.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.txt1PIID, "1. Enter key start Search PI\r\n2. Space key enter CartonNo value");
             this.txt1PIID.TextChanged += new System.EventHandler(this.txt1PIID_TextChanged);
             this.txt1PIID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt1PIID_KeyDown);
             // 
@@ -1941,6 +1948,46 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
+            // txt2FilterValue
+            // 
+            this.txt2FilterValue.Location = new System.Drawing.Point(855, 13);
+            this.txt2FilterValue.Name = "txt2FilterValue";
+            this.txt2FilterValue.Size = new System.Drawing.Size(100, 21);
+            this.txt2FilterValue.TabIndex = 9;
+            this.txt2FilterValue.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.txt2FilterValue.Enter += new System.EventHandler(this.txt2FilterValue_Enter);
+            this.txt2FilterValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt2FilterValue_KeyDown);
+            // 
+            // chk9UsePartNo
+            // 
+            this.chk9UsePartNo.AutoSize = true;
+            this.chk9UsePartNo.Checked = true;
+            this.chk9UsePartNo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk9UsePartNo.Location = new System.Drawing.Point(6, 69);
+            this.chk9UsePartNo.Name = "chk9UsePartNo";
+            this.chk9UsePartNo.Size = new System.Drawing.Size(15, 14);
+            this.chk9UsePartNo.TabIndex = 68;
+            this.chk9UsePartNo.UseVisualStyleBackColor = true;
+            this.chk9UsePartNo.CheckedChanged += new System.EventHandler(this.chk9UsePartNo_CheckedChanged);
+            // 
+            // chk9UseDateCode
+            // 
+            this.chk9UseDateCode.AutoSize = true;
+            this.chk9UseDateCode.Location = new System.Drawing.Point(6, 172);
+            this.chk9UseDateCode.Name = "chk9UseDateCode";
+            this.chk9UseDateCode.Size = new System.Drawing.Size(15, 14);
+            this.chk9UseDateCode.TabIndex = 69;
+            this.chk9UseDateCode.UseVisualStyleBackColor = true;
+            // 
+            // chk9UseLotNumber
+            // 
+            this.chk9UseLotNumber.AutoSize = true;
+            this.chk9UseLotNumber.Location = new System.Drawing.Point(6, 224);
+            this.chk9UseLotNumber.Name = "chk9UseLotNumber";
+            this.chk9UseLotNumber.Size = new System.Drawing.Size(15, 14);
+            this.chk9UseLotNumber.TabIndex = 69;
+            this.chk9UseLotNumber.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2015,7 +2062,6 @@ namespace WHOperation
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox cbsystem;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox txt2FilterValue;
         private System.Windows.Forms.ComboBox cbfiltertype;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -2032,19 +2078,19 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox cbSmartScan;
         private System.Windows.Forms.CheckBox cbAutoPrint;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tfsite;
+        private System.Windows.Forms.TextBox tf0site;
         private System.Windows.Forms.PictureBox pbexpiredate;
         private System.Windows.Forms.PictureBox pblotnumber;
         private System.Windows.Forms.PictureBox pbrecmfgpart;
         private System.Windows.Forms.PictureBox pbrecqty;
         private System.Windows.Forms.PictureBox pbmfgdate;
         private System.Windows.Forms.PictureBox pbdatecode;
-        private System.Windows.Forms.TextBox tfrecmfgrpart;
+        private System.Windows.Forms.TextBox tf2recmfgrpart;
         private System.Windows.Forms.Label lrecmfgpart;
-        private System.Windows.Forms.TextBox tfexpiredate;
-        private System.Windows.Forms.TextBox tfmfgdate;
+        private System.Windows.Forms.TextBox tf5expiredate;
+        private System.Windows.Forms.TextBox tf0mfgdate;
         private System.Windows.Forms.TextBox tfnooflabels;
-        private System.Windows.Forms.TextBox tfhdndate;
+        private System.Windows.Forms.TextBox tf0hdndate;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label lmfgdate;
         private System.Windows.Forms.Label label16;
@@ -2052,16 +2098,16 @@ namespace WHOperation
         private System.Windows.Forms.ComboBox cbprintertype;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cbport;
-        private System.Windows.Forms.TextBox tfdnqty;
+        private System.Windows.Forms.TextBox tf0dnqty;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tfcumqty;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox tfdatecode;
-        private System.Windows.Forms.TextBox tfmfgpart;
+        private System.Windows.Forms.TextBox tf4datecode;
+        private System.Windows.Forms.TextBox tf0mfgpart;
         private System.Windows.Forms.TextBox tfrirno;
-        private System.Windows.Forms.TextBox tfrecqty;
-        private System.Windows.Forms.TextBox tflotno;
-        private System.Windows.Forms.TextBox tfpartno;
+        private System.Windows.Forms.TextBox tf3recqty;
+        private System.Windows.Forms.TextBox tf6lotno;
+        private System.Windows.Forms.TextBox tf0partno;
         private System.Windows.Forms.TextBox tfvendor;
         private System.Windows.Forms.Label ldatecode;
         private System.Windows.Forms.Label lexpiredate;
@@ -2085,7 +2131,7 @@ namespace WHOperation
         private System.Windows.Forms.DateTimePicker tftodndate;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label ldnpartnumber;
-        private System.Windows.Forms.TextBox tfdnpartnumber;
+        private System.Windows.Forms.TextBox tf1dnpartnumber;
         private System.Windows.Forms.PictureBox pbdnpartnumber;
         private System.Windows.Forms.Label lMLotNumber;
         private System.Windows.Forms.Label lMDateCode;
@@ -2160,6 +2206,10 @@ namespace WHOperation
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.CheckBox chk0autoSplit;
         private System.Windows.Forms.CheckBox chk7maohao;
+        private System.Windows.Forms.TextBox txt2FilterValue;
+        private System.Windows.Forms.CheckBox chk9UseLotNumber;
+        private System.Windows.Forms.CheckBox chk9UseDateCode;
+        private System.Windows.Forms.CheckBox chk9UsePartNo;
     }
 }
 
