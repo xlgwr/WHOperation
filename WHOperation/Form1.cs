@@ -57,7 +57,7 @@ namespace WHOperation
 
         private static Regex RegNumber = new Regex("^[0-9]+$");
         private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
-        public static string _splitPrefix = @"9D;D;30P;1P;P;Q;33T;1T;T;PKOA-;PKOA/;PKOA+;3N1;3N2";
+        public static string _splitPrefix = @"9D;D;30P;1P;P;Q;33T;1T;T;KOA/;PKOA-;PKOA/;PKOA+;3N1;3N2";
         public List<prefixCheckbox> _splitStrTample;
         public static string getQRcode = "";
         public string _strtmp;
@@ -173,8 +173,8 @@ namespace WHOperation
             cTemplateType = ""; c2DSeperator = ""; cLastPrint = DateTime.Now;
             cBufferData = new cCaptureData();
             cSearchEnable = 0;
-            tfdndate.Text = DateTime.Now.AddDays(-3).Date.ToString();
-            tftodndate.Text = DateTime.Now.Date.ToString();
+            tfdndate.Text = DateTime.Now.AddDays(-3).Date.ToString().Trim();
+            tftodndate.Text = DateTime.Now.Date.ToString().Trim();
             base.OnLoad(e);
         }
 
@@ -223,13 +223,13 @@ namespace WHOperation
 
             dt = (DataTable)dsDNDetail.Tables[6];
             cDGR = dgv0DNNumber.CurrentRow;
-            _dnNo = cDGR.Cells["DNNumber"].Value.ToString();
+            _dnNo = cDGR.Cells["DNNumber"].Value.ToString().Trim();
             dgv1Pending.Rows.Clear();
 
             while (i <= dsDNDetail.Tables[6].Rows.Count - 1)
             {
                 cR = dsDNDetail.Tables[6].Rows[i];
-                dsDNDetail.Tables[6].Rows[i]["RowID"] = i.ToString();
+                dsDNDetail.Tables[6].Rows[i]["RowID"] = i.ToString().Trim();
                 if (cR.ItemArray[0].ToString().ToUpper() == _dnNo.ToUpper())
                 {
 
@@ -268,10 +268,10 @@ namespace WHOperation
                     myReader = cmd.ExecuteReader();
                     while (myReader.Read())
                     {
-                        cTotQty = myReader.GetValue(0).ToString();
+                        cTotQty = myReader.GetValue(0).ToString().Trim();
                         cPQty = Convert.ToDouble(cTotQty);
-                        //cTotQty = (Convert.ToDouble(cTotQty) + cPQty).ToString();
-                        cTotQty = (Convert.ToDouble(cPQty)).ToString();
+                        //cTotQty = (Convert.ToDouble(cTotQty) + cPQty).ToString().Trim();
+                        cTotQty = (Convert.ToDouble(cPQty)).ToString().Trim();
                     }
                     myReader.Close();
                 }
@@ -284,7 +284,7 @@ namespace WHOperation
         {
             String cQuery, cDNNo;
             SqlDataReader myReader;
-            cDNNo = dgv0DNNumber.CurrentRow.Cells["DNNumber"].Value.ToString();
+            cDNNo = dgv0DNNumber.CurrentRow.Cells["DNNumber"].Value.ToString().Trim();
             cQuery = "select PartNumber,MFGPartNumber,RIRNo,PONo,'',DNQty,LineQty from PIMLDetail where DNNo='" + cDNNo + "' ";
             dgv2Complete.Rows.Clear();
             try
@@ -301,7 +301,7 @@ namespace WHOperation
                         i = 0;
                         for (i = 0; i <= myReader.FieldCount - 1; i += 1)
                         {
-                            cRec[i] = myReader.GetValue(i).ToString();
+                            cRec[i] = myReader.GetValue(i).ToString().Trim();
                         }
                         dgv2Complete.Invoke(new Action(delegate() { dgv2Complete.Rows.Add(cRec); }));
                     }
@@ -321,26 +321,26 @@ namespace WHOperation
             {
                 //cR = dataGridView1.CurrentRow;
                 cR = dgv1Pending.SelectedRows[0];
-                cCurrRow = cR.Cells["RowID"].Value.ToString();
+                cCurrRow = cR.Cells["RowID"].Value.ToString().Trim();
                 i = Convert.ToInt32(cCurrRow);
-                cPrintedQty = dsDNDetail.Tables[6].Rows[i]["PrintedQty"].ToString();
+                cPrintedQty = dsDNDetail.Tables[6].Rows[i]["PrintedQty"].ToString().Trim();
 
                 if (cPrintedQty.Length == 0)
                     cPrintedQty = "0";
                 dPrintedQty = 0;
-                dPrintedQty = Convert.ToDouble(cPrintedQty) + Convert.ToDouble(tfrecqty.Text);
+                dPrintedQty = Convert.ToDouble(cPrintedQty) + Convert.ToDouble(_tfclass._tfrecqty);
 
-                dsDNDetail.Tables[6].Rows[i]["PrintedQty"] = dPrintedQty.ToString();
+                dsDNDetail.Tables[6].Rows[i]["PrintedQty"] = dPrintedQty.ToString().Trim();
 
                 dDNQty = Convert.ToDouble(cR.Cells["DNQty"].Value);
-                cR.Cells["PrintedQty"].Value = dPrintedQty.ToString();
+                cR.Cells["PrintedQty"].Value = dPrintedQty.ToString().Trim();
                 if (dDNQty <= dPrintedQty)
                 {
                     dgv1Pending.Invoke(new Action(delegate() { dgv1Pending.Rows.Remove(cR); }));
                     dgv1Pending.Refresh();
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -370,6 +370,23 @@ namespace WHOperation
             if (tfscanarea.ReadOnly)
             {
                 tfscanarea.Text = "";
+                return;
+            }
+            if (e.KeyCode==Keys.PageDown)
+            {
+                button1_Click(sender, e);
+                return;
+            }
+            if (e.KeyCode==Keys.End)
+            {
+                txt1PIID.Text = "";
+                txt1PIID.Focus();
+                return;
+            }
+            if (e.KeyCode==Keys.Home)
+            {
+                txt2FilterValue.Text = "";
+                txt2FilterValue.Focus();
                 return;
             }
             //if (e.KeyValue <= 31)
@@ -759,7 +776,7 @@ namespace WHOperation
                             }
                         }
                     }
-                   
+
                     //
                 }
 
@@ -807,12 +824,12 @@ namespace WHOperation
                     return false;
                 }
                 int intitem = Convert.ToInt32(item.ToString().Trim());
-                var tmpint = Convert.ToInt32(tfnoofcartons.Text) * Convert.ToInt32(tfnooflabels.Text) * intitem;
+                var tmpint = Convert.ToInt32(tfnooflabels.Text) * intitem;
 
 
                 if (tmpint > Convert.ToInt32(tfdnqty.Text) && string.IsNullOrEmpty(tfrecqty.Text))
                 {
-                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + " * " + tfnooflabels.Text + " * " + intitem.ToString("###") + " = " + tmpint + " > " + tfdnqty.Text;
+                    tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnooflabels.Text + " * " + intitem.ToString("###") + " = " + tmpint + " > " + tfdnqty.Text;
                     tfrecqty.Text = "";
                     pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                     return false;
@@ -821,10 +838,10 @@ namespace WHOperation
                 {
                     if (_usePrintPI)
                     {
-                        var tmpmpq = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString();
+                        var tmpmpq = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString().Trim();
                         if (!string.IsNullOrEmpty(tmpmpq))
                         {
-                            var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString();
+                            var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString().Trim();
                             if (!tmp2mpq.Equals(intitem.ToString("###")))
                             {
                                 tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
@@ -881,6 +898,10 @@ namespace WHOperation
                         if (cPrefix.Length == 0) { cLoopPrefix += 1; continue; }
                         if (cFieldName.ToUpper() == "LOTNUMBER")
                         {
+                            if (_findLOTNUMBER)
+                            {
+                                return;
+                            }
                             //tflotno.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                             tflotno.Invoke(new Action(delegate() { tflotno.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length); }));
                             if (cSeperator.Length > 0)
@@ -897,9 +918,14 @@ namespace WHOperation
                             //tflotno.Text = tflotno.Text.Trim();
                             tflotno.Invoke(new Action(delegate() { tflotno.Text = tflotno.Text.Trim(); }));
                             pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            _findLOTNUMBER = true;
                         }
                         else if (cFieldName.ToUpper() == "MFGDATE")
                         {
+                            if (_findMFGDATE)
+                            {
+                                return;    
+                            }
                             tfmfgdate.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                             if (cSeperator.Length > 0)
                             {
@@ -916,6 +942,10 @@ namespace WHOperation
                         }
                         else if (cFieldName.ToUpper() == "EXPIREDATE")
                         {
+                            if (_findEXPIREDATE)
+                            {
+                                return;
+                            }
                             tfexpiredate.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                             if (cSeperator.Length > 0)
                             {
@@ -929,9 +959,14 @@ namespace WHOperation
                             }
                             tfexpiredate.Text = tfexpiredate.Text.Trim();
                             pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            _findEXPIREDATE = true;
                         }
                         else if (cFieldName.ToUpper() == "RECQTY")
                         {
+                            if (_findRECQTY)
+                            {
+                                return;
+                            }
                             //tfrecqty.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                             tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length); }));
                             if (cSeperator.Length > 0)
@@ -950,9 +985,14 @@ namespace WHOperation
                             tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = tfrecqty.Text.Trim(); }));
                             tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = tfrecqty.Text.Replace(",", ""); }));
                             pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            _findRECQTY = true;
                         }
                         else if (cFieldName.ToUpper() == "DATECODE")
                         {
+                            if (_findDATECODE)
+                            {
+                                return;
+                            }
                             //tfdatecode.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                             tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length); }));
                             if (cSeperator.Length > 0)
@@ -969,9 +1009,14 @@ namespace WHOperation
                             //tfdatecode.Text = tfdatecode.Text.Trim();
                             tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = tfdatecode.Text.Trim(); }));
                             pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            _findDATECODE = true;
                         }
                         else if (cFieldName.ToUpper() == "DNPARTNUMBER")
                         {
+                            if (_findDNPARTNUMBER)
+                            {
+                                return;
+                            }
                             tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length); }));
                             if (cSeperator.Length > 0)
                             {
@@ -985,6 +1030,7 @@ namespace WHOperation
                             }
                             tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = tfdnpartnumber.Text.Trim(); }));
                             pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            _findDNPARTNUMBER = true;
                             if (cbSmartScan.Checked == true)
                             {
                                 if (tfdnpartnumber.Text.Length > 0 && tfrecmfgrpart.Text.Length > 0 && cSearchEnable == 0)
@@ -996,6 +1042,10 @@ namespace WHOperation
 
                         else if (cFieldName.ToUpper() == "MFGRPART")
                         {
+                            if (_findMFGRPART)
+                            {
+                                return;
+                            }
                             //tfrecmfgrpart.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                             tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length); }));
                             if (cSeperator.Length > 0)
@@ -1015,6 +1065,7 @@ namespace WHOperation
                             else
                                 tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = tfrecmfgrpart.Text.Trim(); }));
                             pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            _findMFGRPART = true;
                             if (cbSmartScan.Checked == true)
                             {
                                 if (cSearchEnable == 0)
@@ -1086,25 +1137,44 @@ namespace WHOperation
 
                 if (cFieldName.ToUpper() == "LOTNUMBER")
                 {
-
+                    if (_findLOTNUMBER)
+                    {
+                        return;
+                    }
                     tflotno.Invoke(new Action(delegate() { tflotno.Text = cLabelData; }));
                     pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                    _findLOTNUMBER = true;
                 }
                 if (cFieldName.ToUpper() == "MFGDATE")
                 {
+                    if (_findMFGDATE)
+                    {
+                        return;
+                    }
                     tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.Text = cLabelData; }));
                     pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                    _findMFGDATE = true;
                 }
                 if (cFieldName.ToUpper() == "EXPIREDATE")
                 {
+                    if (_findMFGDATE)
+                    {
+                        return;
+                    }
                     tfexpiredate.Invoke(new Action(delegate() { tfexpiredate.Text = cLabelData; }));
                     pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                    _findMFGDATE = true;
                 }
                 if (cFieldName.ToUpper() == "RECQTY")
                 {
+                    if (_findRECQTY)
+                    {
+                        return;
+                    }
                     //tfrecqty.Text = cLabelData;
                     tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = cLabelData; }));
                     pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                    _findRECQTY = true;
                     /*if (cSeperator.Length > 0)
                     {
                         if (cSeperator == "SPACE")
@@ -1125,18 +1195,33 @@ namespace WHOperation
                 }
                 if (cFieldName.ToUpper() == "DATECODE")
                 {
+                    if (_findDATECODE)
+                    {
+                        return;
+                    }
                     tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = cLabelData; }));
                     pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                    _findDATECODE = true;
                 }
                 if (cFieldName.ToUpper() == "DNPARTNUMBER")
                 {
+                    if (_findDNPARTNUMBER)
+                    {
+                        return;
+                    }
                     tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = cLabelData; }));
                     pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                    _findDNPARTNUMBER = true;
                 }
                 if (cFieldName.ToUpper() == "MFGRPART")
                 {
+                    if (_findMFGRPART)
+                    {
+                        return;
+                    }
                     tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = cLabelData; }));
                     pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                    _findMFGRPART = true;
                 }
                 if (cbSmartScan.Checked == true)
                 {
@@ -1196,6 +1281,10 @@ namespace WHOperation
                 {
                     if (cFieldName.ToUpper() == "LOTNUMBER")
                     {
+                        if (_findLOTNUMBER)
+                        {
+                            return;
+                        }
                         //tflotno.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                         tflotno.Invoke(new Action(delegate() { tflotno.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length); }));
                         if (cSeperator.Length > 0)
@@ -1210,11 +1299,16 @@ namespace WHOperation
                                 tflotno.Invoke(new Action(delegate() { tflotno.Text = cTemp[cIndex - 1]; }));
                         }
                         //tflotno.Text = tflotno.Text.Trim();
-                        tflotno.Text = tflotno.Text.Trim(); 
+                        tflotno.Text = tflotno.Text.Trim();
                         pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                        _findLOTNUMBER = true;
                     }
                     else if (cFieldName.ToUpper() == "MFGDATE")
                     {
+                        if (_findMFGDATE)
+                        {
+                            return;
+                        }
                         tfmfgdate.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                         if (cSeperator.Length > 0)
                         {
@@ -1228,9 +1322,14 @@ namespace WHOperation
                         }
                         tfmfgdate.Text = tfmfgdate.Text.Trim();
                         pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                        _findMFGDATE = true;
                     }
                     else if (cFieldName.ToUpper() == "EXPIREDATE")
                     {
+                        if (_findEXPIREDATE)
+                        {
+                            return;
+                        }
                         tfexpiredate.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                         if (cSeperator.Length > 0)
                         {
@@ -1244,9 +1343,14 @@ namespace WHOperation
                         }
                         tfexpiredate.Text = tfexpiredate.Text.Trim();
                         pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                        _findEXPIREDATE = true;
                     }
                     else if (cFieldName.ToUpper() == "RECQTY")
                     {
+                        if (_findRECQTY)
+                        {
+                            return;
+                        }
                         //tfrecqty.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                         tfrecqty.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                         if (cSeperator.Length > 0)
@@ -1263,11 +1367,16 @@ namespace WHOperation
                         //tfrecqty.Text = tfrecqty.Text.Trim();
                         //tfrecqty.Text = tfrecqty.Text.Replace(",", "");
                         tfrecqty.Text = tfrecqty.Text.Trim();
-                        tfrecqty.Text = tfrecqty.Text.Replace(",", ""); 
+                        tfrecqty.Text = tfrecqty.Text.Replace(",", "");
                         pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                        _findRECQTY = true;
                     }
                     else if (cFieldName.ToUpper() == "DATECODE")
                     {
+                        if (_findDATECODE)
+                        {
+                            return;
+                        }
                         //tfdatecode.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                         tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length); }));
                         if (cSeperator.Length > 0)
@@ -1284,9 +1393,14 @@ namespace WHOperation
                         //tfdatecode.Text = tfdatecode.Text.Trim();
                         tfdatecode.Text = tfdatecode.Text.Trim();
                         pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                        _findDATECODE = true;
                     }
                     else if (cFieldName.ToUpper() == "DNPARTNUMBER")
                     {
+                        if (_findDNPARTNUMBER)
+                        {
+                            return;
+                        }
                         tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length); }));
                         if (cSeperator.Length > 0)
                         {
@@ -1300,6 +1414,7 @@ namespace WHOperation
                         }
                         tfdnpartnumber.Text = tfdnpartnumber.Text.Trim();
                         pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                        _findDNPARTNUMBER = true;
                         if (cbSmartScan.Checked == true)
                         {
                             if (tfdnpartnumber.Text.Length > 0 && tfrecmfgrpart.Text.Length > 0 && cSearchEnable == 0)
@@ -1311,6 +1426,10 @@ namespace WHOperation
 
                     else if (cFieldName.ToUpper() == "MFGRPART")
                     {
+                        if (_findMFGRPART)
+                        {
+                            return;
+                        }
                         //tfrecmfgrpart.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length);
                         tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = cLabelData.Substring(cPrefix.Length, cLabelData.Length - cPrefix.Length); }));
                         if (cSeperator.Length > 0)
@@ -1330,6 +1449,7 @@ namespace WHOperation
                         else
                             tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = tfrecmfgrpart.Text.Trim(); }));
                         pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                        _findMFGRPART = true;
                         if (cbSmartScan.Checked == true)
                         {
                             if (cSearchEnable == 0)
@@ -1407,7 +1527,7 @@ namespace WHOperation
                         pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
                     }));
 
-
+                    _findWecPart100 = true;
                     tmpmsg = "find in Pending list with PartNumber:[" + scanString + "]";
 
                     cSearchFound = 1;
@@ -1416,6 +1536,7 @@ namespace WHOperation
             }
             if (cSearchFound == 0)
             {
+                
                 var query1 = from DataGridViewRow row in dgv.Rows
                              where row.Cells[strcellnamePart].Value.ToString().Equals(scanString)
                              select row;
@@ -1432,6 +1553,7 @@ namespace WHOperation
 
                         pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
                     }));
+                    _findWecPart100 = true;
                     tmpmsg = "find in Pending list with PartNumber:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
@@ -1452,6 +1574,7 @@ namespace WHOperation
                         tfrecmfgrpart.Text = scanString;
                         pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
                     }));
+                    _findQplPart100 = true;
                     tmpmsg = "find in Pending list with MFGPartNo:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
@@ -1471,6 +1594,7 @@ namespace WHOperation
                         tfrecmfgrpart.Text = scanString;
                         pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
                     }));
+                    _findQplPart100 = true;
                     tmpmsg = "find in Pending list with MFGPartNo:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
@@ -1482,6 +1606,10 @@ namespace WHOperation
             //80 PartNumber
             if (cSearchFound == 0)
             {
+                if (_findWecPart100)
+                {
+                    return;
+                }
                 var txtMfgpart = scanString;
                 var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
 
@@ -1504,6 +1632,10 @@ namespace WHOperation
             }
             if (cSearchFound == 0)
             {
+                if (_findWecPart100)
+                {
+                    return;
+                }
                 var txtMfgpart = scanString;
                 var txtmfgpart60 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.6));
 
@@ -1529,6 +1661,10 @@ namespace WHOperation
             ///100
             if (cSearchFound == 0)
             {
+                if (_findQplPart100)
+                {
+                    return;
+                }
                 var txtMfgpart = scanString;
                 //var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
 
@@ -1552,6 +1688,10 @@ namespace WHOperation
             ///80 
             if (cSearchFound == 0)
             {
+                if (_findQplPart100)
+                {
+                    return;
+                }
                 var txtMfgpart = scanString;
                 var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
 
@@ -1574,6 +1714,10 @@ namespace WHOperation
             }
             if (cSearchFound == 0)
             {
+                if (_findQplPart100)
+                {
+                    return;
+                }
                 var txtMfgpart = scanString;
                 var txtmfgpart60 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.6));
 
@@ -1599,6 +1743,10 @@ namespace WHOperation
             ///
             if (!string.IsNullOrEmpty(tfdnpartnumber.Text) && !string.IsNullOrEmpty(tfrecmfgrpart.Text))
             {
+                if (_findQplPart100&&_findWecPart100)
+                {
+                    return;
+                }
                 var query1 = from DataGridViewRow row in dgv.Rows
                              where row.Cells[strcellnamePart].Value.ToString() == tfdnpartnumber.Text &&
                                    row.Cells[strcellnameMFGP].Value.ToString() == tfrecmfgrpart.Text
@@ -1615,6 +1763,10 @@ namespace WHOperation
             //find by dw_develop qpl_mstr
             if (cSearchFound == 0)
             {
+                if (_findWecPart100&&_findQplPart100)
+                {
+                    return;
+                }
                 if (!string.IsNullOrEmpty(tfdnpartnumber.Text))
                 {
                     using (var db = new WHOperation.EF.DW.DW_Develop())
@@ -1740,7 +1892,7 @@ namespace WHOperation
                 tfdnpartnumber.Invoke(new Action(delegate() { tfdnpartnumber.Text = ""; }));
                 tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.Text = ""; }));
                 tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
-                tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = "0"; }));
+                tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = ""; }));
                 tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
                 tfmfgdate.Invoke(new Action(delegate() { tfmfgdate.Text = ""; }));
                 tfexpiredate.Invoke(new Action(delegate() { tfexpiredate.Text = ""; }));
@@ -1909,7 +2061,7 @@ namespace WHOperation
             cSelPONo = "";
             tfdnqty.Text = "";
             tfsite.Text = "";
-           
+
             if (_usePrintPI)
             {
                 if (dgv5PIPending.SelectedRows.Count <= 0)
@@ -1919,26 +2071,34 @@ namespace WHOperation
                     tfpartno.Invoke(new Action(delegate() { tfpartno.Text = ""; }));
                     tfrirno.Invoke(new Action(delegate() { tfrirno.Text = ""; }));
                     tfmfgpart.Invoke(new Action(delegate() { tfmfgpart.Text = ""; }));
-                   
+
+                    tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
+                    tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
+                    tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = ""; }));
                 }
                 else
                 {
                     cR = dgv5PIPending.SelectedRows[0];
-                    //cSelDNNo = cR.Cells["PI_NO"].Value.ToString();
-                    cSelDNDate = cR.Cells["pi_cre_time"].Value.ToString();
-                    //cSelPOLine = cR.Cells["POLine"].Value.ToString();
-                    cSelVendor = cR.Cells["pi_mfgr"].Value.ToString();
-                    cSelPONo = cR.Cells["PI_PO"].Value.ToString();
+                    //cSelDNNo = cR.Cells["PI_NO"].Value.ToString().Trim();
+                    cSelDNDate = cR.Cells["pi_cre_time"].Value.ToString().Trim();
+                    //cSelPOLine = cR.Cells["POLine"].Value.ToString().Trim();
+                    cSelVendor = cR.Cells["pi_mfgr"].Value.ToString().Trim();
+                    cSelPONo = cR.Cells["PI_PO"].Value.ToString().Trim();
 
-                    tfdnqty.Text = Convert.ToInt32(cR.Cells["PI_QTY"].Value).ToString();
-                    tfsite.Text = cR.Cells["PI_SITE"].Value.ToString();
+                    tfdnqty.Text = Convert.ToInt32(cR.Cells["PI_QTY"].Value).ToString().Trim();
+                    tfsite.Text = cR.Cells["PI_SITE"].Value.ToString().Trim();
                     //tfhdnno.Text = cSelDNNo;
                     //tfhvendor.Text = cSelVendor;
                     tfhdndate.Invoke(new Action(delegate() { tfhdndate.Text = cSelDNDate; }));
                     tfvendor.Invoke(new Action(delegate() { tfvendor.Text = cSelVendor; }));
-                    tfpartno.Invoke(new Action(delegate() { tfpartno.Text = cR.Cells["PI_PART"].Value.ToString(); }));
-                    tfrirno.Invoke(new Action(delegate() { tfrirno.Text = cR.Cells["PI_LOT"].Value.ToString(); }));
-                    tfmfgpart.Invoke(new Action(delegate() { tfmfgpart.Text = cR.Cells["pi_mfgr_part"].Value.ToString(); }));
+                    tfpartno.Invoke(new Action(delegate() { tfpartno.Text = cR.Cells["PI_PART"].Value.ToString().Trim(); }));
+                    tfrirno.Invoke(new Action(delegate() { tfrirno.Text = cR.Cells["PI_LOT"].Value.ToString().Trim(); }));
+                    tfmfgpart.Invoke(new Action(delegate() { tfmfgpart.Text = cR.Cells["pi_mfgr_part"].Value.ToString().Trim(); }));
+
+
+                    tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
+                    tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
+                    tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = ""; }));
                 }
             }
             else
@@ -1953,36 +2113,36 @@ namespace WHOperation
                     tfpartno.Invoke(new Action(delegate() { tfpartno.Text = ""; }));
                     tfrirno.Invoke(new Action(delegate() { tfrirno.Text = ""; }));
                     tfmfgpart.Invoke(new Action(delegate() { tfmfgpart.Text = ""; }));
+
+                    tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
+                    tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
+                    tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = ""; }));
                 }
                 else
                 {
                     cR = dgv1Pending.SelectedRows[0];
-                    cSelDNNo = cR.Cells["DNNo"].Value.ToString();
-                    cSelDNDate = cR.Cells["DNDate"].Value.ToString();
-                    cSelPOLine = cR.Cells["POLine"].Value.ToString();
-                    cSelVendor = cR.Cells["Vendor"].Value.ToString();
-                    cSelPONo = cR.Cells["PONumber"].Value.ToString();
-                    tfdnqty.Text = cR.Cells["DNQty"].Value.ToString();
-                    tfsite.Text = cR.Cells["DNSite"].Value.ToString();
+                    cSelDNNo = cR.Cells["DNNo"].Value.ToString().Trim();
+                    cSelDNDate = cR.Cells["DNDate"].Value.ToString().Trim();
+                    cSelPOLine = cR.Cells["POLine"].Value.ToString().Trim();
+                    cSelVendor = cR.Cells["Vendor"].Value.ToString().Trim();
+                    cSelPONo = cR.Cells["PONumber"].Value.ToString().Trim();
+                    tfdnqty.Text = cR.Cells["DNQty"].Value.ToString().Trim();
+                    tfsite.Text = cR.Cells["DNSite"].Value.ToString().Trim();
+
+                    tfdatecode.Invoke(new Action(delegate() { tfdatecode.Text = ""; }));
+                    tflotno.Invoke(new Action(delegate() { tflotno.Text = ""; }));
+                    tfrecqty.Invoke(new Action(delegate() { tfrecqty.Text = ""; }));
+
                     //tfhdnno.Text = cSelDNNo;
                     //tfhvendor.Text = cSelVendor;
                     tfhdndate.Invoke(new Action(delegate() { tfhdndate.Text = cSelDNDate; }));
                     tfvendor.Invoke(new Action(delegate() { tfvendor.Text = cSelVendor; }));
-                    tfpartno.Invoke(new Action(delegate() { tfpartno.Text = cR.Cells["PartNumber"].Value.ToString(); }));
-                    tfrirno.Invoke(new Action(delegate() { tfrirno.Text = cR.Cells["RIRNo"].Value.ToString(); }));
-                    tfmfgpart.Invoke(new Action(delegate() { tfmfgpart.Text = cR.Cells["MFGPartNo"].Value.ToString(); }));
+                    tfpartno.Invoke(new Action(delegate() { tfpartno.Text = cR.Cells["PartNumber"].Value.ToString().Trim(); }));
+                    tfrirno.Invoke(new Action(delegate() { tfrirno.Text = cR.Cells["RIRNo"].Value.ToString().Trim(); }));
+                    tfmfgpart.Invoke(new Action(delegate() { tfmfgpart.Text = cR.Cells["MFGPartNo"].Value.ToString().Trim(); }));
                 }
             }
-            this.Invoke(new Action(delegate()
-            {
-                tfdnpartnumber.Text = "";
-                tfrecmfgrpart.Text = "";
-                tfdatecode.Text = "";
-                tfrecqty.Text = "";
-                tflotno.Text = "";
-                tfmfgdate.Text = "";
-                tfexpiredate.Text = "";
-            }));
+            initSet();
         }
         void getTemplate()
         {
@@ -2005,7 +2165,7 @@ namespace WHOperation
             else
             {
                 cR = dgv1Pending.SelectedRows[0];
-                cSelVendor = cR.Cells[2].Value.ToString();
+                cSelVendor = cR.Cells[2].Value.ToString().Trim();
             }
             cSelVendor = tfdnno.Text;
             cQuery = "select TemplateID,xmlVendorData,templateImage from PIMLVendorTemplate where VendorID='" + cSelVendor + "' Order By isDefault desc,TemplateID ";
@@ -2020,8 +2180,8 @@ namespace WHOperation
                     myReader = cmd.ExecuteReader();
                     while (myReader.Read())
                     {
-                        cRec = myReader.GetValue(0).ToString();
-                        cXMLTemplate = myReader.GetValue(1).ToString();
+                        cRec = myReader.GetValue(0).ToString().Trim();
+                        cXMLTemplate = myReader.GetValue(1).ToString().Trim();
                         if (cXMLTemplate.Length > 0)
                         {
                             dgv3VendorTemplate.Rows.Add(cRec);
@@ -2066,7 +2226,7 @@ namespace WHOperation
             piPrintModel.PI_QTY = Convert.ToDecimal(cr.Cells["PI_QTY"].Value);
             if (string.IsNullOrEmpty(tfrecqty.Text))
             {
-                tfrecqty.Text = "0";
+                tfrecqty.Text = "";
             }
             var ttlPrint = Convert.ToInt32(tfnoofcartons.Text.Trim()) *
                                       Convert.ToInt32(tfnooflabels.Text.Trim()) *
@@ -2099,7 +2259,7 @@ namespace WHOperation
                 if (cVal == 0)
                 {
                     PI_Print tmpPrint = new PI_Print();
-                    tmpPrint.pi_char2 = DateTime.Now.ToString();
+                    tmpPrint.pi_char2 = DateTime.Now.ToString().Trim();
                     tmpPrint.pi_char3 = Program._userName + "," + Program._version;
 
 
@@ -2170,7 +2330,7 @@ namespace WHOperation
                     if (pimlData.Tables["row"].Rows.Count > 0)
                     {
                         cR = pimlData.Tables["Row"].Rows[0];
-                        cRet = cR.ItemArray[0].ToString();
+                        cRet = cR.ItemArray[0].ToString().Trim();
                     }
                 }
             }
@@ -2184,6 +2344,9 @@ namespace WHOperation
             DataGridViewRow cR = new DataGridViewRow();
             DataGridViewRow cR1 = new DataGridViewRow();
             List<String> lPIMSData = new List<String>();
+            _toPrintList = new List<printStringList>();
+            _toPrintList.Clear();
+
             int cCartonLoop, cNoOfCartons;
             int i;
             Double cPIMSQty;
@@ -2196,8 +2359,11 @@ namespace WHOperation
             String[] cRec = new String[cR.Cells.Count];
             for (i = 0; i <= cR.Cells.Count - 1; i += 1)
             {
-                cRec[i] = cR.Cells[i].Value.ToString();
+                cRec[i] = cR.Cells[i].Value.ToString().Trim();
             }
+
+            _tfclass = new tfclass(tfdnpartnumber.Text, tfrecmfgrpart.Text, tfdatecode.Text, tfrecqty.Text, tflotno.Text, tfmfgdate.Text, tfexpiredate.Text, tfrirno.Text, tfmfgdate.Text, tfdndate.Text, tfdnqty.Text);
+            disableScan();
 
             cPIMSNumber = "tmpPIMS";
             cPIMSNumber = getPIMSData();
@@ -2227,14 +2393,14 @@ namespace WHOperation
                             else
                             {
                                 cCartonQty = "0";
-                                cPIMSQty = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)) / cNoOfCartons;
+                                cPIMSQty = (Convert.ToDouble(_tfclass._tfrecqty) * Convert.ToDouble(tfnooflabels.Text)) / cNoOfCartons;
                                 try
                                 {
                                     if (Convert.ToDouble(cCartonQty) > 0)
                                         lPIMSData[7] = cCartonQty;
                                     else
-                                        //lPIMSData[7] = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)).ToString();
-                                        lPIMSData[7] = cPIMSQty.ToString();
+                                        //lPIMSData[7] = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)).ToString().Trim();
+                                        lPIMSData[7] = cPIMSQty.ToString().Trim();
                                 }
                                 catch (Exception ex) { lPIMSData[7] = "0"; }
                                 printPIML(lPIMSData, 1);
@@ -2261,14 +2427,9 @@ namespace WHOperation
                             if (lPIMSData[5].ToUpper().Contains("MRB"))
                             {
                                 cQuery = @"insert into PIMSMRBException (DNNo,DNDate,RIRNo,SupplierID,MfgrID,MG,PIMS,PartNumber,ReqMfgrPart,RecMfgrPart,CustPart,RecQty) "
-                                                      + @"values('" + piid + "','" + cRec[10] + "','" + tfrirno.Text.Trim() + "','" + cRec[4] + "','" + lPIMSData[6] + "','" + cRec[9] + "','" + cPIMSNumber + "','" + cRec[0] + "','" + tfmfgpart.Text.Trim() + "','" + tfrecmfgrpart.Text + "','PI','" + tfrecqty.Text + "')";
+                                                      + @"values('" + piid + "','" + cRec[10] + "','" + _tfclass._tfrirno + "','" + cRec[4] + "','" + lPIMSData[6] + "','" + cRec[9] + "','" + cPIMSNumber + "','" + cRec[0] + "','" + _tfclass._tfmfgpart + "','" + _tfclass._tfrecmfgrpart + "','PI','" + _tfclass._tfrecqty + "')";
 
                                 SQLUpdate(cQuery);
-                            }
-                            _isEndPrint = false;
-                            if (cPrintLoop == cNoOfLabels)
-                            {
-                                _isEndPrint = true;
                             }
                             printPIML(lPIMSData, 1);
 
@@ -2278,7 +2439,7 @@ namespace WHOperation
                 }
 
                 setPIMLData();
-                initSet();
+                toPrinterEnd(_toPrintList);
             }
             catch (Exception ex)
             {
@@ -2299,6 +2460,8 @@ namespace WHOperation
             DataGridViewRow cR = new DataGridViewRow();
             DataGridViewRow cR1 = new DataGridViewRow();
             List<String> lPIMSData = new List<String>();
+            _toPrintList = new List<printStringList>();
+            _toPrintList.Clear();
             int cCartonLoop, cNoOfCartons;
             int i;
             Double cPIMSQty;
@@ -2307,18 +2470,18 @@ namespace WHOperation
             if (dgv1Pending.SelectedRows.Count <= 0)
                 return;
 
-            //disableScan();
-
             cR = dgv1Pending.SelectedRows[0];
             String[] cRec = new String[cR.Cells.Count];
             for (i = 0; i <= cR.Cells.Count - 1; i += 1)
             {
-                cRec[i] = cR.Cells[i].Value.ToString();
+                cRec[i] = cR.Cells[i].Value.ToString().Trim();
             }
+            _tfclass = new tfclass(tfdnpartnumber.Text, tfrecmfgrpart.Text, tfdatecode.Text, tfrecqty.Text, tflotno.Text, tfmfgdate.Text, tfexpiredate.Text, tfrirno.Text, tfmfgdate.Text, tfdndate.Text, tfdnqty.Text);
+            disableScan();
 
             cPIMSNumber = "tmpPIMS";
             cPIMSNumber = getPIMSData();
-            cTotQty = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)).ToString();
+            cTotQty = (Convert.ToDouble(_tfclass._tfrecqty) * Convert.ToDouble(tfnooflabels.Text)).ToString().Trim();
 
             try
             {
@@ -2326,6 +2489,7 @@ namespace WHOperation
                 int cNoOfLabels;
                 cPrintLoop = 1;
                 cNoOfLabels = Convert.ToInt32(tfnooflabels.Text);
+
                 while (cPrintLoop <= cNoOfLabels)
                 {
                     if (cbprintcartonlabel.Checked == true && cPrintLoop == 1)
@@ -2347,14 +2511,14 @@ namespace WHOperation
                             else
                             {
                                 cCartonQty = "0";
-                                cPIMSQty = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)) / cNoOfCartons;
+                                cPIMSQty = (Convert.ToDouble(_tfclass._tfrecqty) * Convert.ToDouble(tfnooflabels.Text)) / cNoOfCartons;
                                 try
                                 {
                                     if (Convert.ToDouble(cCartonQty) > 0)
                                         lPIMSData[7] = cCartonQty;
                                     else
-                                        //lPIMSData[7] = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)).ToString();
-                                        lPIMSData[7] = cPIMSQty.ToString();
+                                        //lPIMSData[7] = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)).ToString().Trim();
+                                        lPIMSData[7] = cPIMSQty.ToString().Trim();
                                 }
                                 catch (Exception ex) { lPIMSData[7] = "0"; tool_lbl_Msg.Text = "lPIMSData[7] data is 0"; return; }
                                 printPIML(lPIMSData, 1);
@@ -2376,37 +2540,32 @@ namespace WHOperation
                         else
                         {
                             Double cPrintQty;
-                            if (string.IsNullOrEmpty(tfrecqty.Text))
+                            if (string.IsNullOrEmpty(_tfclass._tfrecqty))
                             {
-                                tfrecqty.Text = "0";
+                                tfrecqty.Text = "";
                             }
-                            cDNNo = dgv0DNNumber.CurrentRow.Cells[0].Value.ToString();
-                            cPrintQty = getCompleteQty(cDNNo, cRec[6], cRec[1], tfrirno.Text, cRec[9], cRec[2]);
+                            cDNNo = dgv0DNNumber.CurrentRow.Cells[0].Value.ToString().Trim();
+                            cPrintQty = getCompleteQty(cDNNo, cRec[6], cRec[1], _tfclass._tfrirno, cRec[9], cRec[2]);
                             if (cPrintQty == 0 && cPrintLoop == 1)
                             {
                                 cQuery = "Insert into PIMLDetail (SystemID,TransID,TransLine,DNNo,DNDate,VendorID,PONo,POLine,PartNumber,DNQty,LineQty,LotNo,RIRNo,MFGPartNumber,ExpDate,DateCode, " +
                                         " t_site,t_urg,t_loc,t_msd,t_cust_part,t_shelf_life,t_wt,t_wt_ind,t_conn,mfgDate,PIMSNumber,NoOfLabels) " +
-                                        " values('" + cbsystem.Text + "','001','001','" + cDNNo + "','" + cRec[9] + "','" + cRec[2] + "','" + cRec[6] + "','" + cRec[1] + "','" + cRec[3] + "','" + cRec[8] + "','" + tfrecqty.Text + "','" + tflotno.Text + "','" + tfrirno.Text + "','" + tfmfgpart.Text + "','" + tfexpiredate.Text + "','" + tfdatecode.Text + "', " +
-                                        " '" + cRec[10] + "','" + cRec[11] + "','" + cRec[12] + "','" + cRec[13] + "','" + cRec[14] + "','" + cRec[15] + "','" + cRec[16] + "','" + cRec[17] + "','" + cRec[18] + "','" + tfmfgdate.Text + "','" + cPIMSNumber + ";','1') ";
+                                        " values('" + cbsystem.Text + "','001','001','" + cDNNo + "','" + cRec[9] + "','" + cRec[2] + "','" + cRec[6] + "','" + cRec[1] + "','" + cRec[3] + "','" + cRec[8] + "','" + _tfclass._tfrecqty + "','" + _tfclass._tflotno + "','" + _tfclass._tfrirno + "','" + _tfclass._tfmfgpart + "','" + _tfclass._tfexpiredate + "','" + _tfclass._tfdatecode + "', " +
+                                        " '" + cRec[10] + "','" + cRec[11] + "','" + cRec[12] + "','" + cRec[13] + "','" + cRec[14] + "','" + cRec[15] + "','" + cRec[16] + "','" + cRec[17] + "','" + cRec[18] + "','" + _tfclass._tfmfgdate + "','" + cPIMSNumber + ";','1') ";
                             }
                             else
                             {
                                 //cPrintQty = Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text);
-                                cQuery = "update PIMLDetail set LineQty=LineQty + '" + tfrecqty.Text + "',NoOfLabels=NoofLabels+1,PIMSNumber=PIMSNumber+'" + cPIMSNumber + ";' where DNNo='" + cDNNo + "' and PONo='" + cRec[6] + "' and PoLine='" + cRec[1] + "' and RIRNo='" + tfrirno.Text + "' and DNDate='" + cRec[9] + "' and VendorID='" + cRec[2] + "'";
+                                cQuery = "update PIMLDetail set LineQty=LineQty + '" + _tfclass._tfrecqty + "',NoOfLabels=NoofLabels+1,PIMSNumber=PIMSNumber+'" + cPIMSNumber + ";' where DNNo='" + cDNNo + "' and PONo='" + cRec[6] + "' and PoLine='" + cRec[1] + "' and RIRNo='" + _tfclass._tfrirno + "' and DNDate='" + cRec[9] + "' and VendorID='" + cRec[2] + "'";
                             }
                             SQLUpdate(cQuery);
                             if (lPIMSData[5].ToUpper().Contains("MRB"))
                             {
                                 cQuery = "insert into PIMSMRBException (DNNo,DNDate,RIRNo,SupplierID,MfgrID,MG,PIMS,PartNumber,ReqMfgrPart,RecMfgrPart,CustPart,RecQty) " +
-                                    "values('" + cDNNo + "','" + cRec[9] + "','" + tfrirno.Text + "','" + cRec[2] + "','" + lPIMSData[6] + "','" + cRec[10] + "','" + cPIMSNumber + "','" + cRec[3] + "','" + tfmfgpart.Text + "','" + tfrecmfgrpart.Text + "','" + cRec[14] + "','" + tfrecqty.Text + "')";
+                                    "values('" + cDNNo + "','" + cRec[9] + "','" + _tfclass._tfrirno + "','" + cRec[2] + "','" + lPIMSData[6] + "','" + cRec[10] + "','" + cPIMSNumber + "','" + cRec[3] + "','" + _tfclass._tfmfgpart + "','" + _tfclass._tfrecmfgrpart + "','" + cRec[14] + "','" + _tfclass._tfrecqty + "')";
                                 SQLUpdate(cQuery);
                             }
                             setCompleteDN();
-                            _isEndPrint = false;
-                            if (cPrintLoop >= cNoOfLabels)
-                            {
-                                _isEndPrint = true;
-                            }
                             printPIML(lPIMSData, 0);
                         }
                     }
@@ -2414,13 +2573,12 @@ namespace WHOperation
                 }
 
                 setPIMLData();
-                initSet();
+                toPrinterEnd(_toPrintList);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 disableScan();
-                initSet();
             }
             finally
             {
@@ -2476,7 +2634,7 @@ namespace WHOperation
             /*cPara.Append(cR.Cells["DNSite"].Value.ToString()+","+cR.Cells["PartNumber"].Value.ToString()+
                 "," + cR.Cells["RIRNo"].Value.ToString() + ",'',''," + tfrecqty.Text + "," + tfmfgpart.Text + "," + cUserID + "," + tflotno.Text + ",''," +
                 tfexpiredate.Text+",'',"+cR.Cells["t_shelf_life"].Value.ToString()+",'YES','NO','R'");*/
-            cPara.Append(cPIMSNumber + "," + cR.Cells[strcellRiRNO].Value.ToString() + "," + tfdatecode.Text + "," + tfmfgdate.Text + "," + tfexpiredate.Text + "," + tfrecqty.Text + "," + cUserID + "," + tflotno.Text + "," + tfrecmfgrpart.Text);
+            cPara.Append(cPIMSNumber + "," + cR.Cells[strcellRiRNO].Value.ToString() + "," + _tfclass._tfdatecode + "," + _tfclass._tfmfgdate + "," + _tfclass._tfexpiredate + "," + _tfclass._tfrecqty + "," + cUserID + "," + _tfclass._tflotno + "," + _tfclass._tfrecmfgrpart);
             cRetReader = callMFGService(cLocalSysID, cServiceID, cPara.ToString());
             try
             {
@@ -2518,7 +2676,7 @@ namespace WHOperation
             /*cPara.Append(cR.Cells["DNSite"].Value.ToString()+","+cR.Cells["PartNumber"].Value.ToString()+
                 "," + cR.Cells["RIRNo"].Value.ToString() + ",'',''," + tfrecqty.Text + "," + tfmfgpart.Text + "," + cUserID + "," + tflotno.Text + ",''," +
                 tfexpiredate.Text+",'',"+cR.Cells["t_shelf_life"].Value.ToString()+",'YES','NO','R'");*/
-            cPara.Append(cPIMSNumber + "," + cR.Cells["RIRNo"].Value.ToString() + "," + tfdatecode.Text + "," + tfmfgdate.Text + "," + tfexpiredate.Text + "," + tfrecqty.Text + "," + cUserID + "," + tflotno.Text + "," + tfrecmfgrpart.Text);
+            cPara.Append(cPIMSNumber + "," + cR.Cells["RIRNo"].Value.ToString() + "," + _tfclass._tfdatecode + "," + _tfclass._tfmfgdate + "," + _tfclass._tfexpiredate + "," + _tfclass._tfrecqty + "," + cUserID + "," + _tfclass._tflotno + "," + _tfclass._tfrecmfgrpart);
             cRetReader = callMFGService(cLocalSysID, cServiceID, cPara.ToString());
             try
             {
@@ -2557,7 +2715,7 @@ namespace WHOperation
                     myReader = cmd.ExecuteReader();
                     while (myReader.Read())
                     {
-                        cRet = myReader.GetValue(0).ToString();
+                        cRet = myReader.GetValue(0).ToString().Trim();
                     }
                     myReader.Close();
                     if (cRet.Length > 0)
@@ -2585,7 +2743,7 @@ namespace WHOperation
                     myReader = cmd.ExecuteReader();
                     while (myReader.Read())
                     {
-                        cRet = myReader.GetValue(0).ToString();
+                        cRet = myReader.GetValue(0).ToString().Trim();
                     }
                     myReader.Close();
                     if (cRet.Length > 0)
@@ -2927,17 +3085,17 @@ namespace WHOperation
             tfdatecode.Invoke(new Action(delegate() { tfdatecode.BackColor = Color.White; }));
             tfrecmfgrpart.Invoke(new Action(delegate() { tfrecmfgrpart.BackColor = Color.White; }));
             String cPrintQty, cDNQty;
-            //cPrintQty = dataGridView1.CurrentRow.Cells["PrintedQty"].Value.ToString();
-            //cDNQty = dataGridView1.CurrentRow.Cells["DNQty"].Value.ToString();
-            cPrintQty = dgv1Pending.SelectedRows[0].Cells["PrintedQty"].Value.ToString();
-            cDNQty = dgv1Pending.SelectedRows[0].Cells["DNQty"].Value.ToString();
+            //cPrintQty = dataGridView1.CurrentRow.Cells["PrintedQty"].Value.ToString().Trim();
+            //cDNQty = dataGridView1.CurrentRow.Cells["DNQty"].Value.ToString().Trim();
+            cPrintQty = dgv1Pending.SelectedRows[0].Cells["PrintedQty"].Value.ToString().Trim();
+            cDNQty = dgv1Pending.SelectedRows[0].Cells["DNQty"].Value.ToString().Trim();
             Double dLinePrintQty;
             //cPrintQty = getCompleteQty(cR["t_dn"].ToString(), cR["t_po"].ToString(), cR["t_id"].ToString(), cR["t_rir"].ToString(), cR["t_deli_date"].ToString(), cR["t_supp"].ToString()); 
             dLinePrintQty = getCompleteQty(cR.Cells["DNNo"].Value.ToString(), cR.Cells["PONumber"].Value.ToString(), cR.Cells["POLine"].Value.ToString(), tfrirno.Text, tfhdndate.Text, tfvendor.Text);
-            cPrintQty = dLinePrintQty.ToString();
+            cPrintQty = dLinePrintQty.ToString().Trim();
             if (cPrintQty.Length == 0) cPrintQty = "0";
             if (cDNQty.Length == 0) cDNQty = "0";
-            if (tfrecqty.Text.Length == 0) tfrecqty.Text = "0";
+            if (tfrecqty.Text.Length == 0) tfrecqty.Text = "";
             if (Convert.ToDouble(cPrintQty) + (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)) > Convert.ToDouble(cDNQty))
             {
                 cRet += 1;
@@ -3270,19 +3428,19 @@ namespace WHOperation
             {
                 cR = dsAuthors.Tables["Field"].Rows[i];
                 vendorLabel = new vendorLabelDefinition();
-                vendorLabel.cFieldName = cR.ItemArray[0].ToString();
-                vendorLabel.cPrefix = cR.ItemArray[1].ToString();
-                vendorLabel.cSeperator = cR.ItemArray[2].ToString();
-                vendorLabel.cIndex = cR.ItemArray[3].ToString();
+                vendorLabel.cFieldName = cR.ItemArray[0].ToString().Trim();
+                vendorLabel.cPrefix = cR.ItemArray[1].ToString().Trim();
+                vendorLabel.cSeperator = cR.ItemArray[2].ToString().Trim();
+                vendorLabel.cIndex = cR.ItemArray[3].ToString().Trim();
                 lRet.Add(vendorLabel);
                 i += 1;
             }
             c2DSeperator = "";
             if (dsAuthors.Tables.IndexOf("Header") >= 0)
             {
-                cTemplateType = dsAuthors.Tables["Header"].Rows[0].ItemArray[1].ToString();
+                cTemplateType = dsAuthors.Tables["Header"].Rows[0].ItemArray[1].ToString().Trim();
                 if (dsAuthors.Tables["Header"].Rows[0].ItemArray.Length > 2)
-                    c2DSeperator = dsAuthors.Tables["Header"].Rows[0].ItemArray[2].ToString();
+                    c2DSeperator = dsAuthors.Tables["Header"].Rows[0].ItemArray[2].ToString().Trim();
 
                 if (c2DSeperator == "\\r\\n")
                 {
@@ -3302,29 +3460,57 @@ namespace WHOperation
         }
         void toPrinter(StringBuilder cStringToPrint, String cPIMS)
         {
-            String cSelPort;
-            cSelPort = "LPT1";
+            printStringList tmpPrintStr = new printStringList(cStringToPrint, cPIMS);
+            _toPrintList.Add(tmpPrintStr);
+        }
+        void toPrinterEnd(List<printStringList> tmpstr)
+        {
+            StreamWriter outputfile = null;
+            String cSelPort = "LPT1";
+            var cPIMS = "";
+            var cStringToPrint = new StringBuilder();
+            var cStringToPrintSave = new StringBuilder();
             lStatus.Invoke(new Action(delegate() { lStatus.Text = "Printing...."; }));
-            cbport.Invoke(new Action(delegate() { cSelPort = cbport.SelectedItem.ToString(); }));
-            StreamWriter outputfile = new StreamWriter("c://tmp//PIMS/spool//piml" + cPIMS + ".txt", false, Encoding.UTF8);
+            cbport.Invoke(new Action(delegate() { cSelPort = cbport.SelectedItem.ToString().Trim(); }));
+            PrinterHandle.LPTControl printHandle = new PrinterHandle.LPTControl(cSelPort);
             try
             {
-                PrinterHandle.LPTControl printHandle = new PrinterHandle.LPTControl(cSelPort);
+                foreach (var item in tmpstr)
+                {
+                    cStringToPrint = item._strb;
+                    cStringToPrintSave.Append(cStringToPrint.ToString());
+                    cPIMS += "-" + item._savename;
+                }
                 if (printHandle.Open())
                 {
-                    printHandle.Write(cStringToPrint.ToString());
-                    printHandle.Close();
+                    printHandle.Write(cStringToPrintSave.ToString());
                 }
-                outputfile.Write(cStringToPrint.ToString());
+                outputfile = new StreamWriter("c://tmp//PIMS/spool//piml" + cPIMS + ".txt", false, Encoding.UTF8);
+                outputfile.Write(cStringToPrintSave.ToString());
             }
             catch (Exception prEx) { MessageBox.Show("Print Error :\n" + prEx.Message.ToString()); }
-            finally { outputfile.Close(); }
-            lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
-        }
+            finally
+            {
+                if (outputfile != null)
+                {
+                    outputfile.Close();
 
+                }
+                printHandle.Close();
+            }
+            lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
+            tfdnpartnumber.Text = "";
+            tfrecmfgrpart.Text = "";
+            tfdatecode.Text = "";
+            tfrecqty.Text = "";
+            tflotno.Text = "";
+            tfmfgdate.Text = "";
+            tfexpiredate.Text = "";
+            tfscanarea.Text = "";
+            tfscanarea.Focus();
+        }
         void printPIML(List<String> lPIMSData, int cLabelType)
         {
-            disableScan();
             StringBuilder cRet = new StringBuilder();
             PIMLPrint pimlPrint = new PIMLPrint();
             String cSelPrinter;
@@ -3334,8 +3520,8 @@ namespace WHOperation
             //cR = dgv1Pending.SelectedRows[0];
             cSelPrinter = "1";
             cNoLabel = Convert.ToInt32(tfnooflabels.Text);
-            //cSelPrinter = (cbprintertype.SelectedIndex + 1).ToString();
-            cbprintertype.Invoke(new Action(delegate() { cSelPrinter = (cbprintertype.SelectedIndex + 1).ToString(); }));
+            //cSelPrinter = (cbprintertype.SelectedIndex + 1).ToString().Trim();
+            cbprintertype.Invoke(new Action(delegate() { cSelPrinter = (cbprintertype.SelectedIndex + 1).ToString().Trim(); }));
             try
             {
                 /* cRet = pimlPrint.genPIML(
@@ -3349,15 +3535,14 @@ namespace WHOperation
                 ); */
                 //6=type;3=Part;4=Site;8=Qty_Per;9=Qty_Tot;7=Ref;5=Loc;10=ExpiDate;11=ExpiType;12=MfgrPart;13;CustPart;1=PIMSNnbr;14=DateCode
                 //15=by;16=wt;17=msd;
-
                 cRet = pimlPrint.genPIML(
-                            tfdndate.Text.Substring(tfdndate.Text.Length - 2, 2),
-                            lPIMSData[5].ToString().ToUpper(), tflotno.Text.ToUpper(), lPIMSData[2].ToString().ToUpper(), lPIMSData[3].ToString().ToUpper(),
-                            lPIMSData[7].ToString().ToUpper(), tfdnqty.Text, lPIMSData[6].ToString().ToUpper(), lPIMSData[4].ToString().ToUpper(),
+                            _tfclass._tfdndate.Substring(_tfclass._tfdndate.Length - 2, 2),
+                            lPIMSData[5].ToString().ToUpper(), _tfclass._tflotno.ToUpper(), lPIMSData[2].ToString().ToUpper(), lPIMSData[3].ToString().ToUpper(),
+                            lPIMSData[7].ToString().ToUpper(), _tfclass._tfdnqty, lPIMSData[6].ToString().ToUpper(), lPIMSData[4].ToString().ToUpper(),
                             lPIMSData[9].ToString().ToUpper(), lPIMSData[10].ToString().ToUpper(), lPIMSData[11].ToString().ToUpper(), lPIMSData[12].ToString().ToUpper(),
                             lPIMSData[0].ToString().ToUpper(), lPIMSData[13].ToString().ToUpper(),
                             cSelPrinter, lPIMSData[14].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(),
-                            lPIMSData[16].ToString().ToUpper(), cUserID, lPIMSData[16].ToString().ToUpper(), "", 1, tfrirno.Text.ToUpper(), lPIMSData[17].ToString().ToUpper()
+                            lPIMSData[16].ToString().ToUpper(), cUserID, lPIMSData[16].ToString().ToUpper(), "", 1, _tfclass._tfrirno.ToUpper(), lPIMSData[17].ToString().ToUpper()
                  );
                 toPrinter(cRet, lPIMSData[0].ToString());
 
@@ -3367,29 +3552,7 @@ namespace WHOperation
 
                 if (cLabelType == 0)
                     setDSPrintedQty();
-                // EnableScan();
-
-                if (_isEndPrint)
-                {
-                    this.Invoke(new Action(delegate()
-                    {
-                        tfdnpartnumber.Text = "";
-                        tfrecmfgrpart.Text = "";
-                        tfdatecode.Text = "";
-                        tfrecqty.Text = "";
-                        tflotno.Text = "";
-                        tfmfgdate.Text = "";
-                        tfexpiredate.Text = "";
-                        pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                        pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                        pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                        pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                        pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                        pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                        pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                    }));
-                    _isEndPrint = false;
-                }
+                // EnableScan();              
 
             }
             catch (Exception labEr)
@@ -3427,7 +3590,7 @@ namespace WHOperation
             DataTable dt = new DataTable();
             dt = (DataTable)dsDNDetail.Tables[6];
             cDGR = dgv0DNNumber.CurrentRow;
-            cDNNo = cDGR.Cells["DNNumber"].Value.ToString();
+            cDNNo = cDGR.Cells["DNNumber"].Value.ToString().Trim();
             while (i <= dsDNDetail.Tables[6].Rows.Count - 1)
             {
                 cR = dsDNDetail.Tables[6].Rows[i];
@@ -3654,7 +3817,7 @@ namespace WHOperation
                 case 1010:
                     return "CodeUtilErrorCanceled";
                 default:
-                    return "Not a CodeUtil error: " + number.ToString();
+                    return "Not a CodeUtil error: " + number.ToString().Trim();
             }
         } // End GetErrorText()
         int CheckScanStatus()
@@ -4018,7 +4181,7 @@ namespace WHOperation
 
             for (int i = 0; i < _strScanlit.Count; i++)
             {
-                string item = _strScanlit[i].ToString();
+                string item = _strScanlit[i].ToString().Trim();
                 if (string.IsNullOrEmpty(cl2_prefix.Text))
                 {
                     _strlit.Add(item);
@@ -4049,7 +4212,7 @@ namespace WHOperation
 
             for (int i = 0; i < _strScanlit.Count; i++)
             {
-                string item = _strScanlit[i].ToString();
+                string item = _strScanlit[i].ToString().Trim();
                 _strlit.Add(item);
                 for (int j = 0; j < _prefixcontList.Count; j++)
                 {
@@ -4135,6 +4298,8 @@ namespace WHOperation
             tfscanarea.Text = "";
             tfscanarea.ReadOnly = true;
             tfscanarea.Focus();
+
+            initSet();
         }
         private void enableScan()
         {
@@ -4151,6 +4316,8 @@ namespace WHOperation
         {
             tabControl1.SelectedIndex = 1;
             this.AcceptButton = null;
+
+            cSearchEnable = 0;
 
             lib0ScanDataListBox.Items.Clear();
             _strScanlit.Clear();
@@ -4176,15 +4343,16 @@ namespace WHOperation
                 pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                 pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                 pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-            }));           
+            }));
 
 
             tfdnpartnumber.Text = "";
             tfrecmfgrpart.Text = "";
             tfdatecode.Text = "";
             tfrecqty.Text = "";
-            tfexpiredate.Text = "";
             tflotno.Text = "";
+            tfmfgdate.Text = "";
+            tfexpiredate.Text = "";
 
             tool_lbl_Msg.Text = "";
             chk0dh.Checked = false;
@@ -4194,8 +4362,27 @@ namespace WHOperation
             //chk6Ohter.Checked = false;
             chk5_meiyuan.Checked = false;
             chk7_zuoxiegang.Checked = false;
+            chk7maohao.Checked = false;
+
             txt5SplitOther.Text = "";
-            
+
+            _findWecPart100 = false;
+            _findQplPart100 = false;
+
+            _findLOTNUMBER = false;
+
+            _findMFGDATE = false;
+
+            _findEXPIREDATE = false;
+
+            _findRECQTY = false;
+
+            _findDATECODE = false;
+
+            _findDNPARTNUMBER = false;
+
+            _findMFGRPART = false;
+
             tfscanarea.Text = "";
 
             tfscanarea.Focus();
@@ -4301,7 +4488,7 @@ namespace WHOperation
                     }
                 }
 
-                _tmpseletListboxValue = lib0ScanDataListBox.SelectedItem.ToString();
+                _tmpseletListboxValue = lib0ScanDataListBox.SelectedItem.ToString().Trim();
 
                 if (_tmpseletListboxValue.Contains("|"))
                 {
@@ -4325,7 +4512,7 @@ namespace WHOperation
                         }
                     }
                 }
-               
+
                 //setarr libox
                 lbls00SelectItem.Visible = true;
                 for (int i = 0; i < _tmpseletListboxValue.Length; i++)
@@ -4333,9 +4520,9 @@ namespace WHOperation
                     TextBox tb = new TextBox();
                     tb.Top = lbls00SelectItem.Top;
                     tb.Width = 15;
-                    tb.Name = i.ToString();
+                    tb.Name = i.ToString().Trim();
                     tb.Left = lbls00SelectItem.Left + lbls00SelectItem.Width + 5 + (tb.Width + 1) * i;
-                    tb.Text = _tmpseletListboxValue[i].ToString();
+                    tb.Text = _tmpseletListboxValue[i].ToString().Trim();
                     tb.Click += new EventHandler(tb_Click);
                     tb.DoubleClick += new EventHandler(tb_DoubleClick);
                     splitContainer2.Panel2.Controls.Add(tb);
@@ -4417,21 +4604,22 @@ namespace WHOperation
                     {
                         if (item._currcl == true)
                         {
-                            var strselect = lbvalue.SelectedItem.ToString();
+                            var strselect = lbvalue.SelectedItem.ToString().Trim();
                             var index = lbvalue.SelectedIndex;
                             var strsplit = strselect.Split('|');
 
                             if (strsplit.Length > 0)
                             {
-                                item._cl.Text = strsplit[0].ToString();
-                                lbvalue.Items[index] = strsplit[0].ToString() + "|" + item._prefix.ToString();
+                                item._cl.Text = strsplit[0].ToString().Trim();
+                                lbvalue.Items[index] = strsplit[0].ToString() + "|" + item._prefix.ToString().Trim();
 
                             }
                             else
                             {
                                 item._cl.Text = strselect;
-                                lbvalue.Items[index] = strselect + "|" + item._prefix.ToString();
+                                lbvalue.Items[index] = strselect + "|" + item._prefix.ToString().Trim();
                             }
+                            item._cl.Focus();
                             item._currcl = false;
                             break;
 
@@ -4441,8 +4629,9 @@ namespace WHOperation
                     {
                         if (item._currclSplit == true)
                         {
-                            var strselect = lbvalue.SelectedItem.ToString();
+                            var strselect = lbvalue.SelectedItem.ToString().Trim();
                             item._cl.Text = strselect;
+                            item._cl.Focus();
                             item._currclSplit = false;
                             break;
 
@@ -4568,7 +4757,7 @@ namespace WHOperation
                 return;
             }
 
-            string tmpselect_listbox = fromlb.SelectedItem.ToString();
+            string tmpselect_listbox = fromlb.SelectedItem.ToString().Trim();
 
             var strsplit = tmpselect_listbox.Split('|');
 
@@ -4891,13 +5080,13 @@ namespace WHOperation
             {
                 return false;
             }
-            var strselect = lib0ScanDataListBox.SelectedItem.ToString();
+            var strselect = lib0ScanDataListBox.SelectedItem.ToString().Trim();
             var index = lib0ScanDataListBox.SelectedIndex;
             var strsplit = strselect.Split('|');
 
             if (strsplit.Length > 1)
             {
-                lib0ScanDataListBox.Items[index] = strsplit[0].ToUpper().Replace(o.ToUpper().Trim(), " ").Trim() + "|" + strsplit[1].ToString();
+                lib0ScanDataListBox.Items[index] = strsplit[0].ToUpper().Replace(o.ToUpper().Trim(), " ").Trim() + "|" + strsplit[1].ToString().Trim();
             }
             else
             {
@@ -4948,6 +5137,13 @@ namespace WHOperation
                 if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
                 {
                     tmpaddwhere = " and PI_PALLET='" + txt2FilterValue.Text.Trim() + "'";
+                }
+            }
+            else if (cbfiltertype.Text.Equals("CartonNo"))
+            {
+                if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
+                {
+                    tmpaddwhere = " and PI_CARTON_NO='" + txt2FilterValue.Text.Trim() + "'";
                 }
             }
             tmpsql += tmpaddwhere + tmporderby;
@@ -5144,7 +5340,7 @@ namespace WHOperation
                     var tmpread = cmd.ExecuteReader();
                     while (tmpread.Read())
                     {
-                        return tmpread[0].ToString();
+                        return tmpread[0].ToString().Trim();
                     }
                     tmpread.Close();
                 }
@@ -5317,8 +5513,113 @@ namespace WHOperation
         {
             splitFromStringWithChar(chk7maohao, ":");
         }
-    }
 
+        public List<printStringList> _toPrintList { get; set; }
+
+        public tfclass _tfclass { get; set; }
+
+        public bool _findQplPart100 { get; set; }
+
+        public bool _findWecPart100 { get; set; }
+
+        public bool _findLOTNUMBER { get; set; }
+
+        public bool _findMFGDATE { get; set; }
+
+        public bool _findEXPIREDATE { get; set; }
+
+        public bool _findRECQTY { get; set; }
+
+        public bool _findDATECODE { get; set; }
+
+        public bool _findDNPARTNUMBER { get; set; }
+
+        public bool _findMFGRPART { get; set; }
+
+        private void txt2FilterValue_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Enter)
+            {
+                btn2PIID_Click(sender, e);
+            }
+        }
+
+        private void txt2FilterValue_Enter(object sender, EventArgs e)
+        {
+            txt2FilterValue.Text = "";
+        }
+
+        private void txt1PIID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Home || e.KeyCode==Keys.Space)
+            {
+                txt2FilterValue.Text = "";
+                txt2FilterValue.Focus();
+                return;
+            }
+        }
+
+        private void tflotno_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.PageDown)
+            {
+                button1_Click(sender, e);
+                return;
+            }
+        }
+
+        private void tfdatecode_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.PageDown)
+            {
+                button1_Click(sender, e);
+                return;
+            }
+        }
+
+        private void tfdnpartnumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.PageDown)
+            {
+                button1_Click(sender, e);
+                return;
+            }
+        }
+
+        private void tfrecqty_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.PageDown)
+            {
+                button1_Click(sender, e);
+                return;
+            }
+        }
+
+        private void tfpartno_DoubleClick(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tfdnpartnumber.Text))
+            {
+                if (!string.IsNullOrEmpty(tfpartno.Text))
+                {
+                    tfdnpartnumber.Text = tfpartno.Text;
+                }
+            }
+        }
+    }
+    public class printStringList
+    {
+        public printStringList() { }
+
+        public printStringList(StringBuilder strb, string savename)
+        {
+            _strb = strb;
+            _savename = savename;
+        }
+
+        public string _savename { get; set; }
+
+        public StringBuilder _strb { get; set; }
+    }
     public class vendorLabelDefinition
     {
         private String FieldName, Prefix, RecQty, ExpireDate, MfgDate, Seperator, Index;
