@@ -2240,7 +2240,7 @@ namespace WHOperation
             {
                 tf3recqty.Text = "";
             }
-            var ttlPrint = 
+            var ttlPrint =
                                       Convert.ToInt32(tfnooflabels.Text.Trim()) *
                                       Convert.ToInt32(tf3recqty.Text.Trim());// +Convert.ToDecimal(dgv.CurrentRow.Cells["PI_Print_QTY"].Value);
             piPrintModel.PI_Print_QTY = ttlPrint;
@@ -4611,7 +4611,7 @@ namespace WHOperation
 
         private void selectValueToTextField(List<prefixContent> lt, ListBox lbvalue, bool isSplit)
         {
-            if (lbvalue.Items.Count<=0)
+            if (lbvalue.Items.Count <= 0)
             {
                 return;
             }
@@ -5183,6 +5183,13 @@ namespace WHOperation
             {
                 tabControl2_pending.SelectedIndex = 2;
                 _dtPIRemote = getDataSetBySql(tmpsql).Tables[0];
+
+                if (_dtPIRemote.Rows.Count <= 0)
+                {
+                    tool_lbl_Msg.Text = "Error:" + txt1PIID.Text + "," + cbfiltertype.Text + ":" + txt2FilterValue.Text + " is not exist.";
+                    txt2FilterValue.Focus();
+                    return;
+                }
                 dtcomplete = _dtPIRemote.Clone();
 
                 addPrintQtyToDGV(_piid, _dtPIRemote, dgv5PIPending);
