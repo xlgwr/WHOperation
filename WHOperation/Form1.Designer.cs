@@ -43,6 +43,13 @@ namespace WHOperation
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tfscanarea = new System.Windows.Forms.TextBox();
+            this.tf1dnpartnumber = new System.Windows.Forms.TextBox();
+            this.tf2recmfgrpart = new System.Windows.Forms.TextBox();
+            this.tf4datecode = new System.Windows.Forms.TextBox();
+            this.tf3recqty = new System.Windows.Forms.TextBox();
+            this.tf6lotno = new System.Windows.Forms.TextBox();
+            this.txt1PIID = new System.Windows.Forms.TextBox();
             this.tfdnno = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgv1Pending = new System.Windows.Forms.DataGridView();
@@ -88,7 +95,6 @@ namespace WHOperation
             this.label18 = new System.Windows.Forms.Label();
             this.bStop = new System.Windows.Forms.Button();
             this.bEnableScan = new System.Windows.Forms.Button();
-            this.tfscanarea = new System.Windows.Forms.TextBox();
             this.bDisableScan = new System.Windows.Forms.Button();
             this.bStart = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -96,6 +102,9 @@ namespace WHOperation
             this.tfnooflabels = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tfnoofcartons = new System.Windows.Forms.TextBox();
+            this.chk9UseLotNumber = new System.Windows.Forms.CheckBox();
+            this.chk9UseDateCode = new System.Windows.Forms.CheckBox();
+            this.chk9UsePartNo = new System.Windows.Forms.CheckBox();
             this.lib1SplitListBox = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chk7maohao = new System.Windows.Forms.CheckBox();
@@ -122,7 +131,6 @@ namespace WHOperation
             this.lMExpireDate = new System.Windows.Forms.Label();
             this.lMLotNumber = new System.Windows.Forms.Label();
             this.pbdnpartnumber = new System.Windows.Forms.PictureBox();
-            this.tf1dnpartnumber = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tf0site = new System.Windows.Forms.TextBox();
             this.pbexpiredate = new System.Windows.Forms.PictureBox();
@@ -131,7 +139,6 @@ namespace WHOperation
             this.pbrecqty = new System.Windows.Forms.PictureBox();
             this.pbmfgdate = new System.Windows.Forms.PictureBox();
             this.pbdatecode = new System.Windows.Forms.PictureBox();
-            this.tf2recmfgrpart = new System.Windows.Forms.TextBox();
             this.tf5expiredate = new System.Windows.Forms.TextBox();
             this.tf0mfgdate = new System.Windows.Forms.TextBox();
             this.tf0hdndate = new System.Windows.Forms.TextBox();
@@ -140,11 +147,8 @@ namespace WHOperation
             this.tf0dnqty = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tfcumqty = new System.Windows.Forms.TextBox();
-            this.tf4datecode = new System.Windows.Forms.TextBox();
             this.tf0mfgpart = new System.Windows.Forms.TextBox();
             this.tfrirno = new System.Windows.Forms.TextBox();
-            this.tf3recqty = new System.Windows.Forms.TextBox();
-            this.tf6lotno = new System.Windows.Forms.TextBox();
             this.tf0partno = new System.Windows.Forms.TextBox();
             this.tfvendor = new System.Windows.Forms.TextBox();
             this.ldatecode = new System.Windows.Forms.Label();
@@ -168,7 +172,6 @@ namespace WHOperation
             this.panel1 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.btn2PIID = new System.Windows.Forms.Button();
-            this.txt1PIID = new System.Windows.Forms.TextBox();
             this.chk0autoSplit = new System.Windows.Forms.CheckBox();
             this.chk5NoSplit = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -192,12 +195,9 @@ namespace WHOperation
             this.dgv5PIPending = new System.Windows.Forms.DataGridView();
             this.tabPage3Compele = new System.Windows.Forms.TabPage();
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
+            this.txt2FilterValue = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.txt2FilterValue = new System.Windows.Forms.TextBox();
-            this.chk9UsePartNo = new System.Windows.Forms.CheckBox();
-            this.chk9UseDateCode = new System.Windows.Forms.CheckBox();
-            this.chk9UseLotNumber = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -238,6 +238,84 @@ namespace WHOperation
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // tfscanarea
+            // 
+            this.tfscanarea.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tfscanarea.Location = new System.Drawing.Point(1, 108);
+            this.tfscanarea.Multiline = true;
+            this.tfscanarea.Name = "tfscanarea";
+            this.tfscanarea.Size = new System.Drawing.Size(232, 106);
+            this.tfscanarea.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.tfscanarea, "1.Home key go to CartonNO\r\n2.PgDn  key start Printing\r\n3.Enter key split Scan tex" +
+                    "t");
+            this.tfscanarea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfscanarea_KeyDown);
+            // 
+            // tf1dnpartnumber
+            // 
+            this.tf1dnpartnumber.Location = new System.Drawing.Point(150, 65);
+            this.tf1dnpartnumber.Name = "tf1dnpartnumber";
+            this.tf1dnpartnumber.Size = new System.Drawing.Size(123, 21);
+            this.tf1dnpartnumber.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.tf1dnpartnumber, "1.Double click  get [Part Number] text.\r\n2.PgDn(下页) key Start to Print\r\n");
+            this.tf1dnpartnumber.TextChanged += new System.EventHandler(this.tfdnpartnumber_TextChanged);
+            this.tf1dnpartnumber.Enter += new System.EventHandler(this.tfdnpartnumber_Enter);
+            this.tf1dnpartnumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdnpartnumber_KeyDown);
+            // 
+            // tf2recmfgrpart
+            // 
+            this.tf2recmfgrpart.Location = new System.Drawing.Point(150, 92);
+            this.tf2recmfgrpart.Name = "tf2recmfgrpart";
+            this.tf2recmfgrpart.Size = new System.Drawing.Size(123, 21);
+            this.tf2recmfgrpart.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.tf2recmfgrpart, "1.PgDn(下页) key Start to Print");
+            this.tf2recmfgrpart.TextChanged += new System.EventHandler(this.tfrecmfgrpart_TextChanged);
+            this.tf2recmfgrpart.Enter += new System.EventHandler(this.tfrecmfgrpart_Enter);
+            // 
+            // tf4datecode
+            // 
+            this.tf4datecode.Location = new System.Drawing.Point(150, 167);
+            this.tf4datecode.MaxLength = 10;
+            this.tf4datecode.Name = "tf4datecode";
+            this.tf4datecode.Size = new System.Drawing.Size(123, 21);
+            this.tf4datecode.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.tf4datecode, "1.PgDn(下页) key Start to Print\r\n");
+            this.tf4datecode.TextChanged += new System.EventHandler(this.tf4datecode_TextChanged);
+            this.tf4datecode.Enter += new System.EventHandler(this.tfdatecode_Enter);
+            this.tf4datecode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdatecode_KeyDown);
+            // 
+            // tf3recqty
+            // 
+            this.tf3recqty.Location = new System.Drawing.Point(150, 120);
+            this.tf3recqty.Name = "tf3recqty";
+            this.tf3recqty.Size = new System.Drawing.Size(123, 21);
+            this.tf3recqty.TabIndex = 28;
+            this.tf3recqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.tf3recqty, "1.PgDn(下页) key Start to Print");
+            this.tf3recqty.TextChanged += new System.EventHandler(this.tfrecqty_TextChanged);
+            this.tf3recqty.Enter += new System.EventHandler(this.tfrecqty_Enter);
+            this.tf3recqty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfrecqty_KeyDown);
+            // 
+            // tf6lotno
+            // 
+            this.tf6lotno.Location = new System.Drawing.Point(150, 221);
+            this.tf6lotno.Name = "tf6lotno";
+            this.tf6lotno.Size = new System.Drawing.Size(123, 21);
+            this.tf6lotno.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.tf6lotno, "1.PgDn(下页) key Start to Print");
+            this.tf6lotno.TextChanged += new System.EventHandler(this.tflotno_TextChanged);
+            this.tf6lotno.Enter += new System.EventHandler(this.tflotno_Enter);
+            this.tf6lotno.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tflotno_KeyDown);
+            // 
+            // txt1PIID
+            // 
+            this.txt1PIID.Location = new System.Drawing.Point(677, 13);
+            this.txt1PIID.Name = "txt1PIID";
+            this.txt1PIID.Size = new System.Drawing.Size(100, 21);
+            this.txt1PIID.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.txt1PIID, "1. Enter key start Search PI\r\n2. Space key enter CartonNo value");
+            this.txt1PIID.TextChanged += new System.EventHandler(this.txt1PIID_TextChanged);
+            this.txt1PIID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt1PIID_KeyDown);
+            // 
             // tfdnno
             // 
             this.tfdnno.Location = new System.Drawing.Point(206, 13);
@@ -251,7 +329,7 @@ namespace WHOperation
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(137, 17);
+            this.label1.Location = new System.Drawing.Point(136, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 2;
@@ -263,7 +341,7 @@ namespace WHOperation
             this.dgv1Pending.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -294,7 +372,7 @@ namespace WHOperation
             this.RowID});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -307,7 +385,7 @@ namespace WHOperation
             this.dgv1Pending.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -569,7 +647,7 @@ namespace WHOperation
             this.dgv3VendorTemplate.AllowUserToDeleteRows = false;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -580,7 +658,7 @@ namespace WHOperation
             this.TempID});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -591,7 +669,7 @@ namespace WHOperation
             this.dgv3VendorTemplate.ReadOnly = true;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -772,7 +850,7 @@ namespace WHOperation
             // 
             // bEnableScan
             // 
-            this.bEnableScan.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.bEnableScan.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.bEnableScan.ForeColor = System.Drawing.Color.Red;
             this.bEnableScan.Location = new System.Drawing.Point(6, 81);
             this.bEnableScan.Name = "bEnableScan";
@@ -783,21 +861,9 @@ namespace WHOperation
             this.bEnableScan.EnabledChanged += new System.EventHandler(this.bEnableScan_EnabledChanged);
             this.bEnableScan.Click += new System.EventHandler(this.bEnableScan_Click);
             // 
-            // tfscanarea
-            // 
-            this.tfscanarea.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tfscanarea.Location = new System.Drawing.Point(1, 108);
-            this.tfscanarea.Multiline = true;
-            this.tfscanarea.Name = "tfscanarea";
-            this.tfscanarea.Size = new System.Drawing.Size(232, 106);
-            this.tfscanarea.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.tfscanarea, "1.Home key go to CartonNO\r\n2.PgDn  key start Printing\r\n3.Enter key split Scan tex" +
-                    "t");
-            this.tfscanarea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfscanarea_KeyDown);
-            // 
             // bDisableScan
             // 
-            this.bDisableScan.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.bDisableScan.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.bDisableScan.ForeColor = System.Drawing.Color.Red;
             this.bDisableScan.Location = new System.Drawing.Point(6, 56);
             this.bDisableScan.Name = "bDisableScan";
@@ -819,7 +885,7 @@ namespace WHOperation
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button1.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.Location = new System.Drawing.Point(110, 59);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(118, 45);
@@ -841,7 +907,7 @@ namespace WHOperation
             // tfnooflabels
             // 
             this.tfnooflabels.BackColor = System.Drawing.Color.Yellow;
-            this.tfnooflabels.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tfnooflabels.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tfnooflabels.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tfnooflabels.Location = new System.Drawing.Point(189, 6);
             this.tfnooflabels.MaxLength = 3;
@@ -865,7 +931,7 @@ namespace WHOperation
             // tfnoofcartons
             // 
             this.tfnoofcartons.BackColor = System.Drawing.Color.Yellow;
-            this.tfnoofcartons.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tfnoofcartons.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tfnoofcartons.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tfnoofcartons.Location = new System.Drawing.Point(189, 30);
             this.tfnoofcartons.MaxLength = 3;
@@ -876,9 +942,41 @@ namespace WHOperation
             this.tfnoofcartons.TextChanged += new System.EventHandler(this.tfnoofcartons_TextChanged);
             this.tfnoofcartons.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnoofcartons_KeyDown);
             // 
+            // chk9UseLotNumber
+            // 
+            this.chk9UseLotNumber.AutoSize = true;
+            this.chk9UseLotNumber.Location = new System.Drawing.Point(6, 224);
+            this.chk9UseLotNumber.Name = "chk9UseLotNumber";
+            this.chk9UseLotNumber.Size = new System.Drawing.Size(15, 14);
+            this.chk9UseLotNumber.TabIndex = 69;
+            this.chk9UseLotNumber.UseVisualStyleBackColor = true;
+            this.chk9UseLotNumber.CheckedChanged += new System.EventHandler(this.chk9UseLotNumber_CheckedChanged);
+            // 
+            // chk9UseDateCode
+            // 
+            this.chk9UseDateCode.AutoSize = true;
+            this.chk9UseDateCode.Location = new System.Drawing.Point(6, 172);
+            this.chk9UseDateCode.Name = "chk9UseDateCode";
+            this.chk9UseDateCode.Size = new System.Drawing.Size(15, 14);
+            this.chk9UseDateCode.TabIndex = 69;
+            this.chk9UseDateCode.UseVisualStyleBackColor = true;
+            this.chk9UseDateCode.CheckedChanged += new System.EventHandler(this.chk9UseDateCode_CheckedChanged);
+            // 
+            // chk9UsePartNo
+            // 
+            this.chk9UsePartNo.AutoSize = true;
+            this.chk9UsePartNo.Checked = true;
+            this.chk9UsePartNo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk9UsePartNo.Location = new System.Drawing.Point(6, 69);
+            this.chk9UsePartNo.Name = "chk9UsePartNo";
+            this.chk9UsePartNo.Size = new System.Drawing.Size(15, 14);
+            this.chk9UsePartNo.TabIndex = 68;
+            this.chk9UsePartNo.UseVisualStyleBackColor = true;
+            this.chk9UsePartNo.CheckedChanged += new System.EventHandler(this.chk9UsePartNo_CheckedChanged);
+            // 
             // lib1SplitListBox
             // 
-            this.lib1SplitListBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lib1SplitListBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lib1SplitListBox.FormattingEnabled = true;
             this.lib1SplitListBox.HorizontalScrollbar = true;
             this.lib1SplitListBox.ItemHeight = 16;
@@ -1016,7 +1114,7 @@ namespace WHOperation
             // lib0ScanDataListBox
             // 
             this.lib0ScanDataListBox.ContextMenuStrip = this.contextMenuStrip1;
-            this.lib0ScanDataListBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lib0ScanDataListBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lib0ScanDataListBox.FormattingEnabled = true;
             this.lib0ScanDataListBox.HorizontalScrollbar = true;
             this.lib0ScanDataListBox.ItemHeight = 16;
@@ -1033,12 +1131,12 @@ namespace WHOperation
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(107, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -1152,17 +1250,6 @@ namespace WHOperation
             this.pbdnpartnumber.TabIndex = 53;
             this.pbdnpartnumber.TabStop = false;
             // 
-            // tf1dnpartnumber
-            // 
-            this.tf1dnpartnumber.Location = new System.Drawing.Point(150, 65);
-            this.tf1dnpartnumber.Name = "tf1dnpartnumber";
-            this.tf1dnpartnumber.Size = new System.Drawing.Size(123, 21);
-            this.tf1dnpartnumber.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.tf1dnpartnumber, "1.Double click  get [Part Number] text.\r\n2.PgDn(下页) key Start to Print\r\n");
-            this.tf1dnpartnumber.TextChanged += new System.EventHandler(this.tfdnpartnumber_TextChanged);
-            this.tf1dnpartnumber.Enter += new System.EventHandler(this.tfdnpartnumber_Enter);
-            this.tf1dnpartnumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdnpartnumber_KeyDown);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -1239,16 +1326,6 @@ namespace WHOperation
             this.pbdatecode.TabIndex = 42;
             this.pbdatecode.TabStop = false;
             // 
-            // tf2recmfgrpart
-            // 
-            this.tf2recmfgrpart.Location = new System.Drawing.Point(150, 92);
-            this.tf2recmfgrpart.Name = "tf2recmfgrpart";
-            this.tf2recmfgrpart.Size = new System.Drawing.Size(123, 21);
-            this.tf2recmfgrpart.TabIndex = 27;
-            this.toolTip1.SetToolTip(this.tf2recmfgrpart, "1.PgDn(下页) key Start to Print");
-            this.tf2recmfgrpart.TextChanged += new System.EventHandler(this.tfrecmfgrpart_TextChanged);
-            this.tf2recmfgrpart.Enter += new System.EventHandler(this.tfrecmfgrpart_Enter);
-            // 
             // tf5expiredate
             // 
             this.tf5expiredate.Location = new System.Drawing.Point(150, 194);
@@ -1320,18 +1397,6 @@ namespace WHOperation
             this.tfcumqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tfcumqty.Visible = false;
             // 
-            // tf4datecode
-            // 
-            this.tf4datecode.Location = new System.Drawing.Point(150, 167);
-            this.tf4datecode.MaxLength = 10;
-            this.tf4datecode.Name = "tf4datecode";
-            this.tf4datecode.Size = new System.Drawing.Size(123, 21);
-            this.tf4datecode.TabIndex = 30;
-            this.toolTip1.SetToolTip(this.tf4datecode, "1.PgDn(下页) key Start to Print\r\n");
-            this.tf4datecode.TextChanged += new System.EventHandler(this.tf4datecode_TextChanged);
-            this.tf4datecode.Enter += new System.EventHandler(this.tfdatecode_Enter);
-            this.tf4datecode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdatecode_KeyDown);
-            // 
             // tf0mfgpart
             // 
             this.tf0mfgpart.Location = new System.Drawing.Point(379, 37);
@@ -1347,29 +1412,6 @@ namespace WHOperation
             this.tfrirno.ReadOnly = true;
             this.tfrirno.Size = new System.Drawing.Size(123, 21);
             this.tfrirno.TabIndex = 20;
-            // 
-            // tf3recqty
-            // 
-            this.tf3recqty.Location = new System.Drawing.Point(150, 120);
-            this.tf3recqty.Name = "tf3recqty";
-            this.tf3recqty.Size = new System.Drawing.Size(123, 21);
-            this.tf3recqty.TabIndex = 28;
-            this.tf3recqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.tf3recqty, "1.PgDn(下页) key Start to Print");
-            this.tf3recqty.TextChanged += new System.EventHandler(this.tfrecqty_TextChanged);
-            this.tf3recqty.Enter += new System.EventHandler(this.tfrecqty_Enter);
-            this.tf3recqty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfrecqty_KeyDown);
-            // 
-            // tf6lotno
-            // 
-            this.tf6lotno.Location = new System.Drawing.Point(150, 221);
-            this.tf6lotno.Name = "tf6lotno";
-            this.tf6lotno.Size = new System.Drawing.Size(123, 21);
-            this.tf6lotno.TabIndex = 32;
-            this.toolTip1.SetToolTip(this.tf6lotno, "1.PgDn(下页) key Start to Print");
-            this.tf6lotno.TextChanged += new System.EventHandler(this.tflotno_TextChanged);
-            this.tf6lotno.Enter += new System.EventHandler(this.tflotno_Enter);
-            this.tf6lotno.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tflotno_KeyDown);
             // 
             // tf0partno
             // 
@@ -1594,7 +1636,6 @@ namespace WHOperation
             this.panel1.Controls.Add(this.label17);
             this.panel1.Controls.Add(this.tfdndate);
             this.panel1.Controls.Add(this.label14);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbtrimmfgpart);
             this.panel1.Controls.Add(this.tfdnno);
             this.panel1.Controls.Add(this.cbAutoPrint);
@@ -1604,6 +1645,7 @@ namespace WHOperation
             this.panel1.Controls.Add(this.cbport);
             this.panel1.Controls.Add(this.cbprintertype);
             this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -1629,16 +1671,6 @@ namespace WHOperation
             this.btn2PIID.Text = "GO PIID";
             this.btn2PIID.UseVisualStyleBackColor = true;
             this.btn2PIID.Click += new System.EventHandler(this.btn2PIID_Click);
-            // 
-            // txt1PIID
-            // 
-            this.txt1PIID.Location = new System.Drawing.Point(677, 13);
-            this.txt1PIID.Name = "txt1PIID";
-            this.txt1PIID.Size = new System.Drawing.Size(100, 21);
-            this.txt1PIID.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.txt1PIID, "1. Enter key start Search PI\r\n2. Space key enter CartonNo value");
-            this.txt1PIID.TextChanged += new System.EventHandler(this.txt1PIID_TextChanged);
-            this.txt1PIID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt1PIID_KeyDown);
             // 
             // chk0autoSplit
             // 
@@ -1717,7 +1749,7 @@ namespace WHOperation
             this.dgv0DNNumber.AllowUserToDeleteRows = false;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1728,7 +1760,7 @@ namespace WHOperation
             this.DNNumber});
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1739,7 +1771,7 @@ namespace WHOperation
             this.dgv0DNNumber.Name = "dgv0DNNumber";
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1794,7 +1826,7 @@ namespace WHOperation
             this.dgv2Complete.AllowUserToDeleteRows = false;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1811,7 +1843,7 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn20});
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1824,7 +1856,7 @@ namespace WHOperation
             this.dgv2Complete.ReadOnly = true;
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1932,6 +1964,16 @@ namespace WHOperation
             this.dgv6PICompele.TabIndex = 1;
             this.dgv6PICompele.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv6PICompele_CellDoubleClick);
             // 
+            // txt2FilterValue
+            // 
+            this.txt2FilterValue.Location = new System.Drawing.Point(855, 13);
+            this.txt2FilterValue.Name = "txt2FilterValue";
+            this.txt2FilterValue.Size = new System.Drawing.Size(100, 21);
+            this.txt2FilterValue.TabIndex = 9;
+            this.txt2FilterValue.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.txt2FilterValue.Enter += new System.EventHandler(this.txt2FilterValue_Enter);
+            this.txt2FilterValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt2FilterValue_KeyDown);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1947,46 +1989,6 @@ namespace WHOperation
             this.tool_lbl_Msg.ForeColor = System.Drawing.Color.Red;
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
-            // 
-            // txt2FilterValue
-            // 
-            this.txt2FilterValue.Location = new System.Drawing.Point(855, 13);
-            this.txt2FilterValue.Name = "txt2FilterValue";
-            this.txt2FilterValue.Size = new System.Drawing.Size(100, 21);
-            this.txt2FilterValue.TabIndex = 9;
-            this.txt2FilterValue.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            this.txt2FilterValue.Enter += new System.EventHandler(this.txt2FilterValue_Enter);
-            this.txt2FilterValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt2FilterValue_KeyDown);
-            // 
-            // chk9UsePartNo
-            // 
-            this.chk9UsePartNo.AutoSize = true;
-            this.chk9UsePartNo.Checked = true;
-            this.chk9UsePartNo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk9UsePartNo.Location = new System.Drawing.Point(6, 69);
-            this.chk9UsePartNo.Name = "chk9UsePartNo";
-            this.chk9UsePartNo.Size = new System.Drawing.Size(15, 14);
-            this.chk9UsePartNo.TabIndex = 68;
-            this.chk9UsePartNo.UseVisualStyleBackColor = true;
-            this.chk9UsePartNo.CheckedChanged += new System.EventHandler(this.chk9UsePartNo_CheckedChanged);
-            // 
-            // chk9UseDateCode
-            // 
-            this.chk9UseDateCode.AutoSize = true;
-            this.chk9UseDateCode.Location = new System.Drawing.Point(6, 172);
-            this.chk9UseDateCode.Name = "chk9UseDateCode";
-            this.chk9UseDateCode.Size = new System.Drawing.Size(15, 14);
-            this.chk9UseDateCode.TabIndex = 69;
-            this.chk9UseDateCode.UseVisualStyleBackColor = true;
-            // 
-            // chk9UseLotNumber
-            // 
-            this.chk9UseLotNumber.AutoSize = true;
-            this.chk9UseLotNumber.Location = new System.Drawing.Point(6, 224);
-            this.chk9UseLotNumber.Name = "chk9UseLotNumber";
-            this.chk9UseLotNumber.Size = new System.Drawing.Size(15, 14);
-            this.chk9UseLotNumber.TabIndex = 69;
-            this.chk9UseLotNumber.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

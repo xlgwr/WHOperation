@@ -845,11 +845,23 @@ namespace WHOperation
                             if (!tmp2mpq.Equals(intitem.ToString("###")))
                             {
                                 tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
-                                if (string.IsNullOrEmpty(tf4datecode.Text))
+                                if (!chk9UseLotNumber.Checked)
                                 {
-                                    tf4datecode.Text = intitem.ToString();
-                                    pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                    if (string.IsNullOrEmpty(tf6lotno.Text))
+                                    {
+                                        tf6lotno.Text = intitem.ToString();
+                                        pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                    }
                                 }
+                                if (!chk9UseDateCode.Checked)
+                                {
+                                    if (string.IsNullOrEmpty(tf4datecode.Text))
+                                    {
+                                        tf4datecode.Text = intitem.ToString();
+                                        pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                    }
+                                }
+                                
                                 return false;
                             }
 
@@ -5188,7 +5200,7 @@ namespace WHOperation
             this.AcceptButton = null;
             _piid = txt1PIID.Text;
             //PI_NO,PI_LINE,
-            string tmpsql = @"select  PI_PART,pi_mfgr_part,PI_LOT,PI_PO,pi_mfgr,PI_QTY,'0' as PI_Print_QTY,PI_PO_price,PI_PALLET,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + _piid + "' and (pi_lot<> NUll or pi_lot <>'') ";
+            string tmpsql = @"select  PI_PART,pi_mfgr_part,PI_LOT,PI_PO,pi_mfgr,PI_QTY,'0' as PI_Print_QTY,PI_PO_price,PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + _piid + "' and (pi_lot<> NUll or pi_lot <>'') ";
             string tmpaddwhere = "";
             string tmporderby = " order by pi_line";
             if (cbfiltertype.Text.Equals("PI PALLET"))
@@ -5202,20 +5214,33 @@ namespace WHOperation
             {
                 if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
                 {
-                    tmpaddwhere = " and PI_CARTON_NO='" + txt2FilterValue.Text.Trim() + "'";
+                    tmpaddwhere = " and rtrim(ltrim(PI_CARTON_NO))='" + txt2FilterValue.Text.Trim() + "'";
                 }
             }
-            tmpsql += tmpaddwhere + tmporderby;
+           var tmpsql1 = tmpsql+ tmpaddwhere + tmporderby;
             if (!string.IsNullOrEmpty(_piid))
             {
                 tabControl2_pending.SelectedIndex = 2;
-                _dtPIRemote = getDataSetBySql(tmpsql).Tables[0];
+                _dtPIRemote = getDataSetBySql(tmpsql1).Tables[0];
 
                 if (_dtPIRemote.Rows.Count <= 0)
                 {
-                    tool_lbl_Msg.Text = "Error:" + txt1PIID.Text + "," + cbfiltertype.Text + ":" + txt2FilterValue.Text + " is not exist.";
-                    txt2FilterValue.Focus();
-                    return;
+                    if (cbfiltertype.Text.Equals("CartonNo"))
+                    {
+                        if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
+                        {
+                            tmpaddwhere = " and rtrim(ltrim(PI_CARTON_NO)) like '%" + txt2FilterValue.Text.Trim() + "%'";
+                            var tmpsql2 = tmpsql + tmpaddwhere + tmporderby;
+                            _dtPIRemote = getDataSetBySql(tmpsql2).Tables[0];
+                        }                        
+                        
+                    }
+                    if (_dtPIRemote.Rows.Count <= 0)
+                    {
+                        tool_lbl_Msg.Text = "Error:" + txt1PIID.Text + "," + cbfiltertype.Text + ":" + txt2FilterValue.Text + " is not exist.";
+                        txt2FilterValue.Focus();
+                        return;
+                    }
                 }
                 dtcomplete = _dtPIRemote.Clone();
 
@@ -5674,6 +5699,11 @@ namespace WHOperation
 
         private void tflotno_TextChanged(object sender, EventArgs e)
         {
+            if (chk9UseLotNumber.Checked)
+            {
+                tf6lotno.Text = "";
+                return;
+            }
             if (chk9UseDateCode.Checked)
             {
                 if (tf6lotno.Text.Length > 1 && tf1dnpartnumber.Text.Length > 1 && tf2recmfgrpart.Text.Length > 1 && tf3recqty.Text.Length > 1 && tf4datecode.Text.Length > 1)
@@ -5723,6 +5753,11 @@ namespace WHOperation
 
         private void tf4datecode_TextChanged(object sender, EventArgs e)
         {
+            if (chk9UseDateCode.Checked)
+            {
+                tf4datecode.Text = "";
+                return;
+            }
             if (chk9UseLotNumber.Checked)
             {
                 if (tf4datecode.Text.Length > 1 && tf1dnpartnumber.Text.Length > 1 && tf2recmfgrpart.Text.Length > 1 && tf3recqty.Text.Length > 1 && tf6lotno.Text.Length > 1)
@@ -5736,6 +5771,22 @@ namespace WHOperation
                 {
                     button1_Click(sender, e);
                 }
+            }
+        }
+
+        private void chk9UseDateCode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk9UseDateCode.Checked)
+            {
+                tf4datecode.Text = "";
+            }
+        }
+
+        private void chk9UseLotNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk9UseLotNumber.Checked)
+            {
+                tf6lotno.Text = "";
             }
         }
     }
