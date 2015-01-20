@@ -845,6 +845,11 @@ namespace WHOperation
                             if (!tmp2mpq.Equals(intitem.ToString("###")))
                             {
                                 tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
+                                if (string.IsNullOrEmpty(tf4datecode.Text))
+                                {
+                                    tf4datecode.Text = intitem.ToString();
+                                    pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                }
                                 return false;
                             }
 
@@ -852,11 +857,24 @@ namespace WHOperation
                     }
                     tf3recqty.Invoke(new Action(delegate()
                     {
-                        if (string.IsNullOrEmpty(tf3recqty.Text))
+                        if (intitem % 10 == 0)
                         {
-                            tf3recqty.Text = intitem.ToString("###");
-                            pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            if (string.IsNullOrEmpty(tf3recqty.Text))
+                            {
+                                tf3recqty.Text = intitem.ToString("###");
+                                pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            }
                         }
+                        else
+                        {
+                            if (string.IsNullOrEmpty(tf4datecode.Text))
+                            {
+                                tf4datecode.Text = intitem.ToString();
+                                pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            }
+                        }
+
+
                     }));
                 }
             }
@@ -4834,8 +4852,17 @@ namespace WHOperation
                         }
                         else
                         {
-                            tf3recqty.Text = item.Trim();
-                            pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            var tmpint = Convert.ToDecimal(item.Trim());
+                            if (tmpint % 10 == 0)
+                            {
+                                tf3recqty.Text = item.Trim();
+                                pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            }
+                            else
+                            {
+                                tf4datecode.Text = item.ToString();
+                                pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            }
                         }
                     }
 
