@@ -198,6 +198,7 @@ namespace WHOperation
             this.txt2FilterValue = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chk5AutoSearch2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1619,6 +1620,7 @@ namespace WHOperation
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.chk5AutoSearch2);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.btn2PIID);
             this.panel1.Controls.Add(this.txt1PIID);
@@ -1678,7 +1680,7 @@ namespace WHOperation
             this.chk0autoSplit.Checked = true;
             this.chk0autoSplit.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk0autoSplit.ForeColor = System.Drawing.Color.Red;
-            this.chk0autoSplit.Location = new System.Drawing.Point(929, 173);
+            this.chk0autoSplit.Location = new System.Drawing.Point(929, 187);
             this.chk0autoSplit.Name = "chk0autoSplit";
             this.chk0autoSplit.Size = new System.Drawing.Size(84, 16);
             this.chk0autoSplit.TabIndex = 16;
@@ -1689,7 +1691,7 @@ namespace WHOperation
             // 
             this.chk5NoSplit.AutoSize = true;
             this.chk5NoSplit.ForeColor = System.Drawing.Color.Red;
-            this.chk5NoSplit.Location = new System.Drawing.Point(929, 155);
+            this.chk5NoSplit.Location = new System.Drawing.Point(929, 171);
             this.chk5NoSplit.Name = "chk5NoSplit";
             this.chk5NoSplit.Size = new System.Drawing.Size(174, 16);
             this.chk5NoSplit.TabIndex = 16;
@@ -1990,6 +1992,17 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
+            // chk5AutoSearch2
+            // 
+            this.chk5AutoSearch2.AutoSize = true;
+            this.chk5AutoSearch2.ForeColor = System.Drawing.Color.Red;
+            this.chk5AutoSearch2.Location = new System.Drawing.Point(929, 155);
+            this.chk5AutoSearch2.Name = "chk5AutoSearch2";
+            this.chk5AutoSearch2.Size = new System.Drawing.Size(168, 16);
+            this.chk5AutoSearch2.TabIndex = 28;
+            this.chk5AutoSearch2.Text = "Auto Search in QPL mastr";
+            this.chk5AutoSearch2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2212,6 +2225,7 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox chk9UseLotNumber;
         private System.Windows.Forms.CheckBox chk9UseDateCode;
         private System.Windows.Forms.CheckBox chk9UsePartNo;
+        private System.Windows.Forms.CheckBox chk5AutoSearch2;
     }
 }
 

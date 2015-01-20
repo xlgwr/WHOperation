@@ -845,23 +845,23 @@ namespace WHOperation
                             if (!tmp2mpq.Equals(intitem.ToString("###")))
                             {
                                 tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
-                                if (!chk9UseLotNumber.Checked)
+                                if (chk9UseLotNumber.Checked)
                                 {
                                     if (string.IsNullOrEmpty(tf6lotno.Text))
                                     {
-                                        tf6lotno.Text = intitem.ToString();
                                         pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                        tf6lotno.Text = intitem.ToString();
                                     }
                                 }
-                                if (!chk9UseDateCode.Checked)
+                                if (chk9UseDateCode.Checked)
                                 {
                                     if (string.IsNullOrEmpty(tf4datecode.Text))
                                     {
-                                        tf4datecode.Text = intitem.ToString();
                                         pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                        tf4datecode.Text = intitem.ToString();
                                     }
                                 }
-                                
+
                                 return false;
                             }
 
@@ -1540,6 +1540,10 @@ namespace WHOperation
             ///PartNumber
             if (cSearchFound == 0)
             {
+                if (_findDW_develop)
+                {
+                    return;
+                }
                 var query1 = from DataGridViewRow row in dgv.Rows
                              where row.Cells[strcellnamePart].Value.ToString().Replace(strSplit, "").ToUpper().Equals(scanString.Replace(strSplit, ""))
                              select row;
@@ -1566,7 +1570,10 @@ namespace WHOperation
             }
             if (cSearchFound == 0)
             {
-
+                if (_findDW_develop)
+                {
+                    return;
+                }
                 var query1 = from DataGridViewRow row in dgv.Rows
                              where row.Cells[strcellnamePart].Value.ToString().Equals(scanString)
                              select row;
@@ -1592,6 +1599,10 @@ namespace WHOperation
             /////////////mfgpartno
             if (cSearchFound == 0)
             {
+                if (_findDW_develop)
+                {
+                    return;
+                }
                 var query1 = from DataGridViewRow row in dgv.Rows
                              where row.Cells[strcellnameMFGP].Value.ToString().Replace(strSplit, "").ToUpper().Equals(scanString.Replace(strSplit, ""))
                              select row;
@@ -1612,6 +1623,10 @@ namespace WHOperation
             }
             if (cSearchFound == 0)
             {
+                if (_findDW_develop)
+                {
+                    return;
+                }
                 var query1 = from DataGridViewRow row in dgv.Rows
                              where row.Cells[strcellnameMFGP].Value.ToString().Equals(scanString)
                              select row;
@@ -1636,7 +1651,11 @@ namespace WHOperation
             //80 PartNumber
             if (cSearchFound == 0)
             {
-                if (_findWecPart100)
+                if (_findDW_develop)
+                {
+                    return;
+                }
+                if (_findWecPart100 && _findDW_develop)
                 {
                     return;
                 }
@@ -1662,7 +1681,11 @@ namespace WHOperation
             }
             if (cSearchFound == 0)
             {
-                if (_findWecPart100)
+                if (_findDW_develop)
+                {
+                    return;
+                }
+                if (_findWecPart100 && _findDW_develop)
                 {
                     return;
                 }
@@ -1691,7 +1714,11 @@ namespace WHOperation
             ///100
             if (cSearchFound == 0)
             {
-                if (_findQplPart100)
+                if (_findDW_develop)
+                {
+                    return;
+                }
+                if (_findQplPart100 && _findDW_develop)
                 {
                     return;
                 }
@@ -1718,7 +1745,11 @@ namespace WHOperation
             ///80 
             if (cSearchFound == 0)
             {
-                if (_findQplPart100)
+                if (_findDW_develop)
+                {
+                    return;
+                }
+                if (_findQplPart100 && _findDW_develop)
                 {
                     return;
                 }
@@ -1744,7 +1775,7 @@ namespace WHOperation
             }
             if (cSearchFound == 0)
             {
-                if (_findQplPart100)
+                if (_findDW_develop)
                 {
                     return;
                 }
@@ -1773,6 +1804,10 @@ namespace WHOperation
             ///
             if (!string.IsNullOrEmpty(tf1dnpartnumber.Text) && !string.IsNullOrEmpty(tf2recmfgrpart.Text))
             {
+                if (_findDW_develop)
+                {
+                    return;
+                }
                 if (_findQplPart100 && _findWecPart100)
                 {
                     return;
@@ -1793,29 +1828,33 @@ namespace WHOperation
             //find by dw_develop qpl_mstr
             if (cSearchFound == 0)
             {
-                if (_findWecPart100 && _findQplPart100)
+                if (_findDW_develop)
                 {
                     return;
                 }
-                if (!string.IsNullOrEmpty(tf1dnpartnumber.Text))
+                if (chk5AutoSearch2.Checked)
                 {
-                    using (var db = new WHOperation.EF.DW.DW_Develop())
+                    if (!string.IsNullOrEmpty(tf1dnpartnumber.Text))
                     {
-                        var tmp_qpl_mstr = db.qpl_mstr.Where(p => (p.qpl_part.Equals(tf1dnpartnumber.Text.Trim()) && p.qpl_mfgr_part.Equals(scanString))).ToList();
-                        if (tmp_qpl_mstr.Count > 0)
+                        using (var db = new WHOperation.EF.DW.DW_Develop())
                         {
-                            tf2recmfgrpart.Invoke(new Action(delegate()
+                            var tmp_qpl_mstr = db.qpl_mstr.Where(p => (p.qpl_part.Equals(tf1dnpartnumber.Text.Trim()) && p.qpl_mfgr_part.Equals(scanString))).ToList();
+                            if (tmp_qpl_mstr.Count > 0)
                             {
-                                tf2recmfgrpart.Text = scanString;
-                                pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                            }));
-                            tmpmsg = "find in DW_develop database with PartNumber:[" + tf1dnpartnumber.Text + "] and MFGPartNo:[" + scanString + "]";
-                            cSearchFound = 1;
-                            dgv.ClearSelection();
-
+                                tf2recmfgrpart.Invoke(new Action(delegate()
+                                {
+                                    tf2recmfgrpart.Text = scanString;
+                                    pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                }));
+                                tmpmsg = "find in DW_develop database with PartNumber:[" + tf1dnpartnumber.Text + "] and MFGPartNo:[" + scanString + "]";
+                                cSearchFound = 1;
+                                _findQplPart100 = true;
+                                _findDW_develop = true;
+                            }
                         }
                     }
                 }
+
             }
 
 
@@ -2308,16 +2347,15 @@ namespace WHOperation
                     if (initPiPrintModel(tmpPrint, dgv5PIPending))
                     {
 
+
                         _dbWHOperation.PI_Print.Add(tmpPrint);
                         var saveflag = _dbWHOperation.SaveChanges();
                         if (saveflag > 0)
                         {
-
-                            updDataPrintForPI(dgv5PIPending, _piid);
-
                             dgv5PIPending.SelectedRows[0].Cells["PI_Print_QTY"].Value = Convert.ToDecimal(dgv5PIPending.SelectedRows[0].Cells["PI_Print_QTY"].Value) + tmpPrint.PI_Print_QTY;
                             checkPrintNumger(dgv5PIPending, _dtPIRemote, dgv6PICompele);
                             // btn2PIID_Click(sender, e);
+                            updDataPrintForPI(dgv5PIPending, _piid);
                         }
                     }
                 }
@@ -2380,7 +2418,7 @@ namespace WHOperation
             return cRet;
         }
 
-        void updDataPrintForPI(DataGridView dgv, string piid)
+        bool updDataPrintForPI(DataGridView dgv, string piid)
         {
             String cQuery, cPIMSNumber, cCartonQty;
             DataGridViewRow cR = new DataGridViewRow();
@@ -2395,7 +2433,7 @@ namespace WHOperation
             //cR = dataGridView1.CurrentRow;
 
             if (dgv.SelectedRows.Count <= 0)
-                return;
+                return false;
 
             cR = dgv.SelectedRows[0];
             String[] cRec = new String[cR.Cells.Count];
@@ -2428,7 +2466,7 @@ namespace WHOperation
                             if (lPIMSData == null)
                             {
                                 tool_lbl_Msg.Text = "LPIMS data is null";
-                                return;
+                                return false;
                                 break;
                             }
                             if (lPIMSData[0].ToString() == "-2") { }
@@ -2456,7 +2494,7 @@ namespace WHOperation
                     {
                         initSet();
                         tool_lbl_Msg.Text = "LPIMS data is null";
-                        return;
+                        return false;
                         break;
                     }
                     if (lPIMSData.Count > 0)
@@ -2468,10 +2506,23 @@ namespace WHOperation
 
                             if (lPIMSData[5].ToUpper().Contains("MRB"))
                             {
+
                                 cQuery = @"insert into PIMSMRBException (DNNo,DNDate,RIRNo,SupplierID,MfgrID,MG,PIMS,PartNumber,ReqMfgrPart,RecMfgrPart,CustPart,RecQty) "
                                                       + @"values('" + piid + "','" + cRec[10] + "','" + _tfclass._tfrirno + "','" + cRec[4] + "','" + lPIMSData[6] + "','" + cRec[9] + "','" + cPIMSNumber + "','" + cRec[0] + "','" + _tfclass._tfmfgpart + "','" + _tfclass._tfrecmfgrpart + "','PI','" + _tfclass._tfrecqty + "')";
 
                                 SQLUpdate(cQuery);
+
+                                if (MessageBox.Show("lable is MRB, are you continue print.", "Notice", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+
+                                    _findDW_develop = false;
+                                    _findWecPart100 = false;
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
                             }
                             printPIML(lPIMSData, 1);
 
@@ -2488,6 +2539,7 @@ namespace WHOperation
                 MessageBox.Show(ex.Message);
                 _enableinit = true;
                 enableScan();
+                return false;
             }
             finally
             {
@@ -2495,6 +2547,7 @@ namespace WHOperation
                 _enableinit = true;
                 enableScan();
             }
+            return true;
         }
         void updData()
         {
@@ -4040,6 +4093,10 @@ namespace WHOperation
             };
             txt00Prefix.Text = _splitPrefix;
             _tmpseletListboxValue = "";
+
+            chk9UsePartNo.Checked = true;
+            chk9UseDateCode.Checked = true;
+            chk9UseLotNumber.Checked = true;
         }
         private void tfnooflabels_KeyDown(object sender, KeyEventArgs e)
         {
@@ -4313,7 +4370,34 @@ namespace WHOperation
 
         private void tfdnpartnumber_TextChanged(object sender, EventArgs e)
         {
-
+            if (chk9UseDateCode.Checked && !chk9UseLotNumber.Checked)
+            {
+                if (tf1dnpartnumber.Text.Length > 0 && tf2recmfgrpart.Text.Length > 0 && tf3recqty.Text.Length > 0 && tf4datecode.Text.Length > 0)
+                {
+                    button1_Click(sender, e);
+                }
+            }
+            else if (!chk9UseDateCode.Checked && chk9UseLotNumber.Checked)
+            {
+                if (tf1dnpartnumber.Text.Length > 0 && tf2recmfgrpart.Text.Length > 0 && tf3recqty.Text.Length > 0 && tf6lotno.Text.Length > 0)
+                {
+                    button1_Click(sender, e);
+                }
+            }
+            else if (chk9UseDateCode.Checked && chk9UseLotNumber.Checked)
+            {
+                if (tf1dnpartnumber.Text.Length > 0 && tf2recmfgrpart.Text.Length > 0 && tf3recqty.Text.Length > 0 && tf4datecode.Text.Length > 0 && tf6lotno.Text.Length > 0)
+                {
+                    button1_Click(sender, e);
+                }
+            }
+            else
+            {
+                if (tf1dnpartnumber.Text.Length > 0 && tf2recmfgrpart.Text.Length > 0 && tf3recqty.Text.Length > 0)
+                {
+                    button1_Click(sender, e);
+                }
+            }
         }
 
         private void tfrecmfgrpart_TextChanged(object sender, EventArgs e)
@@ -4325,6 +4409,35 @@ namespace WHOperation
             //        SearchDNPart2(tfrecmfgrpart.Text.Trim());
             //    }
             //}
+
+            if (chk9UseDateCode.Checked && !chk9UseLotNumber.Checked)
+            {
+                if (tf1dnpartnumber.Text.Length > 0 && tf2recmfgrpart.Text.Length > 0 && tf3recqty.Text.Length > 0 && tf4datecode.Text.Length > 0)
+                {
+                    button1_Click(sender, e);
+                }
+            }
+            else if (!chk9UseDateCode.Checked && chk9UseLotNumber.Checked)
+            {
+                if (tf1dnpartnumber.Text.Length > 0 && tf2recmfgrpart.Text.Length > 0 && tf3recqty.Text.Length > 0 && tf6lotno.Text.Length > 0)
+                {
+                    button1_Click(sender, e);
+                }
+            }
+            else if (chk9UseDateCode.Checked && chk9UseLotNumber.Checked)
+            {
+                if (tf1dnpartnumber.Text.Length > 0 && tf2recmfgrpart.Text.Length > 0 && tf3recqty.Text.Length > 0 && tf4datecode.Text.Length > 0 && tf6lotno.Text.Length > 0)
+                {
+                    button1_Click(sender, e);
+                }
+            }
+            else
+            {
+                if (tf1dnpartnumber.Text.Length > 0 && tf2recmfgrpart.Text.Length > 0 && tf3recqty.Text.Length > 0)
+                {
+                    button1_Click(sender, e);
+                }
+            }
         }
 
         private void bDisableScan_Click(object sender, EventArgs e)
@@ -4410,6 +4523,7 @@ namespace WHOperation
             chk7_zuoxiegang.Checked = false;
             chk7maohao.Checked = false;
 
+
             txt5SplitOther.Text = "";
 
             _findWecPart100 = false;
@@ -4428,6 +4542,8 @@ namespace WHOperation
             _findDNPARTNUMBER = false;
 
             _findMFGRPART = false;
+
+            _findDW_develop = false;
 
             tfscanarea.Text = "";
 
@@ -4971,6 +5087,14 @@ namespace WHOperation
                 }
             }
 
+            if (chk9UseDateCode.Checked && chk9UseLotNumber.Checked)
+            {
+                if (tf1dnpartnumber.Text.Length > 0 && tf2recmfgrpart.Text.Length > 0 && tf3recqty.Text.Length > 0)
+                {
+                    button1_Click(sender, e);
+                }
+            }
+
         }
         protected override void OnKeyDown(KeyEventArgs e)
         {
@@ -5217,7 +5341,7 @@ namespace WHOperation
                     tmpaddwhere = " and rtrim(ltrim(PI_CARTON_NO))='" + txt2FilterValue.Text.Trim() + "'";
                 }
             }
-           var tmpsql1 = tmpsql+ tmpaddwhere + tmporderby;
+            var tmpsql1 = tmpsql + tmpaddwhere + tmporderby;
             if (!string.IsNullOrEmpty(_piid))
             {
                 tabControl2_pending.SelectedIndex = 2;
@@ -5232,8 +5356,8 @@ namespace WHOperation
                             tmpaddwhere = " and rtrim(ltrim(PI_CARTON_NO)) like '%" + txt2FilterValue.Text.Trim() + "%'";
                             var tmpsql2 = tmpsql + tmpaddwhere + tmporderby;
                             _dtPIRemote = getDataSetBySql(tmpsql2).Tables[0];
-                        }                        
-                        
+                        }
+
                     }
                     if (_dtPIRemote.Rows.Count <= 0)
                     {
@@ -5699,11 +5823,7 @@ namespace WHOperation
 
         private void tflotno_TextChanged(object sender, EventArgs e)
         {
-            if (chk9UseLotNumber.Checked)
-            {
-                tf6lotno.Text = "";
-                return;
-            }
+
             if (chk9UseDateCode.Checked)
             {
                 if (tf6lotno.Text.Length > 1 && tf1dnpartnumber.Text.Length > 1 && tf2recmfgrpart.Text.Length > 1 && tf3recqty.Text.Length > 1 && tf4datecode.Text.Length > 1)
@@ -5723,19 +5843,23 @@ namespace WHOperation
 
         private void chk9UsePartNo_CheckedChanged(object sender, EventArgs e)
         {
+
             if (!chk9UsePartNo.Checked)
             {
+                _findWecPart100 = false;
+                chk5AutoSearch2.Checked = true;
                 if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
                 {
                     tf1dnpartnumber.Text = tf0partno.Text;
-                    tf1dnpartnumber.Enabled = false;
                 }
+                tf1dnpartnumber.Enabled = false;
             }
             else
             {
                 tf1dnpartnumber.Text = "";
                 tf1dnpartnumber.Enabled = true;
             }
+            tfscanarea.Focus();
 
         }
 
@@ -5753,11 +5877,7 @@ namespace WHOperation
 
         private void tf4datecode_TextChanged(object sender, EventArgs e)
         {
-            if (chk9UseDateCode.Checked)
-            {
-                tf4datecode.Text = "";
-                return;
-            }
+
             if (chk9UseLotNumber.Checked)
             {
                 if (tf4datecode.Text.Length > 1 && tf1dnpartnumber.Text.Length > 1 && tf2recmfgrpart.Text.Length > 1 && tf3recqty.Text.Length > 1 && tf6lotno.Text.Length > 1)
@@ -5776,19 +5896,45 @@ namespace WHOperation
 
         private void chk9UseDateCode_CheckedChanged(object sender, EventArgs e)
         {
+            tf4datecode.Text = "";
             if (chk9UseDateCode.Checked)
             {
-                tf4datecode.Text = "";
+                tf4datecode.Enabled = true;
+                tf4datecode.ReadOnly = false;
+                tf4datecode.BackColor = Color.White;
+
             }
+            else
+            {
+                tf4datecode.BackColor = Color.Gray;
+                tf4datecode.Enabled = false;
+                tf4datecode.ReadOnly = true;
+            }
+
+            tfscanarea.Focus();
         }
 
         private void chk9UseLotNumber_CheckedChanged(object sender, EventArgs e)
         {
+            tf6lotno.Text = "";
             if (chk9UseLotNumber.Checked)
             {
-                tf6lotno.Text = "";
+                tf6lotno.Enabled = true;
+                tf6lotno.ReadOnly = false;
+                tf6lotno.BackColor = Color.White;
             }
+            else
+            {
+                tf6lotno.BackColor = Color.Gray;
+
+                tf6lotno.Enabled = false;
+                tf6lotno.ReadOnly = true;
+            }
+
+            tfscanarea.Focus();
         }
+
+        public bool _findDW_develop { get; set; }
     }
     public class printStringList
     {
