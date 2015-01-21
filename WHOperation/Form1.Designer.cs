@@ -41,6 +41,12 @@ namespace WHOperation
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tfscanarea = new System.Windows.Forms.TextBox();
@@ -200,6 +206,8 @@ namespace WHOperation
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
             this.chk99UseMPQ = new System.Windows.Forms.CheckBox();
+            this.chk8JiaHao = new System.Windows.Forms.CheckBox();
+            this.clearSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -991,6 +999,7 @@ namespace WHOperation
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chk8JiaHao);
             this.groupBox1.Controls.Add(this.chk7maohao);
             this.groupBox1.Controls.Add(this.chk5_meiyuan);
             this.groupBox1.Controls.Add(this.chk1jh);
@@ -1132,15 +1141,16 @@ namespace WHOperation
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearToolStripMenuItem});
+            this.clearToolStripMenuItem,
+            this.clearSelectToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(107, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Text = "Clear All";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // ldnpartnumber
@@ -1945,11 +1955,35 @@ namespace WHOperation
             // 
             this.dgv5PIPending.AllowUserToAddRows = false;
             this.dgv5PIPending.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv5PIPending.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dgv5PIPending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv5PIPending.DefaultCellStyle = dataGridViewCellStyle14;
             this.dgv5PIPending.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv5PIPending.Location = new System.Drawing.Point(3, 3);
             this.dgv5PIPending.Name = "dgv5PIPending";
             this.dgv5PIPending.ReadOnly = true;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv5PIPending.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dgv5PIPending.RowTemplate.Height = 23;
             this.dgv5PIPending.Size = new System.Drawing.Size(745, 127);
             this.dgv5PIPending.TabIndex = 0;
@@ -1969,11 +2003,35 @@ namespace WHOperation
             // dgv6PICompele
             // 
             this.dgv6PICompele.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv6PICompele.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dgv6PICompele.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv6PICompele.DefaultCellStyle = dataGridViewCellStyle17;
             this.dgv6PICompele.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv6PICompele.Location = new System.Drawing.Point(3, 3);
             this.dgv6PICompele.Name = "dgv6PICompele";
             this.dgv6PICompele.ReadOnly = true;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv6PICompele.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dgv6PICompele.RowTemplate.Height = 23;
             this.dgv6PICompele.Size = new System.Drawing.Size(745, 127);
             this.dgv6PICompele.TabIndex = 1;
@@ -2017,6 +2075,25 @@ namespace WHOperation
             this.chk99UseMPQ.TabIndex = 16;
             this.chk99UseMPQ.Text = "Auto Qty with MPQ";
             this.chk99UseMPQ.UseVisualStyleBackColor = true;
+            // 
+            // chk8JiaHao
+            // 
+            this.chk8JiaHao.AutoSize = true;
+            this.chk8JiaHao.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chk8JiaHao.Location = new System.Drawing.Point(176, 39);
+            this.chk8JiaHao.Name = "chk8JiaHao";
+            this.chk8JiaHao.Size = new System.Drawing.Size(54, 16);
+            this.chk8JiaHao.TabIndex = 68;
+            this.chk8JiaHao.Text = "+¼ÓºÅ";
+            this.chk8JiaHao.UseVisualStyleBackColor = true;
+            this.chk8JiaHao.CheckedChanged += new System.EventHandler(this.chk8JiaHao_CheckedChanged);
+            // 
+            // clearSelectToolStripMenuItem
+            // 
+            this.clearSelectToolStripMenuItem.Name = "clearSelectToolStripMenuItem";
+            this.clearSelectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearSelectToolStripMenuItem.Text = "Clear Select";
+            this.clearSelectToolStripMenuItem.Click += new System.EventHandler(this.clearSelectToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -2243,6 +2320,8 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox chk9UsePartNo;
         private System.Windows.Forms.CheckBox chk5AutoSearch2;
         private System.Windows.Forms.CheckBox chk99UseMPQ;
+        private System.Windows.Forms.CheckBox chk8JiaHao;
+        private System.Windows.Forms.ToolStripMenuItem clearSelectToolStripMenuItem;
     }
 }
 

@@ -57,7 +57,7 @@ namespace WHOperation
 
         private static Regex RegNumber = new Regex("^[0-9]+$");
         private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
-        public static string _splitPrefix = @"9D;D;30P;1P;P;Q;33T;1T;T;KOA/;PKOA-;PKOA/;PKOA+;3N1;3N2";
+        public static string _splitPrefix = @"9D;D;30P;1P;P;Q;33T;1T;T;KOA/;KOA+;KOA-;PKOA-;PKOA/;PKOA+;3N1;3N2";
         public List<prefixCheckbox> _splitStrTample;
         public static string getQRcode = "";
         public string _strtmp;
@@ -1569,7 +1569,10 @@ namespace WHOperation
                     tf1dnpartnumber.Invoke(new Action(delegate()
                     {
                         pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                        tf1dnpartnumber.Text = scanString;
+                        if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
+                        {
+                            tf1dnpartnumber.Text = scanString;
+                        }
                     }));
 
                     _findWecPart100 = true;
@@ -1598,8 +1601,10 @@ namespace WHOperation
                     tf1dnpartnumber.Invoke(new Action(delegate()
                     {
                         pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                        tf1dnpartnumber.Text = scanString;
-
+                        if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
+                        {
+                            tf1dnpartnumber.Text = scanString;
+                        }
                     }));
                     _findWecPart100 = true;
                     tmpmsg = "find in Pending list with PartNumber:[" + scanString + "]";
@@ -1624,7 +1629,11 @@ namespace WHOperation
                     tf2recmfgrpart.Invoke(new Action(delegate()
                     {
                         pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                        tf2recmfgrpart.Text = scanString;
+
+                        if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
+                        {
+                            tf2recmfgrpart.Text = scanString.Replace(strSplit, "");
+                        }
                     }));
                     _findQplPart100 = true;
                     tmpmsg = "find in Pending list with MFGPartNo:[" + scanString + "]";
@@ -1648,7 +1657,10 @@ namespace WHOperation
                     tf2recmfgrpart.Invoke(new Action(delegate()
                     {
                         pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                        tf2recmfgrpart.Text = scanString;
+                        if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
+                        {
+                            tf2recmfgrpart.Text = scanString;
+                        }
                     }));
                     _findQplPart100 = true;
                     tmpmsg = "find in Pending list with MFGPartNo:[" + scanString + "]";
@@ -1683,7 +1695,10 @@ namespace WHOperation
                     tf1dnpartnumber.Invoke(new Action(delegate()
                     {
                         pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick80.png");
-                        tf1dnpartnumber.Text = scanString;
+                        if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
+                        {
+                            tf1dnpartnumber.Text = scanString;
+                        }
                     }));
                     tmpmsg = "find in Pending list with 80% PartNumber:[" + scanString + "]";
                     cSearchFound = 1;
@@ -1713,7 +1728,10 @@ namespace WHOperation
                     tf1dnpartnumber.Invoke(new Action(delegate()
                     {
                         pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick60.png");
-                        tf1dnpartnumber.Text = scanString;
+                        if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
+                        {
+                            tf1dnpartnumber.Text = scanString;
+                        }
                     }));
                     tmpmsg = "find in Pending list with 60% PartNumber:[" + scanString + "]";
                     cSearchFound = 1;
@@ -1746,9 +1764,12 @@ namespace WHOperation
                     tf2recmfgrpart.Invoke(new Action(delegate()
                     {
                         pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                        tf2recmfgrpart.Text = scanString;
+                        if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
+                        {
+                            tf2recmfgrpart.Text = onlineOrder.Cells[strcellnameMFGP].Value.ToString();
+                        }
                     }));
-                    tmpmsg = "find in Pending list with 80% MFGPartNo:[" + scanString + "]";
+                    tmpmsg = "find in Pending list with StartWith MFGPartNo:[" + scanString + "]";
                     cSearchFound = 1;
                     break;
                 }
@@ -1777,7 +1798,10 @@ namespace WHOperation
                     tf2recmfgrpart.Invoke(new Action(delegate()
                     {
                         pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick80.png");
-                        tf2recmfgrpart.Text = scanString;
+                        if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
+                        {
+                            tf2recmfgrpart.Text = scanString;
+                        }
                     }));
                     tmpmsg = "find in Pending list with 80% MFGPartNo:[" + scanString + "]";
                     cSearchFound = 1;
@@ -1803,7 +1827,10 @@ namespace WHOperation
                     tf2recmfgrpart.Invoke(new Action(delegate()
                     {
                         pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick60.png");
-                        tf2recmfgrpart.Text = scanString;
+                        if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
+                        {
+                            tf2recmfgrpart.Text = scanString;
+                        }
                     }));
                     tmpmsg = "find in Pending list with 60% MFGPartNo:[" + scanString + "]";
                     cSearchFound = 1;
@@ -4116,7 +4143,8 @@ namespace WHOperation
                new prefixCheckbox("*",chk3xh),
                new prefixCheckbox("$",chk5_meiyuan),
                new prefixCheckbox("/",chk7_zuoxiegang),
-               new prefixCheckbox(":",chk7maohao)
+               new prefixCheckbox(":",chk7maohao),
+               new prefixCheckbox("+",chk8JiaHao)
             };
             txt00Prefix.Text = _splitPrefix;
             _tmpseletListboxValue = "";
@@ -4504,6 +4532,7 @@ namespace WHOperation
             chk5_meiyuan.Checked = false;
             chk7_zuoxiegang.Checked = false;
             chk7maohao.Checked = false;
+            chk8JiaHao.Checked = false;
 
 
             txt5SplitOther.Text = "";
@@ -5358,10 +5387,10 @@ namespace WHOperation
                 if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
                 {
                     _initCartonNo = initCartonFromTo(txt2FilterValue.Text.Trim());
-                    tmpaddwhere = "and (case CHARINDEX('-',PI_CARTON_NO,0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'"+_initCartonNo[2]+"','')))";
+                    tmpaddwhere = "and (case CHARINDEX('-',PI_CARTON_NO,0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
                     tmpaddwhere += " else rtrim(ltrim(left(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''), ";
                     tmpaddwhere += " CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0)-1)))";
-                    tmpaddwhere += "  end) <= '"+_initCartonNo[0]+"' and  case CHARINDEX('-',REPLACE(PI_CARTON_NO,'"+_initCartonNo[2]+"',''),0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'"+_initCartonNo[2]+"','')))";
+                    tmpaddwhere += "  end) <= '" + _initCartonNo[0] + "' and  case CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
                     tmpaddwhere += " else right(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),";
                     tmpaddwhere += " len(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''))-CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0))";
                     tmpaddwhere += "  end >= '" + _initCartonNo[0] + "'";
@@ -5968,6 +5997,16 @@ namespace WHOperation
         public bool _findDW_develop { get; set; }
 
         private void lib0ScanDataListBox_DoubleClick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void chk8JiaHao_CheckedChanged(object sender, EventArgs e)
+        {
+            splitFromStringWithChar(chk8JiaHao, "+");
+        }
+
+        private void clearSelectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var tmpitem = lib0ScanDataListBox.SelectedItem;
             if (tmpitem != null)
