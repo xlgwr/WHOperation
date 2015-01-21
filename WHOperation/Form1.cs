@@ -839,7 +839,7 @@ namespace WHOperation
                     if (_usePrintPI)
                     {
                         var tmpmpq = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString().Trim();
-                        if (!string.IsNullOrEmpty(tmpmpq))
+                        if (!string.IsNullOrEmpty(tmpmpq) && chk99UseMPQ.Checked)
                         {
                             var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString().Trim();
                             if (!tmp2mpq.Equals(intitem.ToString("###")))
@@ -879,10 +879,21 @@ namespace WHOperation
                         }
                         else
                         {
-                            if (string.IsNullOrEmpty(tf4datecode.Text))
+                            if (chk9UseLotNumber.Checked)
                             {
-                                pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                                tf4datecode.Text = intitem.ToString();
+                                if (string.IsNullOrEmpty(tf6lotno.Text))
+                                {
+                                    pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                    tf6lotno.Text = intitem.ToString();
+                                }
+                            }
+                            if (chk9UseDateCode.Checked)
+                            {
+                                if (string.IsNullOrEmpty(tf4datecode.Text))
+                                {
+                                    pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                    tf4datecode.Text = intitem.ToString();
+                                }
                             }
                         }
 

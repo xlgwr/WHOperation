@@ -199,6 +199,7 @@ namespace WHOperation
             this.txt2FilterValue = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chk99UseMPQ = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1535,7 +1536,7 @@ namespace WHOperation
             this.cbtrimmfgpart.Checked = true;
             this.cbtrimmfgpart.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbtrimmfgpart.Enabled = false;
-            this.cbtrimmfgpart.Location = new System.Drawing.Point(929, 139);
+            this.cbtrimmfgpart.Location = new System.Drawing.Point(929, 134);
             this.cbtrimmfgpart.Name = "cbtrimmfgpart";
             this.cbtrimmfgpart.Size = new System.Drawing.Size(102, 16);
             this.cbtrimmfgpart.TabIndex = 15;
@@ -1547,7 +1548,7 @@ namespace WHOperation
             this.cbprintcartonlabel.AutoSize = true;
             this.cbprintcartonlabel.Checked = true;
             this.cbprintcartonlabel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbprintcartonlabel.Location = new System.Drawing.Point(929, 123);
+            this.cbprintcartonlabel.Location = new System.Drawing.Point(929, 118);
             this.cbprintcartonlabel.Name = "cbprintcartonlabel";
             this.cbprintcartonlabel.Size = new System.Drawing.Size(132, 16);
             this.cbprintcartonlabel.TabIndex = 14;
@@ -1559,7 +1560,7 @@ namespace WHOperation
             this.cbSmartScan.AutoSize = true;
             this.cbSmartScan.Checked = true;
             this.cbSmartScan.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSmartScan.Location = new System.Drawing.Point(929, 107);
+            this.cbSmartScan.Location = new System.Drawing.Point(929, 102);
             this.cbSmartScan.Name = "cbSmartScan";
             this.cbSmartScan.Size = new System.Drawing.Size(84, 16);
             this.cbSmartScan.TabIndex = 13;
@@ -1572,7 +1573,7 @@ namespace WHOperation
             this.cbAutoPrint.AutoSize = true;
             this.cbAutoPrint.Checked = true;
             this.cbAutoPrint.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbAutoPrint.Location = new System.Drawing.Point(929, 91);
+            this.cbAutoPrint.Location = new System.Drawing.Point(1013, 102);
             this.cbAutoPrint.Name = "cbAutoPrint";
             this.cbAutoPrint.Size = new System.Drawing.Size(84, 16);
             this.cbAutoPrint.TabIndex = 12;
@@ -1625,6 +1626,7 @@ namespace WHOperation
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.btn2PIID);
             this.panel1.Controls.Add(this.txt1PIID);
+            this.panel1.Controls.Add(this.chk99UseMPQ);
             this.panel1.Controls.Add(this.chk0autoSplit);
             this.panel1.Controls.Add(this.chk5NoSplit);
             this.panel1.Controls.Add(this.label6);
@@ -1659,7 +1661,7 @@ namespace WHOperation
             // 
             this.chk5AutoSearch2.AutoSize = true;
             this.chk5AutoSearch2.ForeColor = System.Drawing.Color.Red;
-            this.chk5AutoSearch2.Location = new System.Drawing.Point(929, 155);
+            this.chk5AutoSearch2.Location = new System.Drawing.Point(929, 150);
             this.chk5AutoSearch2.Name = "chk5AutoSearch2";
             this.chk5AutoSearch2.Size = new System.Drawing.Size(168, 16);
             this.chk5AutoSearch2.TabIndex = 28;
@@ -1691,7 +1693,7 @@ namespace WHOperation
             this.chk0autoSplit.Checked = true;
             this.chk0autoSplit.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk0autoSplit.ForeColor = System.Drawing.Color.Red;
-            this.chk0autoSplit.Location = new System.Drawing.Point(929, 187);
+            this.chk0autoSplit.Location = new System.Drawing.Point(929, 182);
             this.chk0autoSplit.Name = "chk0autoSplit";
             this.chk0autoSplit.Size = new System.Drawing.Size(84, 16);
             this.chk0autoSplit.TabIndex = 16;
@@ -1702,7 +1704,7 @@ namespace WHOperation
             // 
             this.chk5NoSplit.AutoSize = true;
             this.chk5NoSplit.ForeColor = System.Drawing.Color.Red;
-            this.chk5NoSplit.Location = new System.Drawing.Point(929, 171);
+            this.chk5NoSplit.Location = new System.Drawing.Point(929, 166);
             this.chk5NoSplit.Name = "chk5NoSplit";
             this.chk5NoSplit.Size = new System.Drawing.Size(174, 16);
             this.chk5NoSplit.TabIndex = 16;
@@ -2003,6 +2005,19 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
+            // chk99UseMPQ
+            // 
+            this.chk99UseMPQ.AutoSize = true;
+            this.chk99UseMPQ.Checked = true;
+            this.chk99UseMPQ.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk99UseMPQ.ForeColor = System.Drawing.Color.Red;
+            this.chk99UseMPQ.Location = new System.Drawing.Point(929, 86);
+            this.chk99UseMPQ.Name = "chk99UseMPQ";
+            this.chk99UseMPQ.Size = new System.Drawing.Size(126, 16);
+            this.chk99UseMPQ.TabIndex = 16;
+            this.chk99UseMPQ.Text = "Auto Qty with MPQ";
+            this.chk99UseMPQ.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2227,6 +2242,7 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox chk9UseDateCode;
         private System.Windows.Forms.CheckBox chk9UsePartNo;
         private System.Windows.Forms.CheckBox chk5AutoSearch2;
+        private System.Windows.Forms.CheckBox chk99UseMPQ;
     }
 }
 
