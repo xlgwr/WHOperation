@@ -108,11 +108,13 @@ namespace WHOperation
             this.tfnooflabels = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tfnoofcartons = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.chk9UseLotNumber = new System.Windows.Forms.CheckBox();
             this.chk9UseDateCode = new System.Windows.Forms.CheckBox();
             this.chk9UsePartNo = new System.Windows.Forms.CheckBox();
             this.lib1SplitListBox = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chk8JiaHao = new System.Windows.Forms.CheckBox();
             this.chk7maohao = new System.Windows.Forms.CheckBox();
             this.chk5_meiyuan = new System.Windows.Forms.CheckBox();
             this.chk1jh = new System.Windows.Forms.CheckBox();
@@ -126,6 +128,7 @@ namespace WHOperation
             this.lib0ScanDataListBox = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ldnpartnumber = new System.Windows.Forms.Label();
             this.lrecmfgpart = new System.Windows.Forms.Label();
             this.lbls00SelectItem = new System.Windows.Forms.Label();
@@ -179,6 +182,7 @@ namespace WHOperation
             this.chk5AutoSearch2 = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.btn2PIID = new System.Windows.Forms.Button();
+            this.chk99UseMPQ = new System.Windows.Forms.CheckBox();
             this.chk0autoSplit = new System.Windows.Forms.CheckBox();
             this.chk5NoSplit = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -205,9 +209,7 @@ namespace WHOperation
             this.txt2FilterValue = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.chk99UseMPQ = new System.Windows.Forms.CheckBox();
-            this.chk8JiaHao = new System.Windows.Forms.CheckBox();
-            this.clearSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chk99AutoDateLot = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -289,6 +291,7 @@ namespace WHOperation
             this.tf4datecode.Size = new System.Drawing.Size(123, 21);
             this.tf4datecode.TabIndex = 30;
             this.toolTip1.SetToolTip(this.tf4datecode, "1.PgDn(下页) key Start to Print\r\n");
+            this.tf4datecode.BackColorChanged += new System.EventHandler(this.tf4datecode_BackColorChanged);
             this.tf4datecode.TextChanged += new System.EventHandler(this.tf4datecode_TextChanged);
             this.tf4datecode.Enter += new System.EventHandler(this.tfdatecode_Enter);
             this.tf4datecode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdatecode_KeyDown);
@@ -312,6 +315,7 @@ namespace WHOperation
             this.tf6lotno.Size = new System.Drawing.Size(123, 21);
             this.tf6lotno.TabIndex = 32;
             this.toolTip1.SetToolTip(this.tf6lotno, "1.PgDn(下页) key Start to Print");
+            this.tf6lotno.BackColorChanged += new System.EventHandler(this.tf6lotno_BackColorChanged);
             this.tf6lotno.TextChanged += new System.EventHandler(this.tflotno_TextChanged);
             this.tf6lotno.Enter += new System.EventHandler(this.tflotno_Enter);
             this.tf6lotno.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tflotno_KeyDown);
@@ -743,6 +747,7 @@ namespace WHOperation
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.AutoScroll = true;
+            this.splitContainer2.Panel2.Controls.Add(this.button2);
             this.splitContainer2.Panel2.Controls.Add(this.chk9UseLotNumber);
             this.splitContainer2.Panel2.Controls.Add(this.chk9UseDateCode);
             this.splitContainer2.Panel2.Controls.Add(this.chk9UsePartNo);
@@ -952,6 +957,16 @@ namespace WHOperation
             this.tfnoofcartons.TextChanged += new System.EventHandler(this.tfnoofcartons_TextChanged);
             this.tfnoofcartons.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnoofcartons_KeyDown);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(513, 9);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 50);
+            this.button2.TabIndex = 70;
+            this.button2.Text = "Get Part";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_2);
+            // 
             // chk9UseLotNumber
             // 
             this.chk9UseLotNumber.AutoSize = true;
@@ -1016,6 +1031,18 @@ namespace WHOperation
             this.groupBox1.TabIndex = 66;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "分隔符";
+            // 
+            // chk8JiaHao
+            // 
+            this.chk8JiaHao.AutoSize = true;
+            this.chk8JiaHao.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chk8JiaHao.Location = new System.Drawing.Point(176, 39);
+            this.chk8JiaHao.Name = "chk8JiaHao";
+            this.chk8JiaHao.Size = new System.Drawing.Size(54, 16);
+            this.chk8JiaHao.TabIndex = 68;
+            this.chk8JiaHao.Text = "+加号";
+            this.chk8JiaHao.UseVisualStyleBackColor = true;
+            this.chk8JiaHao.CheckedChanged += new System.EventHandler(this.chk8JiaHao_CheckedChanged);
             // 
             // chk7maohao
             // 
@@ -1144,14 +1171,21 @@ namespace WHOperation
             this.clearToolStripMenuItem,
             this.clearSelectToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(145, 48);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.clearToolStripMenuItem.Text = "Clear All";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            // 
+            // clearSelectToolStripMenuItem
+            // 
+            this.clearSelectToolStripMenuItem.Name = "clearSelectToolStripMenuItem";
+            this.clearSelectToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.clearSelectToolStripMenuItem.Text = "Clear Select";
+            this.clearSelectToolStripMenuItem.Click += new System.EventHandler(this.clearSelectToolStripMenuItem_Click);
             // 
             // ldnpartnumber
             // 
@@ -1266,7 +1300,7 @@ namespace WHOperation
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(551, 13);
+            this.label5.Location = new System.Drawing.Point(608, 14);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 20;
@@ -1274,10 +1308,11 @@ namespace WHOperation
             // 
             // tf0site
             // 
-            this.tf0site.Location = new System.Drawing.Point(597, 9);
+            this.tf0site.Location = new System.Drawing.Point(654, 10);
             this.tf0site.Name = "tf0site";
             this.tf0site.Size = new System.Drawing.Size(123, 21);
             this.tf0site.TabIndex = 24;
+            this.tf0site.TextChanged += new System.EventHandler(this.tf0site_TextChanged);
             // 
             // pbexpiredate
             // 
@@ -1359,7 +1394,7 @@ namespace WHOperation
             // 
             // tf0hdndate
             // 
-            this.tf0hdndate.Location = new System.Drawing.Point(596, 37);
+            this.tf0hdndate.Location = new System.Drawing.Point(653, 38);
             this.tf0hdndate.Name = "tf0hdndate";
             this.tf0hdndate.ReadOnly = true;
             this.tf0hdndate.Size = new System.Drawing.Size(123, 21);
@@ -1377,7 +1412,7 @@ namespace WHOperation
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(539, 41);
+            this.label20.Location = new System.Drawing.Point(596, 42);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(47, 12);
             this.label20.TabIndex = 18;
@@ -1653,6 +1688,7 @@ namespace WHOperation
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.cbtrimmfgpart);
             this.panel1.Controls.Add(this.tfdnno);
+            this.panel1.Controls.Add(this.chk99AutoDateLot);
             this.panel1.Controls.Add(this.cbAutoPrint);
             this.panel1.Controls.Add(this.cbSmartScan);
             this.panel1.Controls.Add(this.cbprintcartonlabel);
@@ -1697,13 +1733,26 @@ namespace WHOperation
             this.btn2PIID.UseVisualStyleBackColor = true;
             this.btn2PIID.Click += new System.EventHandler(this.btn2PIID_Click);
             // 
+            // chk99UseMPQ
+            // 
+            this.chk99UseMPQ.AutoSize = true;
+            this.chk99UseMPQ.Checked = true;
+            this.chk99UseMPQ.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk99UseMPQ.ForeColor = System.Drawing.Color.Red;
+            this.chk99UseMPQ.Location = new System.Drawing.Point(929, 86);
+            this.chk99UseMPQ.Name = "chk99UseMPQ";
+            this.chk99UseMPQ.Size = new System.Drawing.Size(126, 16);
+            this.chk99UseMPQ.TabIndex = 16;
+            this.chk99UseMPQ.Text = "Auto Qty with MPQ";
+            this.chk99UseMPQ.UseVisualStyleBackColor = true;
+            // 
             // chk0autoSplit
             // 
             this.chk0autoSplit.AutoSize = true;
             this.chk0autoSplit.Checked = true;
             this.chk0autoSplit.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk0autoSplit.ForeColor = System.Drawing.Color.Red;
-            this.chk0autoSplit.Location = new System.Drawing.Point(929, 182);
+            this.chk0autoSplit.Location = new System.Drawing.Point(1029, 134);
             this.chk0autoSplit.Name = "chk0autoSplit";
             this.chk0autoSplit.Size = new System.Drawing.Size(84, 16);
             this.chk0autoSplit.TabIndex = 16;
@@ -2063,37 +2112,17 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
-            // chk99UseMPQ
+            // chk99AutoDateLot
             // 
-            this.chk99UseMPQ.AutoSize = true;
-            this.chk99UseMPQ.Checked = true;
-            this.chk99UseMPQ.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk99UseMPQ.ForeColor = System.Drawing.Color.Red;
-            this.chk99UseMPQ.Location = new System.Drawing.Point(929, 86);
-            this.chk99UseMPQ.Name = "chk99UseMPQ";
-            this.chk99UseMPQ.Size = new System.Drawing.Size(126, 16);
-            this.chk99UseMPQ.TabIndex = 16;
-            this.chk99UseMPQ.Text = "Auto Qty with MPQ";
-            this.chk99UseMPQ.UseVisualStyleBackColor = true;
-            // 
-            // chk8JiaHao
-            // 
-            this.chk8JiaHao.AutoSize = true;
-            this.chk8JiaHao.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chk8JiaHao.Location = new System.Drawing.Point(176, 39);
-            this.chk8JiaHao.Name = "chk8JiaHao";
-            this.chk8JiaHao.Size = new System.Drawing.Size(54, 16);
-            this.chk8JiaHao.TabIndex = 68;
-            this.chk8JiaHao.Text = "+加号";
-            this.chk8JiaHao.UseVisualStyleBackColor = true;
-            this.chk8JiaHao.CheckedChanged += new System.EventHandler(this.chk8JiaHao_CheckedChanged);
-            // 
-            // clearSelectToolStripMenuItem
-            // 
-            this.clearSelectToolStripMenuItem.Name = "clearSelectToolStripMenuItem";
-            this.clearSelectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.clearSelectToolStripMenuItem.Text = "Clear Select";
-            this.clearSelectToolStripMenuItem.Click += new System.EventHandler(this.clearSelectToolStripMenuItem_Click);
+            this.chk99AutoDateLot.AutoSize = true;
+            this.chk99AutoDateLot.Checked = true;
+            this.chk99AutoDateLot.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk99AutoDateLot.Location = new System.Drawing.Point(929, 182);
+            this.chk99AutoDateLot.Name = "chk99AutoDateLot";
+            this.chk99AutoDateLot.Size = new System.Drawing.Size(132, 16);
+            this.chk99AutoDateLot.TabIndex = 12;
+            this.chk99AutoDateLot.Text = "Auto Data/Lot Code";
+            this.chk99AutoDateLot.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -2322,6 +2351,8 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox chk99UseMPQ;
         private System.Windows.Forms.CheckBox chk8JiaHao;
         private System.Windows.Forms.ToolStripMenuItem clearSelectToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox chk99AutoDateLot;
     }
 }
 
