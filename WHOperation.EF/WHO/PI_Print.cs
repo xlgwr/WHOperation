@@ -83,5 +83,8 @@ namespace WHOperation.EF.WHO
 
         [StringLength(50)]
         public string pi_user_ip { get; set; }
+
+        [StringLength(256)]
+        public string pi_remark { get; set; }
     }
 }

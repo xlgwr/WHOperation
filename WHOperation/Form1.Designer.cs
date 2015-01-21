@@ -170,6 +170,7 @@ namespace WHOperation
             this.label15 = new System.Windows.Forms.Label();
             this.cbport = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chk5AutoSearch2 = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.btn2PIID = new System.Windows.Forms.Button();
             this.chk0autoSplit = new System.Windows.Forms.CheckBox();
@@ -198,7 +199,6 @@ namespace WHOperation
             this.txt2FilterValue = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.chk5AutoSearch2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -330,7 +330,7 @@ namespace WHOperation
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(136, 17);
+            this.label1.Location = new System.Drawing.Point(131, -15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 2;
@@ -1126,18 +1126,19 @@ namespace WHOperation
             this.lib0ScanDataListBox.TabIndex = 0;
             this.lib0ScanDataListBox.Click += new System.EventHandler(this.listbox0ScanData_Click);
             this.lib0ScanDataListBox.SelectedIndexChanged += new System.EventHandler(this.listbox0ScanData_SelectedIndexChanged);
+            this.lib0ScanDataListBox.DoubleClick += new System.EventHandler(this.lib0ScanDataListBox_DoubleClick);
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(107, 26);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -1647,13 +1648,23 @@ namespace WHOperation
             this.panel1.Controls.Add(this.cbport);
             this.panel1.Controls.Add(this.cbprintertype);
             this.panel1.Controls.Add(this.label16);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1118, 640);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // chk5AutoSearch2
+            // 
+            this.chk5AutoSearch2.AutoSize = true;
+            this.chk5AutoSearch2.ForeColor = System.Drawing.Color.Red;
+            this.chk5AutoSearch2.Location = new System.Drawing.Point(929, 155);
+            this.chk5AutoSearch2.Name = "chk5AutoSearch2";
+            this.chk5AutoSearch2.Size = new System.Drawing.Size(168, 16);
+            this.chk5AutoSearch2.TabIndex = 28;
+            this.chk5AutoSearch2.Text = "Auto Search in QPL mastr";
+            this.chk5AutoSearch2.UseVisualStyleBackColor = true;
             // 
             // label11
             // 
@@ -1992,17 +2003,6 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
-            // chk5AutoSearch2
-            // 
-            this.chk5AutoSearch2.AutoSize = true;
-            this.chk5AutoSearch2.ForeColor = System.Drawing.Color.Red;
-            this.chk5AutoSearch2.Location = new System.Drawing.Point(929, 155);
-            this.chk5AutoSearch2.Name = "chk5AutoSearch2";
-            this.chk5AutoSearch2.Size = new System.Drawing.Size(168, 16);
-            this.chk5AutoSearch2.TabIndex = 28;
-            this.chk5AutoSearch2.Text = "Auto Search in QPL mastr";
-            this.chk5AutoSearch2.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2010,6 +2010,7 @@ namespace WHOperation
             this.ClientSize = new System.Drawing.Size(1118, 640);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
