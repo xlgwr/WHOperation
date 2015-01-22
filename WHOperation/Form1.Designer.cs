@@ -179,8 +179,10 @@ namespace WHOperation
             this.label15 = new System.Windows.Forms.Label();
             this.cbport = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl22UseDnNumber = new System.Windows.Forms.Label();
+            this.chk00UseDnNo = new System.Windows.Forms.CheckBox();
             this.chk5AutoSearch2 = new System.Windows.Forms.CheckBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lbl0Dn_PI_key = new System.Windows.Forms.Label();
             this.btn2PIID = new System.Windows.Forms.Button();
             this.chk99UseMPQ = new System.Windows.Forms.CheckBox();
             this.chk0autoSplit = new System.Windows.Forms.CheckBox();
@@ -207,9 +209,10 @@ namespace WHOperation
             this.tabPage3Compele = new System.Windows.Forms.TabPage();
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.txt2FilterValue = new System.Windows.Forms.TextBox();
+            this.chk99AutoDateLot = new System.Windows.Forms.CheckBox();
+            this.chk99SaveTxt = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.chk99AutoDateLot = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -259,7 +262,7 @@ namespace WHOperation
             this.tfscanarea.Size = new System.Drawing.Size(232, 106);
             this.tfscanarea.TabIndex = 3;
             this.toolTip1.SetToolTip(this.tfscanarea, "1.Home key go to CartonNO\r\n2.PgDn  key start Printing\r\n3.Enter key split Scan tex" +
-                    "t");
+                    "t\r\n4.Insert key get part\r\n5.delete key init");
             this.tfscanarea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfscanarea_KeyDown);
             // 
             // tf1dnpartnumber
@@ -322,7 +325,7 @@ namespace WHOperation
             // 
             // txt1PIID
             // 
-            this.txt1PIID.Location = new System.Drawing.Point(677, 13);
+            this.txt1PIID.Location = new System.Drawing.Point(611, 13);
             this.txt1PIID.Name = "txt1PIID";
             this.txt1PIID.Size = new System.Drawing.Size(100, 21);
             this.txt1PIID.TabIndex = 8;
@@ -332,11 +335,12 @@ namespace WHOperation
             // 
             // tfdnno
             // 
-            this.tfdnno.Location = new System.Drawing.Point(206, 13);
+            this.tfdnno.Location = new System.Drawing.Point(248, 12);
             this.tfdnno.Name = "tfdnno";
-            this.tfdnno.Size = new System.Drawing.Size(100, 21);
+            this.tfdnno.Size = new System.Drawing.Size(99, 21);
             this.tfdnno.TabIndex = 3;
             this.tfdnno.TextChanged += new System.EventHandler(this.tfdnno_TextChanged);
+            this.tfdnno.Enter += new System.EventHandler(this.tfdnno_Enter);
             this.tfdnno.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdnno_KeyDown);
             this.tfdnno.Leave += new System.EventHandler(this.tfdnno_Leave);
             // 
@@ -409,6 +413,7 @@ namespace WHOperation
             this.dgv1Pending.Size = new System.Drawing.Size(745, 127);
             this.dgv1Pending.TabIndex = 0;
             this.dgv1Pending.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv1Pending_CellDoubleClick);
+            this.dgv1Pending.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv1Pending_KeyDown);
             // 
             // DNNo
             // 
@@ -563,7 +568,7 @@ namespace WHOperation
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(310, 17);
+            this.label14.Location = new System.Drawing.Point(347, 16);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(47, 12);
             this.label14.TabIndex = 4;
@@ -573,9 +578,9 @@ namespace WHOperation
             // 
             this.tfdndate.CustomFormat = "MM/dd/yy";
             this.tfdndate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.tfdndate.Location = new System.Drawing.Point(365, 13);
+            this.tfdndate.Location = new System.Drawing.Point(394, 12);
             this.tfdndate.Name = "tfdndate";
-            this.tfdndate.Size = new System.Drawing.Size(98, 21);
+            this.tfdndate.Size = new System.Drawing.Size(68, 21);
             this.tfdndate.TabIndex = 5;
             this.tfdndate.Value = new System.DateTime(2013, 6, 5, 10, 23, 0, 0);
             this.tfdndate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfdndate_KeyDown);
@@ -591,11 +596,12 @@ namespace WHOperation
             // 
             // cbsystem
             // 
-            this.cbsystem.Location = new System.Drawing.Point(65, 13);
+            this.cbsystem.Location = new System.Drawing.Point(59, 13);
             this.cbsystem.Name = "cbsystem";
             this.cbsystem.ReadOnly = true;
-            this.cbsystem.Size = new System.Drawing.Size(71, 21);
+            this.cbsystem.Size = new System.Drawing.Size(40, 21);
             this.cbsystem.TabIndex = 1;
+            this.cbsystem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbsystem_KeyDown);
             // 
             // groupBox3
             // 
@@ -616,7 +622,7 @@ namespace WHOperation
             "CartonNo",
             "Part Number",
             "Mfgr Part Number"});
-            this.cbfiltertype.Location = new System.Drawing.Point(777, 13);
+            this.cbfiltertype.Location = new System.Drawing.Point(711, 13);
             this.cbfiltertype.Name = "cbfiltertype";
             this.cbfiltertype.Size = new System.Drawing.Size(78, 20);
             this.cbfiltertype.TabIndex = 9;
@@ -1667,8 +1673,11 @@ namespace WHOperation
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.tfdnno);
+            this.panel1.Controls.Add(this.lbl22UseDnNumber);
+            this.panel1.Controls.Add(this.chk00UseDnNo);
             this.panel1.Controls.Add(this.chk5AutoSearch2);
-            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.lbl0Dn_PI_key);
             this.panel1.Controls.Add(this.btn2PIID);
             this.panel1.Controls.Add(this.txt1PIID);
             this.panel1.Controls.Add(this.chk99UseMPQ);
@@ -1687,8 +1696,8 @@ namespace WHOperation
             this.panel1.Controls.Add(this.tfdndate);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.cbtrimmfgpart);
-            this.panel1.Controls.Add(this.tfdnno);
             this.panel1.Controls.Add(this.chk99AutoDateLot);
+            this.panel1.Controls.Add(this.chk99SaveTxt);
             this.panel1.Controls.Add(this.cbAutoPrint);
             this.panel1.Controls.Add(this.cbSmartScan);
             this.panel1.Controls.Add(this.cbprintcartonlabel);
@@ -1699,9 +1708,29 @@ namespace WHOperation
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1118, 640);
+            this.panel1.Size = new System.Drawing.Size(1118, 742);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // lbl22UseDnNumber
+            // 
+            this.lbl22UseDnNumber.AutoSize = true;
+            this.lbl22UseDnNumber.Location = new System.Drawing.Point(197, 16);
+            this.lbl22UseDnNumber.Name = "lbl22UseDnNumber";
+            this.lbl22UseDnNumber.Size = new System.Drawing.Size(41, 12);
+            this.lbl22UseDnNumber.TabIndex = 29;
+            this.lbl22UseDnNumber.Text = "Vendor";
+            // 
+            // chk00UseDnNo
+            // 
+            this.chk00UseDnNo.AutoSize = true;
+            this.chk00UseDnNo.Location = new System.Drawing.Point(99, 15);
+            this.chk00UseDnNo.Name = "chk00UseDnNo";
+            this.chk00UseDnNo.Size = new System.Drawing.Size(102, 16);
+            this.chk00UseDnNo.TabIndex = 0;
+            this.chk00UseDnNo.Text = "Use DnNumber|";
+            this.chk00UseDnNo.UseVisualStyleBackColor = true;
+            this.chk00UseDnNo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // chk5AutoSearch2
             // 
@@ -1714,18 +1743,18 @@ namespace WHOperation
             this.chk5AutoSearch2.Text = "Auto Search in QPL mastr";
             this.chk5AutoSearch2.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // lbl0Dn_PI_key
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(642, 17);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 12);
-            this.label11.TabIndex = 27;
-            this.label11.Text = "PIID:";
+            this.lbl0Dn_PI_key.AutoSize = true;
+            this.lbl0Dn_PI_key.Location = new System.Drawing.Point(575, 18);
+            this.lbl0Dn_PI_key.Name = "lbl0Dn_PI_key";
+            this.lbl0Dn_PI_key.Size = new System.Drawing.Size(35, 12);
+            this.lbl0Dn_PI_key.TabIndex = 27;
+            this.lbl0Dn_PI_key.Text = "PIID:";
             // 
             // btn2PIID
             // 
-            this.btn2PIID.Location = new System.Drawing.Point(956, 12);
+            this.btn2PIID.Location = new System.Drawing.Point(890, 12);
             this.btn2PIID.Name = "btn2PIID";
             this.btn2PIID.Size = new System.Drawing.Size(75, 23);
             this.btn2PIID.TabIndex = 10;
@@ -1741,9 +1770,9 @@ namespace WHOperation
             this.chk99UseMPQ.ForeColor = System.Drawing.Color.Red;
             this.chk99UseMPQ.Location = new System.Drawing.Point(929, 86);
             this.chk99UseMPQ.Name = "chk99UseMPQ";
-            this.chk99UseMPQ.Size = new System.Drawing.Size(126, 16);
+            this.chk99UseMPQ.Size = new System.Drawing.Size(96, 16);
             this.chk99UseMPQ.TabIndex = 16;
-            this.chk99UseMPQ.Text = "Auto Qty with MPQ";
+            this.chk99UseMPQ.Text = "Qty with MPQ";
             this.chk99UseMPQ.UseVisualStyleBackColor = true;
             // 
             // chk0autoSplit
@@ -1774,7 +1803,7 @@ namespace WHOperation
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(469, 17);
+            this.label6.Location = new System.Drawing.Point(462, 16);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(11, 12);
             this.label6.TabIndex = 24;
@@ -1784,18 +1813,18 @@ namespace WHOperation
             // 
             this.tftodndate.CustomFormat = "MM/dd/yy";
             this.tftodndate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.tftodndate.Location = new System.Drawing.Point(485, 13);
+            this.tftodndate.Location = new System.Drawing.Point(473, 12);
             this.tftodndate.Name = "tftodndate";
-            this.tftodndate.Size = new System.Drawing.Size(98, 21);
+            this.tftodndate.Size = new System.Drawing.Size(68, 21);
             this.tftodndate.TabIndex = 6;
             this.tftodndate.Value = new System.DateTime(2013, 6, 21, 10, 23, 0, 0);
             this.tftodndate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tftodndate_KeyDown);
             // 
             // bGo
             // 
-            this.bGo.Location = new System.Drawing.Point(586, 13);
+            this.bGo.Location = new System.Drawing.Point(541, 12);
             this.bGo.Name = "bGo";
-            this.bGo.Size = new System.Drawing.Size(40, 21);
+            this.bGo.Size = new System.Drawing.Size(29, 21);
             this.bGo.TabIndex = 7;
             this.bGo.Text = "Go";
             this.bGo.UseVisualStyleBackColor = true;
@@ -2037,6 +2066,7 @@ namespace WHOperation
             this.dgv5PIPending.Size = new System.Drawing.Size(745, 127);
             this.dgv5PIPending.TabIndex = 0;
             this.dgv5PIPending.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv5PIPending_CellDoubleClick);
+            this.dgv5PIPending.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv5PIPending_KeyDown);
             // 
             // tabPage3Compele
             // 
@@ -2088,29 +2118,13 @@ namespace WHOperation
             // 
             // txt2FilterValue
             // 
-            this.txt2FilterValue.Location = new System.Drawing.Point(855, 13);
+            this.txt2FilterValue.Location = new System.Drawing.Point(789, 13);
             this.txt2FilterValue.Name = "txt2FilterValue";
             this.txt2FilterValue.Size = new System.Drawing.Size(100, 21);
             this.txt2FilterValue.TabIndex = 9;
             this.txt2FilterValue.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.txt2FilterValue.Enter += new System.EventHandler(this.txt2FilterValue_Enter);
             this.txt2FilterValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt2FilterValue_KeyDown);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tool_lbl_Msg});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 618);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1118, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // tool_lbl_Msg
-            // 
-            this.tool_lbl_Msg.ForeColor = System.Drawing.Color.Red;
-            this.tool_lbl_Msg.Name = "tool_lbl_Msg";
-            this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
             // chk99AutoDateLot
             // 
@@ -2123,12 +2137,39 @@ namespace WHOperation
             this.chk99AutoDateLot.TabIndex = 12;
             this.chk99AutoDateLot.Text = "Auto Data/Lot Code";
             this.chk99AutoDateLot.UseVisualStyleBackColor = true;
+            this.chk99AutoDateLot.CheckedChanged += new System.EventHandler(this.chk99AutoDateLot_CheckedChanged);
+            // 
+            // chk99SaveTxt
+            // 
+            this.chk99SaveTxt.AutoSize = true;
+            this.chk99SaveTxt.Location = new System.Drawing.Point(1025, 86);
+            this.chk99SaveTxt.Name = "chk99SaveTxt";
+            this.chk99SaveTxt.Size = new System.Drawing.Size(72, 16);
+            this.chk99SaveTxt.TabIndex = 12;
+            this.chk99SaveTxt.Text = "Save TxT";
+            this.chk99SaveTxt.UseVisualStyleBackColor = true;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tool_lbl_Msg});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 720);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1118, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tool_lbl_Msg
+            // 
+            this.tool_lbl_Msg.ForeColor = System.Drawing.Color.Red;
+            this.tool_lbl_Msg.Name = "tool_lbl_Msg";
+            this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1118, 640);
+            this.ClientSize = new System.Drawing.Size(1118, 742);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -2323,7 +2364,7 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox chk5_meiyuan;
         private System.Windows.Forms.Button btn2PIID;
         private System.Windows.Forms.TextBox txt1PIID;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lbl0Dn_PI_key;
         private System.Windows.Forms.TabPage tabPage5PIpending;
         private System.Windows.Forms.TabPage tabPage3Compele;
         private System.Windows.Forms.Label label18;
@@ -2353,6 +2394,9 @@ namespace WHOperation
         private System.Windows.Forms.ToolStripMenuItem clearSelectToolStripMenuItem;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox chk99AutoDateLot;
+        private System.Windows.Forms.Label lbl22UseDnNumber;
+        private System.Windows.Forms.CheckBox chk99SaveTxt;
+        private System.Windows.Forms.CheckBox chk00UseDnNo;
     }
 }
 
