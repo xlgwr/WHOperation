@@ -2648,7 +2648,7 @@ namespace WHOperation
                     }
                     cPrintLoop += 1;
                 }
-                toPrinterEnd(_toPrintList);
+//toPrinterEnd(_toPrintList);
                 setPIMLData();
             }
             catch (Exception ex)
@@ -2780,7 +2780,7 @@ namespace WHOperation
                     }
                     cPrintLoop += 1;
                 }
-                toPrinterEnd(_toPrintList);
+                //toPrinterEnd(_toPrintList);
                 setPIMLData();
             }
             catch (Exception ex)
@@ -3678,8 +3678,10 @@ namespace WHOperation
         }
         void toPrinter(StringBuilder cStringToPrint, String cPIMS)
         {
+            _toPrintList.Clear();
             printStringList tmpPrintStr = new printStringList(cStringToPrint, cPIMS);
             _toPrintList.Add(tmpPrintStr);
+            toPrinterEnd(_toPrintList);
         }
         void toPrinterEnd(List<printStringList> tmpstr)
         {
@@ -3723,7 +3725,7 @@ namespace WHOperation
             }
             lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
 
-            enableScan();
+            //enableScan();
         }
         void printPIML(List<String> lPIMSData, int cLabelType)
         {
@@ -5281,50 +5283,57 @@ namespace WHOperation
             if (e.KeyCode == Keys.F1)
             {
                 tfnooflabels.Text = "1";
+                enableScan();
             }
             else if (e.KeyCode == Keys.F2)
             {
-                tfnooflabels.Text = "2";
+                tfnooflabels.Text = "2"; enableScan();
+
             }
             else if (e.KeyCode == Keys.F3)
             {
-                tfnooflabels.Text = "3";
+                tfnooflabels.Text = "3"; enableScan();
+
             }
             else if (e.KeyCode == Keys.F4)
             {
-                tfnooflabels.Text = "4";
+                tfnooflabels.Text = "4"; enableScan();
+
             }
             else if (e.KeyCode == Keys.F5)
             {
-                tfnooflabels.Text = "5";
+                tfnooflabels.Text = "5"; enableScan();
+
             }
             else if (e.KeyCode == Keys.F6)
             {
-                tfnooflabels.Text = "6";
+                tfnooflabels.Text = "6"; enableScan();
+
             }
             else if (e.KeyCode == Keys.F7)
             {
-                tfnooflabels.Text = "7";
+                tfnooflabels.Text = "7"; enableScan();
+
             }
             else if (e.KeyCode == Keys.F8)
             {
-                tfnooflabels.Text = "8";
+                tfnooflabels.Text = "8"; enableScan();
             }
             else if (e.KeyCode == Keys.F9)
             {
-                tfnooflabels.Text = "9";
+                tfnooflabels.Text = "9"; enableScan();
             }
             else if (e.KeyCode == Keys.F10)
             {
-                tfnooflabels.Text = "10";
+                tfnooflabels.Text = "10"; enableScan();
             }
             else if (e.KeyCode == Keys.F11)
             {
-                tfnooflabels.Text = "11";
+                tfnooflabels.Text = "11"; enableScan();
             }
             else if (e.KeyCode == Keys.F12)
             {
-                tfnooflabels.Text = "12";
+                tfnooflabels.Text = "12"; enableScan();
             }
         }
 
