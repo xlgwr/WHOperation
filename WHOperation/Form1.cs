@@ -33,7 +33,8 @@ namespace WHOperation
         DataSet _dsComplete = new DataSet();
 
         String _cConnStr = "Persist Security Info=False;User ID=appuser;pwd=application;Initial Catalog=dbWHOperation;Data Source=142.2.70.81;pooling=true";
-        String _cConnStrPI = "server=142.2.70.53;database=pi;uid=pi;";
+        //test String _cConnStrPI = "server=142.2.70.53;database=pi;uid=pi;"
+        String _cConnStrPI = "server=.;database=pie;uid=pi;";
         String cUserID, cLastLabel;
         List<String> lXML = new List<String>();
         List<byte[]> lVendorLabelImage = new List<byte[]>();
@@ -166,7 +167,7 @@ namespace WHOperation
             cUserID = GlobalClass1.userID;
             try
             {
-                MFGProService.GetTable(cbsystem.Text, "wsas001", tfdnno.Text + "," + tfdndate.Text + "," + tftodndate.Text);
+                //test MFGProService.GetTable(cbsystem.Text, "wsas001", tfdnno.Text + "," + tfdndate.Text + "," + tftodndate.Text);
                 //MFGProService.GetTable(cbsystem.Text, "wsas001", tfdnno.Text + "," + tfdndate.Text); 
             }
             catch (Exception ex) { }
@@ -183,7 +184,7 @@ namespace WHOperation
             resetForm(1);
             setPIMLData();
             //getTemplate();
-            setMandField();
+            //test setMandField();
             tabControl1.SelectedIndex = 1;
             //   var qty = dgv5PIPending.CurrentRow.Cells["PI_QTY"].Value;
             //  var pqty = dgv5PIPending.CurrentRow.Cells["PI_Print_QTY"].Value;
@@ -823,6 +824,11 @@ namespace WHOperation
         }
         public bool searchByItem(string item)
         {
+            if (_printend)
+            {
+                enableScan();
+                _printend = false;
+            }
             if (_usePrintPI)
             {
                 if (dgv5PIPending.Rows.Count <= 0)
@@ -915,10 +921,10 @@ namespace WHOperation
                             var tmpint = Convert.ToInt32(tfnooflabels.Text) * intitem;
                             if (tmpint > Convert.ToInt32(tf0dnqty.Text))
                             {
+                                //enableScan();
                                 tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnooflabels.Text + " * " + intitem.ToString("###") + " = " + tmpint + " > " + tf0dnqty.Text;
                                 pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                                 _findRECQTY = false;
-                                enableScan();
                             }
                             else
                             {
@@ -1584,6 +1590,50 @@ namespace WHOperation
             }
             return restr;
         }
+        public bool initforSearch(int usepercent, bool usetrim, bool iswecpart)
+        {
+            if (usetrim)
+            {
+                chk0autoSplit.Checked = false;
+            }
+            else
+            {
+                chk0autoSplit.Checked = true;
+            }
+            if (_findDW_develop)
+            {
+                return false;
+            }
+
+            if (_findWecPart100 && _findQplPart100)
+            {
+                return false;
+            }
+
+            if (iswecpart)
+            {
+
+                _useDnPartPercent = usepercent;
+                _useDnTrim = usetrim;
+            }
+            else
+            {
+                _useQPLPartPercet = usepercent;
+                _useQPLTrim = usetrim;
+            }
+
+            return true;
+        }
+
+        public bool initforSearch(int usepercent, bool usetrim, bool iswecpart, bool is100)
+        {
+
+            //if (is100)
+            //{
+            //    return false;
+            //}
+            return initforSearch(usepercent, usetrim, iswecpart);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -1594,8 +1644,6 @@ namespace WHOperation
         void SearchDNPart2(string scanString, DataGridView dgv, string strcellnamePart, string strcellnameMFGP)
         {
             var tmpmsg = "";
-            char chara = ' ';
-            string strSplit = " ";
             int cSearchFound = 0;
 
             if (string.IsNullOrEmpty(scanString))
@@ -1603,425 +1651,172 @@ namespace WHOperation
                 return;
             }
 
+            #region 1111111111111111111PartNumber
             /////1111111111111111111PartNumber
+
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(100, false, true))
                 {
                     return;
                 }
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnamePart].Value.ToString().Equals(scanString)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
+                if (!_findWecPart100)
                 {
-                    if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    _findWecPart100 = searchByPercent(scanString, dgv, pbdnpartnumber, tf1dnpartnumber, tf2recmfgrpart, strcellnamePart, strcellnamePart, strcellnameMFGP, _useDnPartPercent, ref tmpmsg, ref cSearchFound, false, _useDnTrim, _findWecPart100);
 
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-
-                        _scanDnpart = scanString;
-                        _findWecPart100 = true;
-                        tmpmsg = "find in Pending list with PartNumber:[" + scanString + "]";
-
-                        if (!string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                        {
-                            cSearchFound = 1;
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                        }
-                        tf1dnpartnumber.Invoke(new Action(delegate()
-                        {
-                            pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                            tf1dnpartnumber.Text = scanString;
-
-                        }));
-
-                    }
-                    break;
                 }
+
+
             }
+            //trim
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(100, true, true, _findWecPart100))
                 {
                     return;
                 }
-                if (_findWecPart100 && _findQplPart100)
-                {
-                    return;
-                }
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnamePart].Value.ToString().Replace(strSplit, "").ToUpper().Equals(scanString.Replace(strSplit, ""))
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                _findWecPart101 = searchByPercent(scanString, dgv, pbdnpartnumber, tf1dnpartnumber, tf2recmfgrpart, strcellnamePart, strcellnamePart, strcellnameMFGP, _useDnPartPercent, ref tmpmsg, ref cSearchFound, false, _useDnTrim, _findWecPart100);
 
-                        _scanDnpart = scanString;
-                        if (!string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                        {
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                            cSearchFound = 1;
-                        }
 
-                        tf1dnpartnumber.Invoke(new Action(delegate()
-                        {
-                            pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-
-                            tf1dnpartnumber.Text = scanString;
-
-                        }));
-
-                        _findWecPart100 = true;
-                        tmpmsg = "find in Pending list NO SPACE with PartNumber:[" + scanString + "]";
-
-                    }
-                    break;
-                }
             }
-            //80 PartNumber
+            //95 PartNumber ***********************
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(95, false, true, _findWecPart100))
                 {
                     return;
                 }
-                if (_findWecPart100 && _findQplPart100)
-                {
-                    return;
-                }
-                var txtMfgpart = scanString;
-                var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
+                _findWecPart80 = searchByPercent(scanString, dgv, pbdnpartnumber, tf1dnpartnumber, tf2recmfgrpart, strcellnamePart, strcellnamePart, strcellnameMFGP, _useDnPartPercent, ref tmpmsg, ref cSearchFound, true, _useDnTrim, _findWecPart100);
 
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnamePart].Value.ToString().ToUpper().StartsWith(txtmfgpart80)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                        _scanDnpart = txtmfgpart80;
-                        if (!string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                        {
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                            cSearchFound = 1;
-                        }
-                        tf1dnpartnumber.Invoke(new Action(delegate()
-                        {
-                            pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick80.png");
 
-                            tf1dnpartnumber.Text = scanString;
-
-                        }));
-                        tmpmsg = "find in Pending list with 80% PartNumber:[" + scanString + "]";
-
-                    }
-                    break;
-                }
             }
+            //90 PartNumber ***********************
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(90, false, true, _findWecPart100))
                 {
                     return;
                 }
-                if (_findWecPart100 && _findQplPart100)
-                {
-                    return;
-                }
-                var txtMfgpart = scanString;
-                var txtmfgpart60 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.6));
+                _findWecPart80 = searchByPercent(scanString, dgv, pbdnpartnumber, tf1dnpartnumber, tf2recmfgrpart, strcellnamePart, strcellnamePart, strcellnameMFGP, _useDnPartPercent, ref tmpmsg, ref cSearchFound, true, _useDnTrim, _findWecPart100);
 
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnamePart].Value.ToString().ToUpper().StartsWith(txtmfgpart60)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                        _scanDnpart = txtmfgpart60;
-                        if (!string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                        {
-                            cSearchFound = 1;
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                        }
-                        tf1dnpartnumber.Invoke(new Action(delegate()
-                        {
-                            pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick60.png");
 
-                            tf1dnpartnumber.Text = scanString;
-
-                        }));
-                        tmpmsg = "find in Pending list with 60% PartNumber:[" + scanString + "]";
-
-                    }
-                    break;
-                }
             }
-            ////60
-
-            /////////////222222222222222222mfgpartno
+            //80 PartNumber ***********************
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(80, false, true, _findWecPart100))
                 {
                     return;
                 }
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnameMFGP].Value.ToString().Equals(scanString)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                        _scanQplpart = scanString;
-                        if (!string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                        {
-                            cSearchFound = 1;
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                        }
-                        tf2recmfgrpart.Invoke(new Action(delegate()
-                        {
-                            pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-
-                            tf2recmfgrpart.Text = scanString;
-
-                        }));
-                        _findQplPart100 = true;
-                        tmpmsg = "find in Pending list with MFGPartNo:[" + scanString + "]";
+                _findWecPart80 = searchByPercent(scanString, dgv, pbdnpartnumber, tf1dnpartnumber, tf2recmfgrpart, strcellnamePart, strcellnamePart, strcellnameMFGP, _useDnPartPercent, ref tmpmsg, ref cSearchFound, true, _useDnTrim, _findWecPart100);
 
 
-                    }
-                    break;
-                }
             }
+            //60 part
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(60, false, true, _findWecPart100))
                 {
                     return;
                 }
-                if (_findWecPart100 && _findQplPart100)
-                {
-                    return;
-                }
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnameMFGP].Value.ToString().Replace(strSplit, "").ToUpper().Equals(scanString.Replace(strSplit, ""))
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                _findWecPart60 = searchByPercent(scanString, dgv, pbdnpartnumber, tf1dnpartnumber, tf2recmfgrpart, strcellnamePart, strcellnamePart, strcellnameMFGP, _useDnPartPercent, ref tmpmsg, ref cSearchFound, true, _useDnTrim, _findWecPart100);
 
-                        _scanQplpart = scanString.Replace(strSplit, "");
-                        if (!string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                        {
-                            cSearchFound = 1;
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                        }
-                        tf2recmfgrpart.Invoke(new Action(delegate()
-                        {
-                            pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-
-                            tf2recmfgrpart.Text = scanString.Replace(strSplit, "");
-
-                        }));
-                        _findQplPart100 = true;
-                        tmpmsg = "find in Pending list NO SPACE with MFGPartNo:[" + scanString + "]";
-
-
-                    }
-                    break;
-                }
             }
-
-            ///80 mfgpartno
+            ////start
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(100, false, true, _findWecPart100))
                 {
                     return;
                 }
-                if (_findWecPart100 && _findQplPart100)
-                {
-                    return;
-                }
-                var txtMfgpart = scanString;
-                var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
-
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnameMFGP].Value.ToString().ToUpper().StartsWith(txtmfgpart80)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                        _scanQplpart = txtmfgpart80;
-                        if (!string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                        {
-                            cSearchFound = 1;
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                        }
-                        tf2recmfgrpart.Invoke(new Action(delegate()
-                        {
-                            pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick80.png");
-
-                            tf2recmfgrpart.Text = scanString;
-
-                        }));
-                        tmpmsg = "find in Pending list with 80% MFGPartNo:[" + scanString + "]";
+                _findWecPart60 = searchByPercent(scanString, dgv, pbdnpartnumber, tf1dnpartnumber, tf2recmfgrpart, strcellnamePart, strcellnamePart, strcellnameMFGP, _useDnPartPercent, ref tmpmsg, ref cSearchFound, true, _useDnTrim, _findWecPart100);
 
 
-                    }
-                    break;
-                }
             }
+            #endregion
+
+            #region  /////////////222222222222222222mfgpartno
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(100, false, false))
                 {
                     return;
                 }
-                if (_findWecPart100 && _findQplPart100)
+                if (!_findQplPart100)
                 {
-                    return;
+                    _findQplPart100 = searchByPercent(scanString, dgv, pbrecmfgpart, tf2recmfgrpart, tf1dnpartnumber, strcellnameMFGP, strcellnamePart, strcellnameMFGP, _useQPLPartPercet, ref tmpmsg, ref cSearchFound, false, _useQPLTrim, _findQplPart100);
+
                 }
-                var txtMfgpart = scanString;
-                var txtmfgpart60 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.6));
-
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnameMFGP].Value.ToString().ToUpper().StartsWith(txtmfgpart60)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                        _scanQplpart = txtmfgpart60;
-                        if (!string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                        {
-                            cSearchFound = 1;
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                        }
-                        tf2recmfgrpart.Invoke(new Action(delegate()
-                        {
-                            pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick60.png");
-
-                            tf2recmfgrpart.Text = scanString;
-
-                        }));
-                        tmpmsg = "find in Pending list with 60% MFGPartNo:[" + scanString + "]";
 
 
-                    }
-                    break;
-                }
+
             }
-            ////60
-
-            ///100 start with
+            //trim
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(100, true, false, _findQplPart100))
                 {
                     return;
                 }
-                if (_findWecPart100 && _findQplPart100)
-                {
-                    return;
-                }
-                var txtMfgpart = scanString;
-                //var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
+                _findQplPart101 = searchByPercent(scanString, dgv, pbrecmfgpart, tf2recmfgrpart, tf1dnpartnumber, strcellnameMFGP, strcellnamePart, strcellnameMFGP, _useQPLPartPercet, ref tmpmsg, ref cSearchFound, false, _useQPLTrim, _findQplPart100);
 
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnameMFGP].Value.ToString().ToUpper().StartsWith(scanString)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    if (string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                        _scanQplpart = scanString;
-                        if (!string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                        {
-                            cSearchFound = 1;
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                        }
-                        tf2recmfgrpart.Invoke(new Action(delegate()
-                        {
-                            pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-
-                            tf2recmfgrpart.Text = onlineOrder.Cells[strcellnameMFGP].Value.ToString();
-
-                        }));
-                        tmpmsg = "find in Pending list with StartWith MFGPartNo:[" + scanString + "]";
-
-
-                    }
-                    break;
-                }
             }
-
-
-            ///100 start with
+            ///95 mfgpartno **************
             if (cSearchFound == 0)
             {
-                if (_findDW_develop)
+                if (!initforSearch(95, false, false, _findQplPart100))
                 {
                     return;
                 }
-                if (_findWecPart100 && _findQplPart100)
-                {
-                    return;
-                }
-                var txtMfgpart = scanString;
-                //var txtmfgpart80 = txtMfgpart.Substring(0, Convert.ToInt16(txtMfgpart.Length * 0.8));
+                _findQplPart80 = searchByPercent(scanString, dgv, pbrecmfgpart, tf2recmfgrpart, tf1dnpartnumber, strcellnameMFGP, strcellnamePart, strcellnameMFGP, _useQPLPartPercet, ref tmpmsg, ref cSearchFound, true, _useQPLTrim, _findQplPart100);
 
-                var query1 = from DataGridViewRow row in dgv.Rows
-                             where row.Cells[strcellnamePart].Value.ToString().ToUpper().StartsWith(scanString)
-                             select row;
-                foreach (DataGridViewRow onlineOrder in query1)
-                {
-                    if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                    {
-                        onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
-                        dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                        _scanQplpart = scanString;
-                        if (!string.IsNullOrEmpty(tf2recmfgrpart.Text))
-                        {
-                            cSearchFound = 1;
-                            findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg, ref cSearchFound);
-                        }
-                        tf1dnpartnumber.Invoke(new Action(delegate()
-                        {
-                            pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-
-                            tf1dnpartnumber.Text = scanString;
-
-                        }));
-                        tmpmsg = "find in Pending list with StartWith PartNo:[" + scanString + "]";
-
-
-                    }
-                    break;
-                }
             }
+            ///90 mfgpartno **************
+            if (cSearchFound == 0)
+            {
+                if (!initforSearch(90, false, false, _findQplPart100))
+                {
+                    return;
+                }
+                _findQplPart80 = searchByPercent(scanString, dgv, pbrecmfgpart, tf2recmfgrpart, tf1dnpartnumber, strcellnameMFGP, strcellnamePart, strcellnameMFGP, _useQPLPartPercet, ref tmpmsg, ref cSearchFound, true, _useQPLTrim, _findQplPart100);
+
+            }
+            ///80 mfgpartno **************
+            if (cSearchFound == 0)
+            {
+                if (!initforSearch(80, false, false, _findQplPart100))
+                {
+                    return;
+                }
+                _findQplPart80 = searchByPercent(scanString, dgv, pbrecmfgpart, tf2recmfgrpart, tf1dnpartnumber, strcellnameMFGP, strcellnamePart, strcellnameMFGP, _useQPLPartPercet, ref tmpmsg, ref cSearchFound, true, _useQPLTrim, _findQplPart100);
+
+            }
+            //60
+            if (cSearchFound == 0)
+            {
+                if (!initforSearch(60, false, false, _findQplPart100))
+                {
+                    return;
+                }
+                _findQplPart80 = searchByPercent(scanString, dgv, pbrecmfgpart, tf2recmfgrpart, tf1dnpartnumber, strcellnameMFGP, strcellnamePart, strcellnameMFGP, _useQPLPartPercet, ref tmpmsg, ref cSearchFound, true, _useQPLTrim, _findQplPart100);
+
+            }
+            ////start          
+            if (cSearchFound == 0)
+            {
+                if (!initforSearch(100, false, false, _findQplPart100))
+                {
+                    return;
+                }
+                _findQplPart60 = searchByPercent(scanString, dgv, pbrecmfgpart, tf2recmfgrpart, tf1dnpartnumber, strcellnameMFGP, strcellnamePart, strcellnameMFGP, _useQPLPartPercet, ref tmpmsg, ref cSearchFound, true, _useQPLTrim, _findQplPart100);
+
+            }
+
+            #endregion
+
+
+
+            //////////////////////////////////////////////////////////////
 
             //find by dw_develop qpl_mstr
             if (cSearchFound == 0)
@@ -2089,29 +1884,139 @@ namespace WHOperation
 
         }
 
-        private void findDGVpostion(DataGridView dgv, string strcellnamePart, string strcellnameMFGP, ref string tmpmsg, ref int cSearchFound)
+        private bool searchByPercent(string scanString, DataGridView dgv, PictureBox picbox, TextBox cl1SetValue, TextBox cl2Value, string strSearchnamePart,
+            string strcellnamePart, string strcellnameMFGP, int percent, ref string tmpmsg, ref int cSearchFound, bool useStartsWith, bool usetrim, bool is100)
         {
+            var txtpart = scanString.ToUpper();
+            if (_printend)
+            {
+                enableScan();
+                _printend = false;
+            }
+
+            if (is100)
+            {
+                return false;
+            }
+
+            if (usetrim)
+            {
+                txtpart = txtpart.Replace(" ", "");
+            }
+
+            var txtpartPercent = txtpart.Substring(0, Convert.ToInt16(txtpart.Length * percent / 100));
+
             var query1 = from DataGridViewRow row in dgv.Rows
-                         where row.Cells[strcellnamePart].Value.ToString().StartsWith(_scanDnpart) &&
-                               row.Cells[strcellnameMFGP].Value.ToString().StartsWith(_scanQplpart)
+                         where row.Cells[strSearchnamePart].Value.ToString().ToUpper().Equals(txtpartPercent)
                          select row;
+            if (useStartsWith)
+            {
+                query1 = from DataGridViewRow row in dgv.Rows
+                         where row.Cells[strSearchnamePart].Value.ToString().ToUpper().StartsWith(txtpartPercent)
+                         select row;
+            }
+            if (usetrim)
+            {
+                query1 = from DataGridViewRow row in dgv.Rows
+                         where row.Cells[strSearchnamePart].Value.ToString().ToUpper().Equals(txtpartPercent)
+                         select row;
+            }
+            foreach (DataGridViewRow onlineOrder in query1)
+            {
+                _scanSetValue = scanString;
+                if (!string.IsNullOrEmpty(cl2Value.Text))
+                {
+                    findDGVpostion(dgv, strcellnamePart, strcellnameMFGP, ref tmpmsg);
+                }
+                else
+                {
+                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+                }
+                cSearchFound = 1;
+                cl1SetValue.Invoke(new Action(delegate()
+                {
+                    picbox.Image = Image.FromFile(Application.StartupPath + @"\images\tick" + percent + ".png");
+                    cl1SetValue.Text = scanString;
+
+                }));
+                tmpmsg = "find in Pending list with " + percent + "% " + dgv.Columns[strSearchnamePart].HeaderText + ":[" + scanString + "]";
+                if (useStartsWith)
+                {
+                    tmpmsg = "find in Pending list with StartsWith of " + percent + "% " + dgv.Columns[strSearchnamePart].HeaderText + ":[" + scanString + "]";
+                }
+                if (usetrim)
+                {
+                    tmpmsg = "find in Pending list with [Remove Space] of " + percent + "% " + dgv.Columns[strSearchnamePart].HeaderText + ":[" + scanString + "]";
+                }
+                return true;
+                break;
+            }
+            return false;
+        }
+
+        private void findDGVpostion(DataGridView dgv, string strcellnamePart, string strcellnameMFGP, ref string tmpmsg)
+        {
+            var tmpoldtf1dn = "";
+            var tmpoldtf2qpl = "";
+            if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
+            {
+                oldtf1dn = _scanSetValue;
+                oldtf2qpl = tf2recmfgrpart.Text;
+            }
+            else
+            {
+                oldtf1dn = tf1dnpartnumber.Text;
+                oldtf2qpl = _scanSetValue;
+            }
+
+            tmpoldtf1dn = oldtf1dn;
+            tmpoldtf2qpl = oldtf2qpl;
+
+            if (_useDnTrim)
+            {
+                tmpoldtf1dn = tmpoldtf1dn.Replace(" ", "");
+            }
+            tmpoldtf1dn = tmpoldtf1dn.Substring(0, Convert.ToInt16(tmpoldtf1dn.Length * _useDnPartPercent / 100));
+
+            if (_useQPLTrim)
+            {
+                tmpoldtf2qpl = tmpoldtf2qpl.Replace(" ", "");
+            }
+            tmpoldtf2qpl = tmpoldtf2qpl.Substring(0, Convert.ToInt16(tmpoldtf2qpl.Length * _useQPLPartPercet / 100));
+
+            var query1 = from DataGridViewRow row in dgv.Rows
+                         where row.Cells[strcellnamePart].Value.ToString().StartsWith(tmpoldtf1dn) &&
+                               row.Cells[strcellnameMFGP].Value.ToString().StartsWith(tmpoldtf2qpl)
+                         select row;
+
             foreach (DataGridViewRow onlineOrder in query1)
             {
                 onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
                 dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
-                tmpmsg = "find in Pending list with PartNumber:[" + tf1dnpartnumber.Text + "] and MFGPartNo:[" + tf2recmfgrpart.Text + "]";
-                cSearchFound = 1;
+
+                tmpmsg = "find in Pending list with PartNumber:[" + oldtf1dn + "] and MFGPartNo:[" + oldtf2qpl + "]";
 
                 lib0ScanDataListBox.Items.Clear();
                 _strScanlit.Clear();
                 _strlit.Clear();
-                lib1SplitListBox.Items.Clear();             
-   
+                lib1SplitListBox.Items.Clear();
+
+                pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick" + _useQPLPartPercet + ".png");
+                pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick" + _useDnPartPercent + ".png");
+                tf1dnpartnumber.Text = oldtf1dn;
+                tf2recmfgrpart.Text = oldtf2qpl;
+
                 break;
             }
         }
         void SearchDNPart()
         {
+            if (_printend)
+            {
+                enableScan();
+                _printend = false;
+            }
             var tmpmsg = "";
             var query = from DataGridViewRow row in dgv1Pending.Rows
                         where row.Cells["PartNumber"].Value.ToString() == tf1dnpartnumber.Text &&
@@ -2675,6 +2580,7 @@ namespace WHOperation
             List<String> lPIMSData = new List<String>();
             _toPrintList = new List<printStringList>();
             _toPrintList.Clear();
+            _printend = false;
 
             int cCartonLoop, cNoOfCartons;
             int i;
@@ -2766,6 +2672,7 @@ namespace WHOperation
 
                                     _findDW_develop = false;
                                     _findWecPart100 = false;
+
                                 }
                                 else
                                 {
@@ -2793,6 +2700,9 @@ namespace WHOperation
                 Thread.Sleep(3500);
                 _enableinit = true;
                 enableScan();
+                _printend = true;
+
+
             }
 
             return true;
@@ -2808,6 +2718,7 @@ namespace WHOperation
             int cCartonLoop, cNoOfCartons;
             int i;
             Double cPIMSQty;
+            _printend = false;
             //cR = dataGridView1.CurrentRow;
 
             if (dgv1Pending.SelectedRows.Count <= 0)
@@ -2911,6 +2822,7 @@ namespace WHOperation
                     cPrintLoop += 1;
                 }
                 //toPrinterEnd(_toPrintList);
+
                 setPIMLData();
             }
             catch (Exception ex)
@@ -2925,6 +2837,8 @@ namespace WHOperation
                 Thread.Sleep(3500);
                 _enableinit = true;
                 enableScan();
+                _printend = true;
+
             }
         }
         public void SQLUpdate(String cQuery)
@@ -4728,8 +4642,6 @@ namespace WHOperation
             chk8JiaHao.Checked = false;
 
 
-            txt5SplitOther.Text = "";
-
             _findWecPart100 = false;
             _findQplPart100 = false;
 
@@ -4749,6 +4661,8 @@ namespace WHOperation
 
             _findDW_develop = false;
 
+            txt5SplitOther.Text = "";
+
             tfscanarea.Text = "";
 
             tfscanarea.Focus();
@@ -4756,6 +4670,8 @@ namespace WHOperation
         private void bEnableScan_Click(object sender, EventArgs e)
         {
             enableScan();
+
+
         }
 
 
@@ -5269,10 +5185,9 @@ namespace WHOperation
                 if (!IsNumber(tf3recqty.Text))
                 {
                     pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                    tf3recqty.Text = "";
-                    enableScan();
                     tool_lbl_Msg.Text = "请输入正确的数字";
                     _findRECQTY = false;
+                    tf3recqty.Text = "";
                     return;
 
                 }
@@ -5289,8 +5204,8 @@ namespace WHOperation
                 {
                     tool_lbl_Msg.Text = "超出 dn qty 数量:" + tfnoofcartons.Text + " * " + tfnooflabels.Text + " * " + tf3recqty.Text + " = " + tmpint + " > " + tf0dnqty.Text;
                     pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                    enableScan();
                     _findRECQTY = false;
+                    tf3recqty.Text = "";
 
                 }
             }
@@ -5570,9 +5485,12 @@ namespace WHOperation
             this.AcceptButton = null;
             _piid = txt1PIID.Text;
             //PI_NO,PI_LINE,
-            string tmpsql = @"select  rtrim(PI_PART) as PI_PART,rtrim(pi_mfgr_part) as pi_mfgr_part,rtrim(PI_LOT) PI_LOT,rtrim(PI_PO) PI_PO,rtrim(pi_mfgr) pi_mfgr,PI_QTY,'0' as PI_Print_QTY,isnull(pi_po_price,0) as PI_PO_price,PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + _piid + "' and (pi_lot<> NUll or pi_lot <>'') ";
+            //test string tmpsql = @"select  rtrim(PI_PART) as PI_PART,rtrim(pi_mfgr_part) as pi_mfgr_part,rtrim(PI_LOT) PI_LOT,rtrim(PI_PO) PI_PO,rtrim(pi_mfgr) pi_mfgr,PI_QTY,'0' as PI_Print_QTY,isnull(pi_po_price,0) as PI_PO_price,PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + _piid + "' and (pi_lot<> NUll or pi_lot <>'') ";
+            string tmpsql = @" select rtrim([pisr_part]) as PI_PART,rtrim([MFGR_Part]) as pi_mfgr_part, rtrim([pisr_rir]) PI_LOT,rtrim([pisr_po_nbr]) PI_PO,rtrim([MFGR]) pi_mfgr,[pisr_qty] PI_QTY,'0' as PI_Print_QTY, isnull([REC_NO],0) as PI_PO_price,[pi_pallet_no] PI_PALLET,[CartonNo] PI_CARTON_NO,[pisr_site] PI_SITE,[pi_cre_date] pi_cre_time  FROM [dbo].[vpi_report] where [PI_ID]='" + _piid + "' ";
+
             string tmpaddwhere = "";
-            string tmporderby = " order by pi_line";
+            string tmporderby = " order by [pisr_rir] ";//test pi_line";
+
             if (cbfiltertype.Text.Equals("PI PALLET"))
             {
                 if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
@@ -5621,13 +5539,15 @@ namespace WHOperation
                 }
                 dtcomplete = _dtPIRemote.Clone();
 
-                addPrintQtyToDGV(_piid, _dtPIRemote, dgv5PIPending);
+                //test addPrintQtyToDGV(_piid, _dtPIRemote, dgv5PIPending);
+
+                dgv5PIPending.DataSource = _dtPIRemote.DefaultView;
 
                 setDGVHeaderPi(dgv5PIPending);
 
-                checkPrintNumger(dgv5PIPending, _dtPIRemote, dgv6PICompele);
+                //test checkPrintNumger(dgv5PIPending, _dtPIRemote, dgv6PICompele);
 
-                setDGVHeaderPi(dgv6PICompele);
+                //test setDGVHeaderPi(dgv6PICompele);
 
                 initCheckDateLot();
                 enableScan();
@@ -5755,6 +5675,49 @@ namespace WHOperation
                 row.Cells[i].Value = item.Cells[i].Value;
             }
             dgv.Rows.Add(row);
+        }
+        private void setDGVHeaderPi(DataGridView dgv, DataSet ds)
+        {
+            dgv.DataSource = ds.Tables[0].DefaultView;
+
+            dgv.ReadOnly = true;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+            dgv.Columns["PI_PART"].Width = 130;
+            dgv.Columns["pi_mfgr_part"].Width = 130;
+            dgv.Columns["PI_PO"].Width = 60;
+            dgv.Columns["pi_mfgr"].Width = 60;
+            dgv.Columns["PI_QTY"].Width = 60;
+            dgv.Columns["PI_Print_QTY"].Width = 60;
+            dgv.Columns["PI_PO_price"].Width = 60;
+            dgv.Columns["PI_QTY"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv.Columns["PI_QTY"].DefaultCellStyle.Format = "#,###";
+            dgv.Columns["PI_Print_QTY"].DefaultCellStyle.BackColor = Color.LightGreen;
+            dgv.Columns["PI_Print_QTY"].DefaultCellStyle.Format = "#,###";
+            dgv.Columns["PI_PO_price"].DefaultCellStyle.Format = "#,###";
+
+            dgv.Columns["PI_PART"].HeaderText = "Part Number";
+            dgv.Columns["pi_mfgr_part"].HeaderText = "PO QPL Part No";
+            dgv.Columns["PI_LOT"].HeaderText = "RIR Number";
+            dgv.Columns["PI_PO"].HeaderText = "PO Number";
+            dgv.Columns["pi_mfgr"].HeaderText = "ASN MFG P/N";
+            dgv.Columns["PI_QTY"].HeaderText = "PI Qty";
+            dgv.Columns["PI_Print_QTY"].HeaderText = "Printed QTY";
+            dgv.Columns["PI_PO_price"].HeaderText = "MPQ";
+            dgv.Columns["PI_SITE"].HeaderText = "PI SITE";
+            dgv.Columns["pi_cre_time"].HeaderText = "PI Date";
+
+            //dgv.Columns.Add("PI_Print_QTY","PrintedQTY");
+
+            if (dgv.Rows.Count > 0)
+            {
+                dgv.ClearSelection();
+                if (!chk9UsePartNo.Checked)
+                {
+                    dgv.Rows[0].Cells[0].Selected = true;
+                }
+            }
+
         }
         private void setDGVHeaderPi(DataGridView dgv)
         {
@@ -5955,30 +5918,43 @@ namespace WHOperation
 
         private void bEnableScan_EnabledChanged(object sender, EventArgs e)
         {
-            if (_enableinit)
+            if (chk9UsePartNo.Checked)
             {
-                this.Invoke(new Action(delegate()
-                {
-                    if (chk9UsePartNo.Checked)
-                    {
-                        tf1dnpartnumber.Text = "";
-                    }
-                    tf2recmfgrpart.Text = "";
-                    tf4datecode.Text = "";
-                    tf3recqty.Text = "";
-                    tf6lotno.Text = "";
-                    tf0mfgdate.Text = "";
-                    tf5expiredate.Text = "";
-                    pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                    pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                    pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                    pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                    pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                    pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                    pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
-                }));
-                _enableinit = false;
+                tf1dnpartnumber.Text = "";
             }
+            tf2recmfgrpart.Text = "";
+            tf4datecode.Text = "";
+            tf3recqty.Text = "";
+            tf6lotno.Text = "";
+            tf0mfgdate.Text = "";
+            tf5expiredate.Text = "";
+            pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbmfgdate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+            pbexpiredate.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
+
+            _findWecPart100 = false;
+            _findQplPart100 = false;
+
+            _findLOTNUMBER = false;
+
+            _findMFGDATE = false;
+
+            _findEXPIREDATE = false;
+
+            _findRECQTY = false;
+
+            _findDATECODE = false;
+
+            _findDNPARTNUMBER = false;
+
+            _findMFGRPART = false;
+
+            _findDW_develop = false;
+
         }
 
         public bool _enableinit { get; set; }
@@ -6089,23 +6065,23 @@ namespace WHOperation
 
         private void chk9UsePartNo_CheckedChanged(object sender, EventArgs e)
         {
-
+            enableScan();
+            dgv5PIPending.ClearSelection();
             if (!chk9UsePartNo.Checked)
             {
-                _findWecPart100 = false;
                 chk5AutoSearch2.Checked = true;
-                if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
-                {
-                    tf1dnpartnumber.Text = tf0partno.Text;
-                }
+
+                _findWecPart100 = true;
+                _findQplPart100 = false;
                 tf1dnpartnumber.Enabled = false;
-                dgv5PIPending.Rows[0].Cells[0].Selected = true;
+                //dgv5PIPending.Rows[0].Cells[0].Selected = true;
             }
             else
             {
-                tf1dnpartnumber.Text = "";
+                chk5AutoSearch2.Checked = false;
                 tf1dnpartnumber.Enabled = true;
             }
+            tf1dnpartnumber.Text = "";
             tfscanarea.Focus();
 
         }
@@ -6210,6 +6186,7 @@ namespace WHOperation
         }
         public void initCheckDateLot()
         {
+
             if (chk99AutoDateLot.Checked)
             {
                 chk9UseDateCode.Checked = false;
@@ -6326,10 +6303,37 @@ namespace WHOperation
         {
 
         }
+        public bool _findWecPart80 { get; set; }
 
-        public string _scanDnpart { get; set; }
+        public bool _findWecPart60 { get; set; }
 
-        public string _scanQplpart { get; set; }
+        public bool _findQplPart80 { get; set; }
+
+        public bool _findQplPart60 { get; set; }
+
+        public bool _findWecPartStart { get; set; }
+
+        public bool _findQplPartStart { get; set; }
+
+        public bool _printend { get; set; }
+
+        public string _scanSetValue { get; set; }
+
+        public string oldtf1dn { get; set; }
+
+        public string oldtf2qpl { get; set; }
+
+        public int _useDnPartPercent { get; set; }
+
+        public bool _useDnTrim { get; set; }
+
+        public int _useQPLPartPercet { get; set; }
+
+        public bool _useQPLTrim { get; set; }
+
+        public bool _findWecPart101 { get; set; }
+
+        public bool _findQplPart101 { get; set; }
     }
     public class printStringList
     {

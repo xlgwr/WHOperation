@@ -52,7 +52,7 @@ namespace WHOperation
         {
             int cRet;
             cRet = 0;
-            cRet = getMFGProService();
+            cRet = 0;//test getMFGProService();
 
             if (cRet == 0)
             {
