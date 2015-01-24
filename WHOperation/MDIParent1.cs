@@ -20,9 +20,10 @@ namespace WHOperation
         {
             InitializeComponent();
             //test
-            //if (checkSys() == 0) {
-            //    MessageBox.Show("Your Application is outdated/different!!!\nContact MIS to update latest version","System Message");
-            //}
+            if (checkSys() == 0)
+            {
+                MessageBox.Show("Your Application is outdated/different!!!\nContact MIS to update latest version", "System Message");
+            }
             setupMenu("1");
             fLogin childForm = new fLogin(this);
             childForm.MdiParent = this;

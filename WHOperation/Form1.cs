@@ -33,8 +33,8 @@ namespace WHOperation
         DataSet _dsComplete = new DataSet();
 
         String _cConnStr = "Persist Security Info=False;User ID=appuser;pwd=application;Initial Catalog=dbWHOperation;Data Source=142.2.70.81;pooling=true";
-        //test String _cConnStrPI = "server=142.2.70.53;database=pi;uid=pi;"
-        String _cConnStrPI = "server=.;database=pie;uid=pi;";
+        String _cConnStrPI = "server=142.2.70.53;database=pi;uid=pi;"
+        //test  String _cConnStrPI = "server=.;database=pie;uid=pi;";
         String cUserID, cLastLabel;
         List<String> lXML = new List<String>();
         List<byte[]> lVendorLabelImage = new List<byte[]>();
@@ -166,8 +166,9 @@ namespace WHOperation
             cbsystem.Text = GlobalClass1.systemID;
             cUserID = GlobalClass1.userID;
             try
-            {
-                //test MFGProService.GetTable(cbsystem.Text, "wsas001", tfdnno.Text + "," + tfdndate.Text + "," + tftodndate.Text);
+            {  
+                //test 
+                MFGProService.GetTable(cbsystem.Text, "wsas001", tfdnno.Text + "," + tfdndate.Text + "," + tftodndate.Text);
                 //MFGProService.GetTable(cbsystem.Text, "wsas001", tfdnno.Text + "," + tfdndate.Text); 
             }
             catch (Exception ex) { }
@@ -184,7 +185,8 @@ namespace WHOperation
             resetForm(1);
             setPIMLData();
             //getTemplate();
-            //test setMandField();
+            //test 
+            setMandField();
             tabControl1.SelectedIndex = 1;
             //   var qty = dgv5PIPending.CurrentRow.Cells["PI_QTY"].Value;
             //  var pqty = dgv5PIPending.CurrentRow.Cells["PI_Print_QTY"].Value;
@@ -5485,11 +5487,12 @@ namespace WHOperation
             this.AcceptButton = null;
             _piid = txt1PIID.Text;
             //PI_NO,PI_LINE,
-            //test string tmpsql = @"select  rtrim(PI_PART) as PI_PART,rtrim(pi_mfgr_part) as pi_mfgr_part,rtrim(PI_LOT) PI_LOT,rtrim(PI_PO) PI_PO,rtrim(pi_mfgr) pi_mfgr,PI_QTY,'0' as PI_Print_QTY,isnull(pi_po_price,0) as PI_PO_price,PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + _piid + "' and (pi_lot<> NUll or pi_lot <>'') ";
-            string tmpsql = @" select rtrim([pisr_part]) as PI_PART,rtrim([MFGR_Part]) as pi_mfgr_part, rtrim([pisr_rir]) PI_LOT,rtrim([pisr_po_nbr]) PI_PO,rtrim([MFGR]) pi_mfgr,[pisr_qty] PI_QTY,'0' as PI_Print_QTY, isnull([REC_NO],0) as PI_PO_price,[pi_pallet_no] PI_PALLET,[CartonNo] PI_CARTON_NO,[pisr_site] PI_SITE,[pi_cre_date] pi_cre_time  FROM [dbo].[vpi_report] where [PI_ID]='" + _piid + "' ";
+            string tmpsql = @"select  rtrim(PI_PART) as PI_PART,rtrim(pi_mfgr_part) as pi_mfgr_part,rtrim(PI_LOT) PI_LOT,rtrim(PI_PO) PI_PO,rtrim(pi_mfgr) pi_mfgr,PI_QTY,'0' as PI_Print_QTY,isnull(pi_po_price,0) as PI_PO_price,PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + _piid + "' and (pi_lot<> NUll or pi_lot <>'') ";
+            //test string tmpsql = @" select rtrim([pisr_part]) as PI_PART,rtrim([MFGR_Part]) as pi_mfgr_part, rtrim([pisr_rir]) PI_LOT,rtrim([pisr_po_nbr]) PI_PO,rtrim([MFGR]) pi_mfgr,[pisr_qty] PI_QTY,'0' as PI_Print_QTY, isnull([REC_NO],0) as PI_PO_price,[pi_pallet_no] PI_PALLET,[CartonNo] PI_CARTON_NO,[pisr_site] PI_SITE,[pi_cre_date] pi_cre_time  FROM [dbo].[vpi_report] where [PI_ID]='" + _piid + "' ";
 
             string tmpaddwhere = "";
-            string tmporderby = " order by [pisr_rir] ";//test pi_line";
+            string tmporderby = " order by pi_line";
+            //test string tmporderby = " order by [pisr_rir] ";
 
             if (cbfiltertype.Text.Equals("PI PALLET"))
             {
@@ -5538,16 +5541,16 @@ namespace WHOperation
                     }
                 }
                 dtcomplete = _dtPIRemote.Clone();
+                //test 
+                addPrintQtyToDGV(_piid, _dtPIRemote, dgv5PIPending);
 
-                //test addPrintQtyToDGV(_piid, _dtPIRemote, dgv5PIPending);
-
-                dgv5PIPending.DataSource = _dtPIRemote.DefaultView;
+                //test dgv5PIPending.DataSource = _dtPIRemote.DefaultView;
 
                 setDGVHeaderPi(dgv5PIPending);
 
-                //test checkPrintNumger(dgv5PIPending, _dtPIRemote, dgv6PICompele);
+                checkPrintNumger(dgv5PIPending, _dtPIRemote, dgv6PICompele);//test 
 
-                //test setDGVHeaderPi(dgv6PICompele);
+                setDGVHeaderPi(dgv6PICompele);//test 
 
                 initCheckDateLot();
                 enableScan();
