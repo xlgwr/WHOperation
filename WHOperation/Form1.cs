@@ -33,7 +33,7 @@ namespace WHOperation
         DataSet _dsComplete = new DataSet();
 
         String _cConnStr = "Persist Security Info=False;User ID=appuser;pwd=application;Initial Catalog=dbWHOperation;Data Source=142.2.70.81;pooling=true";
-        String _cConnStrPI = "server=142.2.70.53;database=pi;uid=pi;"
+        String _cConnStrPI = "server=142.2.70.53;database=pi;uid=pi;";
         //test  String _cConnStrPI = "server=.;database=pie;uid=pi;";
         String cUserID, cLastLabel;
         List<String> lXML = new List<String>();
