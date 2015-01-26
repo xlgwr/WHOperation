@@ -166,7 +166,7 @@ namespace WHOperation
             cbsystem.Text = GlobalClass1.systemID;
             cUserID = GlobalClass1.userID;
             try
-            {  
+            {
                 //test 
                 MFGProService.GetTable(cbsystem.Text, "wsas001", tfdnno.Text + "," + tfdndate.Text + "," + tftodndate.Text);
                 //MFGProService.GetTable(cbsystem.Text, "wsas001", tfdnno.Text + "," + tfdndate.Text); 
@@ -409,6 +409,10 @@ namespace WHOperation
                 tf2recmfgrpart.Text = tf0mfgpart.Text;
                 return;
 
+            }
+            if (e.KeyCode==Keys.Right)
+            {
+                chk99UseMPQ.Checked = !chk99UseMPQ.Checked;
             }
             //if (e.KeyValue <= 31)
             //{
@@ -869,49 +873,50 @@ namespace WHOperation
 
                 if (_usePrintPI)
                 {
-
-                    var tmpmpq = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString().Trim();
-                    if (!string.IsNullOrEmpty(tmpmpq))
+                    if (chk99UseMPQ.Checked)
                     {
-                        if (Convert.ToDecimal(tmpmpq) > 0 && chk99UseMPQ.Checked)
+                        var tmpmpq = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString().Trim();
+                        if (!string.IsNullOrEmpty(tmpmpq))
                         {
-                            var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString().Trim();
-                            if (!tmp2mpq.Equals(intitem.ToString("###")))
+                            if (Convert.ToDecimal(tmpmpq) > 0 && chk99UseMPQ.Checked)
                             {
-                                tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
-
-                                if (chk9UseDateCode.Checked && chk9UseLotNumber.Checked)
+                                var tmp2mpq = Convert.ToDecimal(tmpmpq).ToString("###").ToString().Trim();
+                                if (!tmp2mpq.Equals(intitem.ToString("###")))
                                 {
-                                    if (string.IsNullOrEmpty(tf4datecode.Text))
+                                    tool_lbl_Msg.Text = "Enter Nubmer:" + item + " is not Equals MPQ:" + tmp2mpq;
+
+                                    if (chk9UseDateCode.Checked && chk9UseLotNumber.Checked)
                                     {
-                                        pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                                        tf4datecode.Text = intitem.ToString();
+                                        if (string.IsNullOrEmpty(tf4datecode.Text))
+                                        {
+                                            pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                            tf4datecode.Text = intitem.ToString();
+                                        }
                                     }
-                                }
-                                else if (chk9UseDateCode.Checked)
-                                {
-                                    if (string.IsNullOrEmpty(tf4datecode.Text))
+                                    else if (chk9UseDateCode.Checked)
                                     {
-                                        pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                                        tf4datecode.Text = intitem.ToString();
+                                        if (string.IsNullOrEmpty(tf4datecode.Text))
+                                        {
+                                            pbdatecode.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                            tf4datecode.Text = intitem.ToString();
+                                        }
                                     }
-                                }
-                                else if (chk9UseLotNumber.Checked)
-                                {
-                                    if (string.IsNullOrEmpty(tf6lotno.Text))
+                                    else if (chk9UseLotNumber.Checked)
                                     {
-                                        pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
-                                        tf6lotno.Text = intitem.ToString();
+                                        if (string.IsNullOrEmpty(tf6lotno.Text))
+                                        {
+                                            pblotnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                            tf6lotno.Text = intitem.ToString();
+                                        }
                                     }
+                                    
+                                    return false;
                                 }
 
-
-
-                                return false;
                             }
-
                         }
                     }
+
                 }
 
                 if (intitem % 10 == 0)
@@ -5445,6 +5450,8 @@ namespace WHOperation
         {
             Regex RegPrefix = new Regex(@"[a-zA-Z\.,@?^=%{};:/~\+#]+");
             var iPos = CartonId.IndexOf('-');
+            int left1 = 0;
+            int right2 = 0;
             var strCtnId = CartonId;
 
             if (string.IsNullOrEmpty(strCtnId))
@@ -5468,12 +5475,18 @@ namespace WHOperation
             }
             if (iPos > 0)
             {
-                strCtnIdArr = strCtnId.Split('-');
+                var tmpsplit = strCtnId.Split('-');
+                left1 = Convert.ToInt32(tmpsplit[0]);
+                right2 = Convert.ToInt32(tmpsplit[1]);
+
+                strCtnIdArr[0] = left1.ToString("###");
+                strCtnIdArr[1] = right2.ToString("###");
             }
             else
             {
-                strCtnIdArr[0] = strCtnId;
-                strCtnIdArr[1] = strCtnId;
+                left1 = Convert.ToInt32(strCtnId);
+                strCtnIdArr[0] = left1.ToString("###");
+                strCtnIdArr[1] = left1.ToString("###");
             }
 
             return strCtnIdArr;
@@ -5521,13 +5534,13 @@ namespace WHOperation
                     if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
                     {
                         _initCartonNo = initCartonFromTo(txt2FilterValue.Text.Trim());
-                        tmpaddwhere = "and (case CHARINDEX('-',PI_CARTON_NO,0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
+                        tmpaddwhere = "and pi_carton_no like '" + _initCartonNo[2] + "%' and cast((case CHARINDEX('-',PI_CARTON_NO,0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
                         tmpaddwhere += " else rtrim(ltrim(left(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''), ";
                         tmpaddwhere += " CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0)-1)))";
-                        tmpaddwhere += "  end) <= '" + _initCartonNo[0] + "' and  case CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
+                        tmpaddwhere += "  end) as decimal) <= '" + _initCartonNo[0] + "' and  cast((case CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
                         tmpaddwhere += " else right(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),";
                         tmpaddwhere += " len(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''))-CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0))";
-                        tmpaddwhere += "  end >= '" + _initCartonNo[0] + "'";
+                        tmpaddwhere += "  end) as decimal) >= '" + _initCartonNo[0] + "'";
                         var tmpsql2 = tmpsql + tmpaddwhere + tmporderby;
                         _dtPIRemote = getDataSetBySql(tmpsql2).Tables[0];
                     }

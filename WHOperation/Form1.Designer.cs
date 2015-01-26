@@ -261,8 +261,9 @@ namespace WHOperation
             this.tfscanarea.Name = "tfscanarea";
             this.tfscanarea.Size = new System.Drawing.Size(232, 106);
             this.tfscanarea.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.tfscanarea, "1.Home key go to CartonNO\r\n2.PgDn  key start Printing\r\n3.Enter key split Scan tex" +
-                    "t\r\n4.Insert key get part\r\n5.delete key init");
+            this.toolTip1.SetToolTip(this.tfscanarea, "1.Home key go to CartonNO(输入箱号)\r\n2.PgDn  key start Printing(开始打印)\r\n3.Enter key sp" +
+                    "lit Scan text(开始扫描)\r\n4.Insert key get part(获取PN/QPL)\r\n5.delete key init(清除)\r\n6.r" +
+                    "ight--> key enable search MPQ(是否使用MPQ)");
             this.tfscanarea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfscanarea_KeyDown);
             // 
             // tf1dnpartnumber
@@ -1709,7 +1710,7 @@ namespace WHOperation
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1116, 635);
+            this.panel1.Size = new System.Drawing.Size(1119, 635);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -1795,9 +1796,9 @@ namespace WHOperation
             this.chk5NoSplit.ForeColor = System.Drawing.Color.Red;
             this.chk5NoSplit.Location = new System.Drawing.Point(929, 166);
             this.chk5NoSplit.Name = "chk5NoSplit";
-            this.chk5NoSplit.Size = new System.Drawing.Size(174, 16);
+            this.chk5NoSplit.Size = new System.Drawing.Size(210, 16);
             this.chk5NoSplit.TabIndex = 16;
-            this.chk5NoSplit.Text = "No Split Part or QPL-part";
+            this.chk5NoSplit.Text = "Scan Split Prefix Part/QPL-part";
             this.chk5NoSplit.UseVisualStyleBackColor = true;
             this.chk5NoSplit.CheckedChanged += new System.EventHandler(this.chk5NoSplit_CheckedChanged);
             // 
@@ -2156,7 +2157,7 @@ namespace WHOperation
             this.tool_lbl_Msg});
             this.statusStrip1.Location = new System.Drawing.Point(0, 613);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1116, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1119, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2170,7 +2171,7 @@ namespace WHOperation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1116, 635);
+            this.ClientSize = new System.Drawing.Size(1119, 635);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
