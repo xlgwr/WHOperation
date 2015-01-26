@@ -213,6 +213,8 @@ namespace WHOperation
             this.chk99SaveTxt = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.contextMenuStrip2DownExcel = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.downToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -251,6 +253,7 @@ namespace WHOperation
             this.tabPage3Compele.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.contextMenuStrip2DownExcel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tfscanarea
@@ -262,8 +265,8 @@ namespace WHOperation
             this.tfscanarea.Size = new System.Drawing.Size(232, 106);
             this.tfscanarea.TabIndex = 3;
             this.toolTip1.SetToolTip(this.tfscanarea, "1.Home key go to CartonNO(输入箱号)\r\n2.PgDn  key start Printing(开始打印)\r\n3.Enter key sp" +
-                    "lit Scan text(开始扫描)\r\n4.Insert key get part(获取PN/QPL)\r\n5.delete key init(清除)\r\n6.r" +
-                    "ight--> key enable search MPQ(是否使用MPQ)");
+        "lit Scan text(开始扫描)\r\n4.Insert key get part(获取PN/QPL)\r\n5.delete key init(清除)\r\n6.r" +
+        "ight--> key enable search MPQ(是否使用MPQ)");
             this.tfscanarea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfscanarea_KeyDown);
             // 
             // tf1dnpartnumber
@@ -2044,6 +2047,7 @@ namespace WHOperation
             dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv5PIPending.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dgv5PIPending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv5PIPending.ContextMenuStrip = this.contextMenuStrip2DownExcel;
             dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle14.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -2093,6 +2097,7 @@ namespace WHOperation
             dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv6PICompele.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dgv6PICompele.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv6PICompele.ContextMenuStrip = this.contextMenuStrip2DownExcel;
             dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle17.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -2167,6 +2172,20 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
+            // contextMenuStrip2DownExcel
+            // 
+            this.contextMenuStrip2DownExcel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.downToExcelToolStripMenuItem});
+            this.contextMenuStrip2DownExcel.Name = "contextMenuStrip2DownExcel";
+            this.contextMenuStrip2DownExcel.Size = new System.Drawing.Size(159, 26);
+            // 
+            // downToExcelToolStripMenuItem
+            // 
+            this.downToExcelToolStripMenuItem.Name = "downToExcelToolStripMenuItem";
+            this.downToExcelToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.downToExcelToolStripMenuItem.Text = "Down to Excel";
+            this.downToExcelToolStripMenuItem.Click += new System.EventHandler(this.downToExcelToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2227,6 +2246,7 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.contextMenuStrip2DownExcel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2361,11 +2381,9 @@ namespace WHOperation
         private System.Windows.Forms.CheckBox chk1jh;
         private System.Windows.Forms.CheckBox chk5NoSplit;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel tool_lbl_Msg;
         private System.Windows.Forms.CheckBox chk7_zuoxiegang;
         private System.Windows.Forms.CheckBox chk5_meiyuan;
         private System.Windows.Forms.Button btn2PIID;
-        private System.Windows.Forms.TextBox txt1PIID;
         private System.Windows.Forms.Label lbl0Dn_PI_key;
         private System.Windows.Forms.TabPage tabPage5PIpending;
         private System.Windows.Forms.TabPage tabPage3Compele;
@@ -2399,6 +2417,10 @@ namespace WHOperation
         private System.Windows.Forms.Label lbl22UseDnNumber;
         private System.Windows.Forms.CheckBox chk99SaveTxt;
         private System.Windows.Forms.CheckBox chk00UseDnNo;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2DownExcel;
+        private System.Windows.Forms.ToolStripMenuItem downToExcelToolStripMenuItem;
+        protected internal System.Windows.Forms.ToolStripStatusLabel tool_lbl_Msg;
+        protected internal System.Windows.Forms.TextBox txt1PIID;
     }
 }
 

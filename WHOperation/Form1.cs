@@ -18,6 +18,7 @@ using System.Data.Entity;
 
 using WHOperation.EF.WHO;
 using WHOperation.EF.DW;
+using WHOperation.API;
 
 //using System.Runtime.InteropServices;
 //using Microsoft.Win32.SafeHandles;
@@ -129,6 +130,10 @@ namespace WHOperation
         cCaptureData cBufferData;
 
         dbWHOperation _dbWHOperation;
+
+        //commonfunction
+        CommonAPI cf;
+
         public Form1()
         {
             InitializeComponent();
@@ -136,6 +141,8 @@ namespace WHOperation
             _strNoPrefixlit = new List<string>();
             _strNoPrefixlitTmp = new List<string>();
             _dbWHOperation = new dbWHOperation();
+
+            cf = new CommonAPI(this);
 
             this.FormClosing += new FormClosingEventHandler(this.Form1_FormClosing);
 
@@ -410,7 +417,7 @@ namespace WHOperation
                 return;
 
             }
-            if (e.KeyCode==Keys.Right)
+            if (e.KeyCode == Keys.Right)
             {
                 chk99UseMPQ.Checked = !chk99UseMPQ.Checked;
             }
@@ -909,8 +916,14 @@ namespace WHOperation
                                             tf6lotno.Text = intitem.ToString();
                                         }
                                     }
-                                    
+
                                     return false;
+                                }
+                                else
+                                {
+                                    pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                                    tf3recqty.Text = intitem.ToString("###");
+                                    return true;
                                 }
 
                             }
@@ -4261,7 +4274,7 @@ namespace WHOperation
             _splitStringTmp = "";
             tfnooflabels.Leave += new EventHandler(tfnooflabels_Leave);
             tfnooflabels.KeyDown += new KeyEventHandler(txtkeypress);
-
+            contextMenuStrip2DownExcel.Click += tsm0menu_EnquireByPart_Click;
             _splitStrTample = new List<prefixCheckbox>() {
                new prefixCheckbox(",",chk0dh),
                //new prefixCheckbox("-",chk1jh),
@@ -5498,7 +5511,7 @@ namespace WHOperation
             _usePrintPI = true;
             string[] _initCartonNo;
             this.AcceptButton = null;
-            _piid = txt1PIID.Text;
+            _piid = txt1PIID.Text.Trim();
             //PI_NO,PI_LINE,
             string tmpsql = @"select  rtrim(PI_PART) as PI_PART,rtrim(pi_mfgr_part) as pi_mfgr_part,rtrim(PI_LOT) PI_LOT,rtrim(PI_PO) PI_PO,rtrim(pi_mfgr) pi_mfgr,PI_QTY,'0' as PI_Print_QTY,isnull(pi_po_price,0) as PI_PO_price,PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + _piid + "' and (pi_lot<> NUll or pi_lot <>'') ";
             //test string tmpsql = @" select rtrim([pisr_part]) as PI_PART,rtrim([MFGR_Part]) as pi_mfgr_part, rtrim([pisr_rir]) PI_LOT,rtrim([pisr_po_nbr]) PI_PO,rtrim([MFGR]) pi_mfgr,[pisr_qty] PI_QTY,'0' as PI_Print_QTY, isnull([REC_NO],0) as PI_PO_price,[pi_pallet_no] PI_PALLET,[CartonNo] PI_CARTON_NO,[pisr_site] PI_SITE,[pi_cre_date] pi_cre_time  FROM [dbo].[vpi_report] where [PI_ID]='" + _piid + "' ";
@@ -5534,7 +5547,16 @@ namespace WHOperation
                     if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
                     {
                         _initCartonNo = initCartonFromTo(txt2FilterValue.Text.Trim());
-                        tmpaddwhere = "and pi_carton_no like '" + _initCartonNo[2] + "%' and cast((case CHARINDEX('-',PI_CARTON_NO,0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
+                        if (string.IsNullOrEmpty(_initCartonNo[2]))
+                        {
+                            tmpaddwhere = " and rtrim(ltrim(pi_carton_no)) like '[0-9]%' ";
+                        }
+                        else
+                        {
+                            tmpaddwhere = " and rtrim(ltrim(pi_carton_no)) like '" + _initCartonNo[2] + "%' ";
+                        }
+
+                        tmpaddwhere += " and cast((case CHARINDEX('-',PI_CARTON_NO,0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
                         tmpaddwhere += " else rtrim(ltrim(left(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''), ";
                         tmpaddwhere += " CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0)-1)))";
                         tmpaddwhere += "  end) as decimal) <= '" + _initCartonNo[0] + "' and  cast((case CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
@@ -6350,6 +6372,34 @@ namespace WHOperation
         public bool _findWecPart101 { get; set; }
 
         public bool _findQplPart101 { get; set; }
+
+        private void downToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string strprefix = "6PICompele";
+            if (_dgv_ToolScriptMenu.Name.Equals("dgv5PIPending"))
+            {
+                strprefix = "5PIPending";
+            }
+            var tmpname = strprefix + "_" + txt1PIID.Text;// +"_" + DateTime.Now.Minute.ToString("0#") + DateTime.Now.Millisecond.ToString("00#");
+            var dwo = new DoWorkObject(_dgv_ToolScriptMenu, "xlsx", tmpname, "", true);
+            cf.downLoadExcel_Thread(dwo);
+        }
+        void tsm0menu_EnquireByPart_Click(object sender, EventArgs e)
+        {
+            var tmpDGV = (DataGridView)contextMenuStrip2DownExcel.SourceControl;
+            if (_dgv_ToolScriptMenu == null)
+            {
+                _dgv_ToolScriptMenu = tmpDGV;
+                return;
+            }
+            if (_dgv_ToolScriptMenu != tmpDGV)
+            {
+                cf._intnext = 0;
+                _dgv_ToolScriptMenu = tmpDGV;
+            }
+        }
+        public string _strDownLoadExcel { get; set; }
+        public DataGridView _dgv_ToolScriptMenu { get; set; }
     }
     public class printStringList
     {
