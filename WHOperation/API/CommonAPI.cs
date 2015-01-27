@@ -257,7 +257,7 @@ namespace WHOperation.API
                         }
 
                         return "success: find in [" + headerText + "] with " + strcontains + " at " + _intnext + " Row," + " start " + tmpStartnext;
-                        break;
+                        
                     }
                     if (i >= rowcount - 2)
                     {

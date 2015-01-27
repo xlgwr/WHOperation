@@ -252,7 +252,7 @@ namespace WHOperation
                 xmlDevices = xmlDoc.SelectNodes("/Header/twodseperator");
                 c2DSeperator = xmlDevices.Item(0).InnerXml;
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
             tflabeltype.Text = cLabelType;
             tf2dseperator.Text = c2DSeperator;
         }
