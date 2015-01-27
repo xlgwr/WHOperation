@@ -2384,6 +2384,20 @@ namespace WHOperation
 
             initCheckDateLot();
 
+            if (_usePrintPI)
+            {
+                if (dgv5PIPending.RowCount <= 0)
+                {
+                    txt2FilterValue.Focus();
+                    txt2FilterValue.SelectAll();
+                }
+                else
+                {
+
+                    tfscanarea.Focus();
+                }
+            }
+
         }
         void getTemplate()
         {
@@ -2563,7 +2577,16 @@ namespace WHOperation
 
             }
             lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
-            tfscanarea.Focus();
+            if (dgv5PIPending.RowCount <= 0)
+            {
+                txt2FilterValue.Focus();
+                txt2FilterValue.SelectAll();
+            }
+            else
+            {
+
+                tfscanarea.Focus();
+            }
             //enableScan();
 
         }
@@ -2900,7 +2923,7 @@ namespace WHOperation
             /*cPara.Append(cR.Cells["DNSite"].Value.ToString()+","+cR.Cells["PartNumber"].Value.ToString()+
                 "," + cR.Cells["RIRNo"].Value.ToString() + ",'',''," + tfrecqty.Text + "," + tfmfgpart.Text + "," + cUserID + "," + tflotno.Text + ",''," +
                 tfexpiredate.Text+",'',"+cR.Cells["t_shelf_life"].Value.ToString()+",'YES','NO','R'");*/
-            cPara.Append(cPIMSNumber + "," + cR.Cells[strcellRiRNO].Value.ToString() + "," + _tfclass._tfdatecode + "," + _tfclass._tfmfgdate + "," + _tfclass._tfexpiredate + "," + _tfclass._tfrecqty + "," + cUserID + "," + _tfclass._tflotno + "," + _tfclass._tfrecmfgrpart);
+            cPara.Append(cPIMSNumber + "|" + cR.Cells[strcellRiRNO].Value.ToString() + "|" + _tfclass._tfdatecode + "|" + _tfclass._tfmfgdate + "|" + _tfclass._tfexpiredate + "|" + _tfclass._tfrecqty + "|" + cUserID + "|" + _tfclass._tflotno + "|" + _tfclass._tfrecmfgrpart);
             cRetReader = callMFGService(cLocalSysID, cServiceID, cPara.ToString());
             try
             {
@@ -2942,7 +2965,7 @@ namespace WHOperation
             /*cPara.Append(cR.Cells["DNSite"].Value.ToString()+","+cR.Cells["PartNumber"].Value.ToString()+
                 "," + cR.Cells["RIRNo"].Value.ToString() + ",'',''," + tfrecqty.Text + "," + tfmfgpart.Text + "," + cUserID + "," + tflotno.Text + ",''," +
                 tfexpiredate.Text+",'',"+cR.Cells["t_shelf_life"].Value.ToString()+",'YES','NO','R'");*/
-            cPara.Append(cPIMSNumber + "," + cR.Cells["RIRNo"].Value.ToString() + "," + _tfclass._tfdatecode + "," + _tfclass._tfmfgdate + "," + _tfclass._tfexpiredate + "," + _tfclass._tfrecqty + "," + cUserID + "," + _tfclass._tflotno + "," + _tfclass._tfrecmfgrpart);
+            cPara.Append(cPIMSNumber + "|" + cR.Cells["RIRNo"].Value.ToString() + "|" + _tfclass._tfdatecode + "|" + _tfclass._tfmfgdate + "|" + _tfclass._tfexpiredate + "|" + _tfclass._tfrecqty + "|" + cUserID + "|" + _tfclass._tflotno + "|" + _tfclass._tfrecmfgrpart);
             cRetReader = callMFGService(cLocalSysID, cServiceID, cPara.ToString());
             try
             {
@@ -4603,6 +4626,7 @@ namespace WHOperation
             initSet();
             _enableinit = false;
 
+
         }
         public void initSet()
         {
@@ -4685,7 +4709,19 @@ namespace WHOperation
 
             tfscanarea.Text = "";
 
-            tfscanarea.Focus();
+            if (_usePrintPI)
+            {
+                if (dgv5PIPending.RowCount <= 0)
+                {
+                    txt2FilterValue.Focus();
+                    txt2FilterValue.SelectAll();
+                }
+                else
+                {
+
+                    tfscanarea.Focus();
+                }
+            }
         }
         private void bEnableScan_Click(object sender, EventArgs e)
         {
@@ -5520,8 +5556,19 @@ namespace WHOperation
             string tmporderby = " order by pi_line";
             //test string tmporderby = " order by [pisr_rir] ";
 
+            if (txt2FilterValue.Text.Length > 7)
+            {
+                txt2FilterValue.SelectAll();
+                return;
+            }
+
             if (cbfiltertype.Text.Equals("PI PALLET"))
             {
+                if (txt2FilterValue.Text.Length > 7)
+                {
+                    txt2FilterValue.SelectAll();
+                    return;
+                }
                 if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
                 {
                     tmpaddwhere = " and PI_PALLET='" + txt2FilterValue.Text.Trim() + "'";
@@ -5529,6 +5576,11 @@ namespace WHOperation
             }
             else if (cbfiltertype.Text.Equals("CartonNo"))
             {
+                if (txt2FilterValue.Text.Length > 7)
+                {
+                    txt2FilterValue.SelectAll();
+                    return;
+                }
                 if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
                 {
                     tmpaddwhere = " and ltrim(PI_CARTON_NO) = '" + txt2FilterValue.Text.Trim() + "'";
@@ -5546,6 +5598,11 @@ namespace WHOperation
 
                     if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
                     {
+                        if (txt2FilterValue.Text.Length > 7)
+                        {
+                            txt2FilterValue.SelectAll();
+                            return;
+                        }
                         _initCartonNo = initCartonFromTo(txt2FilterValue.Text.Trim());
                         if (string.IsNullOrEmpty(_initCartonNo[2]))
                         {
@@ -6224,7 +6281,19 @@ namespace WHOperation
         }
         public void initCheckDateLot()
         {
+            if (_usePrintPI)
+            {
+                if (dgv5PIPending.RowCount <= 0)
+                {
+                    txt2FilterValue.Focus();
+                    txt2FilterValue.SelectAll();
+                }
+                else
+                {
 
+                    tfscanarea.Focus();
+                }
+            }
             if (chk99AutoDateLot.Checked)
             {
                 chk9UseDateCode.Checked = false;
