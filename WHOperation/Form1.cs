@@ -5598,30 +5598,33 @@ namespace WHOperation
 
                     if (!string.IsNullOrEmpty(txt2FilterValue.Text.Trim()))
                     {
-                        if (txt2FilterValue.Text.Length > 7)
+                        if (cbfiltertype.Text.Equals("CartonNo"))
                         {
-                            txt2FilterValue.SelectAll();
-                            return;
-                        }
-                        _initCartonNo = initCartonFromTo(txt2FilterValue.Text.Trim());
-                        if (string.IsNullOrEmpty(_initCartonNo[2]))
-                        {
-                            tmpaddwhere = " and rtrim(ltrim(pi_carton_no)) like '[0-9]%' ";
-                        }
-                        else
-                        {
-                            tmpaddwhere = " and rtrim(ltrim(pi_carton_no)) like '" + _initCartonNo[2] + "%' ";
-                        }
+                            if (txt2FilterValue.Text.Length > 7)
+                            {
+                                txt2FilterValue.SelectAll();
+                                return;
+                            }
+                            _initCartonNo = initCartonFromTo(txt2FilterValue.Text.Trim());
+                            if (string.IsNullOrEmpty(_initCartonNo[2]))
+                            {
+                                tmpaddwhere = " and rtrim(ltrim(pi_carton_no)) like '[0-9]%' ";
+                            }
+                            else
+                            {
+                                tmpaddwhere = " and rtrim(ltrim(pi_carton_no)) like '" + _initCartonNo[2] + "%' ";
+                            }
 
-                        tmpaddwhere += " and cast((case CHARINDEX('-',PI_CARTON_NO,0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
-                        tmpaddwhere += " else rtrim(ltrim(left(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''), ";
-                        tmpaddwhere += " CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0)-1)))";
-                        tmpaddwhere += "  end) as decimal) <= '" + _initCartonNo[0] + "' and  cast((case CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
-                        tmpaddwhere += " else right(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),";
-                        tmpaddwhere += " len(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''))-CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0))";
-                        tmpaddwhere += "  end) as decimal) >= '" + _initCartonNo[0] + "'";
-                        var tmpsql2 = tmpsql + tmpaddwhere + tmporderby;
-                        _dtPIRemote = getDataSetBySql(tmpsql2).Tables[0];
+                            tmpaddwhere += " and cast((case CHARINDEX('-',PI_CARTON_NO,0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
+                            tmpaddwhere += " else rtrim(ltrim(left(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''), ";
+                            tmpaddwhere += " CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0)-1)))";
+                            tmpaddwhere += "  end) as decimal) <= '" + _initCartonNo[0] + "' and  cast((case CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0) when 0 then rtrim(ltrim(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "','')))";
+                            tmpaddwhere += " else right(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),";
+                            tmpaddwhere += " len(REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''))-CHARINDEX('-',REPLACE(PI_CARTON_NO,'" + _initCartonNo[2] + "',''),0))";
+                            tmpaddwhere += "  end) as decimal) >= '" + _initCartonNo[0] + "'";
+                            var tmpsql2 = tmpsql + tmpaddwhere + tmporderby;
+                            _dtPIRemote = getDataSetBySql(tmpsql2).Tables[0];
+                        }
                     }
                     if (_dtPIRemote.Rows.Count <= 0)
                     {
