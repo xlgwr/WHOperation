@@ -1666,7 +1666,7 @@ namespace WHOperation
             var tmpmsg = "";
             int cSearchFound = 0;
 
-            if (string.IsNullOrEmpty(scanString) || scanString.Length < 4)
+            if (string.IsNullOrEmpty(scanString) || scanString.Length < 6)
             {
                 return;
             }
@@ -1952,6 +1952,7 @@ namespace WHOperation
                 {
                     onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
                     dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
+
                 }
                 cSearchFound = 1;
                 cl1SetValue.Invoke(new Action(delegate()
@@ -1969,6 +1970,12 @@ namespace WHOperation
                 {
                     tmpmsg = "find in Pending list with [Remove Space] of " + percent + "% " + dgv.Columns[strSearchnamePart].HeaderText + ":[" + scanString + "]";
                 }
+
+                lib0ScanDataListBox.Items.Clear();
+                _strScanlit.Clear();
+                _strlit.Clear();
+                lib1SplitListBox.Items.Clear();
+
                 return true;
                 break;
             }
@@ -2640,8 +2647,11 @@ namespace WHOperation
                 cRec[i] = cR.Cells[i].Value.ToString().Trim();
             }
 
-            _tfclass = new tfclass(tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text,
+            _tfclass = new tfclass(_piid,tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text,
                 tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
+            var tmpqty = getSumPIdetWitRir(_tfclass);
+            _tfclass._ttlQty = String.IsNullOrEmpty(tmpqty) ? tf0dnqty.Text.Trim() : tmpqty;
+
             disableScan();
 
             cPIMSNumber = "tmpPIMS";
@@ -2681,7 +2691,7 @@ namespace WHOperation
                                         //lPIMSData[7] = (Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text)).ToString().Trim();
                                         lPIMSData[7] = cPIMSQty.ToString().Trim();
                                 }
-                                catch (Exception ex) { lPIMSData[7] = "0"; }
+                                catch (Exception ex) { lPIMSData[7] = "0"; tool_lbl_Msg.Text = "lPIMSData[7] data is 0"; return false; }
                                 printPIML(lPIMSData, 1);
                             }
                             cCartonLoop += 1;
@@ -2776,8 +2786,9 @@ namespace WHOperation
             {
                 cRec[i] = cR.Cells[i].Value.ToString().Trim();
             }
-            _tfclass = new tfclass(tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text,
+            _tfclass = new tfclass(_piid,tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text,
                 tf6lotno.Text, tf0mfgdate.Text, tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
+            _tfclass._ttlQty = tf0dnqty.Text.Trim();
             disableScan();
 
             cPIMSNumber = "tmpPIMS";
@@ -2812,7 +2823,7 @@ namespace WHOperation
                             else
                             {
                                 cCartonQty = "0";
-                                cPIMSQty = (Convert.ToDouble(_tfclass._tfrecqty) * Convert.ToDouble(tfnooflabels.Text)) / cNoOfCartons;
+                                cPIMSQty = (Convert.ToDouble(_tfclass._tfrecqty) * Convert.ToDouble(tfnooflabels.Text));
                                 try
                                 {
                                     if (Convert.ToDouble(cCartonQty) > 0)
@@ -3850,7 +3861,7 @@ namespace WHOperation
                 cRet = pimlPrint.genPIML(
                             _tfclass._tfdndate.Substring(_tfclass._tfdndate.Length - 2, 2),
                             lPIMSData[5].ToString().ToUpper(), _tfclass._tflotno.ToUpper(), lPIMSData[2].ToString().ToUpper(), lPIMSData[3].ToString().ToUpper(),
-                            lPIMSData[7].ToString().ToUpper(), _tfclass._tfdnqty, lPIMSData[6].ToString().ToUpper(), lPIMSData[4].ToString().ToUpper(),
+                            lPIMSData[7].ToString().ToUpper(), _tfclass._ttlQty, lPIMSData[6].ToString().ToUpper(), lPIMSData[4].ToString().ToUpper(),
                             lPIMSData[9].ToString().ToUpper(), lPIMSData[10].ToString().ToUpper(), lPIMSData[11].ToString().ToUpper(), lPIMSData[12].ToString().ToUpper(),
                             lPIMSData[0].ToString().ToUpper(), lPIMSData[13].ToString().ToUpper(),
                             cSelPrinter, lPIMSData[14].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(),
@@ -5683,7 +5694,8 @@ namespace WHOperation
                         p.pi_mfgr_part.Equals(item["pi_mfgr_part"].ToString().Trim()) &&
                         p.PI_LOT.Equals(item["PI_LOT"].ToString().Trim()) &&
                         p.PI_PO.Equals(item["PI_PO"].ToString().Trim()) &&
-                        p.pi_mfgr.Equals(item["pi_mfgr"].ToString().Trim())
+                        p.pi_mfgr.Equals(item["pi_mfgr"].ToString().Trim()) &&
+                        p.PI_QTY.Equals(item["PI_QTY"])
                         ).ToList();
                     if (tmpExist.Count > 0)
                     {
@@ -5889,6 +5901,30 @@ namespace WHOperation
                     while (tmpread.Read())
                     {
                         return tmpread[0].ToString().Trim();
+                    }
+                    tmpread.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return "";
+        }
+        public string getSumPIdetWitRir(tfclass tf)
+        {
+            //select * from pi_det where pi_no='P140033' order by pi_line
+            var tmpsql = @"select sum(pi_qty) from piRemote7.pi.dbo.pi_det where pi_no='" + tf._piid + "' and pi_lot='" + tf._tfrirno + "' and PI_PART='"+tf._tfdnpartnumber+"' and pi_mfgr_part='"+tf._tfmfgpart+"'";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cConnStrPI))
+                {
+                    SqlCommand cmd = new SqlCommand(tmpsql, conn);
+                    conn.Open();
+                    var tmpread = cmd.ExecuteReader();
+                    while (tmpread.Read())
+                    {
+                        return Convert.ToDouble(tmpread[0]).ToString("###").Trim();
                     }
                     tmpread.Close();
                 }

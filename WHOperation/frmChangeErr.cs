@@ -41,13 +41,13 @@ namespace WHOperation
                 else
                 {
 
-                    tfpartno.Text = _sdgvr.Cells[0].Value.ToString();
-                    tfmfgpart.Text = _sdgvr.Cells[1].Value.ToString();
-                    tfrirno.Text = _sdgvr.Cells[2].Value.ToString();
-                    _strPONum = _sdgvr.Cells[3].Value.ToString();
-                    _strPiMfgr = _sdgvr.Cells[4].Value.ToString();
-                    tfdnqty.Text = _sdgvr.Cells[5].Value.ToString();
-                    _intOldPrintQty = _sdgvr.Cells[6].Value.ToString();
+                    tfpartno.Text = _sdgvr.Cells["PI_PART"].Value.ToString();
+                    tfmfgpart.Text = _sdgvr.Cells["pi_mfgr_part"].Value.ToString();
+                    tfrirno.Text = _sdgvr.Cells["PI_LOT"].Value.ToString();
+                    _strPONum = _sdgvr.Cells["PI_PO"].Value.ToString();
+                    _strPiMfgr = _sdgvr.Cells["pi_mfgr"].Value.ToString();
+                    tfdnqty.Text = _sdgvr.Cells["PI_QTY"].Value.ToString();
+                    _intOldPrintQty = _sdgvr.Cells["PI_Print_QTY"].Value.ToString();
                     txt0PrintedQty.Text = _intOldPrintQty;
                 }
 
