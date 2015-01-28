@@ -2561,8 +2561,9 @@ namespace WHOperation
             //PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time
             piPrintModel.PI_mpq = string.IsNullOrEmpty(cr.Cells["PI_PO_price"].Value.ToString()) ? 0 : Convert.ToDecimal(cr.Cells["PI_PO_price"].Value.ToString());
             piPrintModel.PI_SITE = cr.Cells["PI_SITE"].Value.ToString().Trim();
-            piPrintModel.pi_remark = cr.Cells["PI_PALLET"].Value.ToString().Trim() + "," + cr.Cells["PI_CARTON_NO"].Value.ToString().Trim();            
+            piPrintModel.pi_remark = cr.Cells["PI_PALLET"].Value.ToString().Trim() + "," + cr.Cells["PI_CARTON_NO"].Value.ToString().Trim();
             piPrintModel.pi_num1 = string.IsNullOrEmpty(tf3recqty.Text) ? 0 : Convert.ToInt32(tf3recqty.Text);
+            piPrintModel.pi_num2 = string.IsNullOrEmpty(cr.Cells["ttlQTY"].Value.ToString()) ? 0 : Convert.ToDecimal(cr.Cells["ttlQTY"].Value.ToString());
 
             if (string.IsNullOrEmpty(tf3recqty.Text))
             {
@@ -2720,7 +2721,7 @@ namespace WHOperation
 
             _tfclass = new tfclass(_piid, tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text,
                 tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
-            var tmpqty = getSumPIdetWitRir(_tfclass);
+            var tmpqty = Convert.ToDecimal(cR.Cells["ttlQTY"]).ToString("###");// getSumPIdetWitRir(_tfclass);
             _tfclass._ttlQty = String.IsNullOrEmpty(tmpqty) ? tf0dnqty.Text.Trim() : tmpqty;
 
             disableScan();
@@ -4387,6 +4388,11 @@ namespace WHOperation
             tfnooflabels.Leave += new EventHandler(tfnooflabels_Leave);
             tfnooflabels.KeyDown += new KeyEventHandler(txtkeypress);
             contextMenuStrip2DownExcel.Click += tsm0menu_EnquireByPart_Click;
+
+            dgv1Pending.RowPostPaint += dgv5PIPending_RowPostPaint;
+            dgv2Complete.RowPostPaint += dgv5PIPending_RowPostPaint;
+            dgv6PICompele.RowPostPaint += dgv5PIPending_RowPostPaint;
+
             _splitStrTample = new List<prefixCheckbox>() {
                new prefixCheckbox(",",chk0dh),
                //new prefixCheckbox("-",chk1jh),
@@ -5645,7 +5651,12 @@ namespace WHOperation
             this.AcceptButton = null;
             _piid = txt1PIID.Text.Trim();
             //PI_NO,PI_LINE,
-            string tmpsql = @"select  rtrim(PI_PART) as PI_PART,rtrim(pi_mfgr_part) as pi_mfgr_part,rtrim(PI_LOT) PI_LOT,rtrim(PI_PO) PI_PO,rtrim(pi_mfgr) pi_mfgr,PI_QTY,'0' as PI_Print_QTY,isnull(pi_po_price,0) as PI_PO_price,PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time from piRemote7.pi.dbo.pi_det where pi_no='" + _piid + "' and (pi_lot<> NUll or pi_lot <>'') ";
+            string tmpsql = @"select  rtrim(PI_PART) as PI_PART,rtrim(pi_mfgr_part) as pi_mfgr_part,rtrim(PI_LOT) PI_LOT,rtrim(PI_PO) PI_PO,rtrim(pi_mfgr) " +
+                            @" pi_mfgr,PI_QTY,'0' as PI_Print_QTY,isnull(pi_po_price,0) as PI_PO_price,PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time,isnull(b.ttlQTY,0) as ttlQTY" +
+                            @" from piRemote7.pi.dbo.pi_det a " +
+                            @" left join (select PI_LOT as bPI_LOT,sum(PI_QTY) ttlQTY from piRemote7.pi.dbo.pi_det " +
+                            @" where pi_no='" + _piid + "' and (pi_lot<> NUll or pi_lot <>'') group by pi_lot,PI_PART,pi_mfgr_part) b on a.PI_LOT=b.bPI_LOT " +
+                            @" where a.pi_no='" + _piid + "' and (a.pi_lot<> NUll or a.pi_lot <>'') ";
             //test string tmpsql = @" select rtrim([pisr_part]) as PI_PART,rtrim([MFGR_Part]) as pi_mfgr_part, rtrim([pisr_rir]) PI_LOT,rtrim([pisr_po_nbr]) PI_PO,rtrim([MFGR]) pi_mfgr,[pisr_qty] PI_QTY,'0' as PI_Print_QTY, isnull([REC_NO],0) as PI_PO_price,[pi_pallet_no] PI_PALLET,[CartonNo] PI_CARTON_NO,[pisr_site] PI_SITE,[pi_cre_date] pi_cre_time  FROM [dbo].[vpi_report] where [PI_ID]='" + _piid + "' ";
 
             string tmpaddwhere = "";
@@ -6619,6 +6630,23 @@ namespace WHOperation
         {
             _split6PrefixLot = txt6_split_lot.Text;
         }
+
+        private void dgv5PIPending_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var dgv = (DataGridView)sender;
+            using (var brush = new SolidBrush(dgv.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                if (e.RowIndex >= 100)
+                {
+                    e.Graphics.DrawString((e.RowIndex + 1).ToString(), dgv.DefaultCellStyle.Font, brush, e.RowBounds.Location.X + 12, e.RowBounds.Y + 8);
+                }
+                else
+                {
+                    e.Graphics.DrawString((e.RowIndex + 1).ToString(), dgv.DefaultCellStyle.Font, brush, e.RowBounds.Location.X + 18, e.RowBounds.Y + 8);
+                }
+            }
+        }
+
     }
     public class printStringList
     {

@@ -35,6 +35,9 @@ namespace WHOperation
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -47,9 +50,6 @@ namespace WHOperation
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tfscanarea = new System.Windows.Forms.TextBox();
@@ -100,6 +100,12 @@ namespace WHOperation
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tab3_QRBar = new System.Windows.Forms.TabControl();
             this.tabPage5_OldQRBar = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txt6_split_lot = new System.Windows.Forms.TextBox();
+            this.txt4_split_DateCode = new System.Windows.Forms.TextBox();
+            this.txt3_split_QTY = new System.Windows.Forms.TextBox();
             this.txt00Prefix = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.bStop = new System.Windows.Forms.Button();
@@ -173,6 +179,10 @@ namespace WHOperation
             this.lMDateCode = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lStatus = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip2DownExcel = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.downToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cbtrimmfgpart = new System.Windows.Forms.CheckBox();
             this.cbprintcartonlabel = new System.Windows.Forms.CheckBox();
             this.cbSmartScan = new System.Windows.Forms.CheckBox();
@@ -209,24 +219,14 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5PIpending = new System.Windows.Forms.TabPage();
             this.dgv5PIPending = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip2DownExcel = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.downToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3Compele = new System.Windows.Forms.TabPage();
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.txt2FilterValue = new System.Windows.Forms.TextBox();
             this.chk99AutoDateLot = new System.Windows.Forms.CheckBox();
             this.chk99SaveTxt = new System.Windows.Forms.CheckBox();
+            this.chk0PrintAll = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.txt3_split_QTY = new System.Windows.Forms.TextBox();
-            this.txt4_split_DateCode = new System.Windows.Forms.TextBox();
-            this.txt6_split_lot = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.chk0PrintAll = new System.Windows.Forms.CheckBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -250,6 +250,9 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.pbrecqty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbmfgdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbdatecode)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStrip2DownExcel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -262,12 +265,9 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.dgv2Complete)).BeginInit();
             this.tabPage5PIpending.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).BeginInit();
-            this.contextMenuStrip2DownExcel.SuspendLayout();
             this.tabPage3Compele.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tfscanarea
@@ -865,6 +865,57 @@ namespace WHOperation
             this.tabPage5_OldQRBar.TabIndex = 0;
             this.tabPage5_OldQRBar.Text = "Old QR Bar";
             this.tabPage5_OldQRBar.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 258);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 78;
+            this.label2.Text = "3.Rec. Qty";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 302);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(77, 12);
+            this.label11.TabIndex = 77;
+            this.label11.Text = "6.Lot Number";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(7, 280);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(71, 12);
+            this.label22.TabIndex = 76;
+            this.label22.Text = "4.Date Code";
+            // 
+            // txt6_split_lot
+            // 
+            this.txt6_split_lot.Location = new System.Drawing.Point(84, 298);
+            this.txt6_split_lot.Name = "txt6_split_lot";
+            this.txt6_split_lot.Size = new System.Drawing.Size(146, 21);
+            this.txt6_split_lot.TabIndex = 75;
+            this.txt6_split_lot.TextChanged += new System.EventHandler(this.txt6_split_lot_TextChanged);
+            // 
+            // txt4_split_DateCode
+            // 
+            this.txt4_split_DateCode.Location = new System.Drawing.Point(84, 275);
+            this.txt4_split_DateCode.Name = "txt4_split_DateCode";
+            this.txt4_split_DateCode.Size = new System.Drawing.Size(146, 21);
+            this.txt4_split_DateCode.TabIndex = 73;
+            this.txt4_split_DateCode.TextChanged += new System.EventHandler(this.txt4_split_DateCode_TextChanged);
+            // 
+            // txt3_split_QTY
+            // 
+            this.txt3_split_QTY.Location = new System.Drawing.Point(84, 253);
+            this.txt3_split_QTY.Name = "txt3_split_QTY";
+            this.txt3_split_QTY.Size = new System.Drawing.Size(146, 21);
+            this.txt3_split_QTY.TabIndex = 71;
+            this.txt3_split_QTY.TextChanged += new System.EventHandler(this.txt3_split_QTY_TextChanged);
             // 
             // txt00Prefix
             // 
@@ -1607,6 +1658,68 @@ namespace WHOperation
             this.lStatus.TabIndex = 0;
             this.lStatus.Text = ".";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.dataGridView1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1093, 376);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Print All";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip2DownExcel;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(745, 367);
+            this.dataGridView1.TabIndex = 1;
+            // 
+            // contextMenuStrip2DownExcel
+            // 
+            this.contextMenuStrip2DownExcel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.downToExcelToolStripMenuItem});
+            this.contextMenuStrip2DownExcel.Name = "contextMenuStrip2DownExcel";
+            this.contextMenuStrip2DownExcel.Size = new System.Drawing.Size(159, 26);
+            // 
+            // downToExcelToolStripMenuItem
+            // 
+            this.downToExcelToolStripMenuItem.Name = "downToExcelToolStripMenuItem";
+            this.downToExcelToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.downToExcelToolStripMenuItem.Text = "Down to Excel";
+            this.downToExcelToolStripMenuItem.Click += new System.EventHandler(this.downToExcelToolStripMenuItem_Click);
+            // 
             // cbtrimmfgpart
             // 
             this.cbtrimmfgpart.AutoSize = true;
@@ -2094,21 +2207,8 @@ namespace WHOperation
             this.dgv5PIPending.Size = new System.Drawing.Size(745, 127);
             this.dgv5PIPending.TabIndex = 0;
             this.dgv5PIPending.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv5PIPending_CellDoubleClick);
+            this.dgv5PIPending.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgv5PIPending_RowPostPaint);
             this.dgv5PIPending.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv5PIPending_KeyDown);
-            // 
-            // contextMenuStrip2DownExcel
-            // 
-            this.contextMenuStrip2DownExcel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.downToExcelToolStripMenuItem});
-            this.contextMenuStrip2DownExcel.Name = "contextMenuStrip2DownExcel";
-            this.contextMenuStrip2DownExcel.Size = new System.Drawing.Size(159, 26);
-            // 
-            // downToExcelToolStripMenuItem
-            // 
-            this.downToExcelToolStripMenuItem.Name = "downToExcelToolStripMenuItem";
-            this.downToExcelToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.downToExcelToolStripMenuItem.Text = "Down to Excel";
-            this.downToExcelToolStripMenuItem.Click += new System.EventHandler(this.downToExcelToolStripMenuItem_Click);
             // 
             // tabPage3Compele
             // 
@@ -2192,6 +2292,18 @@ namespace WHOperation
             this.chk99SaveTxt.Text = "Save TxT";
             this.chk99SaveTxt.UseVisualStyleBackColor = true;
             // 
+            // chk0PrintAll
+            // 
+            this.chk0PrintAll.AutoSize = true;
+            this.chk0PrintAll.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk0PrintAll.ForeColor = System.Drawing.Color.Red;
+            this.chk0PrintAll.Location = new System.Drawing.Point(551, 16);
+            this.chk0PrintAll.Name = "chk0PrintAll";
+            this.chk0PrintAll.Size = new System.Drawing.Size(87, 16);
+            this.chk0PrintAll.TabIndex = 30;
+            this.chk0PrintAll.Text = "Print All";
+            this.chk0PrintAll.UseVisualStyleBackColor = true;
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2207,117 +2319,6 @@ namespace WHOperation
             this.tool_lbl_Msg.ForeColor = System.Drawing.Color.Red;
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
-            // 
-            // txt3_split_QTY
-            // 
-            this.txt3_split_QTY.Location = new System.Drawing.Point(84, 253);
-            this.txt3_split_QTY.Name = "txt3_split_QTY";
-            this.txt3_split_QTY.Size = new System.Drawing.Size(146, 21);
-            this.txt3_split_QTY.TabIndex = 71;
-            this.txt3_split_QTY.TextChanged += new System.EventHandler(this.txt3_split_QTY_TextChanged);
-            // 
-            // txt4_split_DateCode
-            // 
-            this.txt4_split_DateCode.Location = new System.Drawing.Point(84, 275);
-            this.txt4_split_DateCode.Name = "txt4_split_DateCode";
-            this.txt4_split_DateCode.Size = new System.Drawing.Size(146, 21);
-            this.txt4_split_DateCode.TabIndex = 73;
-            this.txt4_split_DateCode.TextChanged += new System.EventHandler(this.txt4_split_DateCode_TextChanged);
-            // 
-            // txt6_split_lot
-            // 
-            this.txt6_split_lot.Location = new System.Drawing.Point(84, 298);
-            this.txt6_split_lot.Name = "txt6_split_lot";
-            this.txt6_split_lot.Size = new System.Drawing.Size(146, 21);
-            this.txt6_split_lot.TabIndex = 75;
-            this.txt6_split_lot.TextChanged += new System.EventHandler(this.txt6_split_lot_TextChanged);
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(7, 280);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(71, 12);
-            this.label22.TabIndex = 76;
-            this.label22.Text = "4.Date Code";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 302);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(77, 12);
-            this.label11.TabIndex = 77;
-            this.label11.Text = "6.Lot Number";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 258);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 12);
-            this.label2.TabIndex = 78;
-            this.label2.Text = "3.Rec. Qty";
-            // 
-            // chk0PrintAll
-            // 
-            this.chk0PrintAll.AutoSize = true;
-            this.chk0PrintAll.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.chk0PrintAll.ForeColor = System.Drawing.Color.Red;
-            this.chk0PrintAll.Location = new System.Drawing.Point(551, 16);
-            this.chk0PrintAll.Name = "chk0PrintAll";
-            this.chk0PrintAll.Size = new System.Drawing.Size(87, 16);
-            this.chk0PrintAll.TabIndex = 30;
-            this.chk0PrintAll.Text = "Print All";
-            this.chk0PrintAll.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.dataGridView1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1093, 376);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip2DownExcel;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(745, 367);
-            this.dataGridView1.TabIndex = 1;
             // 
             // Form1
             // 
@@ -2362,6 +2363,9 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.pbrecqty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbmfgdate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbdatecode)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip2DownExcel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -2375,13 +2379,10 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.dgv2Complete)).EndInit();
             this.tabPage5PIpending.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).EndInit();
-            this.contextMenuStrip2DownExcel.ResumeLayout(false);
             this.tabPage3Compele.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
