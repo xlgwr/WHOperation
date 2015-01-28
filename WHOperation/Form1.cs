@@ -59,7 +59,10 @@ namespace WHOperation
 
         private static Regex RegNumber = new Regex("^[0-9]+$");
         private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
-        public static string _splitPrefix = @"9D;D;30P;1P;P;Q;33T;1T;T;KOA/;KOA+;KOA-;PKOA-;PKOA/;PKOA+;3N1;3N2";
+        public static string _split0Prefix = @"PKOA;KOA;30P;1P;P;Q;33T;3N1;3N2";
+        public static string _split3PrefixQty = @"Q;";
+        public static string _split4PrefixDC = @"10D;9D;D;T";
+        public static string _split6PrefixLot = @"1T;";
         public List<prefixCheckbox> _splitStrTample;
         public static string getQRcode = "";
         public string _strtmp;
@@ -412,6 +415,8 @@ namespace WHOperation
             }
             if (e.KeyCode == Keys.Insert)
             {
+                tf1dnpartnumber.Text = "";
+                tf2recmfgrpart.Text = "";
                 tf1dnpartnumber.Text = tf0partno.Text;
                 tf2recmfgrpart.Text = tf0mfgpart.Text;
                 return;
@@ -785,7 +790,7 @@ namespace WHOperation
                         if (chk5NoSplit.Checked)
                         {
                             searchByItem(item);
-                            searchByItemByPrefix(item, _splitPrefix, lib0ScanDataListBox);
+                            searchByItemByPrefix(item, _split0Prefix, lib0ScanDataListBox);
                         }
                         ///end
 
@@ -816,9 +821,20 @@ namespace WHOperation
         }
         public void searchByItemByPrefix(string item, string strprefix, ListBox libAdd)
         {
+            //qty
+            searchByItemByPrefix(item, _split3PrefixQty, pbrecqty, tf3recqty, lib0ScanDataListBox, true);//) { return; }
+            //datecode
+            searchByItemByPrefix(item, _split4PrefixDC, pbdatecode, tf4datecode, lib0ScanDataListBox, false);//) { return; }
+            //lot
+            searchByItemByPrefix(item, _split6PrefixLot, pblotnumber, tf6lotno, lib0ScanDataListBox, false);//) { return; }
+            //part and qpl split
             var tmpspalit = strprefix.Split(';');
             foreach (var ckey in tmpspalit)
             {
+                if (string.IsNullOrEmpty(ckey))
+                {
+                    return;
+                }
                 if (item.StartsWith(ckey, StringComparison.OrdinalIgnoreCase))
                 {
                     var tmpitem = item.Substring(ckey.Length);
@@ -826,15 +842,69 @@ namespace WHOperation
                     if (!_strScanlit.Contains(tmpitem))
                     {
                         libAdd.Items.Add(tmpitem);
-
                         _strScanlit.Add(tmpitem);
+                        libAdd.SelectedIndex = libAdd.Items.Count - 1;
                     }
                     searchByItem(tmpitem);
 
                     break;
                 }
             }
+
+
         }
+        public bool searchByItemByPrefix(string item, string strprefix, PictureBox pb, TextBox tb, ListBox libAdd, bool isqty)
+        {
+            var tmpspalit = strprefix.Split(';');
+            foreach (var ckey in tmpspalit)
+            {
+                if (string.IsNullOrEmpty(ckey))
+                {
+                    return false;
+                }
+                if (item.StartsWith(ckey, StringComparison.OrdinalIgnoreCase))
+                {
+                    var tmpitem = item.Substring(ckey.Length);
+
+                    if (!_strScanlit.Contains(tmpitem))
+                    {
+                        libAdd.Items.Add(tmpitem);
+                        _strScanlit.Add(tmpitem);
+                        libAdd.SelectedIndex = libAdd.Items.Count - 1;
+                    }
+                    if (string.IsNullOrEmpty(tb.Text))
+                    {
+                        if (isqty)
+                        {
+                            if (tmpitem.Length > 7)
+                            {
+                                return false;
+                            }
+
+                            if (!IsDecimal(tmpitem))
+                            {
+                                return false;
+                            }
+
+                            if (Convert.ToDecimal(tmpitem) <= 0)
+                            {
+                                return false;
+                            }
+                        }
+                        if (!tb.ReadOnly)
+                        {
+                            pb.Image = Image.FromFile(Application.StartupPath + @"\images\tick100.png");
+                            tb.Text = tmpitem;
+                        }
+
+                        return true;
+                    }
+                    break;
+                }
+            }
+            return false;
+        }
+
         public bool searchByItem(string item)
         {
             if (_printend)
@@ -2491,11 +2561,12 @@ namespace WHOperation
             //PI_PALLET,PI_CARTON_NO,PI_SITE,pi_cre_time
             piPrintModel.PI_mpq = string.IsNullOrEmpty(cr.Cells["PI_PO_price"].Value.ToString()) ? 0 : Convert.ToDecimal(cr.Cells["PI_PO_price"].Value.ToString());
             piPrintModel.PI_SITE = cr.Cells["PI_SITE"].Value.ToString().Trim();
-            piPrintModel.pi_remark = cr.Cells["PI_PALLET"].Value.ToString().Trim() + "," + cr.Cells["PI_CARTON_NO"].Value.ToString().Trim();
+            piPrintModel.pi_remark = cr.Cells["PI_PALLET"].Value.ToString().Trim() + "," + cr.Cells["PI_CARTON_NO"].Value.ToString().Trim();            
+            piPrintModel.pi_num1 = string.IsNullOrEmpty(tf3recqty.Text) ? 0 : Convert.ToInt32(tf3recqty.Text);
 
             if (string.IsNullOrEmpty(tf3recqty.Text))
             {
-                tf3recqty.Text = "";
+                return false;
             }
             var ttlPrint = Convert.ToInt32(tfnooflabels.Text.Trim()) *
                                       Convert.ToInt32(tf3recqty.Text.Trim());// +Convert.ToDecimal(dgv.CurrentRow.Cells["PI_Print_QTY"].Value);
@@ -2647,7 +2718,7 @@ namespace WHOperation
                 cRec[i] = cR.Cells[i].Value.ToString().Trim();
             }
 
-            _tfclass = new tfclass(_piid,tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text,
+            _tfclass = new tfclass(_piid, tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text,
                 tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
             var tmpqty = getSumPIdetWitRir(_tfclass);
             _tfclass._ttlQty = String.IsNullOrEmpty(tmpqty) ? tf0dnqty.Text.Trim() : tmpqty;
@@ -2786,7 +2857,7 @@ namespace WHOperation
             {
                 cRec[i] = cR.Cells[i].Value.ToString().Trim();
             }
-            _tfclass = new tfclass(_piid,tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text,
+            _tfclass = new tfclass(_piid, tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text,
                 tf6lotno.Text, tf0mfgdate.Text, tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
             _tfclass._ttlQty = tf0dnqty.Text.Trim();
             disableScan();
@@ -4326,7 +4397,10 @@ namespace WHOperation
                new prefixCheckbox(":",chk7maohao),
                new prefixCheckbox("+",chk8JiaHao)
             };
-            txt00Prefix.Text = _splitPrefix;
+            txt00Prefix.Text = _split0Prefix;
+            txt3_split_QTY.Text = _split3PrefixQty;
+            txt4_split_DateCode.Text = _split4PrefixDC;
+            txt6_split_lot.Text = _split6PrefixLot;
             _tmpseletListboxValue = "";
 
             chk9UsePartNo.Checked = true;
@@ -4911,7 +4985,7 @@ namespace WHOperation
                 if (chk5NoSplit.Checked)
                 {
                     searchByItem(item);
-                    searchByItemByPrefix(item, _splitPrefix, lib0ScanDataListBox);
+                    searchByItemByPrefix(item, _split0Prefix, lib0ScanDataListBox);
                 }
             }
         }
@@ -4939,7 +5013,7 @@ namespace WHOperation
                         if (chk5NoSplit.Checked)
                         {
                             searchByItem(item);
-                            searchByItemByPrefix(item, _splitPrefix, lib0ScanDataListBox);
+                            searchByItemByPrefix(item, _split0Prefix, lib0ScanDataListBox);
                         }
                         ///end
 
@@ -5068,7 +5142,7 @@ namespace WHOperation
 
                 }
                 searchByItem(item);
-                searchByItemByPrefix(item, _splitPrefix, lib1SplitListBox);
+                searchByItemByPrefix(item, _split0Prefix, lib1SplitListBox);
             }
         }
         public void splitFromStringWithChar(ListBox lbSelect, string strWithChar, bool useLongStringOne, ListBox lbToAdd)
@@ -5598,6 +5672,7 @@ namespace WHOperation
             }
             else if (cbfiltertype.Text.Equals("CartonNo"))
             {
+
                 if (txt2FilterValue.Text.Length > 7)
                 {
                     txt2FilterValue.SelectAll();
@@ -5628,7 +5703,7 @@ namespace WHOperation
                                 return;
                             }
                             _initCartonNo = initCartonFromTo(txt2FilterValue.Text.Trim());
-                            if (_initCartonNo[0].Equals("0"))
+                            if (_initCartonNo[0].Equals("0") || string.IsNullOrEmpty(_initCartonNo[0]))
                             {
                                 txt2FilterValue.SelectAll();
                                 return;
@@ -5914,7 +5989,7 @@ namespace WHOperation
         public string getSumPIdetWitRir(tfclass tf)
         {
             //select * from pi_det where pi_no='P140033' order by pi_line
-            var tmpsql = @"select sum(pi_qty) from piRemote7.pi.dbo.pi_det where pi_no='" + tf._piid + "' and pi_lot='" + tf._tfrirno + "' and PI_PART='"+tf._tfdnpartnumber+"' and pi_mfgr_part='"+tf._tfmfgpart+"'";
+            var tmpsql = @"select sum(pi_qty) from piRemote7.pi.dbo.pi_det where pi_no='" + tf._piid + "' and pi_lot='" + tf._tfrirno + "' and PI_PART='" + tf._tfdnpartnumber + "' and pi_mfgr_part='" + tf._tfmfgpart + "'";
             try
             {
                 using (SqlConnection conn = new SqlConnection(_cConnStrPI))
@@ -5999,7 +6074,7 @@ namespace WHOperation
 
         private void txt00Prefix_TextChanged(object sender, EventArgs e)
         {
-            _splitPrefix = txt00Prefix.Text;
+            _split0Prefix = txt00Prefix.Text;
         }
 
 
@@ -6328,6 +6403,8 @@ namespace WHOperation
 
         private void button2_Click_2(object sender, EventArgs e)
         {
+            tf1dnpartnumber.Text = "";
+            tf2recmfgrpart.Text = "";
             tf1dnpartnumber.Text = tf0partno.Text;
             tf2recmfgrpart.Text = tf0mfgpart.Text;
             tfscanarea.Focus();
@@ -6527,6 +6604,21 @@ namespace WHOperation
         }
         public string _strDownLoadExcel { get; set; }
         public DataGridView _dgv_ToolScriptMenu { get; set; }
+
+        private void txt3_split_QTY_TextChanged(object sender, EventArgs e)
+        {
+            _split3PrefixQty = txt3_split_QTY.Text;
+        }
+
+        private void txt4_split_DateCode_TextChanged(object sender, EventArgs e)
+        {
+            _split4PrefixDC = txt4_split_DateCode.Text;
+        }
+
+        private void txt6_split_lot_TextChanged(object sender, EventArgs e)
+        {
+            _split6PrefixLot = txt6_split_lot.Text;
+        }
     }
     public class printStringList
     {
