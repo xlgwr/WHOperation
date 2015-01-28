@@ -1666,7 +1666,7 @@ namespace WHOperation
             var tmpmsg = "";
             int cSearchFound = 0;
 
-            if (string.IsNullOrEmpty(scanString))
+            if (string.IsNullOrEmpty(scanString) || scanString.Length < 4)
             {
                 return;
             }
@@ -2640,7 +2640,8 @@ namespace WHOperation
                 cRec[i] = cR.Cells[i].Value.ToString().Trim();
             }
 
-            _tfclass = new tfclass(tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text, tf5expiredate.Text, tfrirno.Text, tf0mfgdate.Text, tfdndate.Text, tf0dnqty.Text);
+            _tfclass = new tfclass(tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text,
+                tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
             disableScan();
 
             cPIMSNumber = "tmpPIMS";
@@ -2705,8 +2706,10 @@ namespace WHOperation
                             if (lPIMSData[5].ToUpper().Contains("MRB"))
                             {
 
-                                cQuery = @"insert into PIMSMRBException (DNNo,DNDate,RIRNo,SupplierID,MfgrID,MG,PIMS,PartNumber,ReqMfgrPart,RecMfgrPart,CustPart,RecQty) "
-                                                      + @"values('" + piid + "','" + cRec[10] + "','" + _tfclass._tfrirno + "','" + cRec[4] + "','" + lPIMSData[6] + "','" + cRec[9] + "','" + cPIMSNumber + "','" + cRec[0] + "','" + _tfclass._tfmfgpart + "','" + _tfclass._tfrecmfgrpart + "','PI','" + _tfclass._tfrecqty + "')";
+                                cQuery = @"insert into PIMSMRBException (DNNo,DNDate,RIRNo,SupplierID,MfgrID,MG,PIMS," +
+                                " PartNumber,PartNumberRec,ReqMfgrPart,RecMfgrPart,CustPart,RecQty) "
+                                + @"values('" + piid + "','" + cRec[11] + "','" + _tfclass._tfrirno + "','" + cRec[4] + "','" + lPIMSData[6] + "','" + cRec[10] + "','" + cPIMSNumber + "','" +
+                                cRec[0] + "','" + _tfclass._tfpartrec + "','" + lPIMSData[11].ToString() + "','" + _tfclass._tfrecmfgrpart + "','" + lPIMSData[12].ToString() + "','" + _tfclass._tfrecqty + "')";
 
                                 SQLUpdate(cQuery);
 
@@ -2773,7 +2776,8 @@ namespace WHOperation
             {
                 cRec[i] = cR.Cells[i].Value.ToString().Trim();
             }
-            _tfclass = new tfclass(tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text, tf5expiredate.Text, tfrirno.Text, tf0mfgdate.Text, tfdndate.Text, tf0dnqty.Text);
+            _tfclass = new tfclass(tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text,
+                tf6lotno.Text, tf0mfgdate.Text, tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
             disableScan();
 
             cPIMSNumber = "tmpPIMS";
@@ -2848,14 +2852,17 @@ namespace WHOperation
                             }
                             else
                             {
+
                                 //cPrintQty = Convert.ToDouble(tfrecqty.Text) * Convert.ToDouble(tfnooflabels.Text);
                                 cQuery = "update PIMLDetail set LineQty=LineQty + '" + _tfclass._tfrecqty + "',NoOfLabels=NoofLabels+1,PIMSNumber=PIMSNumber+'" + cPIMSNumber + ";' where DNNo='" + cDNNo + "' and PONo='" + cRec[6] + "' and PoLine='" + cRec[1] + "' and RIRNo='" + _tfclass._tfrirno + "' and DNDate='" + cRec[9] + "' and VendorID='" + cRec[2] + "'";
                             }
                             SQLUpdate(cQuery);
                             if (lPIMSData[5].ToUpper().Contains("MRB"))
                             {
-                                cQuery = "insert into PIMSMRBException (DNNo,DNDate,RIRNo,SupplierID,MfgrID,MG,PIMS,PartNumber,ReqMfgrPart,RecMfgrPart,CustPart,RecQty) " +
-                                    "values('" + cDNNo + "','" + cRec[9] + "','" + _tfclass._tfrirno + "','" + cRec[2] + "','" + lPIMSData[6] + "','" + cRec[10] + "','" + cPIMSNumber + "','" + cRec[3] + "','" + _tfclass._tfmfgpart + "','" + _tfclass._tfrecmfgrpart + "','" + cRec[14] + "','" + _tfclass._tfrecqty + "')";
+                                cQuery = "insert into PIMSMRBException (DNNo,DNDate,RIRNo,SupplierID,MfgrID,MG,PIMS," +
+                                "PartNumber,PartNumberRec,ReqMfgrPart,RecMfgrPart,CustPart,RecQty) " +
+                                    "values('" + cDNNo + "','" + cRec[9] + "','" + _tfclass._tfrirno + "','" + cRec[2] + "','" + lPIMSData[6] + "','" + cRec[10] + "','" + cPIMSNumber +
+                                "','" + cRec[3] + "','" + _tfclass._tfpartrec + "','" + lPIMSData[11].ToString() + "','" + _tfclass._tfrecmfgrpart + "','" + cRec[14] + "','" + _tfclass._tfrecqty + "')";
                                 SQLUpdate(cQuery);
                             }
                             setCompleteDN();
@@ -5533,6 +5540,10 @@ namespace WHOperation
             }
             else
             {
+                if (string.IsNullOrEmpty(strCtnId))
+                {
+                    strCtnId = "0";
+                }
                 left1 = Convert.ToInt32(strCtnId);
                 strCtnIdArr[0] = left1.ToString("###");
                 strCtnIdArr[1] = left1.ToString("###");
@@ -5606,6 +5617,11 @@ namespace WHOperation
                                 return;
                             }
                             _initCartonNo = initCartonFromTo(txt2FilterValue.Text.Trim());
+                            if (_initCartonNo[0].Equals("0"))
+                            {
+                                txt2FilterValue.SelectAll();
+                                return;
+                            }
                             if (string.IsNullOrEmpty(_initCartonNo[2]))
                             {
                                 tmpaddwhere = " and rtrim(ltrim(pi_carton_no)) like '[0-9]%' ";
@@ -6146,13 +6162,11 @@ namespace WHOperation
 
         private void tfpartno_DoubleClick(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tf1dnpartnumber.Text))
+            if (!string.IsNullOrEmpty(tf0partno.Text))
             {
-                if (!string.IsNullOrEmpty(tf0partno.Text))
-                {
-                    tf1dnpartnumber.Text = tf0partno.Text;
-                }
+                tf1dnpartnumber.Text = tf0partno.Text;
             }
+
         }
 
         private void tflotno_TextChanged(object sender, EventArgs e)
@@ -6172,14 +6186,19 @@ namespace WHOperation
                 _findWecPart100 = true;
                 _findQplPart100 = false;
                 tf1dnpartnumber.Enabled = false;
-                //dgv5PIPending.Rows[0].Cells[0].Selected = true;
+                if (dgv5PIPending.RowCount >= 0)
+                {
+                    dgv5PIPending.Rows[0].Cells[0].Selected = true;
+                }
+
             }
             else
             {
                 chk5AutoSearch2.Checked = false;
                 tf1dnpartnumber.Enabled = true;
+                tf1dnpartnumber.Text = "";
+                _findWecPart100 = false;
             }
-            tf1dnpartnumber.Text = "";
             tfscanarea.Focus();
 
         }

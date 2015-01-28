@@ -39,6 +39,9 @@ namespace WHOperation.EF.WHO
         [StringLength(50)]
         public string PartNumber { get; set; }
 
+        [StringLength(50)]
+        public string PartNumberRec { get; set; }
+
         [StringLength(100)]
         public string ReqMfgrPart { get; set; }
 

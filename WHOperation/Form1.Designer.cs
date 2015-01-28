@@ -206,6 +206,8 @@ namespace WHOperation
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5PIpending = new System.Windows.Forms.TabPage();
             this.dgv5PIPending = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip2DownExcel = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.downToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3Compele = new System.Windows.Forms.TabPage();
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.txt2FilterValue = new System.Windows.Forms.TextBox();
@@ -213,8 +215,6 @@ namespace WHOperation
             this.chk99SaveTxt = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.contextMenuStrip2DownExcel = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.downToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -250,10 +250,10 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.dgv2Complete)).BeginInit();
             this.tabPage5PIpending.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).BeginInit();
+            this.contextMenuStrip2DownExcel.SuspendLayout();
             this.tabPage3Compele.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            this.contextMenuStrip2DownExcel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tfscanarea
@@ -1713,7 +1713,7 @@ namespace WHOperation
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1119, 635);
+            this.panel1.Size = new System.Drawing.Size(1112, 635);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -2074,6 +2074,20 @@ namespace WHOperation
             this.dgv5PIPending.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv5PIPending_CellDoubleClick);
             this.dgv5PIPending.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv5PIPending_KeyDown);
             // 
+            // contextMenuStrip2DownExcel
+            // 
+            this.contextMenuStrip2DownExcel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.downToExcelToolStripMenuItem});
+            this.contextMenuStrip2DownExcel.Name = "contextMenuStrip2DownExcel";
+            this.contextMenuStrip2DownExcel.Size = new System.Drawing.Size(159, 26);
+            // 
+            // downToExcelToolStripMenuItem
+            // 
+            this.downToExcelToolStripMenuItem.Name = "downToExcelToolStripMenuItem";
+            this.downToExcelToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.downToExcelToolStripMenuItem.Text = "Down to Excel";
+            this.downToExcelToolStripMenuItem.Click += new System.EventHandler(this.downToExcelToolStripMenuItem_Click);
+            // 
             // tabPage3Compele
             // 
             this.tabPage3Compele.Controls.Add(this.dgv6PICompele);
@@ -2162,7 +2176,7 @@ namespace WHOperation
             this.tool_lbl_Msg});
             this.statusStrip1.Location = new System.Drawing.Point(0, 613);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1119, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1112, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2172,25 +2186,11 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
-            // contextMenuStrip2DownExcel
-            // 
-            this.contextMenuStrip2DownExcel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.downToExcelToolStripMenuItem});
-            this.contextMenuStrip2DownExcel.Name = "contextMenuStrip2DownExcel";
-            this.contextMenuStrip2DownExcel.Size = new System.Drawing.Size(159, 26);
-            // 
-            // downToExcelToolStripMenuItem
-            // 
-            this.downToExcelToolStripMenuItem.Name = "downToExcelToolStripMenuItem";
-            this.downToExcelToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.downToExcelToolStripMenuItem.Text = "Down to Excel";
-            this.downToExcelToolStripMenuItem.Click += new System.EventHandler(this.downToExcelToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1119, 635);
+            this.ClientSize = new System.Drawing.Size(1112, 635);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -2242,11 +2242,11 @@ namespace WHOperation
             ((System.ComponentModel.ISupportInitialize)(this.dgv2Complete)).EndInit();
             this.tabPage5PIpending.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv5PIPending)).EndInit();
+            this.contextMenuStrip2DownExcel.ResumeLayout(false);
             this.tabPage3Compele.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv6PICompele)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.contextMenuStrip2DownExcel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
