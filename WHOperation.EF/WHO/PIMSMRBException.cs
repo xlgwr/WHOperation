@@ -21,16 +21,16 @@ namespace WHOperation.EF.WHO
 
         [Key]
         [Column(Order = 2)]
-        [StringLength(10)]
+        [StringLength(50)]
         public string DNDate { get; set; }
 
-        [StringLength(20)]
+        [StringLength(50)]
         public string SupplierID { get; set; }
 
-        [StringLength(20)]
+        [StringLength(50)]
         public string MfgrID { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         public string MG { get; set; }
 
         [StringLength(30)]

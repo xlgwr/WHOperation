@@ -38,7 +38,10 @@ namespace WHOperation.EF.WHO
         [StringLength(50)]
         public string pi_mfgr { get; set; }
 
-        public decimal? PI_QTY { get; set; }
+        [Key]
+        [Column(Order = 6)]
+        public decimal PI_QTY { get; set; }
+
         public decimal? sumPrintQty { get; set; }
     }
 }

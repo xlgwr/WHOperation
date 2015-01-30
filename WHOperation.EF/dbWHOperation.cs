@@ -11,6 +11,7 @@ namespace WHOperation.EF.WHO
             : base("data source=142.2.70.81;initial catalog=dbWHOperation;user id=appuser;Password=application;MultipleActiveResultSets=True;App=EntityFramework")//"name=dbWHOperation")
         {
         }
+        public virtual DbSet<pi_Det_Remote> pi_Det_Remote { get; set; }
         public virtual DbSet<PI_Print> PI_Print { get; set; }
         public virtual DbSet<PIMLVendorTemplate> PIMLVendorTemplate { get; set; }
         public virtual DbSet<PIMLVendorTemplateX> PIMLVendorTemplateX { get; set; }
@@ -20,6 +21,30 @@ namespace WHOperation.EF.WHO
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<pi_Det_Remote>()
+                .Property(e => e.pi_QTY)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<pi_Det_Remote>()
+                .Property(e => e.pi_Print_QTY)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<pi_Det_Remote>()
+                .Property(e => e.pi_ttlQTY)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<pi_Det_Remote>()
+                .Property(e => e.pi_mpq)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<pi_Det_Remote>()
+                .Property(e => e.pi_num1)
+                .HasPrecision(18, 7);
+
+            modelBuilder.Entity<pi_Det_Remote>()
+                .Property(e => e.pi_num2)
+                .HasPrecision(18, 7);
+
             modelBuilder.Entity<PI_Print>()
                 .Property(e => e.PI_mpq)
                 .HasPrecision(18, 0);
@@ -61,6 +86,10 @@ namespace WHOperation.EF.WHO
             modelBuilder.Entity<PIMSMRBException>()
                 .Property(e => e.RecQty)
                 .HasPrecision(18, 5);
+
+            modelBuilder.Entity<vpi_sumPrintQty>()
+                .Property(e => e.PI_QTY)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<vpi_sumPrintQty>()
                 .Property(e => e.sumPrintQty)
