@@ -43,7 +43,7 @@ namespace WHOperation.EF.PI
         [StringLength(6)]
         public string PI_SITE { get; set; }
 
-        public DateTime? pi_cre_time { get; set; }
+        public DateTime? pi_cre_time { get; set; }         
 
         [Key]
         [Column(Order = 2, TypeName = "numeric")]

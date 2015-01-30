@@ -195,14 +195,15 @@ namespace WHOperation
             this.label15 = new System.Windows.Forms.Label();
             this.cbport = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chk0autoSplit = new System.Windows.Forms.CheckBox();
+            this.chk5AutoSearch2 = new System.Windows.Forms.CheckBox();
+            this.chk99UseMPQ = new System.Windows.Forms.CheckBox();
+            this.chk5NoSplit = new System.Windows.Forms.CheckBox();
+            this.chk99AutoDateLot = new System.Windows.Forms.CheckBox();
             this.lbl22UseDnNumber = new System.Windows.Forms.Label();
             this.chk00UseDnNo = new System.Windows.Forms.CheckBox();
-            this.chk5AutoSearch2 = new System.Windows.Forms.CheckBox();
             this.lbl0Dn_PI_key = new System.Windows.Forms.Label();
             this.btn2PIID = new System.Windows.Forms.Button();
-            this.chk99UseMPQ = new System.Windows.Forms.CheckBox();
-            this.chk0autoSplit = new System.Windows.Forms.CheckBox();
-            this.chk5NoSplit = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tftodndate = new System.Windows.Forms.DateTimePicker();
             this.bGo = new System.Windows.Forms.Button();
@@ -225,7 +226,6 @@ namespace WHOperation
             this.tabPage3Compele = new System.Windows.Forms.TabPage();
             this.dgv6PICompele = new System.Windows.Forms.DataGridView();
             this.txt2FilterValue = new System.Windows.Forms.TextBox();
-            this.chk99AutoDateLot = new System.Windows.Forms.CheckBox();
             this.chk99SaveTxt = new System.Windows.Forms.CheckBox();
             this.chk0PrintAll = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -431,7 +431,7 @@ namespace WHOperation
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv1Pending.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv1Pending.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv1Pending.Size = new System.Drawing.Size(745, 127);
+            this.dgv1Pending.Size = new System.Drawing.Size(799, 127);
             this.dgv1Pending.TabIndex = 0;
             this.dgv1Pending.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv1Pending_CellDoubleClick);
             this.dgv1Pending.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv1Pending_KeyDown);
@@ -657,7 +657,7 @@ namespace WHOperation
             this.tabControl1.Location = new System.Drawing.Point(0, 214);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1119, 396);
+            this.tabControl1.Size = new System.Drawing.Size(1097, 396);
             this.tabControl1.TabIndex = 20;
             // 
             // tabPage1
@@ -744,7 +744,7 @@ namespace WHOperation
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1111, 370);
+            this.tabPage2.Size = new System.Drawing.Size(1089, 370);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Capture PIMS Data";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -757,7 +757,7 @@ namespace WHOperation
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1105, 364);
+            this.groupBox2.Size = new System.Drawing.Size(1083, 364);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "PIMS Data Capture";
@@ -827,7 +827,7 @@ namespace WHOperation
             this.splitContainer2.Panel2.Controls.Add(this.lMRecMfgPart);
             this.splitContainer2.Panel2.Controls.Add(this.lMRecQty);
             this.splitContainer2.Panel2.Controls.Add(this.lMDateCode);
-            this.splitContainer2.Size = new System.Drawing.Size(1099, 344);
+            this.splitContainer2.Size = new System.Drawing.Size(1077, 344);
             this.splitContainer2.SplitterDistance = 241;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -898,7 +898,7 @@ namespace WHOperation
             // 
             // txt6_split_lot
             // 
-            this.txt6_split_lot.Location = new System.Drawing.Point(84, 298);
+            this.txt6_split_lot.Location = new System.Drawing.Point(87, 298);
             this.txt6_split_lot.Name = "txt6_split_lot";
             this.txt6_split_lot.Size = new System.Drawing.Size(146, 21);
             this.txt6_split_lot.TabIndex = 75;
@@ -906,7 +906,7 @@ namespace WHOperation
             // 
             // txt4_split_DateCode
             // 
-            this.txt4_split_DateCode.Location = new System.Drawing.Point(84, 275);
+            this.txt4_split_DateCode.Location = new System.Drawing.Point(87, 275);
             this.txt4_split_DateCode.Name = "txt4_split_DateCode";
             this.txt4_split_DateCode.Size = new System.Drawing.Size(146, 21);
             this.txt4_split_DateCode.TabIndex = 73;
@@ -914,7 +914,7 @@ namespace WHOperation
             // 
             // txt3_split_QTY
             // 
-            this.txt3_split_QTY.Location = new System.Drawing.Point(84, 253);
+            this.txt3_split_QTY.Location = new System.Drawing.Point(87, 253);
             this.txt3_split_QTY.Name = "txt3_split_QTY";
             this.txt3_split_QTY.Size = new System.Drawing.Size(146, 21);
             this.txt3_split_QTY.TabIndex = 71;
@@ -922,7 +922,7 @@ namespace WHOperation
             // 
             // txt00Prefix
             // 
-            this.txt00Prefix.Location = new System.Drawing.Point(0, 207);
+            this.txt00Prefix.Location = new System.Drawing.Point(1, 207);
             this.txt00Prefix.Multiline = true;
             this.txt00Prefix.Name = "txt00Prefix";
             this.txt00Prefix.Size = new System.Drawing.Size(232, 45);
@@ -1849,16 +1849,21 @@ namespace WHOperation
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.chk0autoSplit);
+            this.panel1.Controls.Add(this.chk5AutoSearch2);
+            this.panel1.Controls.Add(this.chk99UseMPQ);
+            this.panel1.Controls.Add(this.chk5NoSplit);
+            this.panel1.Controls.Add(this.cbtrimmfgpart);
+            this.panel1.Controls.Add(this.chk99AutoDateLot);
+            this.panel1.Controls.Add(this.cbSmartScan);
+            this.panel1.Controls.Add(this.cbprintcartonlabel);
+            this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.tfdnno);
             this.panel1.Controls.Add(this.lbl22UseDnNumber);
             this.panel1.Controls.Add(this.chk00UseDnNo);
-            this.panel1.Controls.Add(this.chk5AutoSearch2);
             this.panel1.Controls.Add(this.lbl0Dn_PI_key);
             this.panel1.Controls.Add(this.btn2PIID);
             this.panel1.Controls.Add(this.txt1PIID);
-            this.panel1.Controls.Add(this.chk99UseMPQ);
-            this.panel1.Controls.Add(this.chk0autoSplit);
-            this.panel1.Controls.Add(this.chk5NoSplit);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.tftodndate);
             this.panel1.Controls.Add(this.bGo);
@@ -1870,22 +1875,79 @@ namespace WHOperation
             this.panel1.Controls.Add(this.label17);
             this.panel1.Controls.Add(this.tfdndate);
             this.panel1.Controls.Add(this.label14);
-            this.panel1.Controls.Add(this.cbtrimmfgpart);
-            this.panel1.Controls.Add(this.chk99AutoDateLot);
             this.panel1.Controls.Add(this.chk99SaveTxt);
             this.panel1.Controls.Add(this.cbAutoPrint);
-            this.panel1.Controls.Add(this.cbSmartScan);
-            this.panel1.Controls.Add(this.cbprintcartonlabel);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.cbport);
             this.panel1.Controls.Add(this.cbprintertype);
-            this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.chk0PrintAll);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1119, 208);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // chk0autoSplit
+            // 
+            this.chk0autoSplit.AutoSize = true;
+            this.chk0autoSplit.Checked = true;
+            this.chk0autoSplit.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk0autoSplit.ForeColor = System.Drawing.Color.Red;
+            this.chk0autoSplit.Location = new System.Drawing.Point(1029, 134);
+            this.chk0autoSplit.Name = "chk0autoSplit";
+            this.chk0autoSplit.Size = new System.Drawing.Size(84, 16);
+            this.chk0autoSplit.TabIndex = 16;
+            this.chk0autoSplit.Text = "Auto Split";
+            this.chk0autoSplit.UseVisualStyleBackColor = true;
+            // 
+            // chk5AutoSearch2
+            // 
+            this.chk5AutoSearch2.AutoSize = true;
+            this.chk5AutoSearch2.ForeColor = System.Drawing.Color.Red;
+            this.chk5AutoSearch2.Location = new System.Drawing.Point(929, 150);
+            this.chk5AutoSearch2.Name = "chk5AutoSearch2";
+            this.chk5AutoSearch2.Size = new System.Drawing.Size(168, 16);
+            this.chk5AutoSearch2.TabIndex = 28;
+            this.chk5AutoSearch2.Text = "Auto Search in QPL mastr";
+            this.chk5AutoSearch2.UseVisualStyleBackColor = true;
+            // 
+            // chk99UseMPQ
+            // 
+            this.chk99UseMPQ.AutoSize = true;
+            this.chk99UseMPQ.Checked = true;
+            this.chk99UseMPQ.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk99UseMPQ.ForeColor = System.Drawing.Color.Red;
+            this.chk99UseMPQ.Location = new System.Drawing.Point(929, 86);
+            this.chk99UseMPQ.Name = "chk99UseMPQ";
+            this.chk99UseMPQ.Size = new System.Drawing.Size(96, 16);
+            this.chk99UseMPQ.TabIndex = 16;
+            this.chk99UseMPQ.Text = "Qty with MPQ";
+            this.chk99UseMPQ.UseVisualStyleBackColor = true;
+            // 
+            // chk5NoSplit
+            // 
+            this.chk5NoSplit.AutoSize = true;
+            this.chk5NoSplit.ForeColor = System.Drawing.Color.Red;
+            this.chk5NoSplit.Location = new System.Drawing.Point(929, 166);
+            this.chk5NoSplit.Name = "chk5NoSplit";
+            this.chk5NoSplit.Size = new System.Drawing.Size(210, 16);
+            this.chk5NoSplit.TabIndex = 16;
+            this.chk5NoSplit.Text = "Scan Split Prefix Part/QPL-part";
+            this.chk5NoSplit.UseVisualStyleBackColor = true;
+            this.chk5NoSplit.CheckedChanged += new System.EventHandler(this.chk5NoSplit_CheckedChanged);
+            // 
+            // chk99AutoDateLot
+            // 
+            this.chk99AutoDateLot.AutoSize = true;
+            this.chk99AutoDateLot.Checked = true;
+            this.chk99AutoDateLot.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk99AutoDateLot.Location = new System.Drawing.Point(929, 182);
+            this.chk99AutoDateLot.Name = "chk99AutoDateLot";
+            this.chk99AutoDateLot.Size = new System.Drawing.Size(132, 16);
+            this.chk99AutoDateLot.TabIndex = 12;
+            this.chk99AutoDateLot.Text = "Auto Data/Lot Code";
+            this.chk99AutoDateLot.UseVisualStyleBackColor = true;
+            this.chk99AutoDateLot.CheckedChanged += new System.EventHandler(this.chk99AutoDateLot_CheckedChanged);
             // 
             // lbl22UseDnNumber
             // 
@@ -1907,17 +1969,6 @@ namespace WHOperation
             this.chk00UseDnNo.UseVisualStyleBackColor = true;
             this.chk00UseDnNo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // chk5AutoSearch2
-            // 
-            this.chk5AutoSearch2.AutoSize = true;
-            this.chk5AutoSearch2.ForeColor = System.Drawing.Color.Red;
-            this.chk5AutoSearch2.Location = new System.Drawing.Point(929, 150);
-            this.chk5AutoSearch2.Name = "chk5AutoSearch2";
-            this.chk5AutoSearch2.Size = new System.Drawing.Size(168, 16);
-            this.chk5AutoSearch2.TabIndex = 28;
-            this.chk5AutoSearch2.Text = "Auto Search in QPL mastr";
-            this.chk5AutoSearch2.UseVisualStyleBackColor = true;
-            // 
             // lbl0Dn_PI_key
             // 
             this.lbl0Dn_PI_key.AutoSize = true;
@@ -1936,44 +1987,6 @@ namespace WHOperation
             this.btn2PIID.Text = "GO PIID";
             this.btn2PIID.UseVisualStyleBackColor = true;
             this.btn2PIID.Click += new System.EventHandler(this.btn2PIID_Click);
-            // 
-            // chk99UseMPQ
-            // 
-            this.chk99UseMPQ.AutoSize = true;
-            this.chk99UseMPQ.Checked = true;
-            this.chk99UseMPQ.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk99UseMPQ.ForeColor = System.Drawing.Color.Red;
-            this.chk99UseMPQ.Location = new System.Drawing.Point(929, 86);
-            this.chk99UseMPQ.Name = "chk99UseMPQ";
-            this.chk99UseMPQ.Size = new System.Drawing.Size(96, 16);
-            this.chk99UseMPQ.TabIndex = 16;
-            this.chk99UseMPQ.Text = "Qty with MPQ";
-            this.chk99UseMPQ.UseVisualStyleBackColor = true;
-            // 
-            // chk0autoSplit
-            // 
-            this.chk0autoSplit.AutoSize = true;
-            this.chk0autoSplit.Checked = true;
-            this.chk0autoSplit.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk0autoSplit.ForeColor = System.Drawing.Color.Red;
-            this.chk0autoSplit.Location = new System.Drawing.Point(1029, 134);
-            this.chk0autoSplit.Name = "chk0autoSplit";
-            this.chk0autoSplit.Size = new System.Drawing.Size(84, 16);
-            this.chk0autoSplit.TabIndex = 16;
-            this.chk0autoSplit.Text = "Auto Split";
-            this.chk0autoSplit.UseVisualStyleBackColor = true;
-            // 
-            // chk5NoSplit
-            // 
-            this.chk5NoSplit.AutoSize = true;
-            this.chk5NoSplit.ForeColor = System.Drawing.Color.Red;
-            this.chk5NoSplit.Location = new System.Drawing.Point(929, 166);
-            this.chk5NoSplit.Name = "chk5NoSplit";
-            this.chk5NoSplit.Size = new System.Drawing.Size(210, 16);
-            this.chk5NoSplit.TabIndex = 16;
-            this.chk5NoSplit.Text = "Scan Split Prefix Part/QPL-part";
-            this.chk5NoSplit.UseVisualStyleBackColor = true;
-            this.chk5NoSplit.CheckedChanged += new System.EventHandler(this.chk5NoSplit_CheckedChanged);
             // 
             // label6
             // 
@@ -2007,7 +2020,7 @@ namespace WHOperation
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(12, 41);
+            this.splitContainer1.Location = new System.Drawing.Point(2, 44);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -2017,8 +2030,8 @@ namespace WHOperation
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl2_pending);
-            this.splitContainer1.Size = new System.Drawing.Size(912, 159);
-            this.splitContainer1.SplitterDistance = 149;
+            this.splitContainer1.Size = new System.Drawing.Size(928, 159);
+            this.splitContainer1.SplitterDistance = 111;
             this.splitContainer1.TabIndex = 21;
             // 
             // dgv0DNNumber
@@ -2055,7 +2068,7 @@ namespace WHOperation
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv0DNNumber.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.dgv0DNNumber.Size = new System.Drawing.Size(149, 159);
+            this.dgv0DNNumber.Size = new System.Drawing.Size(111, 159);
             this.dgv0DNNumber.TabIndex = 0;
             // 
             // DNNumber
@@ -2073,7 +2086,7 @@ namespace WHOperation
             this.tabControl2_pending.Location = new System.Drawing.Point(0, 0);
             this.tabControl2_pending.Name = "tabControl2_pending";
             this.tabControl2_pending.SelectedIndex = 0;
-            this.tabControl2_pending.Size = new System.Drawing.Size(759, 159);
+            this.tabControl2_pending.Size = new System.Drawing.Size(813, 159);
             this.tabControl2_pending.TabIndex = 1;
             // 
             // tabPage3DNPending
@@ -2082,7 +2095,7 @@ namespace WHOperation
             this.tabPage3DNPending.Location = new System.Drawing.Point(4, 22);
             this.tabPage3DNPending.Name = "tabPage3DNPending";
             this.tabPage3DNPending.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3DNPending.Size = new System.Drawing.Size(751, 133);
+            this.tabPage3DNPending.Size = new System.Drawing.Size(805, 133);
             this.tabPage3DNPending.TabIndex = 0;
             this.tabPage3DNPending.Text = "Pending";
             this.tabPage3DNPending.UseVisualStyleBackColor = true;
@@ -2093,7 +2106,7 @@ namespace WHOperation
             this.tabPage4Comping.Location = new System.Drawing.Point(4, 22);
             this.tabPage4Comping.Name = "tabPage4Comping";
             this.tabPage4Comping.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4Comping.Size = new System.Drawing.Size(751, 133);
+            this.tabPage4Comping.Size = new System.Drawing.Size(805, 133);
             this.tabPage4Comping.TabIndex = 1;
             this.tabPage4Comping.Text = "Complete";
             this.tabPage4Comping.UseVisualStyleBackColor = true;
@@ -2141,7 +2154,7 @@ namespace WHOperation
             dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv2Complete.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dgv2Complete.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv2Complete.Size = new System.Drawing.Size(745, 127);
+            this.dgv2Complete.Size = new System.Drawing.Size(799, 127);
             this.dgv2Complete.TabIndex = 1;
             this.dgv2Complete.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv1Complete_CellDoubleClick);
             // 
@@ -2199,7 +2212,7 @@ namespace WHOperation
             this.tabPage5PIpending.Location = new System.Drawing.Point(4, 22);
             this.tabPage5PIpending.Name = "tabPage5PIpending";
             this.tabPage5PIpending.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5PIpending.Size = new System.Drawing.Size(751, 133);
+            this.tabPage5PIpending.Size = new System.Drawing.Size(805, 133);
             this.tabPage5PIpending.TabIndex = 2;
             this.tabPage5PIpending.Text = "PI Pending";
             this.tabPage5PIpending.UseVisualStyleBackColor = true;
@@ -2239,7 +2252,7 @@ namespace WHOperation
             dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv5PIPending.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dgv5PIPending.RowTemplate.Height = 23;
-            this.dgv5PIPending.Size = new System.Drawing.Size(745, 127);
+            this.dgv5PIPending.Size = new System.Drawing.Size(799, 127);
             this.dgv5PIPending.TabIndex = 0;
             this.dgv5PIPending.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv5PIPending_CellDoubleClick);
             this.dgv5PIPending.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv5PIPending_DataBindingComplete);
@@ -2251,7 +2264,7 @@ namespace WHOperation
             this.tabPage3Compele.Location = new System.Drawing.Point(4, 22);
             this.tabPage3Compele.Name = "tabPage3Compele";
             this.tabPage3Compele.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3Compele.Size = new System.Drawing.Size(751, 133);
+            this.tabPage3Compele.Size = new System.Drawing.Size(805, 133);
             this.tabPage3Compele.TabIndex = 3;
             this.tabPage3Compele.Text = "PI Compele";
             this.tabPage3Compele.UseVisualStyleBackColor = true;
@@ -2290,7 +2303,7 @@ namespace WHOperation
             dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv6PICompele.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
             this.dgv6PICompele.RowTemplate.Height = 23;
-            this.dgv6PICompele.Size = new System.Drawing.Size(745, 127);
+            this.dgv6PICompele.Size = new System.Drawing.Size(799, 127);
             this.dgv6PICompele.TabIndex = 1;
             this.dgv6PICompele.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv6PICompele_CellDoubleClick);
             // 
@@ -2303,19 +2316,6 @@ namespace WHOperation
             this.txt2FilterValue.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.txt2FilterValue.Enter += new System.EventHandler(this.txt2FilterValue_Enter);
             this.txt2FilterValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt2FilterValue_KeyDown);
-            // 
-            // chk99AutoDateLot
-            // 
-            this.chk99AutoDateLot.AutoSize = true;
-            this.chk99AutoDateLot.Checked = true;
-            this.chk99AutoDateLot.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk99AutoDateLot.Location = new System.Drawing.Point(929, 182);
-            this.chk99AutoDateLot.Name = "chk99AutoDateLot";
-            this.chk99AutoDateLot.Size = new System.Drawing.Size(132, 16);
-            this.chk99AutoDateLot.TabIndex = 12;
-            this.chk99AutoDateLot.Text = "Auto Data/Lot Code";
-            this.chk99AutoDateLot.UseVisualStyleBackColor = true;
-            this.chk99AutoDateLot.CheckedChanged += new System.EventHandler(this.chk99AutoDateLot_CheckedChanged);
             // 
             // chk99SaveTxt
             // 
@@ -2346,7 +2346,7 @@ namespace WHOperation
             this.tool_lbl_Msg});
             this.statusStrip1.Location = new System.Drawing.Point(0, 613);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1121, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1096, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2360,7 +2360,7 @@ namespace WHOperation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1121, 635);
+            this.ClientSize = new System.Drawing.Size(1096, 635);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);

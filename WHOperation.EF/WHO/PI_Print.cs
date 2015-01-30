@@ -55,6 +55,12 @@ namespace WHOperation.EF.WHO
         public decimal? PI_PO_price { get; set; }
 
         [StringLength(50)]
+        public string pi_DateCode { get; set; }
+
+        [StringLength(50)]
+        public string pi_lotNumber { get; set; }
+
+        [StringLength(50)]
         public string pi_char1 { get; set; }
 
         [StringLength(50)]
