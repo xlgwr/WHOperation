@@ -158,7 +158,7 @@ namespace WHOperation
 
             this.FormClosing += new FormClosingEventHandler(this.Form1_FormClosing);
 
-
+            initwidth();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -2788,7 +2788,7 @@ namespace WHOperation
                                         lPIMSData[7] = cPIMSQty.ToString().Trim();
                                 }
                                 catch (Exception ex) { lPIMSData[7] = "0"; tool_lbl_Msg.Text = "lPIMSData[7] data is 0"; return false; }
-                                printPIML(lPIMSData, 1);
+                                printPIML(lPIMSData, 1, false);
                             }
                             cCartonLoop += 1;
                         }
@@ -2831,7 +2831,16 @@ namespace WHOperation
                                     return false;
                                 }
                             }
-                            printPIML(lPIMSData, 1);
+                            if (cPrintLoop == cNoOfLabels)
+                            {
+
+                                printPIML(lPIMSData, 1, chk99SaveTxt.Checked);
+                            }
+                            else
+                            {
+
+                                printPIML(lPIMSData, 1, false);
+                            }
 
                         }
                     }
@@ -2929,7 +2938,10 @@ namespace WHOperation
                                         lPIMSData[7] = cPIMSQty.ToString().Trim();
                                 }
                                 catch (Exception ex) { lPIMSData[7] = "0"; tool_lbl_Msg.Text = "lPIMSData[7] data is 0"; return; }
-                                printPIML(lPIMSData, 1);
+
+
+                                printPIML(lPIMSData, 1, false);
+
                             }
                             cCartonLoop += 1;
                         }
@@ -2973,7 +2985,16 @@ namespace WHOperation
                                 SQLUpdate(cQuery);
                             }
                             setCompleteDN();
-                            printPIML(lPIMSData, 0);
+                            if (cPrintLoop == cNoOfLabels)
+                            {
+
+                                printPIML(lPIMSData, 1, chk99SaveTxt.Checked);
+                            }
+                            else
+                            {
+
+                                printPIML(lPIMSData, 1, false);
+                            }
                         }
                     }
                     cPrintLoop += 1;
@@ -3877,12 +3898,122 @@ namespace WHOperation
             }
             return lRet;
         }
-        void toPrinter(StringBuilder cStringToPrint, String cPIMS)
+        void toPrinter(StringBuilder cStringToPrint, String cPIMS, bool isendsave)
         {
-            _toPrintList.Clear();
             printStringList tmpPrintStr = new printStringList(cStringToPrint, cPIMS);
+
+            if (isendsave)
+            {
+                toPrinterEnd(tmpPrintStr, true);
+                
+            }
+            else
+            {
+                toPrinterEnd(tmpPrintStr);
+
+            }
+
             _toPrintList.Add(tmpPrintStr);
-            toPrinterEnd(_toPrintList);
+        }
+        public void toPrinterEnd(string tmpstr)
+        {
+            String cSelPort = "LPT1";
+            lStatus.Invoke(new Action(delegate() { lStatus.Text = "Printing...."; }));
+            cbport.Invoke(new Action(delegate() { cSelPort = cbport.SelectedItem.ToString().Trim(); }));
+            PrinterHandle.LPTControl printHandle = new PrinterHandle.LPTControl(cSelPort);
+
+            try
+            {
+
+                if (printHandle.Open())
+                {
+                    printHandle.Write(tmpstr);
+                }
+
+            }
+            catch (Exception prEx) { MessageBox.Show("Print Error :\n" + prEx.Message.ToString()); }
+            finally
+            {
+                printHandle.Close();
+            }
+            lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
+
+            //enableScan();
+        }
+        void toPrinterEnd(printStringList tmpstr)
+        {
+            String cSelPort = "LPT1";
+            var cPIMS = "";
+            var cStringToPrint = new StringBuilder();
+            var cStringToPrintSave = new StringBuilder();
+            lStatus.Invoke(new Action(delegate() { lStatus.Text = "Printing...."; }));
+            cbport.Invoke(new Action(delegate() { cSelPort = cbport.SelectedItem.ToString().Trim(); }));
+            PrinterHandle.LPTControl printHandle = new PrinterHandle.LPTControl(cSelPort);
+
+            try
+            {
+                cStringToPrint = tmpstr._strb;
+                cStringToPrintSave.Append(cStringToPrint.ToString());
+                cPIMS = "-" + tmpstr._savename;
+
+                if (printHandle.Open())
+                {
+                    printHandle.Write(cStringToPrintSave.ToString());
+                }
+
+            }
+            catch (Exception prEx) { MessageBox.Show("Print Error :\n" + prEx.Message.ToString()); }
+            finally
+            {
+                printHandle.Close();
+            }
+            lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
+
+            //enableScan();
+        }
+        void toPrinterEnd(printStringList tmpstr, bool saveflag)
+        {
+            StreamWriter outputfile = null;
+            String cSelPort = "LPT1";
+            var cPIMS = "";
+            var cStringToPrintSave = new StringBuilder();
+            lStatus.Invoke(new Action(delegate() { lStatus.Text = "Printing...."; }));
+            cbport.Invoke(new Action(delegate() { cSelPort = cbport.SelectedItem.ToString().Trim(); }));
+            PrinterHandle.LPTControl printHandle = new PrinterHandle.LPTControl(cSelPort);
+
+            try
+            {
+                cPIMS = tmpstr._savename;
+
+                if (printHandle.Open())
+                {
+                    printHandle.Write(tmpstr._strb.ToString());
+                }
+                if (saveflag)
+                {
+                    foreach (var item in _toPrintList)
+                    {
+                        cStringToPrintSave.AppendLine(item._strb.ToString());
+                    }
+                    outputfile = new StreamWriter("c://tmp//pims" + cPIMS + ".txt", true, Encoding.UTF8);
+                    outputfile.Write(cStringToPrintSave.ToString());
+                }
+
+            }
+            catch (Exception prEx) { MessageBox.Show("Print Error :\n" + prEx.Message.ToString()); }
+            finally
+            {
+                _toPrintList.Clear();
+                if (outputfile != null)
+                {
+                    outputfile.Close();
+
+                }
+                printHandle.Close();
+            }
+            lStatus.Invoke(new Action(delegate() { lStatus.Text = ""; }));
+
+            //enableScan();
         }
         void toPrinterEnd(List<printStringList> tmpstr)
         {
@@ -3928,7 +4059,7 @@ namespace WHOperation
 
             //enableScan();
         }
-        void printPIML(List<String> lPIMSData, int cLabelType)
+        void printPIML(List<String> lPIMSData, int cLabelType, bool isendToSave)
         {
             StringBuilder cRet = new StringBuilder();
             PIMLPrint pimlPrint = new PIMLPrint();
@@ -3963,7 +4094,7 @@ namespace WHOperation
                             cSelPrinter, lPIMSData[14].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(),
                             lPIMSData[16].ToString().ToUpper(), cUserID, lPIMSData[16].ToString().ToUpper(), "", 1, _tfclass._tfrirno.ToUpper(), lPIMSData[17].ToString().ToUpper()
                  );
-                toPrinter(cRet, lPIMSData[0].ToString());
+                toPrinter(cRet, _tfclass._tfrirno, isendToSave);
 
                 getQRcode = "";
                 _strNoPrefixlit.Clear();
@@ -4436,7 +4567,7 @@ namespace WHOperation
             _tmpseletListboxValue = "";
 
             chk9UsePartNo.Checked = true;
-
+            chk99SaveTxt.Checked = true;
             chk9UseDateCode.Checked = false;
             tf4datecode.BackColor = Color.Gray;
             chk9UseLotNumber.Checked = false;
@@ -6802,14 +6933,20 @@ namespace WHOperation
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            tabControl1.Width = this.Width - 10;
-            panel1.Width = tabControl1.Width;
-
-            tabControl1.Height = this.Height - panel1.Height - 5;
+            initwidth();
         }
 
         private void tabPage3_Resize(object sender, EventArgs e)
         {
+            dgv7PrintAll.Width = tabPage3.Width - 10;
+            dgv7PrintAll.Height = tabPage3.Height - dgv7PrintAll.Top - 60;
+        }
+        void initwidth()
+        {
+            tabControl1.Width = this.Width - 10;
+            panel1.Width = tabControl1.Width;
+
+            tabControl1.Height = this.Height - panel1.Height - 5;
             dgv7PrintAll.Width = tabPage3.Width - 10;
             dgv7PrintAll.Height = tabPage3.Height - dgv7PrintAll.Top - 60;
         }
@@ -6822,7 +6959,7 @@ namespace WHOperation
         public printStringList(StringBuilder strb, string savename)
         {
             _strb = strb;
-            _savename = savename;
+            _savename = savename.Trim();
         }
 
         public string _savename { get; set; }

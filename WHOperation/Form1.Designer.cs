@@ -1670,7 +1670,7 @@ namespace WHOperation
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1111, 370);
+            this.tabPage3.Size = new System.Drawing.Size(1089, 370);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Print All";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1740,7 +1740,7 @@ namespace WHOperation
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv7PrintAll.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgv7PrintAll.RowTemplate.Height = 23;
-            this.dgv7PrintAll.Size = new System.Drawing.Size(1105, 282);
+            this.dgv7PrintAll.Size = new System.Drawing.Size(1086, 282);
             this.dgv7PrintAll.TabIndex = 1;
             // 
             // contextMenuStrip2DownExcel

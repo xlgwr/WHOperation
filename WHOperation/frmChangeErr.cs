@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using System.IO;
+
 using WHOperation.EF.WHO;
 
 namespace WHOperation
@@ -156,5 +158,33 @@ namespace WHOperation
         public string _intOldPrintQty { get; set; }
 
         public string _strPiMfgr { get; set; }
+
+        private void btn2Print_Click(object sender, EventArgs e)
+        {
+            StreamReader sr = null;
+            if (!string.IsNullOrEmpty(tfrirno.Text))
+            {
+                try
+                {
+                    string tmpfilepath = @"c:\tmp\pims" + tfrirno.Text.Trim()+".txt";
+                    sr = new StreamReader(tmpfilepath, Encoding.UTF8);
+                    string tmpreadstr = sr.ReadToEnd();
+                    _frm1.toPrinterEnd(tmpreadstr);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    if (sr != null)
+                    {
+                        sr.Close();
+
+                    }
+                }
+
+            }
+        }
     }
 }

@@ -41,6 +41,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.lbl_msg = new System.Windows.Forms.Label();
+            this.btn2Print = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -151,9 +152,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(159, 190);
+            this.btnUpdate.Location = new System.Drawing.Point(86, 190);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.Size = new System.Drawing.Size(75, 36);
             this.btnUpdate.TabIndex = 40;
             this.btnUpdate.Text = "&Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -163,17 +164,28 @@
             // 
             this.lbl_msg.AutoSize = true;
             this.lbl_msg.ForeColor = System.Drawing.Color.Red;
-            this.lbl_msg.Location = new System.Drawing.Point(19, 214);
+            this.lbl_msg.Location = new System.Drawing.Point(19, 237);
             this.lbl_msg.Name = "lbl_msg";
             this.lbl_msg.Size = new System.Drawing.Size(0, 12);
             this.lbl_msg.TabIndex = 41;
+            // 
+            // btn2Print
+            // 
+            this.btn2Print.Location = new System.Drawing.Point(189, 190);
+            this.btn2Print.Name = "btn2Print";
+            this.btn2Print.Size = new System.Drawing.Size(144, 36);
+            this.btn2Print.TabIndex = 40;
+            this.btn2Print.Text = "Retry Print(本地)";
+            this.btn2Print.UseVisualStyleBackColor = true;
+            this.btn2Print.Click += new System.EventHandler(this.btn2Print_Click);
             // 
             // frmChangeErr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 243);
+            this.ClientSize = new System.Drawing.Size(380, 260);
             this.Controls.Add(this.lbl_msg);
+            this.Controls.Add(this.btn2Print);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmChangeErr";
@@ -202,5 +214,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Label lbl_msg;
+        private System.Windows.Forms.Button btn2Print;
     }
 }
