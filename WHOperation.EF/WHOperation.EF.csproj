@@ -84,6 +84,7 @@
     <Compile Include="DW\wst055f2.cs" />
     <Compile Include="pi.cs" />
     <Compile Include="PI\PI_DET.cs" />
+    <Compile Include="PI\vpi_detWHO_VPrint.cs" />
     <Compile Include="PI\vpi_detWHO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="dbWHOperation.cs" />

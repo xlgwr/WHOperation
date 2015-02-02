@@ -230,6 +230,7 @@ namespace WHOperation
             this.chk0PrintAll = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnPrintOneSum = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -666,7 +667,7 @@ namespace WHOperation
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1111, 370);
+            this.tabPage1.Size = new System.Drawing.Size(1089, 370);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Vendor Template";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -678,7 +679,7 @@ namespace WHOperation
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1105, 364);
+            this.groupBox4.Size = new System.Drawing.Size(1083, 364);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vendor Template";
@@ -776,6 +777,7 @@ namespace WHOperation
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.AutoScroll = true;
+            this.splitContainer2.Panel2.Controls.Add(this.btnPrintOneSum);
             this.splitContainer2.Panel2.Controls.Add(this.button2);
             this.splitContainer2.Panel2.Controls.Add(this.chk9UseLotNumber);
             this.splitContainer2.Panel2.Controls.Add(this.chk9UseDateCode);
@@ -1045,7 +1047,7 @@ namespace WHOperation
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(513, 9);
+            this.button2.Location = new System.Drawing.Point(511, 9);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 50);
             this.button2.TabIndex = 70;
@@ -1323,7 +1325,7 @@ namespace WHOperation
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(280, 41);
+            this.label8.Location = new System.Drawing.Point(278, 41);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(95, 12);
             this.label8.TabIndex = 16;
@@ -1386,7 +1388,7 @@ namespace WHOperation
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(608, 14);
+            this.label5.Location = new System.Drawing.Point(606, 14);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 20;
@@ -1394,7 +1396,7 @@ namespace WHOperation
             // 
             // tf0site
             // 
-            this.tf0site.Location = new System.Drawing.Point(654, 10);
+            this.tf0site.Location = new System.Drawing.Point(652, 10);
             this.tf0site.Name = "tf0site";
             this.tf0site.Size = new System.Drawing.Size(123, 21);
             this.tf0site.TabIndex = 24;
@@ -1480,7 +1482,7 @@ namespace WHOperation
             // 
             // tf0hdndate
             // 
-            this.tf0hdndate.Location = new System.Drawing.Point(653, 38);
+            this.tf0hdndate.Location = new System.Drawing.Point(651, 38);
             this.tf0hdndate.Name = "tf0hdndate";
             this.tf0hdndate.ReadOnly = true;
             this.tf0hdndate.Size = new System.Drawing.Size(123, 21);
@@ -1498,7 +1500,7 @@ namespace WHOperation
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(596, 42);
+            this.label20.Location = new System.Drawing.Point(594, 42);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(47, 12);
             this.label20.TabIndex = 18;
@@ -1533,7 +1535,7 @@ namespace WHOperation
             // 
             // tf0mfgpart
             // 
-            this.tf0mfgpart.Location = new System.Drawing.Point(379, 37);
+            this.tf0mfgpart.Location = new System.Drawing.Point(377, 37);
             this.tf0mfgpart.Name = "tf0mfgpart";
             this.tf0mfgpart.ReadOnly = true;
             this.tf0mfgpart.Size = new System.Drawing.Size(123, 21);
@@ -1559,7 +1561,7 @@ namespace WHOperation
             // 
             // tfvendor
             // 
-            this.tfvendor.Location = new System.Drawing.Point(379, 9);
+            this.tfvendor.Location = new System.Drawing.Point(377, 9);
             this.tfvendor.Name = "tfvendor";
             this.tfvendor.ReadOnly = true;
             this.tfvendor.Size = new System.Drawing.Size(123, 21);
@@ -1604,7 +1606,7 @@ namespace WHOperation
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(310, 13);
+            this.label3.Location = new System.Drawing.Point(308, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 10;
@@ -2356,6 +2358,17 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
+            // btnPrintOneSum
+            // 
+            this.btnPrintOneSum.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnPrintOneSum.Location = new System.Drawing.Point(2, 2);
+            this.btnPrintOneSum.Name = "btnPrintOneSum";
+            this.btnPrintOneSum.Size = new System.Drawing.Size(68, 51);
+            this.btnPrintOneSum.TabIndex = 71;
+            this.btnPrintOneSum.Text = "One";
+            this.btnPrintOneSum.UseVisualStyleBackColor = true;
+            this.btnPrintOneSum.Click += new System.EventHandler(this.btnPrintOneSum_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2607,6 +2620,7 @@ namespace WHOperation
         private System.Windows.Forms.Button btn00Save;
         private System.Windows.Forms.Button btn00GetWecNumber;
         private System.Windows.Forms.Button btn00PrintAll;
+        private System.Windows.Forms.Button btnPrintOneSum;
     }
 }
 

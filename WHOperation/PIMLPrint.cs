@@ -65,6 +65,11 @@ namespace WHOperation
                    cRet.Append(Convert.ToChar(123).ToString() + "PC020;0270,0250,05,05,D,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));  //"x(60)" skip.
                    cRet.Append(Convert.ToChar(123).ToString() + "RC20;" + "OUTTER LABEL" + "|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));  //"x(60)" skip.
                }
+               if (Form1._useDefineToPrint)
+               {
+                   cRet.Append(Convert.ToChar(123).ToString() + "PC55;0675,0355,05,05,E,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
+                   cRet.Append(Convert.ToChar(123).ToString() + "RC55;*|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
+               }
                cRet.Append(Convert.ToChar(123).ToString() + "PC010;0077,0255,05,05,D,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));  //"x(60)" skip.
                cRet.Append(Convert.ToChar(123).ToString() + "RC10;" + t1_ref + "|" + Convert.ToChar(125).ToString() + Convert.ToChar(13)); // "x(60)" skip.
                cRet.Append(Convert.ToChar(123).ToString() + "PC011;0600,0135,05,05,D,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13)); //format "x(60)" skip.
@@ -123,6 +128,11 @@ namespace WHOperation
                     cRet.Append(Convert.ToChar(123).ToString() +  "PC020;0400,0250,05,05,D,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
                     cRet.Append(Convert.ToChar(123).ToString() +  "RC20;" + "OUTTER LABEL"  + "|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
                 }
+                if (Form1._useDefineToPrint)
+                {
+                    cRet.Append(Convert.ToChar(123).ToString() + "PC55;0675,0355,05,05,E,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
+                    cRet.Append(Convert.ToChar(123).ToString() + "RC55;*|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
+                }
                 cRet.Append(Convert.ToChar(123).ToString() + "PC010;0077,0255,05,05,D,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
                 cRet.Append(Convert.ToChar(123).ToString() + "RC10;" + t1_ref + "|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
                 cRet.Append(Convert.ToChar(123).ToString() + "PC011;0485,0150,05,05,D,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
@@ -144,6 +154,7 @@ namespace WHOperation
             } else if (t1_printer == "3") {
 
             }
+           
             return cRet;
         }
         

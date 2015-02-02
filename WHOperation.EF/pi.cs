@@ -14,6 +14,7 @@ namespace WHOperation.EF.PI
 
         public virtual DbSet<PI_DET> PI_DET { get; set; }
         public virtual DbSet<vpi_detWHO> vpi_detWHO { get; set; }
+        //public virtual DbSet<vpi_detWHO_VPrint> vpi_detWHO_VPrint { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
