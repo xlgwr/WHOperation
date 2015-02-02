@@ -272,7 +272,7 @@ namespace WHOperation
 
                     cR["PrintedQty"] = cPrintQty;
                     if (cDNQty > cPrintQty)
-                        dgv1Pending.Rows.Add(cR.ItemArray[0], cR.ItemArray[10], cR.ItemArray[7], cR["t_part"], cR["t_mfgr_part"], cR["t_rir"], cR.ItemArray[4], "", cR.ItemArray[6], cR.ItemArray[1], cR.ItemArray[5], cR.ItemArray[11], cR.ItemArray[12], cR.ItemArray[13], cR.ItemArray[14], cR.ItemArray[15], cR.ItemArray[16], cR.ItemArray[17], cR.ItemArray[18], cR.ItemArray[20], i.ToString());
+                        dgv1Pending.Rows.Add(cR.ItemArray[0], cR.ItemArray[10], cR.ItemArray[7], cR["t_part"], cR["t_mfgr_part"], cR["t_rir"], cR.ItemArray[4], "", cR.ItemArray[6], cR.ItemArray[1], cR.ItemArray[5], cR.ItemArray[11], cR.ItemArray[12], cR.ItemArray[13], cR.ItemArray[14], cR.ItemArray[15], cR.ItemArray[16], cR.ItemArray[17], cR.ItemArray[18], cPrintQty, i.ToString());//cR.ItemArray[20]
 
                 }
                 i += 1;
@@ -442,6 +442,23 @@ namespace WHOperation
                 tf2recmfgrpart.Text = tf0mfgpart.Text;
                 return;
 
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                tf1dnpartnumber.Text = "";
+                tf2recmfgrpart.Text = "";
+                tf1dnpartnumber.Text = tf0partno.Text;
+                tf2recmfgrpart.Text = tf0mfgpart.Text;
+                string tmpqty = "";
+                if (_usePrintPI)
+                {
+                    if (dgv5PIPending.SelectedRows.Count > 0)
+                    {
+                        tmpqty = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString();
+                        tf3recqty.Text = tmpqty;
+                    }
+                }
+                return;
             }
             if (e.KeyCode == Keys.Right)
             {
@@ -2638,7 +2655,7 @@ namespace WHOperation
                             if (saveflag > 0)
                             {
                                 dgv5PIPending.SelectedRows[0].Cells["PI_Print_QTY"].Value = Convert.ToDecimal(dgv5PIPending.SelectedRows[0].Cells["PI_Print_QTY"].Value) + tmpPrint.PI_Print_QTY;
-                                checkPrintNumger(dgv5PIPending, _dtPIRemoteIlist, dgv6PICompele);
+                                checkPrintNumger(dgv5PIPending, _dtdgv5Pend, dgv6PICompele);
 
                             }
                         }
@@ -2984,7 +3001,6 @@ namespace WHOperation
                                 "','" + cRec[3] + "','" + _tfclass._tfpartrec + "','" + lPIMSData[11].ToString() + "','" + _tfclass._tfrecmfgrpart + "','" + cRec[14] + "','" + _tfclass._tfrecqty + "')";
                                 SQLUpdate(cQuery);
                             }
-                            setCompleteDN();
                             if (cPrintLoop == cNoOfLabels)
                             {
 
@@ -3000,7 +3016,7 @@ namespace WHOperation
                     cPrintLoop += 1;
                 }
                 //toPrinterEnd(_toPrintList);
-
+                handleDNChange();
                 setPIMLData();
             }
             catch (Exception ex)
@@ -3905,7 +3921,7 @@ namespace WHOperation
             if (isendsave)
             {
                 toPrinterEnd(tmpPrintStr, true);
-                
+
             }
             else
             {
@@ -4544,6 +4560,7 @@ namespace WHOperation
             tfnooflabels.KeyDown += new KeyEventHandler(txtkeypress);
             contextMenuStrip2DownExcel.Click += tsm0menu_EnquireByPart_Click;
 
+            dgv0DNNumber.RowHeadersWidth = 10;
             dgv1Pending.RowPostPaint += dgv5PIPending_RowPostPaint;
             dgv2Complete.RowPostPaint += dgv5PIPending_RowPostPaint;
             dgv5PIPending.RowPostPaint += dgv5PIPending_RowPostPaint;
@@ -5524,7 +5541,7 @@ namespace WHOperation
                     pbrecqty.Image = Image.FromFile(Application.StartupPath + @"\images\bdelete.jpg");
                     _findRECQTY = false;
                     tf3recqty.Text = "";
-
+                    return;
                 }
             }
             autoPrintWithLotOrDateCode(sender, e);
@@ -5919,11 +5936,11 @@ namespace WHOperation
                         tabControl2_pending.SelectedIndex = 2;
                         //dtcomplete = _dtPIRemote.Clone();
                         //test 
-                        addPrintQtyToDGV(_piid, _dtPIRemoteIlist, dgv5PIPending);
+                        addPrintQtyToDGV(_piid, _dtPIRemoteIlist, dgv5PIPending,dgv6PICompele);
                         //test dgv5PIPending.DataSource = _dtPIRemote.DefaultView;
 
                         setDGVHeaderPi(dgv5PIPending, true);
-                        checkPrintNumger(dgv5PIPending, _dtPIRemoteIlist, dgv6PICompele);//test 
+                        //checkPrintNumger(dgv5PIPending, _dtPIRemoteIlist, dgv6PICompele);//test 
 
                         setDGVHeaderPi(dgv6PICompele, true);//test 
                         initCheckDateLot();
@@ -5933,8 +5950,8 @@ namespace WHOperation
                     else
                     {
                         tabControl1.SelectedIndex = 2;
-                        addPrintQtyToDGV(_piid, _dtPIRemoteIlist, dgv7PrintAll);
-                        setDGVHeaderPi(dgv7PrintAll, _dtPIRemoteIlist, false);
+                        addPrintQtyToDGV(_piid, _dtPIRemoteIlist, dgv7PrintAll, null);
+                        setDGVHeaderPi(dgv7PrintAll, _dtdgv5Pend, false);
                         setDGVHeaderPiSetForEdit(dgv7PrintAll);
                     }
 
@@ -5947,12 +5964,16 @@ namespace WHOperation
             }
         }
 
-        public void addPrintQtyToDGV(string piid, IList<EF.PI.vpi_detWHO> dt, DataGridView dgv)
+        public void addPrintQtyToDGV(string piid, IList<EF.PI.vpi_detWHO> dt, DataGridView dgvPend, DataGridView dgvComplete)
         {
             if (dt.Count < 0)
             {
                 return;
             }
+            _dtdgv5Pend = new List<EF.PI.vpi_detWHO>();
+            _dtdgv6Complete = new List<EF.PI.vpi_detWHO>();
+
+
             using (var db = new dbWHOperation())
             {
                 var tmpPrintQty = db.vpi_sumPrintQty.Where(p => p.PI_NO.Equals(piid.Trim())).ToList();
@@ -5967,17 +5988,38 @@ namespace WHOperation
                         ).ToList();
                     if (tmpExist.Count > 0)
                     {
-
                         item.PI_Print_QTY = tmpExist[0].sumPrintQty.Value;
+
+                        if (item.PI_Print_QTY >= item.PI_QTY)
+                        {
+                            _dtdgv6Complete.Add(item);
+                        }
+                        else
+                        {
+                            _dtdgv5Pend.Add(item);
+                        }
                     }
                     else
                     {
+
                         item.PI_Print_QTY = 0;
+                        _dtdgv5Pend.Add(item);
                     }
                 }
             }
-            //dgv.DataSource = dt;
-            //dgv.Refresh();
+            if (dgvComplete != null)
+            {
+                dgvPend.DataSource = _dtdgv5Pend;
+                dgvPend.Refresh();
+                dgvComplete.DataSource = _dtdgv6Complete;
+                dgvComplete.Refresh();
+            }
+            else
+            {
+                dgvPend.DataSource = dt;
+                dgvPend.Refresh();
+            }
+
 
         }
         public void addPrintQtyToDGV(string piid, DataTable dt, DataGridView dgv)
@@ -6362,11 +6404,15 @@ namespace WHOperation
         {
             if (dgv.Name.Equals("dgv1Pending"))
             {
-                _usdgv1Pend = true;
+                _usdgv1Pend = 1;
+            }
+            else if (dgv.Name.Equals("dgv2Complete"))
+            {
+                _usdgv1Pend = 2;
             }
             else
             {
-                _usdgv1Pend = false;
+                _usdgv1Pend = 3;
             }
             if (e.RowIndex > -1 && e.RowIndex < dgv.RowCount)
             {
@@ -6408,7 +6454,7 @@ namespace WHOperation
 
         public string _dnNo { get; set; }
 
-        public bool _usdgv1Pend { get; set; }
+        public int _usdgv1Pend { get; set; }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -6951,6 +6997,10 @@ namespace WHOperation
             dgv7PrintAll.Height = tabPage3.Height - dgv7PrintAll.Top - 60;
         }
 
+
+        public IList<EF.PI.vpi_detWHO> _dtdgv5Pend { get; set; }
+
+        public IList<EF.PI.vpi_detWHO> _dtdgv6Complete { get; set; }
     }
     public class printStringList
     {

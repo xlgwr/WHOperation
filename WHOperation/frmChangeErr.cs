@@ -28,7 +28,7 @@ namespace WHOperation
             try
             {
                 DataGridViewRow _sdgvr = dgv.SelectedRows[0];
-                if (_frm1._usdgv1Pend)
+                if (_frm1._usdgv1Pend == 1)
                 {
 
                     tfpartno.Text = _sdgvr.Cells["PartNumber"].Value.ToString();
@@ -38,6 +38,17 @@ namespace WHOperation
                     _strPiMfgr = _sdgvr.Cells["ASNMFGPN"].Value.ToString();
                     tfdnqty.Text = _sdgvr.Cells["DNQty"].Value.ToString();
                     _intOldPrintQty = _sdgvr.Cells["PrintedQty"].Value.ToString();
+                    txt0PrintedQty.Text = _intOldPrintQty;
+                }
+                else if (_frm1._usdgv1Pend == 2)
+                {
+                    tfpartno.Text = _sdgvr.Cells[0].Value.ToString();
+                    tfmfgpart.Text = _sdgvr.Cells[1].Value.ToString();
+                    tfrirno.Text = _sdgvr.Cells[2].Value.ToString();
+                    _strPONum = _sdgvr.Cells[3].Value.ToString();
+                    _strPiMfgr = _sdgvr.Cells[4].Value.ToString();
+                    tfdnqty.Text = _sdgvr.Cells[5].Value.ToString();
+                    _intOldPrintQty = _sdgvr.Cells[6].Value.ToString();
                     txt0PrintedQty.Text = _intOldPrintQty;
                 }
                 else
@@ -166,7 +177,7 @@ namespace WHOperation
             {
                 try
                 {
-                    string tmpfilepath = @"c:\tmp\pims" + tfrirno.Text.Trim()+".txt";
+                    string tmpfilepath = @"c:\tmp\pims" + tfrirno.Text.Trim() + ".txt";
                     sr = new StreamReader(tmpfilepath, Encoding.UTF8);
                     string tmpreadstr = sr.ReadToEnd();
                     _frm1.toPrinterEnd(tmpreadstr);
