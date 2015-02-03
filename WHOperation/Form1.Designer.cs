@@ -29,6 +29,7 @@ namespace WHOperation
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -50,7 +51,6 @@ namespace WHOperation
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tfscanarea = new System.Windows.Forms.TextBox();
             this.tf1dnpartnumber = new System.Windows.Forms.TextBox();
@@ -117,6 +117,7 @@ namespace WHOperation
             this.tfnooflabels = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tfnoofcartons = new System.Windows.Forms.TextBox();
+            this.btnPrintOneSum = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.chk9UseLotNumber = new System.Windows.Forms.CheckBox();
             this.chk9UseDateCode = new System.Windows.Forms.CheckBox();
@@ -181,7 +182,6 @@ namespace WHOperation
             this.lStatus = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btn00PrintAll = new System.Windows.Forms.Button();
-            this.btn00GetWecNumber = new System.Windows.Forms.Button();
             this.btn00Save = new System.Windows.Forms.Button();
             this.dgv7PrintAll = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip2DownExcel = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -230,7 +230,6 @@ namespace WHOperation
             this.chk0PrintAll = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tool_lbl_Msg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnPrintOneSum = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -282,9 +281,7 @@ namespace WHOperation
             this.tfscanarea.Name = "tfscanarea";
             this.tfscanarea.Size = new System.Drawing.Size(232, 81);
             this.tfscanarea.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.tfscanarea, "1.Home key go to CartonNO(输入箱号)\r\n2.PgDn  key start Printing(开始打印)\r\n3.Enter key sp" +
-        "lit Scan text(开始扫描)\r\n4.Insert key get part(获取PN/QPL)\r\n5.delete key init(清除)\r\n6.r" +
-        "ight--> key enable search MPQ(是否使用MPQ)");
+            this.toolTip1.SetToolTip(this.tfscanarea, resources.GetString("tfscanarea.ToolTip"));
             this.tfscanarea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfscanarea_KeyDown);
             // 
             // tf1dnpartnumber
@@ -1045,6 +1042,17 @@ namespace WHOperation
             this.tfnoofcartons.TextChanged += new System.EventHandler(this.tfnoofcartons_TextChanged);
             this.tfnoofcartons.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfnoofcartons_KeyDown);
             // 
+            // btnPrintOneSum
+            // 
+            this.btnPrintOneSum.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnPrintOneSum.Location = new System.Drawing.Point(2, 2);
+            this.btnPrintOneSum.Name = "btnPrintOneSum";
+            this.btnPrintOneSum.Size = new System.Drawing.Size(68, 51);
+            this.btnPrintOneSum.TabIndex = 71;
+            this.btnPrintOneSum.Text = "One";
+            this.btnPrintOneSum.UseVisualStyleBackColor = true;
+            this.btnPrintOneSum.Click += new System.EventHandler(this.btnPrintOneSum_Click);
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(511, 9);
@@ -1666,7 +1674,6 @@ namespace WHOperation
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.btn00PrintAll);
-            this.tabPage3.Controls.Add(this.btn00GetWecNumber);
             this.tabPage3.Controls.Add(this.btn00Save);
             this.tabPage3.Controls.Add(this.dgv7PrintAll);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -1681,32 +1688,24 @@ namespace WHOperation
             // btn00PrintAll
             // 
             this.btn00PrintAll.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn00PrintAll.Location = new System.Drawing.Point(206, 6);
+            this.btn00PrintAll.Location = new System.Drawing.Point(162, 6);
             this.btn00PrintAll.Name = "btn00PrintAll";
-            this.btn00PrintAll.Size = new System.Drawing.Size(119, 54);
+            this.btn00PrintAll.Size = new System.Drawing.Size(119, 43);
             this.btn00PrintAll.TabIndex = 2;
             this.btn00PrintAll.Text = "Print All";
             this.btn00PrintAll.UseVisualStyleBackColor = true;
-            // 
-            // btn00GetWecNumber
-            // 
-            this.btn00GetWecNumber.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn00GetWecNumber.Location = new System.Drawing.Point(86, 6);
-            this.btn00GetWecNumber.Name = "btn00GetWecNumber";
-            this.btn00GetWecNumber.Size = new System.Drawing.Size(104, 54);
-            this.btn00GetWecNumber.TabIndex = 2;
-            this.btn00GetWecNumber.Text = "Get Wec Number";
-            this.btn00GetWecNumber.UseVisualStyleBackColor = true;
+            this.btn00PrintAll.Click += new System.EventHandler(this.btn00PrintAll_Click);
             // 
             // btn00Save
             // 
             this.btn00Save.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn00Save.Location = new System.Drawing.Point(8, 6);
+            this.btn00Save.Location = new System.Drawing.Point(45, 6);
             this.btn00Save.Name = "btn00Save";
-            this.btn00Save.Size = new System.Drawing.Size(75, 54);
+            this.btn00Save.Size = new System.Drawing.Size(75, 43);
             this.btn00Save.TabIndex = 2;
             this.btn00Save.Text = "Save";
             this.btn00Save.UseVisualStyleBackColor = true;
+            this.btn00Save.Click += new System.EventHandler(this.btn00Save_Click);
             // 
             // dgv7PrintAll
             // 
@@ -1730,7 +1729,7 @@ namespace WHOperation
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv7PrintAll.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgv7PrintAll.Location = new System.Drawing.Point(3, 88);
+            this.dgv7PrintAll.Location = new System.Drawing.Point(3, 50);
             this.dgv7PrintAll.Name = "dgv7PrintAll";
             this.dgv7PrintAll.ReadOnly = true;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -1742,8 +1741,9 @@ namespace WHOperation
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv7PrintAll.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgv7PrintAll.RowTemplate.Height = 23;
-            this.dgv7PrintAll.Size = new System.Drawing.Size(1086, 282);
+            this.dgv7PrintAll.Size = new System.Drawing.Size(1086, 320);
             this.dgv7PrintAll.TabIndex = 1;
+            this.dgv7PrintAll.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv7PrintAll_CellValueChanged);
             // 
             // contextMenuStrip2DownExcel
             // 
@@ -2358,17 +2358,6 @@ namespace WHOperation
             this.tool_lbl_Msg.Name = "tool_lbl_Msg";
             this.tool_lbl_Msg.Size = new System.Drawing.Size(0, 17);
             // 
-            // btnPrintOneSum
-            // 
-            this.btnPrintOneSum.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnPrintOneSum.Location = new System.Drawing.Point(2, 2);
-            this.btnPrintOneSum.Name = "btnPrintOneSum";
-            this.btnPrintOneSum.Size = new System.Drawing.Size(68, 51);
-            this.btnPrintOneSum.TabIndex = 71;
-            this.btnPrintOneSum.Text = "One";
-            this.btnPrintOneSum.UseVisualStyleBackColor = true;
-            this.btnPrintOneSum.Click += new System.EventHandler(this.btnPrintOneSum_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2618,7 +2607,6 @@ namespace WHOperation
         private System.Windows.Forms.TabPage tabPage3;
         protected internal System.Windows.Forms.DataGridView dgv7PrintAll;
         private System.Windows.Forms.Button btn00Save;
-        private System.Windows.Forms.Button btn00GetWecNumber;
         private System.Windows.Forms.Button btn00PrintAll;
         private System.Windows.Forms.Button btnPrintOneSum;
     }

@@ -120,6 +120,15 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="tfscanarea.ToolTip" xml:space="preserve">
+    <value>1.Home key go to CartonNO(输入箱号)
+2.PgDn  key start Printing(开始打印)
+3.Enter key split Scan text(开始扫描)
+4.Insert key get part(获取PN/QPL)
+5.delete key init(清除)
+6.right--&gt; key enable search MPQ(是否使用MPQ)
+7.Left ----&gt; key use MPQ to Print(使用MPQ直接打印)</value>
+  </data>
   <metadata name="DNNo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
