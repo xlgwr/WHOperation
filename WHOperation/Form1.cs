@@ -2832,12 +2832,43 @@ namespace WHOperation
 
             try
             {
-                #region TTL print
-                if (!printOneLable(_tfclass._tfrirno, _tfclass._tfrecqty, false))
+                if (vpi.NumOfLabel > 1)
                 {
-                    return false;
+                    #region TTL print
+                    if (!printOneLable(_tfclass._tfrirno, _tfclass._ttlQty, false))
+                    {
+                        return false;
+                    }
+                    #endregion
+                    #region Print split of lable
+                    var tmpSpliteLable = vpi.NumOfCarton;
+                    var tmpremard = vpi.ttlQTY % tmpSpliteLable;
+                    var tmpSpalieQty = (vpi.ttlQTY - tmpremard) / tmpSpliteLable;
+
+                    if (tmpSpliteLable > 1)
+                    {
+                        while (tmpSpliteLable > 0)
+                        {
+                            if (tmpSpliteLable == 1)
+                            {
+                                if (!printOneLable(_tfclass._tfrirno, (tmpSpalieQty + tmpremard).ToString("###"), false))
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                if (!printOneLable(_tfclass._tfrirno, tmpSpalieQty.ToString("###"), false))
+                                {
+                                    return false;
+                                }
+                            }
+
+                            tmpSpliteLable--;
+                        }
+                    }
+                    #endregion
                 }
-                #endregion
                 #region number of lable to print
 
                 cPIMSNumber = getPIMSData();
@@ -2868,18 +2899,10 @@ namespace WHOperation
                         #region Remainder
                         if (vpi.Remainder > 0)
                         {
-                            printPIML(lPIMSData, 1, false);
+                            lPIMSData[7] = (vpi.Remainder + vpi.PI_PO_price).ToString("###");
+                        }
+                        printPIML(lPIMSData, 1, true);
 
-                            _tfclass._tfrecqty = vpi.Remainder.ToString("###");
-                            if (!printOneLable(_tfclass._tfrirno, _tfclass._tfrecqty, true))
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            printPIML(lPIMSData, 1, true);
-                        }
                         #endregion
                     }
                     else
@@ -3353,7 +3376,7 @@ namespace WHOperation
         /// <param name="dgv"></param>
         /// <param name="strcellRiRNO">PI_LOT,RIRNo</param>
         /// <returns></returns>
-        List<String> updateMFGPro(String cPIMSNumber,bool printall)
+        List<String> updateMFGPro(String cPIMSNumber, bool printall)
         {
             int i;
             String cServiceID, cLocalSysID;
@@ -3363,7 +3386,7 @@ namespace WHOperation
             DataRow cDR;
 
             List<String> lPIMSData = new List<String>();
-          
+
 
             cServiceID = "wsas002";
             pimsData = new DataSet("pimlData");
@@ -6333,9 +6356,11 @@ namespace WHOperation
             _hasdateCodeToEnter = 0;
             _hasLotNubmerToEnter = 0;
             _hasMPQToEnter = 0;
+            _hasNumberLabelMore = 0;
             _dgvfirstNullLot = -1;
             _dgvfirstNullDate = -1;
             _dgvfirstNullMPQ = -1;
+            _dgvfirstNumOfLable = -1;
 
             foreach (DataGridViewRow item in dgv.Rows)
             {
@@ -6391,7 +6416,7 @@ namespace WHOperation
                         if (item.Cells["pi_dateCode"].Value == null)
                         {
                             _hasdateCodeToEnter++;
-                            if (_dgvfirstNullLot < 0)
+                            if (_dgvfirstNullDate < 0)
                             {
 
                                 _dgvfirstNullDate = item.Index;
@@ -6402,7 +6427,7 @@ namespace WHOperation
                         else if (item.Cells["pi_dateCode"].Value == DBNull.Value || string.IsNullOrEmpty(item.Cells["pi_dateCode"].Value.ToString()))
                         {
                             _hasdateCodeToEnter++;
-                            if (_dgvfirstNullLot < 0)
+                            if (_dgvfirstNullDate < 0)
                             {
 
                                 _dgvfirstNullDate = item.Index;
@@ -6418,9 +6443,21 @@ namespace WHOperation
                     }
                 }
                 var tmpqty = Convert.ToDecimal(item.Cells["PI_QTY"].Value);
+                var tmpCartonqty = Convert.ToDecimal(item.Cells["NumOfLabel"].Value);
+                var tmpAllCartonqty = Convert.ToDecimal(item.Cells["NumOfAllCarton"].Value);
                 var tmpMBQ = Convert.ToDecimal(item.Cells["PI_PO_price"].Value);
+                var tmpnumlable = Convert.ToDecimal(item.Cells["NumOfLabel"].Value);
 
                 if (tmpMBQ == 0)
+                {
+                    _hasMPQToEnter++;
+                    item.Cells["PI_PO_price"].Style.BackColor = Color.Yellow;
+                    if (_dgvfirstNullMPQ < 0)
+                    {
+                        _dgvfirstNullMPQ = item.Index;
+                    }
+                }
+                else if (tmpqty < tmpMBQ)
                 {
                     _hasMPQToEnter++;
                     item.Cells["PI_PO_price"].Style.BackColor = Color.Yellow;
@@ -6438,13 +6475,25 @@ namespace WHOperation
                     //    _dgvfirstNullMPQ = item.Index;
                     //}
                 }
-                else if (tmpqty < tmpMBQ)
+                if (tmpAllCartonqty > tmpCartonqty)
                 {
                     _hasMPQToEnter++;
+                    item.Cells["NumOfAllCarton"].Style.BackColor = Color.Yellow;
                     item.Cells["PI_PO_price"].Style.BackColor = Color.Yellow;
                     if (_dgvfirstNullMPQ < 0)
                     {
                         _dgvfirstNullMPQ = item.Index;
+                    }
+                }
+
+                if (tmpnumlable > 100)
+                {
+                    _hasNumberLabelMore++;
+                    item.Cells["NumOfLabel"].Style.BackColor = Color.Yellow;
+                    item.Cells["PI_PO_price"].Style.BackColor = Color.Yellow;
+                    if (_dgvfirstNumOfLable < 0)
+                    {
+                        _dgvfirstNumOfLable = item.Index;
                     }
                 }
 
@@ -6453,6 +6502,7 @@ namespace WHOperation
             dgv.Columns["PI_PO_price"].HeaderText = "MBQ:" + _hasMPQToEnter.ToString();
             dgv.Columns["pi_lotNumber"].HeaderText = "Lot Number:" + _hasLotNubmerToEnter.ToString();
             dgv.Columns["pi_dateCode"].HeaderText = "Date Code:" + _hasdateCodeToEnter.ToString();
+            dgv.Columns["NumOfLabel"].HeaderText = "Num Of Label:" + _hasNumberLabelMore.ToString();
 
             dgv.Refresh();
         }
@@ -6475,6 +6525,19 @@ namespace WHOperation
                     item.Remainder = 0;
                     item.NumOfLabel = 1;
                 }
+                var tmpcarton = initCartonFromTo(item.PI_CARTON_NO);
+
+                if (IsNumber(tmpcarton[0]))
+                {
+                    var tmpnum = Convert.ToInt32(tmpcarton[1]) - Convert.ToInt32(tmpcarton[0]) + 1;
+                    item.NumOfAllCarton = tmpnum;
+                }
+                else
+                {
+                    item.NumOfAllCarton = 1;
+                }
+
+
             }
         }
         public void addPrintQtyToDGV(string piid, IList<EF.PI.vpi_detWHO_VPrint> dt, DataGridView dgv)
@@ -6756,12 +6819,16 @@ namespace WHOperation
         {
             dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
-            //dgv.Columns["NumOfCarton"].HeaderText = "Num Of Carton";
+            dgv.Columns["NumOfCarton"].HeaderText = "Num Of Carton";
             dgv.Columns["NumOfLabel"].HeaderText = "Num Of Label";
+            dgv.Columns["NumOfAllCarton"].HeaderText = "Count Of Carton";
+
+            dgv.Columns["NumOfCarton"].Width = 35;
             dgv.Columns["NumOfLabel"].Width = 30;
+            dgv.Columns["NumOfAllCarton"].Width = 30;
+
             dgv.Columns["Remainder"].Width = 39;
             dgv.Columns["Remainder"].DefaultCellStyle.Format = "#,##";
-            //dgv.Columns["NumOfCarton"].Width = 30;
             dgv.Columns["pi_dateCode"].Width = 80;
             dgv.Columns["pi_lotNumber"].Width = 80;
 
@@ -6780,6 +6847,7 @@ namespace WHOperation
                 dgv.Columns[i].ReadOnly = true;
             }
             dgv.Columns["PI_PO_price"].ReadOnly = false;
+            dgv.Columns["NumOfCarton"].ReadOnly = false;
         }
         private void setDGVHeaderPi(DataGridView dgv, bool isreadonly)
         {
@@ -7622,6 +7690,7 @@ namespace WHOperation
                 {
                     EF.PI.PI_DET tmppidet = _dbPI.PI_DET.Find(item.PI_NO, item.PI_LINE, item.PI_LOT);
                     tmppidet.pi_PO_curr = tmppidet.PI_PO_price.ToString();
+                    tmppidet.NumOfCarton = item.NumOfCarton;
                     tmppidet.PI_PO_price = item.PI_PO_price;
 
                     tmppidet.pi_dateCode = item.pi_dateCode;
@@ -7686,10 +7755,23 @@ namespace WHOperation
                 MessageBox.Show("Error: Has " + _hasMPQToEnter + " MPQ to Enter.");
                 dgv7PrintAll.Focus(); return;
             }
+            else if (_hasNumberLabelMore > 0)
+            {
+                dgv7PrintAll.Rows[_dgvfirstNumOfLable].Cells["NumOfLabel"].Selected = true;
+                if (MessageBox.Show("Error: Has " + _hasNumberLabelMore + " lable more 100 to Enter.\n Are you continue to Print.", "Notice", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                {
+                    dgv7PrintAll.Focus(); return;
+                }
+            }
             #endregion
 
             foreach (var item in _dtPIRemoteIlistvpi_detWHO_VPrint)
             {
+                if (item.PI_QTY <= item.PI_Print_QTY)
+                {
+                    MessageBox.Show(item.PI_LOT + " was print over.");
+                    return;
+                }
                 PI_Print tmpPrint = new PI_Print();
                 if (initPiPrintModel(tmpPrint, item))
                 {
@@ -7701,9 +7783,9 @@ namespace WHOperation
                 }
             }
             var saveflag = _dbWHOperation.SaveChanges();
-            if (saveflag>0)
+            if (saveflag > 0)
             {
-                btn2PIID_Click(sender,e);
+                btn2PIID_Click(sender, e);
             }
         }
 
@@ -7713,7 +7795,10 @@ namespace WHOperation
 
         public int _dgvfirstNullMPQ { get; set; }
 
-        
+        public int _dgvfirstNumOfLable { get; set; }
+
+
+        public int _hasNumberLabelMore { get; set; }
     }
     public class printStringList
     {

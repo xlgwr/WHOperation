@@ -58,6 +58,10 @@ namespace WHOperation.EF.PI
                 .Property(e => e.PI_Print_QTY)
                 .HasPrecision(18, 0);
 
+            modelBuilder.Entity<PI_DET>()
+                .Property(e => e.NumOfCarton)
+                .HasPrecision(18, 0);
+
             modelBuilder.Entity<vpi_detWHO>()
                 .Property(e => e.PI_QTY)
                 .HasPrecision(18, 0);
@@ -73,6 +77,10 @@ namespace WHOperation.EF.PI
             modelBuilder.Entity<vpi_detWHO>()
                 .Property(e => e.ttlQTY)
                 .HasPrecision(38, 0);
+
+            modelBuilder.Entity<vpi_detWHO>()
+                .Property(e => e.NumOfCarton)
+                .HasPrecision(18, 0);
         }
     }
 }

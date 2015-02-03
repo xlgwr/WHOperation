@@ -18,10 +18,13 @@ namespace WHOperation.EF.PI
         public string PI_LOT { get; set; }
 
         [Column(TypeName = "numeric")]
+        public decimal NumOfCarton { get; set; }
+
+        [Column(TypeName = "numeric")]
         public decimal NumOfLabel { get; set; }
 
-        //[Column(TypeName = "numeric")]
-        //public decimal? NumOfCarton { get; set; }
+        [Column(TypeName = "numeric")]
+        public decimal NumOfAllCarton { get; set; }
 
         [Column(TypeName = "numeric")]
         public decimal Remainder { get; set; }

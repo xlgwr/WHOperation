@@ -55,6 +55,10 @@ namespace WHOperation.EF.PI
         [StringLength(50)]
         public string pi_lotNumber { get; set; }
 
+
+        [Column(TypeName = "numeric")]
+        public decimal NumOfCarton { get; set; }
+
         [Key]
         [Column(Order = 3)]
         [StringLength(12)]
