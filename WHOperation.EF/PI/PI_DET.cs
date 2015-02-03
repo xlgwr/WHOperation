@@ -120,10 +120,8 @@ namespace WHOperation.EF.PI
 
         public decimal? PI_Print_QTY { get; set; }
 
-        [StringLength(50)]
         public string pi_dateCode { get; set; }
 
-        [StringLength(50)]
         public string pi_lotNumber { get; set; }
 
         [Column(TypeName = "numeric")]

@@ -8,10 +8,8 @@ namespace WHOperation.EF.PI
 
     public partial class vpi_detWHO_VPrint
     {
-        [StringLength(50)]
         public string pi_dateCode { get; set; }
 
-        [StringLength(50)]
         public string pi_lotNumber { get; set; }
 
         [StringLength(12)]

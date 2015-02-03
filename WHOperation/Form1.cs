@@ -7549,6 +7549,10 @@ namespace WHOperation
             {
                 strprefix = "5PIPending";
             }
+            if (_dgv_ToolScriptMenu.Name.Equals("dgv7PrintAll"))
+            {
+                strprefix = "7PrintAll";
+            }
             var tmpname = strprefix + "_" + txt1PIID.Text;// +"_" + DateTime.Now.Minute.ToString("0#") + DateTime.Now.Millisecond.ToString("00#");
             var dwo = new DoWorkObject(_dgv_ToolScriptMenu, "xlsx", tmpname, "", true);
             cf.downLoadExcel_Thread(dwo);
@@ -7681,7 +7685,7 @@ namespace WHOperation
 
             if (!_cellValueChanged)
             {
-                tool_lbl_Msg.Text = "Success: nothin is changed.";
+                tool_lbl_Msg.Text = "Success: nothing is changed.";
                 return;
             }
             try

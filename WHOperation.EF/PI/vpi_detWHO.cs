@@ -49,10 +49,8 @@ namespace WHOperation.EF.PI
         [Column(Order = 2, TypeName = "numeric")]
         public decimal ttlQTY { get; set; }
 
-        [StringLength(50)]
         public string pi_dateCode { get; set; }
 
-        [StringLength(50)]
         public string pi_lotNumber { get; set; }
 
 
