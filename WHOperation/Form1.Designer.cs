@@ -282,7 +282,6 @@ namespace WHOperation
             this.tfscanarea.Size = new System.Drawing.Size(232, 81);
             this.tfscanarea.TabIndex = 3;
             this.toolTip1.SetToolTip(this.tfscanarea, resources.GetString("tfscanarea.ToolTip"));
-            this.tfscanarea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tfscanarea_KeyDown);
             // 
             // tf1dnpartnumber
             // 
@@ -1743,6 +1742,7 @@ namespace WHOperation
             this.dgv7PrintAll.RowTemplate.Height = 23;
             this.dgv7PrintAll.Size = new System.Drawing.Size(1086, 320);
             this.dgv7PrintAll.TabIndex = 1;
+            this.dgv7PrintAll.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv7PrintAll_CellDoubleClick);
             this.dgv7PrintAll.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv7PrintAll_CellValueChanged);
             // 
             // contextMenuStrip2DownExcel
@@ -2256,6 +2256,7 @@ namespace WHOperation
             this.dgv5PIPending.RowTemplate.Height = 23;
             this.dgv5PIPending.Size = new System.Drawing.Size(799, 127);
             this.dgv5PIPending.TabIndex = 0;
+            this.dgv5PIPending.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv5PIPending_CellClick);
             this.dgv5PIPending.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv5PIPending_CellDoubleClick);
             this.dgv5PIPending.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv5PIPending_DataBindingComplete);
             this.dgv5PIPending.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv5PIPending_KeyDown);
@@ -2373,8 +2374,6 @@ namespace WHOperation
             this.Text = "PIMS Data Capture";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing_1);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgv1Pending)).EndInit();
             this.tabControl1.ResumeLayout(false);

@@ -45,8 +45,18 @@ namespace WHOperation.API
         public string _cartonidenter;
         public int _fori;
 
+        //label lot
+        public decimal _pirindex { get; set; }
+        public string _pistrdateLot { get; set; }
+
         public DoWorkObject()
         {
+
+        }
+        public DoWorkObject(decimal rindex,string strdatelot)
+        {
+            _pirindex = rindex;
+            _pistrdateLot = strdatelot;
 
         }
         /// <summary>

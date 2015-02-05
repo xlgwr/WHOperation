@@ -36,6 +36,8 @@ namespace WHOperation
     {
         WebReference.Service MFGProService = new WebReference.Service();
 
+        KeyboardHook kh;
+
         DataSet dsDNDetail = new DataSet("dsDNDetail");
         DataSet _dsComplete = new DataSet();
 
@@ -159,8 +161,196 @@ namespace WHOperation
             this.FormClosing += new FormClosingEventHandler(this.Form1_FormClosing);
 
             initwidth();
+            getkeyG();
+        }
+        void getkeyG()
+        {
+            kh = new KeyboardHook();
+            kh.SetHook();
+            kh.OnKeyDownEvent += glolblKeyDown;
+        }
+        void kh_OnKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyData == (Keys.S | Keys.Control)) { this.Show(); }//Ctrl+S显示窗口
+            //if (e.KeyData == (Keys.H | Keys.Control)) { this.Hide(); }//Ctrl+H隐藏窗口
+            //if (e.KeyData == (Keys.C | Keys.Control)) { this.Close(); }//Ctrl+C 关闭窗口 
+            //if (e.KeyData == (Keys.A | Keys.Control | Keys.Alt)) { this.Text = "你发现了什么？"; }//Ctrl+Alt+A           
         }
 
+        private void glolblKeyDown(object sender, KeyEventArgs e)
+        {
+            if (chk0PrintAll.Checked)
+            {
+                return;
+            }
+            if (e.KeyCode == Keys.F1)
+            {
+                tfnooflabels.Text = "1";
+                enableScan();
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                tfnooflabels.Text = "2"; enableScan();
+
+            }
+            else if (e.KeyCode == Keys.F3)
+            {
+                tfnooflabels.Text = "3"; enableScan();
+
+            }
+            else if (e.KeyCode == Keys.F4)
+            {
+                tfnooflabels.Text = "4"; enableScan();
+
+            }
+            else if (e.KeyCode == Keys.F5)
+            {
+                tfnooflabels.Text = "5"; enableScan();
+
+            }
+            else if (e.KeyCode == Keys.F6)
+            {
+                tfnooflabels.Text = "6"; enableScan();
+
+            }
+            else if (e.KeyCode == Keys.F7)
+            {
+                tfnooflabels.Text = "7"; enableScan();
+
+            }
+            else if (e.KeyCode == Keys.F8)
+            {
+                tfnooflabels.Text = "8"; enableScan();
+            }
+            else if (e.KeyCode == Keys.F9)
+            {
+                tfnooflabels.Text = "9"; enableScan();
+            }
+            else if (e.KeyCode == Keys.F10)
+            {
+                tfnooflabels.Text = "10"; enableScan();
+            }
+            else if (e.KeyCode == Keys.F11)
+            {
+                tfnooflabels.Text = "11"; enableScan();
+            }
+            else if (e.KeyCode == Keys.F12)
+            {
+                tfnooflabels.Text = "12"; enableScan();
+            }
+            if (e.KeyCode == Keys.Delete)
+            {
+                enableScan();
+            }
+
+            if (e.KeyCode == Keys.PageDown)
+            {
+                button1_Click(sender, e);
+            }
+            if (e.KeyCode == Keys.End)
+            {
+                txt1PIID.Text = "";
+                txt1PIID.Focus();
+
+            }
+            if (e.KeyCode == Keys.Home)
+            {
+                if (_usePrintPI)
+                {
+                    txt2FilterValue.Text = "";
+                    txt2FilterValue.Focus();
+                }
+                else
+                {
+                    tfdnno.Focus();
+                }
+
+            }
+            if (e.KeyCode == Keys.Insert)
+            {
+                _useDefineToPrint = true;
+
+                _findWecPart100 = true;
+                _findQplPart100 = true;
+
+                tf1dnpartnumber.Text = "";
+                tf2recmfgrpart.Text = "";
+                tf1dnpartnumber.Text = tf0partno.Text;
+                tf2recmfgrpart.Text = tf0mfgpart.Text;
+
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+
+                _useDefineToPrint = true;
+
+                _findWecPart100 = true;
+                _findQplPart100 = true;
+
+                tf1dnpartnumber.Text = "";
+                tf2recmfgrpart.Text = "";
+                tf1dnpartnumber.Text = tf0partno.Text;
+                tf2recmfgrpart.Text = tf0mfgpart.Text;
+                string tmpqty = "";
+                if (_usePrintPI)
+                {
+
+                    if (dgv5PIPending.SelectedRows.Count > 0)
+                    {
+                        if (chk99UseMPQ.Checked)
+                        {
+                            tmpqty = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString();
+                            tf3recqty.Text = tmpqty;
+                        }
+
+                    }
+                }
+            }
+
+            if (e.KeyCode == Keys.Right)
+            {
+                chk99UseMPQ.Checked = !chk99UseMPQ.Checked;
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                if (_usePrintPI)
+                {
+                    if (dgv5PIPending.RowCount > 0)
+                    {
+                        if (_dgvCurrRowIndexforPI < dgv5PIPending.RowCount - 1)
+                        {
+                            _dgvCurrRowIndexforPI++;
+                            dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
+                        }
+                        else
+                        {
+                            dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
+                        }
+
+                    }
+                }
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                if (_usePrintPI)
+                {
+                    if (dgv5PIPending.RowCount > 0)
+                    {
+                        if (_dgvCurrRowIndexforPI > 0)
+                        {
+                            _dgvCurrRowIndexforPI--;
+                            dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
+                        }
+                        else
+                        {
+                            dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
+                        }
+
+                    }
+                }
+            }
+
+        }
         protected override void OnLoad(EventArgs e)
         {
             dgv1Pending.SelectionChanged += new EventHandler(dataGridView1_SelectionChanged);
@@ -374,6 +564,7 @@ namespace WHOperation
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            kh.UnHook();
             try
             {
                 if (_dbWHOperation != null)
@@ -409,79 +600,11 @@ namespace WHOperation
         private void OnKeyDownHandlerscanArea(object sender, KeyEventArgs e)
         {
             _useDefineToPrint = false;
-            if (e.KeyCode == Keys.Delete)
-            {
-                enableScan();
-            }
+
             if (tfscanarea.ReadOnly)
             {
                 tfscanarea.Text = "";
                 return;
-            }
-            if (e.KeyCode == Keys.PageDown)
-            {
-                button1_Click(sender, e);
-                return;
-            }
-            if (e.KeyCode == Keys.End)
-            {
-                txt1PIID.Text = "";
-                txt1PIID.Focus();
-                return;
-            }
-            if (e.KeyCode == Keys.Home)
-            {
-                if (_usePrintPI)
-                {
-                    txt2FilterValue.Text = "";
-                    txt2FilterValue.Focus();
-                }
-                else
-                {
-                    tfdnno.Focus();
-                }
-                return;
-            }
-            if (e.KeyCode == Keys.Insert)
-            {
-                _useDefineToPrint = true;
-
-                _findWecPart100 = true;
-                _findQplPart100 = true;
-
-                tf1dnpartnumber.Text = "";
-                tf2recmfgrpart.Text = "";
-                tf1dnpartnumber.Text = tf0partno.Text;
-                tf2recmfgrpart.Text = tf0mfgpart.Text;
-                return;
-
-            }
-            if (e.KeyCode == Keys.Left)
-            {
-
-                _useDefineToPrint = true;
-
-                _findWecPart100 = true;
-                _findQplPart100 = true;
-
-                tf1dnpartnumber.Text = "";
-                tf2recmfgrpart.Text = "";
-                tf1dnpartnumber.Text = tf0partno.Text;
-                tf2recmfgrpart.Text = tf0mfgpart.Text;
-                string tmpqty = "";
-                if (_usePrintPI)
-                {
-                    if (dgv5PIPending.SelectedRows.Count > 0)
-                    {
-                        tmpqty = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString();
-                        tf3recqty.Text = tmpqty;
-                    }
-                }
-                return;
-            }
-            if (e.KeyCode == Keys.Right)
-            {
-                chk99UseMPQ.Checked = !chk99UseMPQ.Checked;
             }
             //if (e.KeyValue <= 31)
             //{
@@ -2814,11 +2937,71 @@ namespace WHOperation
             catch (Exception serEx) { MessageBox.Show("PIMS Label Service Error:\n" + serEx.Message.ToString(), "System Message"); }
             return cRet;
         }
+        void getDateLotToList(string _tfdateLot, IList<DoWorkObject> doDateLot)
+        {
+            if (_tfdateLot.Contains(':'))
+            {
+                if (_tfdateLot.Contains('|'))
+                {
+                    var tmpsplit = _tfdateLot.Split('|');
 
+                    foreach (var item in tmpsplit)
+                    {
+                        var tmpsplit2 = item.Split(':');
+
+                        if (tmpsplit2.Count() > 1)
+                        {
+                            if (IsNumber(tmpsplit2[0]))
+                            {
+                                DoWorkObject tmpdo = new DoWorkObject(Convert.ToDecimal(tmpsplit2[0]), tmpsplit2[1]);
+                                doDateLot.Add(tmpdo);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        void setDateLotToClass(tfclass _tfclass, IList<DoWorkObject> doDateLot, decimal printindex, bool isdatecode)
+        {
+            bool tempfind = false;
+            if (doDateLot.Count > 0)
+            {
+                foreach (var item in doDateLot)
+                {
+                    if (item._pirindex == printindex)
+                    {
+                        if (isdatecode)
+                        {
+                            _tfclass._tfdatecode = item._pistrdateLot;
+                        }
+                        else
+                        {
+                            _tfclass._tflotno = item._pistrdateLot;
+                        }
+                        tempfind = true;
+                        break;
+                    }
+                }
+                if (!tempfind)
+                {
+                    if (isdatecode)
+                    {
+                        _tfclass._tfdatecode = doDateLot[0]._pistrdateLot;
+                    }
+                    else
+                    {
+                        _tfclass._tflotno = doDateLot[0]._pistrdateLot;
+                    }
+                }
+            }
+        }
         bool updDataPrintForPI(EF.PI.vpi_detWHO_VPrint vpi)
         {
             String cPIMSNumber;
             List<String> lPIMSData = new List<String>();
+            IList<DoWorkObject> doDateCode = new List<DoWorkObject>();
+            IList<DoWorkObject> doLotNumber = new List<DoWorkObject>();
+
             _toPrintList = new List<printStringList>();
 
             if (string.IsNullOrEmpty(vpi.PI_LOT))
@@ -2829,12 +3012,18 @@ namespace WHOperation
             _tfclass = new tfclass(vpi.PI_NO, vpi.PI_PART, vpi.pi_mfgr_part, vpi.pi_dateCode, vpi.PI_PO_price.ToString("###"), vpi.pi_lotNumber, vpi.pi_cre_time.ToString(),
                 "", vpi.PI_LOT, vpi.PI_PART, vpi.pi_mfgr_part, vpi.pi_cre_time.ToString(), vpi.PI_QTY.ToString("###"));
             _tfclass._ttlQty = vpi.ttlQTY.ToString("###");
-
             try
             {
+                #region getDatecode
+                getDateLotToList(_tfclass._tfdatecode, doDateCode);
+                getDateLotToList(_tfclass._tflotno, doLotNumber);
+                #endregion
+
                 if (vpi.NumOfLabel > 1)
                 {
                     #region TTL print
+                    setDateLotToClass(_tfclass, doDateCode, 1, true);
+                    setDateLotToClass(_tfclass, doLotNumber, 1, false);
                     if (!printOneLable(_tfclass._tfrirno, _tfclass._ttlQty, false))
                     {
                         return false;
@@ -2847,6 +3036,8 @@ namespace WHOperation
 
                     if (tmpSpliteLable > 1)
                     {
+                        setDateLotToClass(_tfclass, doDateCode, 1, true);
+                        setDateLotToClass(_tfclass, doLotNumber, 1, false);
                         while (tmpSpliteLable > 0)
                         {
                             if (tmpSpliteLable == 1)
@@ -2871,12 +3062,16 @@ namespace WHOperation
                 }
                 #region number of lable to print
 
-                cPIMSNumber = getPIMSData();
-                lPIMSData = updateMFGPro(cPIMSNumber, true);
 
                 decimal tmpNumberOflable = vpi.NumOfLabel;
                 while (tmpNumberOflable > 0)
                 {
+                    cPIMSNumber = getPIMSData();
+                    lPIMSData = updateMFGPro(cPIMSNumber, true);
+
+                    setDateLotToClass(_tfclass, doDateCode, tmpNumberOflable, true);
+                    setDateLotToClass(_tfclass, doLotNumber, tmpNumberOflable, false);
+
                     if (lPIMSData[5].ToUpper().Contains("MRB"))
                     {
 
@@ -2964,7 +3159,15 @@ namespace WHOperation
             String[] cRec = new String[cR.Cells.Count];
             for (i = 0; i <= cR.Cells.Count - 1; i += 1)
             {
-                cRec[i] = cR.Cells[i].Value.ToString().Trim();
+                if (cR.Cells[i].Value == null)
+                {
+                    cRec[i] = "";
+
+                }
+                else
+                {
+                    cRec[i] = cR.Cells[i].Value.ToString().Trim();
+                }
             }
 
             _tfclass = new tfclass(_piid, tf0partno.Text, tf0mfgpart.Text, tf4datecode.Text, tf0dnqty.Text, tf6lotno.Text, tf0mfgdate.Text,
@@ -3020,10 +3223,19 @@ namespace WHOperation
                 return false;
 
             cR = dgv.SelectedRows[0];
+
             String[] cRec = new String[cR.Cells.Count];
             for (i = 0; i <= cR.Cells.Count - 1; i += 1)
             {
-                cRec[i] = cR.Cells[i].Value.ToString().Trim();
+                if (cR.Cells[i].Value == null)
+                {
+                    cRec[i] = "";
+
+                }
+                else
+                {
+                    cRec[i] = cR.Cells[i].Value.ToString().Trim();
+                }
             }
 
             _tfclass = new tfclass(_piid, tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text,
@@ -3171,7 +3383,14 @@ namespace WHOperation
             String[] cRec = new String[cR.Cells.Count];
             for (i = 0; i <= cR.Cells.Count - 1; i += 1)
             {
-                cRec[i] = cR.Cells[i].Value.ToString().Trim();
+                if (cR.Cells[i].Value == null)
+                {
+                    cRec[i] = "";
+                }
+                else
+                {
+                    cRec[i] = cR.Cells[i].Value.ToString().Trim();
+                }
             }
             _tfclass = new tfclass(_piid, tf0partno.Text, tf0mfgpart.Text, tf4datecode.Text, tf0dnqty.Text, tf6lotno.Text, tf0mfgdate.Text,
                                  tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
@@ -3225,7 +3444,15 @@ namespace WHOperation
             String[] cRec = new String[cR.Cells.Count];
             for (i = 0; i <= cR.Cells.Count - 1; i += 1)
             {
-                cRec[i] = cR.Cells[i].Value.ToString().Trim();
+                if (cR.Cells[i].Value == null)
+                {
+                    cRec[i] = "";
+
+                }
+                else
+                {
+                    cRec[i] = cR.Cells[i].Value.ToString().Trim();
+                }
             }
             _tfclass = new tfclass(_piid, tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text,
                 tf6lotno.Text, tf0mfgdate.Text, tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
@@ -4471,7 +4698,7 @@ namespace WHOperation
                             lPIMSData[5].ToString().ToUpper(), _tfclass._tflotno.ToUpper(), lPIMSData[2].ToString().ToUpper(), lPIMSData[3].ToString().ToUpper(),
                             lPIMSData[7].ToString().ToUpper(), _tfclass._ttlQty, lPIMSData[6].ToString().ToUpper(), lPIMSData[4].ToString().ToUpper(),
                             lPIMSData[9].ToString().ToUpper(), lPIMSData[10].ToString().ToUpper(), lPIMSData[11].ToString().ToUpper(), lPIMSData[12].ToString().ToUpper(),
-                            lPIMSData[0].ToString().ToUpper(), lPIMSData[13].ToString().ToUpper(),
+                            lPIMSData[0].ToString().ToUpper(),_tfclass._tfdatecode,//lPIMSData[13].ToString().ToUpper(),
                             cSelPrinter, lPIMSData[14].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(),
                             lPIMSData[16].ToString().ToUpper(), cUserID, lPIMSData[16].ToString().ToUpper(), "", 1, _tfclass._tfrirno.ToUpper(), lPIMSData[17].ToString().ToUpper()
                  );
@@ -4955,6 +5182,9 @@ namespace WHOperation
             chk9UseLotNumber.Checked = false;
             tf6lotno.BackColor = Color.Gray;
 
+            _dgvCurrRowIndexforPI = 0;
+            _dgvCurrColIndex = 0;
+            _dgvCurrRowIndex = 0;
             _useDnNumber = false;
         }
         private void tfnooflabels_KeyDown(object sender, KeyEventArgs e)
@@ -5258,8 +5488,7 @@ namespace WHOperation
         }
         private void enableScan()
         {
-
-
+            tfscanarea.Focus();
             bDisableScan.Enabled = true;
             bEnableScan.Enabled = false;
             tfscanarea.ReadOnly = false;
@@ -5368,6 +5597,10 @@ namespace WHOperation
 
                     tfscanarea.Focus();
                 }
+            }
+            else
+            {
+                tfscanarea.Focus();
             }
         }
         private void bEnableScan_Click(object sender, EventArgs e)
@@ -5915,175 +6148,7 @@ namespace WHOperation
             autoPrintWithLotOrDateCode(sender, e);
 
         }
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F1)
-            {
-                tfnooflabels.Text = "1";
-            }
-            else if (e.KeyCode == Keys.F2)
-            {
-                tfnooflabels.Text = "2";
-            }
-            else if (e.KeyCode == Keys.F3)
-            {
-                tfnooflabels.Text = "3";
-            }
-            else if (e.KeyCode == Keys.F4)
-            {
-                tfnooflabels.Text = "4";
-            }
-            else if (e.KeyCode == Keys.F5)
-            {
-                tfnooflabels.Text = "5";
-            }
-            else if (e.KeyCode == Keys.F6)
-            {
-                tfnooflabels.Text = "6";
-            }
-            else if (e.KeyCode == Keys.F7)
-            {
-                tfnooflabels.Text = "7";
-            }
-            else if (e.KeyCode == Keys.F8)
-            {
-                tfnooflabels.Text = "8";
-            }
-            else if (e.KeyCode == Keys.F9)
-            {
-                tfnooflabels.Text = "9";
-            }
-            else if (e.KeyCode == Keys.F10)
-            {
-                tfnooflabels.Text = "10";
-            }
-            else if (e.KeyCode == Keys.F11)
-            {
-                tfnooflabels.Text = "11";
-            }
-            else if (e.KeyCode == Keys.F12)
-            {
-                tfnooflabels.Text = "12";
-            }
 
-            base.OnKeyDown(e);
-        }
-        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F1)
-            {
-                tfnooflabels.Text = "1";
-            }
-            else if (e.KeyCode == Keys.F2)
-            {
-                tfnooflabels.Text = "2";
-            }
-            else if (e.KeyCode == Keys.F3)
-            {
-                tfnooflabels.Text = "3";
-            }
-            else if (e.KeyCode == Keys.F4)
-            {
-                tfnooflabels.Text = "4";
-            }
-            else if (e.KeyCode == Keys.F5)
-            {
-                tfnooflabels.Text = "5";
-            }
-            else if (e.KeyCode == Keys.F6)
-            {
-                tfnooflabels.Text = "6";
-            }
-            else if (e.KeyCode == Keys.F7)
-            {
-                tfnooflabels.Text = "7";
-            }
-            else if (e.KeyCode == Keys.F8)
-            {
-                tfnooflabels.Text = "8";
-            }
-            else if (e.KeyCode == Keys.F9)
-            {
-                tfnooflabels.Text = "9";
-            }
-            else if (e.KeyCode == Keys.F10)
-            {
-                tfnooflabels.Text = "10";
-            }
-            else if (e.KeyCode == Keys.F11)
-            {
-                tfnooflabels.Text = "11";
-            }
-            else if (e.KeyCode == Keys.F12)
-            {
-                tfnooflabels.Text = "12";
-            }
-        }
-
-        private void tfscanarea_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (e.KeyCode == Keys.F1)
-            {
-                tfnooflabels.Text = "1";
-                enableScan();
-            }
-            else if (e.KeyCode == Keys.F2)
-            {
-                tfnooflabels.Text = "2"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F3)
-            {
-                tfnooflabels.Text = "3"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F4)
-            {
-                tfnooflabels.Text = "4"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F5)
-            {
-                tfnooflabels.Text = "5"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F6)
-            {
-                tfnooflabels.Text = "6"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F7)
-            {
-                tfnooflabels.Text = "7"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F8)
-            {
-                tfnooflabels.Text = "8"; enableScan();
-            }
-            else if (e.KeyCode == Keys.F9)
-            {
-                tfnooflabels.Text = "9"; enableScan();
-            }
-            else if (e.KeyCode == Keys.F10)
-            {
-                tfnooflabels.Text = "10"; enableScan();
-            }
-            else if (e.KeyCode == Keys.F11)
-            {
-                tfnooflabels.Text = "11"; enableScan();
-            }
-            else if (e.KeyCode == Keys.F12)
-            {
-                tfnooflabels.Text = "12"; enableScan();
-            }
-        }
 
         private void tfdnno_TextChanged(object sender, EventArgs e)
         {
@@ -6202,6 +6267,7 @@ namespace WHOperation
         }
         public void btn2PIID_Click(object sender, EventArgs e)
         {
+            _dgvCurrRowIndexforPI = 0;
             chk5NoSplit.Checked = true;
             chk99AutoDateLot.Checked = true;
             _usePrintPI = true;
@@ -6912,6 +6978,10 @@ namespace WHOperation
             {
                 dgv.ClearSelection();
                 if (!chk9UsePartNo.Checked)
+                {
+                    dgv.Rows[0].Cells[0].Selected = true;
+                }
+                if (dgv.Rows.Count < 2)
                 {
                     dgv.Rows[0].Cells[0].Selected = true;
                 }
@@ -7635,6 +7705,7 @@ namespace WHOperation
                 cbfiltertype.SelectedIndex = 1;
             }
             txt1PIID.Focus();
+            _dgvCurrRowIndex = 0;
 
         }
 
@@ -7774,7 +7845,7 @@ namespace WHOperation
                 if (item.PI_QTY <= item.PI_Print_QTY)
                 {
                     MessageBox.Show(item.PI_LOT + " was print over.");
-                    return;
+                    continue;
                 }
                 PI_Print tmpPrint = new PI_Print();
                 if (initPiPrintModel(tmpPrint, item))
@@ -7803,6 +7874,30 @@ namespace WHOperation
 
 
         public int _hasNumberLabelMore { get; set; }
+
+        private void dgv7PrintAll_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.RowIndex < dgv7PrintAll.Rows.Count)
+            {
+                _dgvCurrRowIndex = e.RowIndex;
+                _dgvCurrColIndex = e.ColumnIndex;
+                AddDateLotfrm adl = new AddDateLotfrm(this, dgv7PrintAll);
+
+                adl.ShowDialog();
+
+            }
+        }
+
+        public int _dgvCurrColIndex { get; set; }
+
+        public int _dgvCurrRowIndexforPI { get; set; }
+
+        public int _dgvCurrRowIndex { get; set; }
+
+        private void dgv5PIPending_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            _dgvCurrRowIndexforPI = e.RowIndex;
+        }
     }
     public class printStringList
     {
