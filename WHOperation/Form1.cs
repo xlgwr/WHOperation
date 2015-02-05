@@ -4725,9 +4725,10 @@ namespace WHOperation
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
+            this.AcceptButton = btn2PIID;
             if (_usePrintPI || txt1PIID.Text.Length > 0)
             {
-                this.AcceptButton = btn2PIID;
+
             }
             else
             {
