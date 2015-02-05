@@ -4698,7 +4698,7 @@ namespace WHOperation
                             lPIMSData[5].ToString().ToUpper(), _tfclass._tflotno.ToUpper(), lPIMSData[2].ToString().ToUpper(), lPIMSData[3].ToString().ToUpper(),
                             lPIMSData[7].ToString().ToUpper(), _tfclass._ttlQty, lPIMSData[6].ToString().ToUpper(), lPIMSData[4].ToString().ToUpper(),
                             lPIMSData[9].ToString().ToUpper(), lPIMSData[10].ToString().ToUpper(), lPIMSData[11].ToString().ToUpper(), lPIMSData[12].ToString().ToUpper(),
-                            lPIMSData[0].ToString().ToUpper(),_tfclass._tfdatecode,//lPIMSData[13].ToString().ToUpper(),
+                            lPIMSData[0].ToString().ToUpper(), _tfclass._tfdatecode,//lPIMSData[13].ToString().ToUpper(),
                             cSelPrinter, lPIMSData[14].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(), lPIMSData[15].ToString().ToUpper(),
                             lPIMSData[16].ToString().ToUpper(), cUserID, lPIMSData[16].ToString().ToUpper(), "", 1, _tfclass._tfrirno.ToUpper(), lPIMSData[17].ToString().ToUpper()
                  );
@@ -4725,9 +4725,16 @@ namespace WHOperation
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            this.AcceptButton = btn2PIID;
-            if (dsDNDetail.Tables.Count >= 7)
-                setGV1();
+            if (_usePrintPI || txt1PIID.Text.Length > 0)
+            {
+                this.AcceptButton = btn2PIID;
+            }
+            else
+            {
+                if (dsDNDetail.Tables.Count >= 7)
+                    setGV1();
+            }
+
         }
         void getlinq1()
         {

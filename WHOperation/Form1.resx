@@ -127,7 +127,8 @@
 4.Insert key get part(获取PN/QPL)
 5.delete key init(清除)
 6.right--&gt; key enable search MPQ(是否使用MPQ)
-7.Left ----&gt; key use MPQ to Print(使用MPQ直接打印)</value>
+7.Left ----&gt; key use MPQ to Print(使用MPQ直接打印)
+8.F1-F12 ----&gt;Set No.Of Labels Value:ref  to 1-12</value>
   </data>
   <metadata name="DNNo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
