@@ -67,7 +67,7 @@ namespace WHOperation
 
         private static Regex RegNumber = new Regex("^[0-9]+$");
         private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
-        public static string _split0Prefix = @"PKOA;KOA;30P;1P;P;Q;33T;3N1;3N2";
+        public static string _split0Prefix = @"PKOA;KOA;30P;1P;P;Q;33T;3N1;3N2;3N3;3N4;3N5;3N6";
         public static string _split3PrefixQty = @"Q;";
         public static string _split4PrefixDC = @"10D;9D;D;1T;T";
         public static string _split6PrefixLot = @"1T;";
@@ -2281,6 +2281,8 @@ namespace WHOperation
 
                 pbrecmfgpart.Image = Image.FromFile(Application.StartupPath + @"\images\tick" + _useQPLPartPercet + ".png");
                 pbdnpartnumber.Image = Image.FromFile(Application.StartupPath + @"\images\tick" + _useDnPartPercent + ".png");
+                _findQplPart100 = true;
+                _findWecPart100 = true;
                 tf1dnpartnumber.Text = oldtf1dn;
                 tf2recmfgrpart.Text = oldtf2qpl;
 
