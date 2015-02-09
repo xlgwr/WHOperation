@@ -257,7 +257,7 @@ namespace WHOperation.API
                         }
 
                         return "success: find in [" + headerText + "] with " + strcontains + " at " + _intnext + " Row," + " start " + tmpStartnext;
-                        
+
                     }
                     if (i >= rowcount - 2)
                     {
@@ -420,6 +420,84 @@ namespace WHOperation.API
                 xssfworkbook_xlsx.Write(f);
             }
         }
+        public void downLoadExcel<T>(object o)
+          where T : class
+        {
+            var dwo = (DoWorkObject<T>)o;
+
+            xssfworkbook_xlsx = new XSSFWorkbook();
+
+            string filename = dwo._filenamePrefix + "D" + DateTime.Now.ToString("yyMMddHHms") + ".xlsx";//yyyyMMddHHmmssff
+
+            if (string.IsNullOrEmpty(dwo._filepath))
+            {
+                dwo._filepath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"0DownLoadExcel";
+            }
+
+            if (!Directory.Exists(dwo._filepath))
+            {
+                Directory.CreateDirectory(dwo._filepath);
+            }
+            string tmpAllFilepathAndName = System.IO.Path.Combine(dwo._filepath, filename);
+
+            ISheet sheet1 = xssfworkbook_xlsx.CreateSheet(filename);
+
+
+            int tmpColumnsCount = typeof(T).GetProperties().Count();
+            int tmpRowsCount = dwo._ilist.Count;
+
+            int x = 1;
+            IRow rowHeader = sheet1.CreateRow(0);
+            for (int i = 0; i < tmpColumnsCount; i++)
+            {
+                rowHeader.CreateCell(i).SetCellValue(x++);
+            }
+
+            for (int i = 1; i <= tmpRowsCount; i++)
+            {
+                IRow row = sheet1.CreateRow(i);
+
+                System.Reflection.PropertyInfo[] properties = dwo._ilist[i - 1].GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
+
+                for (int j = 0; j < tmpColumnsCount; j++)
+                {
+                    var tmpCellValue = properties.ElementAt(j).GetValue(dwo._ilist[i - 1], null);
+
+                    if (tmpCellValue == null)
+                    {
+                        tmpCellValue = "";
+                    }
+
+                    if (tmpCellValue.GetType() == System.TypeCode.String.GetType())
+                    {
+                        row.CreateCell(j).SetCellValue(tmpCellValue.ToString());
+                    }
+                    else if (tmpCellValue.GetType() == System.TypeCode.Decimal.GetType())
+                    {
+                        var tmpCellValue_convert = Convert.ToDouble(tmpCellValue);
+                        row.CreateCell(j).SetCellValue(tmpCellValue_convert);
+                    }
+                    else if (tmpCellValue.GetType() == System.TypeCode.Double.GetType())
+                    {
+                        var tmpCellValue_convert = Convert.ToDouble(tmpCellValue);
+                        row.CreateCell(j).SetCellValue(tmpCellValue_convert);
+                    }
+                    else if (tmpCellValue.GetType() == System.TypeCode.DateTime.GetType())
+                    {
+                        var tmpCellValue_convert = Convert.ToDateTime(tmpCellValue);
+                        row.CreateCell(j).SetCellValue(tmpCellValue_convert);
+                    }
+                    else
+                    {
+                        row.CreateCell(j).SetCellValue(tmpCellValue.ToString());
+                    }
+                }
+            }
+            using (var f = File.Create(@tmpAllFilepathAndName))
+            {
+                xssfworkbook_xlsx.Write(f);
+            }
+        }
         /// <summary>
         /// DataGridView dgv, string xlsType, string filenamePrefix, string filepath,bool autoOpen
         /// </summary>
@@ -542,6 +620,11 @@ namespace WHOperation.API
         public void downLoadExcel_Thread(object o)
         {
             ThreadPool.QueueUserWorkItem(new WaitCallback(downLoadExcel), o);
+        }
+        public void downLoadExcel_Thread<T>(object o)
+            where T : class
+        {
+            ThreadPool.QueueUserWorkItem(new WaitCallback(downLoadExcel<T>), o);
         }
         // open file from path
         #region open file from path

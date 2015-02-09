@@ -8,6 +8,27 @@ using System.Windows.Forms;
 
 namespace WHOperation.API
 {
+    public class DoWorkObject<T> : DoWorkObject
+          where T : class
+    {
+        public IList<T> _ilist;
+        /// <summary>
+        /// down xls for dgv
+        /// </summary>
+        /// <param name="dgv"></param>
+        /// <param name="xlsType"></param>
+        /// <param name="filenamePrefix"></param>
+        /// <param name="filepath">isnull the path use System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"0DownLoadExcel"</param>
+        public DoWorkObject(IList<T> ilist, string xlsType, string filenamePrefix, string filepath, bool autoOpen)
+        {
+            _ilist = ilist;
+            _xlsType = xlsType;
+            _filenamePrefix = filenamePrefix;
+            _filepath = filepath;
+            _autoOpen = autoOpen;
+
+        }
+    }
     public class DoWorkObject
     {
         public DataGridView _dgv;
@@ -53,7 +74,7 @@ namespace WHOperation.API
         {
 
         }
-        public DoWorkObject(decimal rindex,string strdatelot)
+        public DoWorkObject(decimal rindex, string strdatelot)
         {
             _pirindex = rindex;
             _pistrdateLot = strdatelot;
@@ -165,13 +186,13 @@ namespace WHOperation.API
         /// <param name="xlsType"></param>
         /// <param name="filenamePrefix"></param>
         /// <param name="filepath">isnull the path use System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"0DownLoadExcel"</param>
-        public DoWorkObject(DataGridView dgv, string xlsType, string filenamePrefix, string filepath,bool autoOpen)
+        public DoWorkObject(DataGridView dgv, string xlsType, string filenamePrefix, string filepath, bool autoOpen)
         {
             _dgv = dgv;
             _xlsType = xlsType;
             _filenamePrefix = filenamePrefix;
             _filepath = filepath;
-            _autoOpen=autoOpen;
+            _autoOpen = autoOpen;
 
         }
 

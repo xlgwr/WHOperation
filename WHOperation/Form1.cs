@@ -7908,6 +7908,44 @@ namespace WHOperation
         {
             _dgvCurrRowIndexforPI = e.RowIndex;
         }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            if (dgv7PrintAll.Rows.Count <= 0)
+            {
+                return;
+            }
+            string strprefix = "8PI_Date_Lot";
+
+            DataGridView tmplotdgv = new DataGridView();
+
+            foreach (DataGridViewColumn item in dgv7PrintAll.Columns)
+            {
+                var tmpcolumn = (DataGridViewColumn)item.Clone();
+                tmplotdgv.Columns.Add(tmpcolumn);
+            }
+            
+            foreach (DataGridViewRow item in dgv7PrintAll.Rows)
+            {
+                if (item.Cells[0].Style.BackColor == Color.Yellow || item.Cells[1].Style.BackColor == Color.Yellow)
+                {
+                    DataGridViewRow tmprow = new DataGridViewRow();
+                    tmprow = (DataGridViewRow)item.Clone();
+                    for (int i = 0; i < dgv7PrintAll.Columns.Count; i++)
+                    {
+                        tmprow.Cells[i].Value = item.Cells[i].Value;
+                    }
+                    tmplotdgv.Rows.Add(tmprow);
+                }
+            }
+            if (tmplotdgv.Rows.Count<=0)
+            {
+                return;
+            }
+            var tmpname = strprefix + "_" + txt1PIID.Text;// +"_" + DateTime.Now.Minute.ToString("0#") + DateTime.Now.Millisecond.ToString("00#");
+            var dwo = new DoWorkObject(tmplotdgv, "xlsx", tmpname, "", true);
+            cf.downLoadExcel_Thread(dwo);
+        }
     }
     public class printStringList
     {
