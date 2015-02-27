@@ -3011,7 +3011,7 @@ namespace WHOperation
                 return false;
             }
 
-            _tfclass = new tfclass(vpi.PI_NO, vpi.PI_PART, vpi.pi_mfgr_part, vpi.pi_dateCode, vpi.PI_PO_price.ToString("###"), vpi.pi_lotNumber, vpi.pi_cre_time.ToString(),
+            _tfclass = new tfclass(vpi.PI_NO, tfvendor.Text, vpi.PI_PART, vpi.pi_mfgr_part, vpi.pi_dateCode, vpi.PI_PO_price.ToString("###"), vpi.pi_lotNumber, vpi.pi_cre_time.ToString(),
                 "", vpi.PI_LOT, vpi.PI_PART, vpi.pi_mfgr_part, vpi.pi_cre_time.ToString(), vpi.PI_QTY.ToString("###"));
             _tfclass._ttlQty = vpi.ttlQTY.ToString("###");
             try
@@ -3172,7 +3172,7 @@ namespace WHOperation
                 }
             }
 
-            _tfclass = new tfclass(_piid, tf0partno.Text, tf0mfgpart.Text, tf4datecode.Text, tf0dnqty.Text, tf6lotno.Text, tf0mfgdate.Text,
+            _tfclass = new tfclass(_piid, tfvendor.Text, tf0partno.Text, tf0mfgpart.Text, tf4datecode.Text, tf0dnqty.Text, tf6lotno.Text, tf0mfgdate.Text,
                 tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
             var tmpqty = Convert.ToDecimal(cR.Cells["ttlQTY"].Value).ToString("###");// getSumPIdetWitRir(_tfclass);
             _tfclass._ttlQty = String.IsNullOrEmpty(tmpqty) ? tf0dnqty.Text.Trim() : tmpqty;
@@ -3240,7 +3240,7 @@ namespace WHOperation
                 }
             }
 
-            _tfclass = new tfclass(_piid, tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text,
+            _tfclass = new tfclass(_piid, tfvendor.Text, tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text, tf6lotno.Text, tf0mfgdate.Text,
                 tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
             var tmpqty = Convert.ToDecimal(cR.Cells["ttlQTY"].Value).ToString("###");// getSumPIdetWitRir(_tfclass);
             _tfclass._ttlQty = String.IsNullOrEmpty(tmpqty) ? tf0dnqty.Text.Trim() : tmpqty;
@@ -3394,7 +3394,7 @@ namespace WHOperation
                     cRec[i] = cR.Cells[i].Value.ToString().Trim();
                 }
             }
-            _tfclass = new tfclass(_piid, tf0partno.Text, tf0mfgpart.Text, tf4datecode.Text, tf0dnqty.Text, tf6lotno.Text, tf0mfgdate.Text,
+            _tfclass = new tfclass(_piid, tfvendor.Text, tf0partno.Text, tf0mfgpart.Text, tf4datecode.Text, tf0dnqty.Text, tf6lotno.Text, tf0mfgdate.Text,
                                  tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
             _tfclass._ttlQty = tf0dnqty.Text.Trim();
 
@@ -3456,7 +3456,7 @@ namespace WHOperation
                     cRec[i] = cR.Cells[i].Value.ToString().Trim();
                 }
             }
-            _tfclass = new tfclass(_piid, tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text,
+            _tfclass = new tfclass(_piid, tfvendor.Text, tf1dnpartnumber.Text, tf2recmfgrpart.Text, tf4datecode.Text, tf3recqty.Text,
                 tf6lotno.Text, tf0mfgdate.Text, tf5expiredate.Text, tfrirno.Text, tf0partno.Text, tf0mfgpart.Text, tfdndate.Text, tf0dnqty.Text);
             _tfclass._ttlQty = tf0dnqty.Text.Trim();
             disableScan();
@@ -7237,7 +7237,7 @@ namespace WHOperation
 
         public List<printStringList> _toPrintList { get; set; }
 
-        public tfclass _tfclass { get; set; }
+        public static tfclass _tfclass { get; set; }
 
         public bool _findQplPart100 { get; set; }
 
@@ -7764,6 +7764,10 @@ namespace WHOperation
         {
             tool_lbl_Msg.Text = "";
 
+            if (dgv7PrintAll.RowCount <= 0)
+            {
+                return;
+            }
             if (!_cellValueChanged)
             {
                 tool_lbl_Msg.Text = "Success: nothing is changed.";
@@ -7813,6 +7817,10 @@ namespace WHOperation
 
         private void btn00PrintAll_Click(object sender, EventArgs e)
         {
+            if (dgv7PrintAll.RowCount <= 0)
+            {
+                return;
+            }
             #region init check
             if (_cellValueChanged)
             {
@@ -7849,12 +7857,19 @@ namespace WHOperation
                 }
             }
             #endregion
-
+            var tmpprintover = "";
             foreach (var item in _dtPIRemoteIlistvpi_detWHO_VPrint)
             {
                 if (item.PI_QTY <= item.PI_Print_QTY)
                 {
-                    MessageBox.Show(item.PI_LOT + " was print over.");
+                    if (string.IsNullOrEmpty(tmpprintover))
+                    {
+                        tmpprintover = item.PI_LOT;
+                    }
+                    else
+                    {
+                        tmpprintover += "," + item.PI_LOT;
+                    }
                     continue;
                 }
                 PI_Print tmpPrint = new PI_Print();
@@ -7872,6 +7887,16 @@ namespace WHOperation
             {
                 btn2PIID_Click(sender, e);
             }
+            if (!string.IsNullOrEmpty(tmpprintover))
+            {
+                MessageBox.Show(tmpprintover + " was already print over. other Print OK");
+            }
+            else
+            {
+                tool_lbl_Msg.Text = "Print All OK.";
+            }
+
+
         }
 
         public int _dgvfirstNullLot { get; set; }
@@ -7924,7 +7949,7 @@ namespace WHOperation
                 var tmpcolumn = (DataGridViewColumn)item.Clone();
                 tmplotdgv.Columns.Add(tmpcolumn);
             }
-            
+
             foreach (DataGridViewRow item in dgv7PrintAll.Rows)
             {
                 if (item.Cells[0].Style.BackColor == Color.Yellow || item.Cells[1].Style.BackColor == Color.Yellow)
@@ -7938,7 +7963,7 @@ namespace WHOperation
                     tmplotdgv.Rows.Add(tmprow);
                 }
             }
-            if (tmplotdgv.Rows.Count<=0)
+            if (tmplotdgv.Rows.Count <= 0)
             {
                 return;
             }

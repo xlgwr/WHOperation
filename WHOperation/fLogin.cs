@@ -144,7 +144,7 @@ namespace WHOperation
                     }
                 }
             }
-            catch (Exception ex) { cbsystem.Items.Add("WEC"); cbsystem.Items.Add("WELLOP"); }
+            catch (Exception ex) { cbsystem.Items.Add("WEC"); cbsystem.Items.Add("WTSZ"); cbsystem.Items.Add("WELLOP"); }
         }
 
     }

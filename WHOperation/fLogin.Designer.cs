@@ -96,6 +96,7 @@ namespace WHOperation
             this.cbsystem.FormattingEnabled = true;
             this.cbsystem.Items.AddRange(new object[] {
             "WEC",
+            "WTSZ",
             "WELLOP"});
             this.cbsystem.Location = new System.Drawing.Point(111, 21);
             this.cbsystem.Name = "cbsystem";

@@ -30,12 +30,13 @@ namespace WHOperation
     }
     public class tfclass
     {
-        public tfclass(string piid, string tfdnpartnumber, string tfrecmfgrpart, string tfdatecode, string tfrecqty,
+        public tfclass(string piid, string tfvendor,string tfdnpartnumber, string tfrecmfgrpart, string tfdatecode, string tfrecqty,
             string tflotno, string tfmfgdate, string tfexpiredate,
             string tfrirno, string tfpart, string tfmfgpart, string tfdndate, string tfdnqty)
         {
 
             _piid = piid;
+            _tfvendorid = tfvendor;
             _tfdnpartnumber = tfdnpartnumber.Trim();
             _tfrecmfgrpart = tfrecmfgrpart.Trim();
             _tfdatecode = tfdatecode == null ? "" : tfdatecode.Trim();
@@ -80,5 +81,7 @@ namespace WHOperation
         public string _ttlQty { get; set; }
 
         public string _piid { get; set; }
+
+        public string _tfvendorid { get; set; }
     }
 }
