@@ -268,7 +268,7 @@ namespace WHOperation
             }
             if (e.KeyCode == Keys.Insert)
             {
-                _useDefineToPrint = true;
+                // _useDefineToPrint = true;
 
                 _findWecPart100 = true;
                 _findQplPart100 = true;
@@ -282,7 +282,7 @@ namespace WHOperation
             if (e.KeyCode == Keys.Left)
             {
 
-                _useDefineToPrint = true;
+                // _useDefineToPrint = true;
 
                 _findWecPart100 = true;
                 _findQplPart100 = true;
@@ -599,7 +599,7 @@ namespace WHOperation
         }
         private void OnKeyDownHandlerscanArea(object sender, KeyEventArgs e)
         {
-            _useDefineToPrint = false;
+            //_useDefineToPrint = false;
 
             if (tfscanarea.ReadOnly)
             {
@@ -2016,6 +2016,8 @@ namespace WHOperation
                 {
                     _findQplPart100 = searchByPercent(scanString, dgv, pbrecmfgpart, tf2recmfgrpart, tf1dnpartnumber, strcellnameMFGP, strcellnamePart, strcellnameMFGP, _useQPLPartPercet, ref tmpmsg, ref cSearchFound, false, _useQPLTrim, _findQplPart100);
 
+                    _useDefineToPrint = _findQplPart100;
+
                 }
 
 
@@ -2029,7 +2031,7 @@ namespace WHOperation
                     return;
                 }
                 _findQplPart101 = searchByPercent(scanString, dgv, pbrecmfgpart, tf2recmfgrpart, tf1dnpartnumber, strcellnameMFGP, strcellnamePart, strcellnameMFGP, _useQPLPartPercet, ref tmpmsg, ref cSearchFound, false, _useQPLTrim, _findQplPart100);
-
+                _useDefineToPrint = _findQplPart100;
             }
             ///95 mfgpartno **************
             if (cSearchFound == 0)
@@ -3321,7 +3323,7 @@ namespace WHOperation
 
                                     _findDW_develop = false;
                                     _findWecPart100 = false;
-
+                                    _findQplPart100 = false;
                                 }
                                 else
                                 {
@@ -5504,7 +5506,7 @@ namespace WHOperation
             tfscanarea.ReadOnly = false;
             initSet();
             _enableinit = false;
-
+            _useDefineToPrint = false;
 
         }
         public void initSet()
@@ -7239,7 +7241,7 @@ namespace WHOperation
 
         public static tfclass _tfclass { get; set; }
 
-        public bool _findQplPart100 { get; set; }
+        public static bool _findQplPart100 { get; set; }
 
         public bool _findWecPart100 { get; set; }
 

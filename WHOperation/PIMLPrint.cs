@@ -98,7 +98,7 @@ namespace WHOperation
                     cRet.Append(Convert.ToChar(123).ToString() + "PC020;0270,0250,05,05,D,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));  //"x(60)" skip.
                     cRet.Append(Convert.ToChar(123).ToString() + "RC20;" + "OUTTER LABEL" + "|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));  //"x(60)" skip.
                 }
-                if (Form1._useDefineToPrint)
+                if(Form1._useDefineToPrint)// (Form1._useDefineToPrint)
                 {
                     cRet.Append(Convert.ToChar(123).ToString() + "PC55;0675,0355,05,05,E,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
                     cRet.Append(Convert.ToChar(123).ToString() + "RC55;*|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
