@@ -328,6 +328,7 @@ namespace WHOperation
                             else
                             {
                                 //dgv5PIPending.FirstDisplayedScrollingRowIndex = _dgvCurrRowIndexforPI;
+                                _dgvCurrRowIndexforPI = 0;
                                 dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
                             }
 
