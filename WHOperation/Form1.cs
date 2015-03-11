@@ -179,176 +179,189 @@ namespace WHOperation
 
         private void glolblKeyDown(object sender, KeyEventArgs e)
         {
-            if (chk0PrintAll.Checked)
+            try
             {
-                return;
-            }
-            if (e.KeyCode == Keys.F1)
-            {
-                tfnooflabels.Text = "1";
-                enableScan();
-            }
-            else if (e.KeyCode == Keys.F2)
-            {
-                tfnooflabels.Text = "2"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F3)
-            {
-                tfnooflabels.Text = "3"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F4)
-            {
-                tfnooflabels.Text = "4"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F5)
-            {
-                tfnooflabels.Text = "5"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F6)
-            {
-                tfnooflabels.Text = "6"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F7)
-            {
-                tfnooflabels.Text = "7"; enableScan();
-
-            }
-            else if (e.KeyCode == Keys.F8)
-            {
-                tfnooflabels.Text = "8"; enableScan();
-            }
-            else if (e.KeyCode == Keys.F9)
-            {
-                tfnooflabels.Text = "9"; enableScan();
-            }
-            else if (e.KeyCode == Keys.F10)
-            {
-                tfnooflabels.Text = "10"; enableScan();
-            }
-            else if (e.KeyCode == Keys.F11)
-            {
-                tfnooflabels.Text = "11"; enableScan();
-            }
-            else if (e.KeyCode == Keys.F12)
-            {
-                tfnooflabels.Text = "12"; enableScan();
-            }
-            if (e.KeyCode == Keys.Delete)
-            {
-                enableScan();
-            }
-
-            if (e.KeyCode == Keys.PageDown)
-            {
-                button1_Click(sender, e);
-            }
-            if (e.KeyCode == Keys.End)
-            {
-                txt1PIID.Text = "";
-                txt1PIID.Focus();
-
-            }
-            if (e.KeyCode == Keys.Home)
-            {
-                if (_usePrintPI)
+                if (chk0PrintAll.Checked)
                 {
-                    txt2FilterValue.Text = "";
-                    txt2FilterValue.Focus();
+                    return;
                 }
-                else
+                if (e.KeyCode == Keys.F1)
                 {
-                    tfdnno.Focus();
+                    tfnooflabels.Text = "1";
+                    enableScan();
+                }
+                else if (e.KeyCode == Keys.F2)
+                {
+                    tfnooflabels.Text = "2"; enableScan();
+
+                }
+                else if (e.KeyCode == Keys.F3)
+                {
+                    tfnooflabels.Text = "3"; enableScan();
+
+                }
+                else if (e.KeyCode == Keys.F4)
+                {
+                    tfnooflabels.Text = "4"; enableScan();
+
+                }
+                else if (e.KeyCode == Keys.F5)
+                {
+                    tfnooflabels.Text = "5"; enableScan();
+
+                }
+                else if (e.KeyCode == Keys.F6)
+                {
+                    tfnooflabels.Text = "6"; enableScan();
+
+                }
+                else if (e.KeyCode == Keys.F7)
+                {
+                    tfnooflabels.Text = "7"; enableScan();
+
+                }
+                else if (e.KeyCode == Keys.F8)
+                {
+                    tfnooflabels.Text = "8"; enableScan();
+                }
+                else if (e.KeyCode == Keys.F9)
+                {
+                    tfnooflabels.Text = "9"; enableScan();
+                }
+                else if (e.KeyCode == Keys.F10)
+                {
+                    tfnooflabels.Text = "10"; enableScan();
+                }
+                else if (e.KeyCode == Keys.F11)
+                {
+                    tfnooflabels.Text = "11"; enableScan();
+                }
+                else if (e.KeyCode == Keys.F12)
+                {
+                    tfnooflabels.Text = "12"; enableScan();
+                }
+                if (e.KeyCode == Keys.Delete)
+                {
+                    enableScan();
                 }
 
-            }
-            if (e.KeyCode == Keys.Insert)
-            {
-                // _useDefineToPrint = true;
-
-                _findWecPart100 = true;
-                _findQplPart100 = true;
-
-                tf1dnpartnumber.Text = "";
-                tf2recmfgrpart.Text = "";
-                tf1dnpartnumber.Text = tf0partno.Text;
-                tf2recmfgrpart.Text = tf0mfgpart.Text;
-
-            }
-            if (e.KeyCode == Keys.Left)
-            {
-
-                // _useDefineToPrint = true;
-
-                _findWecPart100 = true;
-                _findQplPart100 = true;
-
-                tf1dnpartnumber.Text = "";
-                tf2recmfgrpart.Text = "";
-                tf1dnpartnumber.Text = tf0partno.Text;
-                tf2recmfgrpart.Text = tf0mfgpart.Text;
-                string tmpqty = "";
-                if (_usePrintPI)
+                if (e.KeyCode == Keys.PageDown)
                 {
+                    button1_Click(sender, e);
+                }
+                if (e.KeyCode == Keys.End)
+                {
+                    txt1PIID.Text = "";
+                    txt1PIID.Focus();
 
-                    if (dgv5PIPending.SelectedRows.Count > 0)
+                }
+                if (e.KeyCode == Keys.Home)
+                {
+                    if (_usePrintPI)
                     {
-                        if (chk99UseMPQ.Checked)
-                        {
-                            tmpqty = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString();
-                            tf3recqty.Text = tmpqty;
-                        }
+                        txt2FilterValue.Text = "";
+                        txt2FilterValue.Focus();
+                    }
+                    else
+                    {
+                        tfdnno.Focus();
+                    }
 
+                }
+                if (e.KeyCode == Keys.Insert)
+                {
+                    // _useDefineToPrint = true;
+
+                    _findWecPart100 = true;
+                    _findQplPart100 = true;
+
+                    tf1dnpartnumber.Text = "";
+                    tf2recmfgrpart.Text = "";
+                    tf1dnpartnumber.Text = tf0partno.Text;
+                    tf2recmfgrpart.Text = tf0mfgpart.Text;
+
+                }
+                if (e.KeyCode == Keys.Left)
+                {
+
+                    // _useDefineToPrint = true;
+
+                    _findWecPart100 = true;
+                    _findQplPart100 = true;
+
+                    tf1dnpartnumber.Text = "";
+                    tf2recmfgrpart.Text = "";
+                    tf1dnpartnumber.Text = tf0partno.Text;
+                    tf2recmfgrpart.Text = tf0mfgpart.Text;
+                    string tmpqty = "";
+                    if (_usePrintPI)
+                    {
+
+                        if (dgv5PIPending.SelectedRows.Count > 0)
+                        {
+                            if (chk99UseMPQ.Checked)
+                            {
+                                tmpqty = dgv5PIPending.SelectedRows[0].Cells["PI_PO_price"].Value.ToString();
+                                tf3recqty.Text = tmpqty;
+                            }
+
+                        }
+                    }
+                }
+
+                if (e.KeyCode == Keys.Right)
+                {
+                    chk99UseMPQ.Checked = !chk99UseMPQ.Checked;
+                }
+                if (e.KeyCode == Keys.Down)
+                {
+                    if (_usePrintPI)
+                    {
+                        if (dgv5PIPending.RowCount > 0)
+                        {
+                            if (_dgvCurrRowIndexforPI < dgv5PIPending.RowCount - 1)
+                            {
+                                _dgvCurrRowIndexforPI++;
+                                dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
+                                //dgv5PIPending.FirstDisplayedScrollingRowIndex = _dgvCurrRowIndexforPI;
+                            }
+                            else
+                            {
+                                //dgv5PIPending.FirstDisplayedScrollingRowIndex = _dgvCurrRowIndexforPI;
+                                dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
+                            }
+
+                        }
+                    }
+                }
+                if (e.KeyCode == Keys.Up)
+                {
+                    if (_usePrintPI)
+                    {
+                        if (dgv5PIPending.RowCount > 0)
+                        {
+                            if (_dgvCurrRowIndexforPI > 0)
+                            {
+                                _dgvCurrRowIndexforPI--;
+                                dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
+                                //dgv5PIPending.FirstDisplayedScrollingRowIndex = _dgvCurrRowIndexforPI;
+                            }
+                            else
+                            {
+                                //dgv5PIPending.FirstDisplayedScrollingRowIndex = _dgvCurrRowIndexforPI;
+                                dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
+                            }
+
+                        }
                     }
                 }
             }
-
-            if (e.KeyCode == Keys.Right)
+            catch (Exception ex)
             {
-                chk99UseMPQ.Checked = !chk99UseMPQ.Checked;
-            }
-            if (e.KeyCode == Keys.Down)
-            {
-                if (_usePrintPI)
-                {
-                    if (dgv5PIPending.RowCount > 0)
-                    {
-                        if (_dgvCurrRowIndexforPI < dgv5PIPending.RowCount - 1)
-                        {
-                            _dgvCurrRowIndexforPI++;
-                            dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
-                        }
-                        else
-                        {
-                            dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
-                        }
 
-                    }
-                }
+                //throw;
             }
-            if (e.KeyCode == Keys.Up)
-            {
-                if (_usePrintPI)
-                {
-                    if (dgv5PIPending.RowCount > 0)
-                    {
-                        if (_dgvCurrRowIndexforPI > 0)
-                        {
-                            _dgvCurrRowIndexforPI--;
-                            dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
-                        }
-                        else
-                        {
-                            dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
-                        }
 
-                    }
-                }
-            }
 
         }
         protected override void OnLoad(EventArgs e)
@@ -2202,7 +2215,9 @@ namespace WHOperation
                 }
                 else
                 {
-                    onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                    //onlineOrder.Cells[0].Selected = true;
+                    _dgvCurrRowIndexforPI = onlineOrder.Index;
+                    onlineOrder.Selected = true;
                     dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
 
                 }
@@ -2271,7 +2286,9 @@ namespace WHOperation
 
             foreach (DataGridViewRow onlineOrder in query1)
             {
-                onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+                //onlineOrder.Cells[0].Selected = true;
+                _dgvCurrRowIndexforPI = onlineOrder.Index;
+                onlineOrder.Selected = true;
                 dgv.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
 
                 tmpmsg = "find in Pending list with PartNumber:[" + oldtf1dn + "] and MFGPartNo:[" + oldtf2qpl + "]";
@@ -2347,6 +2364,7 @@ namespace WHOperation
                 foreach (DataGridViewRow onlineOrder in query1)
                 {
                     onlineOrder.Selected = true; //onlineOrder.Cells[0].Selected = true;
+
                     dgv1Pending.FirstDisplayedScrollingRowIndex = onlineOrder.Index;
                     cSearchFound = 1;
                     break;
@@ -2658,6 +2676,7 @@ namespace WHOperation
                     tfscanarea.Focus();
                 }
             }
+            _tfclass = new tfclass();
 
         }
         void getTemplate()

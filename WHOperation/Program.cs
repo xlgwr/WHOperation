@@ -30,11 +30,34 @@ namespace WHOperation
     }
     public class tfclass
     {
-        public tfclass(string piid, string tfvendor,string tfdnpartnumber, string tfrecmfgrpart, string tfdatecode, string tfrecqty,
+        public tfclass()
+        {
+            initNothing();
+        }
+        public void initNothing()
+        {
+            _piid = "";
+            _tfvendorid = "";
+            _tfdnpartnumber = "";
+            _tfrecmfgrpart = "";
+            _tfdatecode = "";
+            _tfrecqty = "";
+            _tflotno = "";
+            _tfmfgdate = "";
+            _tfexpiredate = "";
+
+            _tfrirno = "";
+            _tfpartrec = "";
+            _tfmfgpart = "";
+            _tfdndate = "";
+            _tfdnqty = "";
+            _ttlQty = "";
+        }
+        public tfclass(string piid, string tfvendor, string tfdnpartnumber, string tfrecmfgrpart, string tfdatecode, string tfrecqty,
             string tflotno, string tfmfgdate, string tfexpiredate,
             string tfrirno, string tfpart, string tfmfgpart, string tfdndate, string tfdnqty)
         {
-
+            initNothing();
             _piid = piid;
             _tfvendorid = tfvendor;
             _tfdnpartnumber = tfdnpartnumber.Trim();

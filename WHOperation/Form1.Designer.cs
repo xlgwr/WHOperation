@@ -344,7 +344,7 @@ namespace WHOperation
             // 
             // txt1PIID
             // 
-            this.txt1PIID.Location = new System.Drawing.Point(682, 12);
+            this.txt1PIID.Location = new System.Drawing.Point(680, 12);
             this.txt1PIID.Name = "txt1PIID";
             this.txt1PIID.Size = new System.Drawing.Size(82, 21);
             this.txt1PIID.TabIndex = 8;
@@ -641,9 +641,9 @@ namespace WHOperation
             "CartonNo",
             "Part Number",
             "Mfgr Part Number"});
-            this.cbfiltertype.Location = new System.Drawing.Point(764, 12);
+            this.cbfiltertype.Location = new System.Drawing.Point(762, 12);
             this.cbfiltertype.Name = "cbfiltertype";
-            this.cbfiltertype.Size = new System.Drawing.Size(77, 20);
+            this.cbfiltertype.Size = new System.Drawing.Size(75, 20);
             this.cbfiltertype.TabIndex = 9;
             this.cbfiltertype.Text = "CartonNo";
             // 
@@ -1984,7 +1984,7 @@ namespace WHOperation
             // 
             // btn2PIID
             // 
-            this.btn2PIID.Location = new System.Drawing.Point(916, 11);
+            this.btn2PIID.Location = new System.Drawing.Point(917, 11);
             this.btn2PIID.Name = "btn2PIID";
             this.btn2PIID.Size = new System.Drawing.Size(75, 23);
             this.btn2PIID.TabIndex = 10;
@@ -2314,7 +2314,7 @@ namespace WHOperation
             // 
             // txt2FilterValue
             // 
-            this.txt2FilterValue.Location = new System.Drawing.Point(836, 12);
+            this.txt2FilterValue.Location = new System.Drawing.Point(837, 12);
             this.txt2FilterValue.Name = "txt2FilterValue";
             this.txt2FilterValue.Size = new System.Drawing.Size(80, 21);
             this.txt2FilterValue.TabIndex = 9;
