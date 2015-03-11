@@ -2950,6 +2950,7 @@ namespace WHOperation
             cRetReader = callMFGService(cbsystem.Text, "wsas003", cbsystem.Text);
             try
             {
+
                 pimlData.ReadXml(cRetReader);
                 if (pimlData.Tables.IndexOf("row") >= 0)
                 {
@@ -2960,7 +2961,7 @@ namespace WHOperation
                     }
                 }
             }
-            catch (Exception serEx) { MessageBox.Show("PIMS Label Service Error:\n" + serEx.Message.ToString(), "System Message"); }
+            catch (Exception serEx) { MessageBox.Show("PIMS Label Service Error:\n" + serEx.Message.ToString(), "System Message"); return null; }
             return cRet;
         }
         void getDateLotToList(string _tfdateLot, IList<DoWorkObject> doDateLot)
@@ -3094,7 +3095,11 @@ namespace WHOperation
                 {
                     cPIMSNumber = getPIMSData();
                     lPIMSData = updateMFGPro(cPIMSNumber, true);
-
+                    if (lPIMSData == null)
+                    {
+                        tool_lbl_Msg.Text = "LPIMS data is null";
+                        return false;
+                    }
                     setDateLotToClass(_tfclass, doDateCode, tmpNumberOflable, true);
                     setDateLotToClass(_tfclass, doLotNumber, tmpNumberOflable, false);
 
@@ -3631,6 +3636,10 @@ namespace WHOperation
         /// <returns></returns>
         List<String> updateMFGPro(String cPIMSNumber, bool printall)
         {
+            if (string.IsNullOrEmpty(cPIMSNumber))
+            {
+                return null;
+            }
             int i;
             String cServiceID, cLocalSysID;
             StringBuilder cPara = new StringBuilder();
@@ -3678,6 +3687,10 @@ namespace WHOperation
         /// <returns></returns>
         List<String> updateMFGPro(String cPIMSNumber, DataGridView dgv, string strcellRiRNO)
         {
+            if (string.IsNullOrEmpty(cPIMSNumber))
+            {
+                return null;
+            }
             int i;
             String cServiceID, cLocalSysID;
             StringBuilder cPara = new StringBuilder();
@@ -3720,6 +3733,10 @@ namespace WHOperation
         }
         List<String> updateMFGPro(String cPIMSNumber)
         {
+            if (string.IsNullOrEmpty(cPIMSNumber))
+            {
+                return null;
+            }
             int i;
             String cServiceID, cLocalSysID;
             StringBuilder cPara = new StringBuilder();
