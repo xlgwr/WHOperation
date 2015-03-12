@@ -331,7 +331,7 @@ namespace WHOperation
                                 _dgvCurrRowIndexforPI = 0;
                                 dgv5PIPending.Rows[_dgvCurrRowIndexforPI].Cells[0].Selected = true;
                             }
-
+                            enableScan();
                         }
                     }
                 }
@@ -355,6 +355,7 @@ namespace WHOperation
                             }
 
                         }
+                        enableScan();
                     }
                 }
             }
@@ -5638,6 +5639,8 @@ namespace WHOperation
 
             if (_usePrintPI)
             {
+
+                tabControl2_pending.SelectedIndex = 2;
                 if (dgv5PIPending.RowCount <= 0)
                 {
                     txt2FilterValue.Focus();
@@ -5651,6 +5654,7 @@ namespace WHOperation
             }
             else
             {
+                tabControl2_pending.SelectedIndex = 0;
                 tfscanarea.Focus();
             }
         }
