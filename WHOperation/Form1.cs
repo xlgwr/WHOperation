@@ -3654,8 +3654,12 @@ namespace WHOperation
             cServiceID = "wsas002";
             pimsData = new DataSet("pimlData");
             cLocalSysID = cbsystem.Text;
-
-            cPara.Append(cPIMSNumber + "|" + _tfclass._tfrirno + "|" + _tfclass._tfdatecode + "|" + _tfclass._tfmfgdate + "|" + _tfclass._tfexpiredate + "|" + _tfclass._tfrecqty + "|" + cUserID + "|" + _tfclass._tflotno + "|" + _tfclass._tfrecmfgrpart);
+            var tmpchar = "";
+            if (Form1._useDefineToPrint)
+            {
+                tmpchar = "#";
+            }
+            cPara.Append(cPIMSNumber + "|" + _tfclass._tfrirno + "|" + _tfclass._tfdatecode + "|" + _tfclass._tfmfgdate + "|" + _tfclass._tfexpiredate + "|" + _tfclass._tfrecqty + "|" + cUserID + "|" + _tfclass._tflotno + "|" + _tfclass._tfrecmfgrpart+ "|" + tmpchar);
             cRetReader = callMFGService(cLocalSysID, cServiceID, cPara.ToString());
             try
             {
@@ -3708,7 +3712,12 @@ namespace WHOperation
             /*cPara.Append(cR.Cells["DNSite"].Value.ToString()+","+cR.Cells["PartNumber"].Value.ToString()+
                 "," + cR.Cells["RIRNo"].Value.ToString() + ",'',''," + tfrecqty.Text + "," + tfmfgpart.Text + "," + cUserID + "," + tflotno.Text + ",''," +
                 tfexpiredate.Text+",'',"+cR.Cells["t_shelf_life"].Value.ToString()+",'YES','NO','R'");*/
-            cPara.Append(cPIMSNumber + "|" + cR.Cells[strcellRiRNO].Value.ToString() + "|" + _tfclass._tfdatecode + "|" + _tfclass._tfmfgdate + "|" + _tfclass._tfexpiredate + "|" + _tfclass._tfrecqty + "|" + cUserID + "|" + _tfclass._tflotno + "|" + _tfclass._tfrecmfgrpart);
+            var tmpchar = "";
+            if (Form1._useDefineToPrint)
+            {
+                tmpchar = "#";
+            }
+            cPara.Append(cPIMSNumber + "|" + cR.Cells[strcellRiRNO].Value.ToString() + "|" + _tfclass._tfdatecode + "|" + _tfclass._tfmfgdate + "|" + _tfclass._tfexpiredate + "|" + _tfclass._tfrecqty + "|" + cUserID + "|" + _tfclass._tflotno + "|" + _tfclass._tfrecmfgrpart+ "|" + tmpchar);
             cRetReader = callMFGService(cLocalSysID, cServiceID, cPara.ToString());
             try
             {
@@ -3750,11 +3759,17 @@ namespace WHOperation
             cR = dgv1Pending.SelectedRows[0];
             cServiceID = "wsas002";
             pimsData = new DataSet("pimlData");
+
             cLocalSysID = cbsystem.Text;
             /*cPara.Append(cR.Cells["DNSite"].Value.ToString()+","+cR.Cells["PartNumber"].Value.ToString()+
                 "," + cR.Cells["RIRNo"].Value.ToString() + ",'',''," + tfrecqty.Text + "," + tfmfgpart.Text + "," + cUserID + "," + tflotno.Text + ",''," +
                 tfexpiredate.Text+",'',"+cR.Cells["t_shelf_life"].Value.ToString()+",'YES','NO','R'");*/
-            cPara.Append(cPIMSNumber + "|" + cR.Cells["RIRNo"].Value.ToString() + "|" + _tfclass._tfdatecode + "|" + _tfclass._tfmfgdate + "|" + _tfclass._tfexpiredate + "|" + _tfclass._tfrecqty + "|" + cUserID + "|" + _tfclass._tflotno + "|" + _tfclass._tfrecmfgrpart);
+            var tmpchar = "";
+            if (Form1._useDefineToPrint)
+            {
+                tmpchar = "#";
+            }
+            cPara.Append(cPIMSNumber + "|" + cR.Cells["RIRNo"].Value.ToString() + "|" + _tfclass._tfdatecode + "|" + _tfclass._tfmfgdate + "|" + _tfclass._tfexpiredate + "|" + _tfclass._tfrecqty + "|" + cUserID + "|" + _tfclass._tflotno + "|" + _tfclass._tfrecmfgrpart + "|" + tmpchar);
             cRetReader = callMFGService(cLocalSysID, cServiceID, cPara.ToString());
             try
             {

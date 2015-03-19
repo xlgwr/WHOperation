@@ -101,7 +101,7 @@ namespace WHOperation
                 if(Form1._useDefineToPrint)// (Form1._useDefineToPrint)
                 {
                     cRet.Append(Convert.ToChar(123).ToString() + "PC55;0675,0355,05,05,E,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
-                    cRet.Append(Convert.ToChar(123).ToString() + "RC55;*|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
+                    cRet.Append(Convert.ToChar(123).ToString() + "RC55;#|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
                 }
                 cRet.Append(Convert.ToChar(123).ToString() + "PC010;0077,0255,05,05,D,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));  //"x(60)" skip.
                 cRet.Append(Convert.ToChar(123).ToString() + "RC10;" + t1_ref + "|" + Convert.ToChar(125).ToString() + Convert.ToChar(13)); // "x(60)" skip.
@@ -168,7 +168,8 @@ namespace WHOperation
                 if (Form1._useDefineToPrint)
                 {
                     cRet.Append(Convert.ToChar(123).ToString() + "PC55;0675,0355,05,05,E,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
-                    cRet.Append(Convert.ToChar(123).ToString() + "RC55;*|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
+                    cRet.Append(Convert.ToChar(123).ToString() + "RC55;#|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
+
                 }
                 cRet.Append(Convert.ToChar(123).ToString() + "PC010;0077,0255,05,05,D,00,B|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
                 cRet.Append(Convert.ToChar(123).ToString() + "RC10;" + t1_ref + "|" + Convert.ToChar(125).ToString() + Convert.ToChar(13));
